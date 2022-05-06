@@ -2,20 +2,1050 @@ let itemList	= {}
 
 // weapons
 
+// Flamethrower
+itemList['728397530'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower',
+  price: 0,
+  craft: [[
+    { itemid: 'aluminium', amount: 10 },
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 100 },
+  ]],
+  weight: 35,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower.png',
+  weapon: true,
+};
+
+itemList['agenericmechanicpart'] = {
+  decayrate: 1.0,
+  displayname: 'Mechanical Part (A)',
+  price: 0,
+  weight: 0,
+  nonStack: false,
+  blockScrap: true,
+  model: '',
+  image: 'np_generic_mechanical_A.png',
+  craft: [
+    [{ itemid: 'aluminium', amount: 3 }],
+    [{ itemid: 'refinedaluminium', amount: 1 }],
+    [{ itemid: 'copper', amount: 3 },
+    { itemid: 'refinedcopper', amount: 1 }],
+    [{ itemid: 'plastic', amount: 3 }],
+    [{ itemid: 'refinedplastic', amount: 1 }],
+    [{ itemid: 'rubber', amount: 3 }],
+    [{ itemid: 'refinedrubber', amount: 1 }],
+    [{ itemid: 'steel', amount: 3 }],
+    [{ itemid: 'refinedsteel', amount: 1 }],
+    [{ itemid: 'scrapmetal', amount: 3 }],
+    [{ itemid: 'refinedscrap', amount: 1 }],
+    [{ itemid: 'glass', amount: 3 }],
+    [{ itemid: 'refinedglass', amount: 1 }],
+    [{ itemid: 'electronics', amount: 3 }],
+  ],
+  information: '',
+};
+
+itemList['mobilewatervendor'] = {
+  fullyDegrades: true,
+  decayrate: 0.001385,
+  displayname: 'Mobile Water Vendor',
+  price: 50,
+  weight: 50,
+  nonStack: true,
+  model: '',
+  image: 'np_vending_soda_01.png',
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 125 },
+      { itemid: 'steel', amount: 125 },
+      { itemid: 'plastic', amount: 125 },
+      { itemid: 'rubber', amount: 125 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 40 },
+      { itemid: 'refinedsteel', amount: 40 },
+      { itemid: 'refinedplastic', amount: 40 },
+      { itemid: 'refinedrubber', amount: 40 },
+    ],
+	[
+      { itemid: 'water', amount: 40 },
+    ]
+  ],
+  information: 'Place it down anywhere and have a drink!',
+};
+
+
+itemList['refinedaluminium'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Aluminium",
+  craft: [[
+    { itemid: 'aluminium', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_aluminium.png',
+  information: 'Refined Aluminium.',
+};
+
+itemList['refinedcopper'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Copper",
+  craft: [[
+    { itemid: 'copper', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_copper.png',
+  information: 'Refined Copper.',
+};
+
+itemList['refinedglass'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Glass",
+  craft: [[
+    { itemid: 'glass', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_glass.png',
+  information: 'Refined Glass.',
+};
+
+itemList['refinedplastic'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Plastic",
+  craft: [[
+    { itemid: 'plastic', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_plastic.png',
+  information: 'Refined Plastic.',
+};
+
+itemList['refinedrubber'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Rubber",
+  craft: [[
+    { itemid: 'rubber', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_rubber.png',
+  information: 'Refined Rubber.',
+};
+
+itemList['refinedscrap'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Scrap",
+  craft: [[
+    { itemid: 'scrapmetal', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_scrap.png',
+  information: 'Refined Scrap.',
+};
+
+itemList['refinedsteel'] = {
+  fullyDegrades: true,
+  decayrate: 2.0,
+  displayname: "Refined Steel",
+  craft: [[
+    { itemid: 'steel', amount: 3 },
+  ]],
+  price: 1,
+  weight: 0.0,
+  nonStack: false,
+  model: '',
+  image: 'np_refined_steel.png',
+  information: 'Refined Steel.',
+};
+
+itemList['flamethrowerammo'] = {
+  fullyDegrades: true,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Canister',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: false,
+  model: '',
+  image: 'np_flamethrower_ammo.png',
+};
+
+
+
+itemList['flamethrowerpart1'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part1.png',
+};
+
+itemList['flamethrowerpart2'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part2.png',
+};
+
+itemList['flamethrowerpart3'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part3.png',
+};
+
+itemList['flamethrowerpart4'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part4.png',
+};
+
+itemList['flamethrowerpart5'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part5.png',
+};
+
+itemList['flamethrowerpart6'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Flamethrower Part',
+  craft: [[
+    { itemid: 'aluminium', amount: 20 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 100,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_flamethrower_part6.png',
+};
+
+// Paintball Gun
+itemList['-2009644972'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Paintball Gun',
+  price: 0,
+  craft: [[
+    { itemid: 'aluminium', amount: 10 },
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 100 },
+  ]],
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_paintballgun.png',
+  weapon: true,
+};
+
+// Paintball Gun
+itemList['727643628'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Tranquilizer Gun',
+  price: 0,
+  craft: [[
+    { itemid: 'aluminium', amount: 10 },
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 100 },
+  ]],
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_tranq.png',
+  weapon: true,
+};
+
+// Rail Gun
+itemList['1834241177'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'EMP Gun',
+  price: 1000,
+  weight: 51,
+  nonStack: true,
+  model: '',
+  image: 'np_empgun.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+};
+
+itemList['1064738331'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Brick',
+  craft: [[
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 250,
+  weight: 5,
+  nonStack: false,
+  model: '',
+  image: 'np_brick.png',
+  weapon: true,
+};
+
+itemList['-691061592'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Book',
+  craft: [[
+    { itemid: 'rollingpaper', amount: 10 },
+  ]],
+  price: 250,
+  weight: 2,
+  nonStack: false,
+  model: '',
+  image: 'np_book_w.png',
+  weapon: true,
+};
+
+itemList['571920712'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Cash',
+  price: 100,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_cash.png',
+  weapon: true,
+};
+
+itemList['-828058162'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Stolen Shoes',
+  price: 1,
+  weight: 3,
+  nonStack: true,
+  model: '',
+  image: 'np_stolenshoes.png',
+  information: 'These are not yours, bro.',
+};
+
+itemList['-1953168119'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Staff of Regeneration',
+  price: 1,
+  weight: 0,
+  nonStack: true,
+  model: '',
+  image: 'np_staff01.png',
+  information: 'Is that a big staff in your pocket or are you just happy to see me?',
+};
+
+itemList['-1024456158'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Bat',
+  craft: [[
+    { itemid: 'refinedaluminium', amount: 25 },
+    { itemid: 'refinedrubber', amount: 25 },
+  ]],
+  price: 250,
+  weight: 14,
+  nonStack: true,
+  model: '',
+  image: 'np_baseball-bat.png',
+  weapon: true,
+  contraband: true,
+};
+
+// weapon_ltl
+itemList['218362403'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Rubber Slug Shotgun',
+  price: 10,
+  weight: 25,
+  craft: [[
+    { itemid: 'aluminium', amount: 70 },
+    { itemid: 'steel', amount: 70 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_lessthanlethal.png',
+  weapon: true,
+  information: 'PD and DOC Issued LTL Weapon',
+};
+
+
+itemList['rubberslugpd'] = {
+  fullyDegrades: true,
+  decayrate: 0.002,
+  displayname: 'Rubber Slug Shotgun (Short Life)',
+  price: 10,
+  weight: 25,
+  craft: [[
+    { itemid: 'aluminium', amount: 70 },
+    { itemid: 'steel', amount: 70 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_lessthanlethal.png',
+  weapon: true,
+  information: 'PD and DOC Issued LTL Weapon',
+};
+
+itemList['vineyardbarrel'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Grape Barrel',
+  price: 1000,
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_grape_barrel.png',
+  information: "Throw your grapes in here.",
+};
+
+itemList['784503678'] = {
+  _name: '784503678',
+  fullyDegrades: false,
+  decayrate: 0,
+  displayname: 'Karambit',
+  craft: [[
+    { itemid: 'bclubtoken', amount: 10 },
+  ]],
+  price: 250,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_karambit.png',
+  weapon: true,
+  contraband: false,
+};
+
+// weapon_shiv
+itemList['-262696221'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Prison Shiv',
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'scrapmetal', amount: 1 },
+  ]],
+  price: 250,
+  weight: 3,
+  nonStack: true,
+  model: '',
+  image: 'np_shiv.png',
+  weapon: true,
+  contraband: true,
+};
+
+// weapon_pistol
+
+// weapon_browning
+itemList['148457251'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Browning Hi-Power',
+  price: 250,
+  weight: 6,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 15 },
+      { itemid: 'steel', amount: 15 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 5 },
+      { itemid: 'refinedsteel', amount: 5 },
+    ]
+  ],
+  nonStack: true,
+  model: '',
+  image: 'np_browning.png',
+  weapon: true,
+};
+
+// weapon_dp9 (it's called dp9, just rock with it)
+itemList['-2012211169'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Diamondback DB9',
+  price: 250,
+  weight: 6,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 15 },
+      { itemid: 'steel', amount: 15 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 5 },
+      { itemid: 'refinedsteel', amount: 5 },
+    ]
+  ],
+  nonStack: true,
+  model: '',
+  image: 'np_DB9.png',
+  weapon: true,
+};
+
+itemList['-1746263880'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Colt Python',
+  price: 250,
+  weight: 11,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 150 },
+      { itemid: 'plastic', amount: 150 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 45 },
+      { itemid: 'refinedplastic', amount: 45 },
+    ],
+  ],
+  nonStack: true,
+  model: '',
+  image: 'np_colt.png',
+  weapon: true,
+};
+
+
+// weapon_xxxxxx
+itemList['453432689'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'colt 1911',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 6,
+  nonStack: true,
+  model: '',
+  image: 'np_pistol.png',
+  weapon: true,
+};
+
+// weapon_pistol_mk2
+itemList['-1075685676'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Beretta M9',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_pistol2.png',
+  weapon: true,
+};
+
+// weapon_combatpistol
+itemList['1593441988'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'FN FNX-45',
+  price: 250,
+  craft: [[
+    { itemid: 'steel', amount: 65 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 5,
+  nonStack: true,
+  blockScrap: true,
+  model: '',
+  image: 'np_combat-pistol.png',
+  weapon: true,
+};
+
+// weapon_heavypistol
+itemList['-771403250'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Entreprise Wide Body 1911a',
+  price: 250,
+  craft: [[
+    { itemid: 'steel', amount: 65 },
+    { itemid: 'plastic', amount: 65 },
+    { itemid: 'rubber', amount: 65 },
+  ]],
+  weight: 7,
+  nonStack: true,
+  blockScrap: true,
+  model: '',
+  image: 'np_heavy-pistol.png',
+  weapon: true,
+};
+
+
+// weapon_taser
+itemList['-820634585'] = {
+  fullyDegrades: false,
+  decayrate: 0.5,
+  displayname: 'PD Taser',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 3,
+  nonStack: true,
+  model: '',
+  image: 'np_stun-gun.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+};
+
+
+// weapon_pistol50
+itemList['-1716589765'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Desert Eagle',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 130 },
+      { itemid: 'plastic', amount: 130 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 43 },
+      { itemid: 'refinedplastic', amount: 43 },
+    ],
+  ],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_pistol-50.png',
+  weapon: true,
+};
+
+// weapon_microsmg3
+itemList['-134995899'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Mac-10',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 30 },
+      { itemid: 'plastic', amount: 60 },
+      { itemid: 'rubber', amount: 30 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 10 },
+      { itemid: 'refinedplastic', amount: 20 },
+      { itemid: 'refinedrubber', amount: 10 },
+    ]
+  ],
+  weight: 15,
+  nonStack: true,
+  model: '',
+  image: 'np_micro-smg.png',
+  weapon: true,
+};
+
+// weapon_microsmg2
+itemList['-942620673'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Uzi',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 30 },
+      { itemid: 'plastic', amount: 60 },
+      { itemid: 'rubber', amount: 30 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 10 },
+      { itemid: 'refinedplastic', amount: 20 },
+      { itemid: 'refinedrubber', amount: 10 },
+    ]
+  ],
+  weight: 15,
+  nonStack: true,
+  model: '',
+  image: 'np_micro-smg2.png',
+  weapon: true,
+};
+
 itemList["-1121678507"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Skorpion Mk2", price: 250, weight: 11, craft: [ {itemid: "aluminium", amount: 100 }, {itemid: "steel", amount: 100 } ], nonStack: true, model: "", image: "np_mini-smg.png", weapon: true , deg: true}
 itemList["-1045183535"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Revolver", price: 250, weight: 11, craft: [ {itemid: "scrapmetal", amount: 150 } ], nonStack: true, model: "", image: "np_revolver.png", weapon: true , deg: false}
 
 itemList["-879347409"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Violence", price: 250, weight: 11, craft: [ {itemid: "aluminium", amount: 70 }, {itemid: "steel", amount: 70 } ], nonStack: true, model: "", image: "np_revolvermk2.png", weapon: true , deg: false}
 
 itemList["-1746263880"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Colt M1892", price: 250, weight: 11, craft: [ {itemid: "aluminium", amount: 70 }, {itemid: "steel", amount: 70 } ], nonStack: true, model: "", image: "np_marston-revolver.png", weapon: true , deg: false}
+// Parachute
 
-itemList["-72657034"] = {fullyDegrades: false, decayrate: 2.0, displayname: "Parachute", price: 250, craft: [ {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 15, nonStack: true, model:  "", image: "np_parachute.png", weapon: false, deg: true} //'Parachute'
-itemList["-1074790547"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "AR Mk2", price: 250, craft: [{itemid: "riflebody", amount: 1 }, {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_assault-rifle.png", weapon: true, deg: true} //'Assault Rifle'
+// Parachute
+itemList['-72657034'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Parachute',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 100 },
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 100 },
+  ]],
+  weight: 30,
+  nonStack: true,
+  model: '',
+  image: 'np_parachute.png',
+  weapon: false,
+};
+
+
+itemList['airxchute'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Parachute',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 500 },
+    { itemid: 'plastic', amount: 1500 },
+    { itemid: 'rubber', amount: 2500 },
+  ]],
+  weight: 15,
+  nonStack: true,
+  model: '',
+  image: 'np_parachute.png',
+  weapon: false,
+};
+itemList['navychute'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Parachute',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 500 },
+    { itemid: 'plastic', amount: 1500 },
+    { itemid: 'rubber', amount: 2500 },
+  ]],
+  weight: 15,
+  nonStack: true,
+  model: '',
+  image: 'np_parachute.png',
+  weapon: false,
+};
+
+itemList['airbornechute'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Parachute',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 500 },
+    { itemid: 'plastic', amount: 1500 },
+    { itemid: 'rubber', amount: 2500 },
+  ]],
+  weight: 15,
+  nonStack: true,
+  model: '',
+  image: 'np_parachute.png',
+  weapon: false,
+};
+
+// weapon_assaultrifle
+itemList['-1074790547'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'AK 47',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 500 },
+      { itemid: 'plastic', amount: 500 },
+      { itemid: 'rubber', amount: 500 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 150 },
+      { itemid: 'refinedplastic', amount: 150 },
+      { itemid: 'refinedrubber', amount: 150 },
+    ]
+  ],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_assault-rifle.png',
+  weapon: true,
+};
 
 itemList["-1075685676"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "9mm Pistol", price: 10, craft: [ {itemid: "copper", amount: 50 }, {itemid: "glass", amount: 80 }, {itemid: "steel", amount: 10 } ], weight: 11, nonStack: true, model: "", image: "np_pistol.png", weapon: true , deg: true} //'Pistol'
 
-itemList["-1355376991"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sway's gun :) hehe ", price: 250, craft: [ {itemid: "aluminium", amount: 155 }, {itemid: "plastic", amount: 100 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_pistol-50.png", weapon: true, deg: true} //'Pistol 50'
-itemList["-1357824103"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD Adv Rifle", price: 250, craft: [ {itemid: "aluminium", amount: 140 }, {itemid: "scrapmetal", amount: 40 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_advanced-rifle.png", weapon: true, deg: true} //'Advanced Rifle'
+// koil gun
+itemList['-1355376991'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'koils gun :) hehe ',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 155 },
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 0,
+  nonStack: true,
+  model: '',
+  image: 'np_pistol-50.png',
+  weapon: true,
+};
+// weapon_advancedrifle
+itemList['-1357824103'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'OTs-14 Groza',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 500 },
+      { itemid: 'plastic', amount: 500 },
+      { itemid: 'rubber', amount: 500 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 150 },
+      { itemid: 'refinedplastic', amount: 150 },
+      { itemid: 'refinedrubber', amount: 150 },
+    ]
+  ],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_groza.png',
+  weapon: true,
+};
+
+// weapon_assaultrifle2
+itemList['497969164'] = {
+  fullyDegrades: false,
+  decayrate: 3.0,
+  displayname: 'M70',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 500 },
+      { itemid: 'plastic', amount: 500 },
+      { itemid: 'rubber', amount: 500 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 150 },
+      { itemid: 'refinedplastic', amount: 150 },
+      { itemid: 'refinedrubber', amount: 150 },
+    ]
+  ],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_m70.png',
+  weapon: true,
+};
+
+// weapon_dbshotgun
+itemList['-275439685'] = {
+  fullyDegrades: false,
+  decayrate: 3.0,
+  displayname: 'Sawn-off Shotgun',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'steel', amount: 200 },
+      { itemid: 'copper', amount: 100 },
+      { itemid: 'scrapmetal', amount: 100 },
+    ],
+    [
+      { itemid: 'refinedsteel', amount: 50 },
+      { itemid: 'refinedcopper', amount: 25 },
+      { itemid: 'refinedscrap', amount: 25 },
+    ]
+  ],
+  weight: 14,
+  nonStack: true,
+  model: '',
+  image: 'np_db-shotgun.png',
+  weapon: true,
+};
+
+// sharp weapons
+
+itemList['-1239161099'] = {
+  fullyDegrades: false,
+  decayrate: 5.0,
+  displayname: 'Katana',
+  price: 1,
+  craft: [[
+    { itemid: 'refinedsteel', amount: 650 },
+  ]],
+  weight: 7,
+  nonStack: true,
+  model: '',
+  image: 'np_katana.png',
+  information: 'When you were partying, I studied the blade.',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['1692590063'] = {
+  fullyDegrades: false,
+  decayrate: 5.0,
+  displayname: 'Katana',
+  price: 1,
+  craft: [[
+    { itemid: 'refinedsteel', amount: 650 },
+    { itemid: 'refinedaluminium', amount: 250 },
+  ]],
+  weight: 7,
+  nonStack: true,
+  model: '',
+  image: 'np_katana.png',
+  information: 'When you were partying, I studied the blade.',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['cursedkatanaweapon'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Cursed Katana',
+  price: 1,
+  weight: 7,
+  nonStack: true,
+  model: '',
+  image: 'np_cursed-katana.png',
+  information: 'Infused with the blood of a Dragon; a normal human mind cannot control such power.',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['talonweapon'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Talon Sword',
+  price: 1,
+  weight: 5,
+  nonStack: true,
+  model: '',
+  image: 'np_talonsword.png',
+  information: 'We are everywhere, we are everyone, fear us for we lurk in the shadows. We are Talon.',
+  weapon: false,
+  contraband: true,
+};
+
+itemList['heistduffelbag'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Duffel Bag',
+  price: 350,
+  weight: 11,
+  nonStack: false,
+  model: '',
+  image: 'np_duffel.png',
+  whitelist: [
+    "heist_loot"
+  ],
+  information: 'Can hold a considerable amount of cash. Marked for Police Seizure. <br><br><i>"We are just supposed to walk out of there with millions of dollars in cash on us without getting stopped?"</i>',
+};
+
+itemList['-538741184'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Shank',
+  craft: [[
+    { itemid: 'steel', amount: 25 },
+    { itemid: 'aluminium', amount: 100 },
+  ]],
+  price: 250,
+  weight: 3,
+  nonStack: true,
+  model: '',
+  image: 'np_switchblade.png',
+  weapon: true,
+};
+
 itemList["-1654528753"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "BP Shotgun Mk2", price: 250, craft: [ {itemid: "aluminium", amount: 80 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_assault-shotgun.png", weapon: true, deg: true} //'Bullpup Shotgun'
 itemList["-1810795771"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Pool Cue", price: 0, weight: 150, nonStack: true, model: "", image: "np_poolcue.png", weapon: true, information: "-5 Jail <br> +3 Strength <br> -3 Intelligence <br> Its marked -DO NOT TAKE FROM CELLS- <br> Outside Jail this is considered Police Property <br> If it has roleplay stats, it must be roleplay.", deg: true } //'Heavy Shotgun'
 itemList["-2066285827"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "BP Rifle Mk2", price: 250, craft: [ {itemid: "riflebody", amount: 1 },{itemid: "aluminium", amount: 80 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_bullpup-rifle.png", weapon: true, deg: true} //'Bullpup Rifle'
@@ -25,22 +1055,431 @@ itemList["-538741184"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sh
 itemList["-619010992"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Tec 9 Mk2", price: 250, weight: 11, craft: [ {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 20 } ], nonStack: true, model: "", image: "np_machine-pistol.png", weapon: true , deg: true}
 itemList["-771403250"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Heavy Pistol", price: 250, craft: [ {itemid: "goldbar", amount: 7 } ], weight: 11, nonStack: true, model:  "", image: "np_heavy-pistol.png", weapon: true, deg: true}
 itemList["-86904375"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD 762", price: 10, craft: [{itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 10 }, {itemid: "rubber", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_762saltmaker.png", weapon: true , deg: true} //'Carbine Rifle Mk2'
-itemList["100416529"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sniper Rifle", price: 250, craft: [ {itemid: "riflebody", amount: 1 }, {itemid: "aluminium", amount: 100 }, {itemid: "scrapmetal", amount: 40 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_sniper-rifle.png", weapon: true, deg: true} //'Sniper Rifle'
-itemList["101631238"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Fire Ext", price: 250, craft: [ {itemid: "aluminium", amount: 100 }, {itemid: "scrapmetal", amount: 40 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_fire-extinguisher.png", weapon: true, deg: false} //'Fire Extinguisher'
+// weapon_m24
+itemList['100416529'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'm24',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 50 },
+    { itemid: 'plastic', amount: 10 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_m24.png',
+  weapon: true,
+};
+// weapon_g22
+itemList['-1536150836'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'AWM',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 50 },
+    { itemid: 'plastic', amount: 10 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_awm.png',
+  weapon: true,
+};
+
+// weapon_mg
+itemList['-1660422300'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'PK machine gun',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 50 },
+    { itemid: 'plastic', amount: 10 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_pkm.png',
+  weapon: true,
+};
+
+// weapon_dragunov
+itemList['-90637530'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Dragunov',
+  price: 500,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 500 },
+      { itemid: 'plastic', amount: 500 },
+      { itemid: 'rubber', amount: 500 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 150 },
+      { itemid: 'refinedplastic', amount: 150 },
+      { itemid: 'refinedrubber', amount: 150 },
+    ]
+  ],
+  weight: 43,
+  nonStack: true,
+  model: '',
+  image: 'np_dragunov.png',
+  weapon: true,
+};
+
+// Fire Extinguisher
+itemList['101631238'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Fire Ext',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 100 },
+    { itemid: 'scrapmetal', amount: 40 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_fire-extinguisher.png',
+  weapon: true,
+};
+
+itemList['-1786099057'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Model M Keyboard',
+  price: 250,
+  weight: 7,
+  nonStack: true,
+  model: '',
+  image: 'np_keyboard.png',
+  weapon: true,
+};
+
 itemList["1141786504"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Golfclub", price: 250, weight: 11, nonStack: true, model: "", image: "np_golfclub.png", weapon: true , deg: false}
 itemList["1198879012"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Flaregun", price: 250, weight: 11, nonStack: true, model: "", image: "np_flaregun.png", weapon: true , deg: false}
-itemList["1233104067"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Flare", price: 250, weight: 11, nonStack: true, model: "", image: "np_flare.png", weapon: true , deg: false}
+itemList['1233104067'] = {
+  fullyDegrades: false,
+  decayrate: 0.25,
+  displayname: 'Flare',
+  price: 100,
+  weight: 5,
+  craft: [[
+    { itemid: 'aluminium', amount: 350 },
+    { itemid: 'scrapmetal', amount: 350 },
+    { itemid: 'rubber', amount: 300 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_flare.png',
+  information: '',
+  weapon: true,
+  contraband: true,
+};
+itemList['-1600701090'] = {
+  fullyDegrades: false,
+  decayrate: 0.5,
+  displayname: 'M67 grenade',
+  price: 100,
+  weight: 5,
+  craft: [[
+    { itemid: 'aluminium', amount: 110 },
+    { itemid: 'scrapmetal', amount: 150 },
+    { itemid: 'rubber', amount: 100 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 35 },
+    { itemid: 'scrapmetal', amount: 150 },
+    { itemid: 'refinedrubber', amount: 35 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_grenade.png',
+  information: '',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['-37975472'] = {
+  fullyDegrades: false,
+  decayrate: 0.25,
+  displayname: 'Smoke Grenade',
+  price: 100,
+  weight: 5,
+  craft: [[
+    { itemid: 'aluminium', amount: 150 },
+    { itemid: 'scrapmetal', amount: 150 },
+    { itemid: 'rubber', amount: 150 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 45 },
+    { itemid: 'refinedscrap', amount: 45 },
+    { itemid: 'refinedrubber', amount: 45 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_stungrenade.png',
+  information: '',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['smokegrenadeswat'] = {
+  fullyDegrades: false,
+  decayrate: 0.01,
+  displayname: 'Smoke Grenade (SWAT)',
+  price: 100,
+  weight: 25,
+  craft: [[
+    { itemid: 'aluminium', amount: 150 },
+    { itemid: 'scrapmetal', amount: 150 },
+    { itemid: 'rubber', amount: 150 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 45 },
+    { itemid: 'refinedscrap', amount: 45 },
+    { itemid: 'refinedrubber', amount: 45 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_stungrenade.png',
+  information: 'Mil-Spec. High price, low quality. If you are not SWAT certified do not buy this.',
+  contraband: true,
+};
+
+itemList['smokegrenadenpa'] = {
+  fullyDegrades: false,
+  decayrate: 0.01,
+  displayname: 'Smoke Grenade',
+  price: 100,
+  weight: 25,
+  craft: [[
+    { itemid: 'aluminium', amount: 150 },
+    { itemid: 'scrapmetal', amount: 150 },
+    { itemid: 'rubber', amount: 150 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 45 },
+    { itemid: 'refinedscrap', amount: 45 },
+    { itemid: 'refinedrubber', amount: 45 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_stungrenade.png',
+  information: 'NPA Edition.',
+  contraband: true,
+};
+
+// Pipebomb pipe bomb
+itemList['-1169823560'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Pipebomb',
+  price: 250,
+  weight: 7,
+  craft: [[
+    { itemid: 'aluminium', amount: 310 },
+    { itemid: 'scrapmetal', amount: 350 },
+    { itemid: 'rubber', amount: 300 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 100 },
+    { itemid: 'refinedscrap', amount: 100 },
+    { itemid: 'refinedrubber', amount: 100 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_pipe-bomb.png',
+  weapon: true,
+  contraband: true,
+};
+
+
 itemList["125959754"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Cmp Launcher", price: 250, weight: 11, nonStack: true, model: "", image: "np_cmp-launcher.png", weapon: true , deg: true}
 itemList["126349499"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Snowball", price: 250, weight: 11, nonStack: true, model: "", image: "np_snowball.png", weapon: true , deg: false}
 itemList["1305664598"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "GND Launcher SMK", price: 250, weight: 11, nonStack: true, model: "", image: "np_grenade-launcher.png", weapon: true , deg: false}
 itemList["1317494643"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Hammer", price: 250, weight: 11, nonStack: true, model: "", image: "np_hammer.png", weapon: true , deg: false}
 itemList["137902532"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Vintage Pistol", price: 250,  craft: [ {itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 } ], weight: 11, nonStack: true, model:  "", image: "np_vintage-pistol.png", weapon: true , deg: true} //'Vintage Pistol'
-itemList["1432025498"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD Shotgun", price: 10, craft: [{itemid: "aluminium", amount: 5 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_pump-shotgun.png", weapon: true , deg: true} //'Pump Shotgun'
+// weapon_pumpshotgun_mk2
+itemList['1432025498'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Remington 870',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 21,
+  nonStack: true,
+  model: '',
+  image: 'np_remington.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+};
 itemList["1593441988"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Combat Pistol", price: 250,  craft: [ {itemid: "steel", amount: 65 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 } ], weight: 11, nonStack: true, model:  "", image: "np_combat-pistol.png", weapon: true , deg: true} //'Combat Pistol'
 itemList["1627465347"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Gusenberg Mk2", price: 250, craft: [ {itemid: "aluminium", amount: 55 }, {itemid: "plastic", amount: 10 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_gusenberg.png", weapon: true, deg: true} //'Gusenberg'
-itemList["1649403952"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Cmp Rifle Mk2", price: 250, craft: [ {itemid: "riflebody", amount: 1 }, {itemid: "aluminium", amount: 55 }, {itemid: "plastic", amount: 10 }, {itemid: "rubber", amount: 1 } ], weight: 11, nonStack: true, model: "", image: "np_cmp-rifle.png", weapon: true , deg: true}
+// WEAPON_COMPACTRIFLE
+itemList['1649403952'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Draco NAK9',
+  price: 10,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 300 },
+      { itemid: 'steel', amount: 300 },
+      { itemid: 'rubber', amount: 300 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 70 },
+      { itemid: 'refinedsteel', amount: 70 },
+      { itemid: 'refinedrubber', amount: 70 },
+    ]
+  ],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_draco.png',
+  weapon: true,
+};
 itemList["1672152130"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Homing Launcher", price: 250, weight: 11, nonStack: true, model: "", image: "np_homing-launcher.png", weapon: true , deg: true}
-itemList["171789620"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Combat PDW Mk2", price: 250, craft: [ {itemid: "riflebody", amount: 1 }, {itemid: "aluminium", amount: 155 }, {itemid: "plastic", amount: 100 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_combat-pdw.png", weapon: true, deg: true} //'Combat PDW
+// WEAPON_COMBATPDW
+itemList['171789620'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'SIG MPX',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_mpx.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+};
+// weapon_gepard used to apply skin and still generate data for the weapon
+itemList['-1518444656'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Gepard',
+  price: 10,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 300 },
+      { itemid: 'steel', amount: 300 },
+      { itemid: 'rubber', amount: 300 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 70 },
+      { itemid: 'refinedsteel', amount: 70 },
+      { itemid: 'refinedrubber', amount: 70 },
+    ]
+  ],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_gepard.png',
+  weapon: true,
+};
+//WEAPON_MINISMG2
+itemList['-1472189665'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Skorpion',
+  price: 10,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 100 },
+      { itemid: 'steel', amount: 100 },
+      { itemid: 'rubber', amount: 100 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 20 },
+      { itemid: 'refinedsteel', amount: 20 },
+      { itemid: 'refinedrubber', amount: 20 },
+    ]
+  ],
+  weight: 7,
+  nonStack: true,
+  model: '',
+  image: 'np_skorpion.png',
+  weapon: true,
+};
+
+// explosive type shit
+
+itemList['-1813897027'] = {
+  fullyDegrades: false,
+  decayrate: 0.01,
+  displayname: 'Stun Grenade (SWAT)',
+  price: 100,
+  weight: 5,
+  craft: [[
+    { itemid: 'aluminium', amount: 350 },
+    { itemid: 'scrapmetal', amount: 350 },
+    { itemid: 'rubber', amount: 300 },
+  ]],
+  nonStack: true,
+  model: '',
+  image: 'np_stungrenade.png',
+  information: 'So police can breach a building without feeling like a ______! If you are not SWAT certified do not buy this.',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['600439132'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'Lime',
+  craft: [[
+    { itemid: 'refinedaluminium', amount: 25 },
+    { itemid: 'refinedrubber', amount: 25 },
+  ]],
+  price: 250,
+  weight: 2,
+  nonStack: true,
+  model: '',
+  image: 'np_lime.png',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['-2000187721'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Secure Briefcase',
+  price: 250,
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_securitycase.png',
+  weapon: true,
+  contraband: true,
+};
+
+itemList['28811031'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Briefcase',
+  price: 250,
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_suitcase.png',
+  weapon: true,
+  contraband: true,
+};
+
+
+
 itemList["1737195953"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Dùi cui", price: 0, weight: 11, nonStack: true, model: "", image: "np_nightstick.png", weapon: true , deg: false}
 itemList["2017895192"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sawnoff", price: 250, craft: [ {itemid: "steel", amount: 50 }, {itemid: "aluminium", amount: 30 } ], weight: 11, nonStack: true, model:  "", image: "np_sawnoff-shotgun.png ", weapon: true, deg: true} //'Sawnoff Shotgun'
 itemList["2024373456"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD MP5 2", price: 250, craft: [ {itemid: "aluminium", amount: 155 }, {itemid: "plastic", amount: 100 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_smg.png", weapon: true , deg: true} //'SMG'
@@ -69,12 +1508,85 @@ itemList["3173288789"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sk
 itemList["3218215474"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "SNS Pistol", price: 250,  craft: [ {itemid: "scrapmetal", amount: 8 } ],  weight: 11, nonStack: true, model:  "", image: "np_sns-pistol.png", weapon: true, deg: true}
 itemList["3219281620"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD Pistol", price: 100, craft: [{itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_pistol.png", weapon: true , deg: true} //'Pistol'
 itemList["3220176749"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Assault Rifle", price: 250, craft: [ {itemid: "riflebody", amount: 1 }, {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_assault-shotgun.png", weapon: true, deg: true} //'Assault Rifle'
+itemList['-1768145561'] = {
+  fullyDegrades: false,
+  decayrate: 0.75,
+  displayname: 'FN SCAR-L',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 50 },
+    { itemid: 'plastic', amount: 10 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_scar.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment - Subject to change',
+}; //ScarL
+
+// weapon_m14
+itemList['-1719357158'] = {
+  fullyDegrades: false,
+  decayrate: 1.0,
+  displayname: 'mk14',
+  price: 550,
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 500 },
+      { itemid: 'plastic', amount: 500 },
+      { itemid: 'rubber', amount: 500 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 150 },
+      { itemid: 'refinedplastic', amount: 150 },
+      { itemid: 'refinedrubber', amount: 150 },
+    ]
+  ],
+  weight: 43,
+  nonStack: true,
+  model: '',
+  image: 'np_mk14.png',
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+  weapon: true,
+};
+
+
 itemList["3231910285"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Special Carbine", price: 250, weight: 11, nonStack: true, model: "", image: "np_special-carbine.png", weapon: true , deg: true}
 itemList["324215364"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Micro SMG MK2", price: 250, craft: [ {itemid: "valuablegoods", amount: 1 }, {itemid: "goldbar", amount: 4 } ], weight: 11, nonStack: true, model:  "", image: "np_micro-smg.png", weapon: true, deg: true} //'Micro SMG'
 itemList["3342088282"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Mark Rifle", price: 250, weight: 11, nonStack: true, model: "", image: "np_marksman-rifle.png", weapon: true , deg: true}
 itemList["3441901897"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Metal Hatchet", price: 250, craft: [{itemid: "metal", amount: 4 }, {itemid: "stick", amount: 1 }, {itemid: "string", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_hatchet.png", weapon: true , deg: true} //'Heavy Shotgun'
 itemList["3523564046"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Heavy Pistol", price: 250, craft: [ {itemid: "goldbar", amount: 7 } ], weight: 11, nonStack: true, model:  "", image: "np_heavy-pistol.png", weapon: true, deg: true}
 itemList["3638508604"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Knuckle", craft: [ {itemid: "steel", amount: 250 }, {itemid: "scrapmetal", amount: 150 } ], price: 250, weight: 11, nonStack: true, model: "", image: "np_knuckle-dusters.png", weapon: true , deg: false}
+itemList['knuckle_chain'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Chain Dusters',
+  craft: [[
+    { itemid: 'refinedscrap', amount: 20 },
+    { itemid: 'refinedsteel', amount: 15 },
+  ]],
+  price: 250,
+  weight: 2,
+  nonStack: true,
+  model: '',
+  image: 'np_chain_dusters.png',
+  weapon: false,
+  contraband: true,
+};
+itemList['gavel'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Gavel',
+  price: 250,
+  weight: 2,
+  nonStack: true,
+  model: '',
+  image: 'np_gavel.png',
+  weapon: false,
+};
+
 itemList["3675956304"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Tec 9", price: 250, weight: 11, craft: [ {itemid: "valuablegoods", amount: 1 }, {itemid: "goldbar", amount: 4 } ], nonStack: true, model: "", image: "np_machine-pistol.png", weapon: true , deg: true}
 itemList["3696079510"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Mrk Pistol", price: 250, weight: 11, nonStack: true, model: "", image: "np_pistol.png", weapon: true , deg: true}
 itemList["3713923289"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Machete", price: 250, weight: 11, craft: [ {itemid: "steel", amount: 300 }, {itemid: "goldbar", amount: 50 }, {itemid: "plastic", amount: 100 }, {itemid: "rubber", amount: 100 } ] ,nonStack: true, model: "", image: "np_machete.png", weapon: true , deg: false}
@@ -85,12 +1597,134 @@ itemList["4191993645"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Ha
 itemList["4192643659"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Bottle", price: 250, weight: 11, nonStack: true, model: "", image: "np_glass-bottle.png", weapon: true , deg: false}
 itemList["419712736"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Wrench", price: 250, weight: 11, nonStack: true, model: "", image: "np_wrench.png", weapon: true , deg: false}
 itemList["453432689"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Colt 1911", price: 250, craft: [{itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_pistol.png", weapon: true , deg: true} //'Pistol'
-itemList["487013001"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD Beanbag SG", price: 10, craft: [{itemid: "aluminium", amount: 5 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_pump-shotgun2.png", weapon: true , deg: true} //'Pump Shotgun'
+// weapon_pumpshotgun
+itemList['487013001'] = {
+  fullyDegrades: false,
+  decayrate: 3.0,
+  displayname: 'IZh-81',
+  price: 250,
+  craft: [
+    [
+      { itemid: 'steel', amount: 150 },
+      { itemid: 'copper', amount: 150 },
+      { itemid: 'scrapmetal', amount: 150 },
+    ],
+    [
+      { itemid: 'refinedsteel', amount: 30 },
+      { itemid: 'refinedcopper', amount: 30 },
+      { itemid: 'refinedscrap', amount: 30 },
+    ]
+  ],
+  weight: 21,
+  nonStack: true,
+  model: '',
+  image: 'np_izh81.png',
+  weapon: true,
+};
 itemList["584646201"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "AP Pistol", price: 250, craft: [ {itemid: "valuablegoods", amount: 1 }, {itemid: "goldbar", amount: 1 } ], weight: 11, nonStack: true, model:  "", image: "np_ap-pistol.png", weapon: true, deg: true} //'AP Pistol'
-itemList["615608432"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Moly", craft: [ {itemid: "methbag", amount: 35 }, {itemid: "ciggy", amount: 25 } ], price: 250, weight: 11, nonStack: false, model: "", image: "np_molotov.png", weapon: true , deg: false}
+// Molotov (Molly)
+itemList['615608432'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Molly',
+  craft: [
+    [
+      { itemid: 'aluminium', amount: 75 },
+      { itemid: 'whiskey', amount: 3 },
+    ],
+    [
+      { itemid: 'refinedaluminium', amount: 12 },
+      { itemid: 'whiskey', amount: 3 },
+    ]
+  ],
+  price: 250,
+  weight: 35,
+  nonStack: false,
+  model: '',
+  image: 'np_molotov.png',
+  weapon: true,
+  contraband: true,
+};
 itemList["736523883"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "PD MP5", price: 250, craft: [ {itemid: "aluminium", amount: 155 }, {itemid: "plastic", amount: 100 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_smg.png", weapon: true , deg: true} //'SMG'
-itemList["741814745"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Sticky Bomb", price: 250, craft: [ {itemid: "aluminium", amount: 150 }, {itemid: "scrapmetal", amount: 150 }, {itemid: "rubber", amount: 100 } ],  weight: 11, nonStack: true, model:  "", image: "np_sticky-bomb.png", weapon: true, deg: false} //'Sticky Bomb'
-itemList["883325847"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Petrol Can", price: 250, weight: 11, nonStack: true, model: "", image: "np_petrol-can.png", weapon: true , deg: false}
+
+itemList['1192676223'] = {
+  fullyDegrades: false,
+  decayrate: 0.75,
+  displayname: 'M4',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 50 },
+    { itemid: 'plastic', amount: 10 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_m4.png',
+  weapon: true,
+  information: 'Government (PD/EMS/DOC) Issued Equipment', //M4
+};
+
+// Sticky Bomb C4
+itemList['741814745'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Sticky Bomb',
+  price: 250,
+  craft: [[
+    { itemid: 'aluminium', amount: 1250 },
+    { itemid: 'scrapmetal', amount: 1250 },
+    { itemid: 'rubber', amount: 1250 },
+  ], [
+    { itemid: 'refinedaluminium', amount: 415 },
+    { itemid: 'scrapmetal', amount: 1250 },
+    { itemid: 'refinedrubber', amount: 415 },
+  ]],
+  weight: 22,
+  nonStack: true,
+  model: '',
+  image: 'np_sticky-bomb.png',
+  weapon: true,
+  contraband: true,
+};
+// Petrol can
+itemList['883325847'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Petrol Can',
+  price: 250,
+  weight: 50,
+  nonStack: true,
+  model: '',
+  image: 'np_petrol-can.png',
+  weapon: true,
+};
+// blunt weapons
+//WEAPON_SLEDGEHAM
+itemList['1923739240'] = {
+  fullyDegrades: false,
+  decayrate: 2.0,
+  displayname: 'Sledge Hammer',
+  craft: [
+    [
+      { itemid: 'steel', amount: 75 },
+      { itemid: 'scrapmetal', amount: 75 },
+    ],
+    [
+      { itemid: 'refinedsteel', amount: 25 },
+      { itemid: 'refinedscrap', amount: 25 },
+    ],
+  ],
+  price: 1,
+  weight: 25,
+  nonStack: true,
+  model: '',
+  image: 'np_sledgehammer.png',
+  information: 'Big and girthy.',
+  weapon: true,
+  contraband: true,
+};
+
 itemList["911657153"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Súng điện", price: 250,  craft: [ {itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 } ], weight: 11, nonStack: true, model:  "", image: "np_stun-gun.png", weapon: true , deg: false} //'Stun Gun'
 itemList["940833800"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Homemade Weapon", price: 250, craft: [{itemid: "stick", amount: 1 }, {itemid: "string", amount: 1 }], weight: 11, nonStack: true, model: "", image: "np_homemade.png", weapon: true , deg: true} //'Heavy Shotgun'
 itemList["984333226"]	= {fullyDegrades: false, decayrate: 2.0, displayname: "Heavy SG", price: 250, craft: [ {itemid: "aluminium", amount: 80 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_heavy-shotgun.png", weapon: true, deg: true} //'Heavy Shotgun'
@@ -110,6 +1744,76 @@ itemList["SmallScope"]	= {illegal: true, fullyDegrades: true, decayrate: 1.0, di
 itemList["sniperammo"]	= {fullyDegrades: true, decayrate: 1.0, displayname: "Sniper Ammo x5", craft: [{itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], price: 10, weight: 7, nonStack: false, model: "", image: "np_rifle-ammo.png" , deg: false}
 
 itemList["subammo"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Sub Ammo x50", craft: [{itemid: "aluminium", amount: 1 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], price: 100, weight: 5, nonStack: false, model: "", image: "np_sub-ammo.png" , deg: false}
+
+itemList['nails'] = {
+  fullyDegrades: true,
+  decayrate: 1.0,
+  displayname: 'Nails',
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 10,
+  weight: 3,
+  nonStack: false,
+  model: '',
+  image: 'np_nails.png',
+};
+
+itemList['paintballs'] = {
+  fullyDegrades: true,
+  decayrate: 1.0,
+  displayname: 'Paintballs',
+  craft: [[
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 10,
+  weight: 3,
+  nonStack: false,
+  model: '',
+  image: 'np_paintball_ammo.png',
+};
+
+itemList['rubberslugs'] = {
+  fullyDegrades: true,
+  decayrate: 1.0,
+  displayname: '12-Gauge Rubber Slugs',
+  craft: [[
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  price: 10,
+  weight: 3,
+  nonStack: false,
+  model: '',
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+  image: 'np_rubberslugs.png',
+};
+
+// weapon_rayminigun
+itemList['-1238556825'] = {
+  fullyDegrades: false,
+  decayrate: 1,
+  displayname: 'Widowmaker',
+  price: 1000,
+  craft: [],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_rayminigun.png',
+  weapon: true,
+};
+
+itemList['widowmakerammo'] = {
+  fullyDegrades: true,
+  decayrate: 1.0,
+  displayname: 'Widow Maker Ammo',
+  price: 100,
+  weight: 7,
+  nonStack: false,
+  model: '',
+  image: 'np_223ammo.png',
+};
 
 itemList["TinyScope"]	= {illegal: true, fullyDegrades: true, decayrate: 1.0, displayname: "2x S Scope", price: 550, craft: [ {itemid: "goldbar", amount: 1 } ],  weight: 11, nonStack: true, model:  "", image: "np_tscope.png", deg: false} //'Heavy Sniper'
 
@@ -387,6 +2091,27 @@ itemList["glass"]	    = { craft: [{itemid: "recyclablematerial", amount: 10 } ],
 
 itemList["advlockpick"]	= {fullyDegrades: true, decayrate: 0.25, displayname: "Adv Lock Pick", craft: [{itemid: "aluminium", amount: 15 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], price: 500, weight: 3, nonStack: false, model: "", image: "np_advanced-lockpick.png" , deg: false}
 itemList["armor"]	    = {fullyDegrades: true, decayrate: 0.25, displayname: "Áo chống đạn", craft: [{itemid: "aluminium", amount: 5 }, {itemid: "plastic", amount: 1 }, {itemid: "rubber", amount: 1 }], price: 250, weight: 0, nonStack: false, model: "", image: "np_chest-armor.png", information: "Bảo vệ khỏi bị đạn bắn." , deg: false}
+itemList['bikearmor'] = {
+  fullyDegrades: true,
+  decayrate: 0.5,
+  displayname: 'Bike Armor',
+  price: 500,
+  weight: 50,
+  craft: [
+    [
+      { itemid: 'refinedaluminium', amount: 8 },
+      { itemid: 'refinedcopper', amount: 8 },
+      { itemid: 'refinedrubber', amount: 8 },
+      { itemid: 'refinedplastic', amount: 8 },
+    ]
+  ],
+  nonStack: false,
+  blockScrap: true,
+  model: '',
+  image: 'np_bikearmor.png',
+  information: 'Protects you from motorbike accidents.',
+};
+
 itemList["bandage"]	    = {fullyDegrades: true, decayrate: 0.25, displayname: "Băng gạc", price: 15, weight: 1, nonStack: false, model: "prop_ld_health_pack", image: "np_bandage.png", information: "Heals Wounds and Reduces Bleeding" , deg: false}
 
 
@@ -1190,7 +2915,6 @@ itemList["whiteseed"]	= {fullyDegrades: true, decayrate: 1.0, displayname: "hạ
 
 itemList["nitrous"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Nitrous Oxide", craft: [{itemid: "electronics", amount: 10 }], price: 300, weight: 5, nonStack: false, model: "", image: "np_nitrous-oxide.png" , deg: false, esxuse: true, removuse: true}
 
-itemList["fitbit"]       = {fullyDegrades: false, decayrate: 0.0, displayname: "Watch", price: 1000, weight: 0, nonStack: false, model: "", image: "np_watch.png", information: "It's a Watch", deg: false,esxuse: true, removuse: false}
 
 
 
@@ -1274,25 +2998,6 @@ itemList['godbook'] = {
   };
 
 
-  // weapon_taser
-itemList['-820634585'] = {
-    fullyDegrades: false,
-    decayrate: 0.5,
-    displayname: 'PD Taser',
-    price: 10,
-    craft: [
-      { itemid: 'aluminium', amount: 1 },
-      { itemid: 'plastic', amount: 1 },
-      { itemid: 'rubber', amount: 1 },
-    ],
-    weight: 11,
-    nonStack: true,
-    model: '',
-    image: 'np_stun-gun.png',
-    weapon: true,
-    deg: false,
-  };
-  
 
 
 
@@ -1317,22 +3022,21 @@ itemList['-820634585'] = {
   
 // Nail gun nailgun
 itemList['1748076076'] = {
-    fullyDegrades: false,
-    decayrate: 0.0,
-    displayname: 'Nail gun',
-    price: 10,
-    craft: [
-      { itemid: 'aluminium', amount: 1 },
-      { itemid: 'plastic', amount: 1 },
-      { itemid: 'rubber', amount: 1 },
-    ],
-    weight: 11,
-    nonStack: true,
-    model: '',
-    image: 'np_nailgun.png',
-    weapon: true,
-    deg: true,
-  };
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Nail gun',
+  price: 10,
+  craft: [[
+    { itemid: 'aluminium', amount: 1 },
+    { itemid: 'plastic', amount: 1 },
+    { itemid: 'rubber', amount: 1 },
+  ]],
+  weight: 11,
+  nonStack: true,
+  model: '',
+  image: 'np_nailgun.png',
+  weapon: true,
+};
 
 
   // weapon_glock
@@ -1601,3 +3305,115 @@ itemList['fishingtunac'] = {
 // FISHING END
 
 
+
+itemList['stolentv'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Flat Panel TV (p)',
+  craft: [[
+    //{ itemid: 'aluminium', amount: 1 },
+    //{ itemid: 'steel', amount: 1 },
+    //{ itemid: 'copper', amount: 1 },
+    //{ itemid: 'scrapmetal', amount: 1 },
+    //{ itemid: 'rubber', amount: 1 },
+    //{ itemid: 'plastic', amount: 5 },
+    { itemid: 'genericelectronicpart', amount: 18 },
+  ]],
+  price: 710,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolentv.png',
+};
+
+itemList['stolenmusic'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Music Equipment (p)',
+  craft: [[
+    //{ itemid: 'aluminium', amount: 1 },
+    //{ itemid: 'steel', amount: 1 },
+    //{ itemid: 'copper', amount: 1 },
+    //{ itemid: 'scrapmetal', amount: 1 },
+    //{ itemid: 'rubber', amount: 1 },
+    { itemid: 'genericelectronicpart', amount: 9 },
+    //{ itemid: 'glass', amount: 1 },
+    { itemid: 'stolenBrokenGoods', amount: 1 },
+  ]],
+  price: 210,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolenmusic.png',
+};
+
+itemList['stolencoffee'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Coffe Machine (p)',
+  price: 350,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolencoffee.png',
+};
+
+itemList['stolenmicrowave'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Microwave (p)',
+  price: 440,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolenmicrowave.png',
+};
+
+itemList['stolencomputer'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Computer Equipment (p)',
+  craft: [[
+    //{ itemid: 'aluminium', amount: 1 },
+    //{ itemid: 'steel', amount: 1 },
+    //{ itemid: 'copper', amount: 1 },
+    //{ itemid: 'scrapmetal', amount: 1 },
+    //{ itemid: 'rubber', amount: 1 },
+    { itemid: 'genericelectronicpart', amount: 12 },
+    //{ itemid: 'glass', amount: 1 },
+    { itemid: 'stolenBrokenGoods', amount: 1 },
+  ]],
+  price: 475,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolencomputer.png',
+};
+
+itemList['stolenart'] = {
+  fullyDegrades: false,
+  isStolen: true,
+  decayrate: 0.0,
+  displayname: 'Art (p)',
+  price: 2015,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolenart.png',
+};
+
+itemList['stolenBrokenGoods'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Broken Goods (p)',
+  price: 25,
+  weight: 50,
+  nonStack: false,
+  model: '',
+  image: 'np_stolenBrokenGoods.png',
+};

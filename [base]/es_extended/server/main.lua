@@ -25,6 +25,8 @@ end)
 
 if Config.Multichar then
 	AddEventHandler('esx:onPlayerJoined', function(src, char, data)
+		while not next(ESX.Jobs) do Wait(50) end
+
 		if not ESX.Players[src] then
 			local identifier = char..':'..ESX.GetIdentifier(src)
 			if data then
@@ -37,6 +39,8 @@ if Config.Multichar then
 else
 	RegisterNetEvent('esx:onPlayerJoined')
 	AddEventHandler('esx:onPlayerJoined', function()
+		while not next(ESX.Jobs) do Wait(50) end
+
 		if not ESX.Players[source] then
 			onPlayerJoined(source)
 		end
@@ -96,7 +100,7 @@ function createESXPlayer(identifier, playerId, data)
 		accounts[account] = money
 	end
 
-	if IsPlayerAceAllowed(playerId, "command") then
+	if Core.IsPlayerAdmin(playerId) then
 		print(('^2[INFO] ^0 Player ^5%s ^0Has been granted admin permissions via ^5Ace Perms.^7'):format(playerId))
 		defaultGroup = "admin"
 	else
@@ -104,7 +108,7 @@ function createESXPlayer(identifier, playerId, data)
 	end
 
 	if not Config.Multichar then
-		MySQL.Async.execute(NewPlayer, {
+		MySQL.prepare(NewPlayer, {
 				json.encode(accounts),
 				identifier,
 				license,
@@ -113,7 +117,7 @@ function createESXPlayer(identifier, playerId, data)
 			loadESXPlayer(identifier, playerId, true)
 		end)
 	else
-		MySQL.Async.execute(NewPlayer, {
+		MySQL.prepare(NewPlayer, {
 				json.encode(accounts),
 				identifier,
 				license,
@@ -343,6 +347,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 end
 
 AddEventHandler('chatMessage', function(playerId, author, message)
+	local xPlayer = ESX.GetPlayerFromId(playerId)
 	if message:sub(1, 1) == '/' and playerId > 0 then
 		CancelEvent()
 		local commandName = message:sub(1):gmatch("%w+")()
@@ -357,7 +362,7 @@ AddEventHandler('playerDropped', function(reason)
 	if xPlayer then
 		TriggerEvent('esx:playerDropped', playerId, reason)
 
-		ESX.SavePlayer(xPlayer, function()
+		Core.SavePlayer(xPlayer, function()
 			ESX.Players[playerId] = nil
 			ESX.PlayersID[xPlayer.id] = nil
 		end)
@@ -368,9 +373,9 @@ if Config.Multichar then
 	AddEventHandler('esx:playerLogout', function(playerId)
 		local xPlayer = ESX.GetPlayerFromId(playerId)
 		if xPlayer then
-			TriggerEvent('esx:playerDropped', playerId, reason)
+			TriggerEvent('esx:playerDropped', playerId)
 
-			ESX.SavePlayer(xPlayer, function()
+			Core.SavePlayer(xPlayer, function()
 				ESX.Players[playerId] = nil
 			end)
 		end
@@ -598,6 +603,12 @@ ESX.RegisterServerCallback('esx:getPlayerData', function(source, cb)
 	})
 end)
 
+
+
+ESX.RegisterServerCallback('esx:isUserAdmin', function(source, cb)
+	cb(Core.IsPlayerAdmin(source))
+end)
+
 ESX.RegisterServerCallback('esx:getOtherPlayerData', function(source, cb, target)
 	local xPlayer = ESX.GetPlayerFromId(target)
 
@@ -629,9 +640,9 @@ end)
 
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
 	if eventData.secondsRemaining == 60 then
-		Citizen.CreateThread(function()
-			Citizen.Wait(50000)
-			ESX.SavePlayers()
+		CreateThread(function()
+			Wait(50000)
+			Core.SavePlayers()
 		end)
 	end
 end)

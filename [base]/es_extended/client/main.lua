@@ -1,11 +1,12 @@
 local pickups = {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while not Config.Multichar do
-		Citizen.Wait(0)
+		Wait(0)
 		if NetworkIsPlayerActive(PlayerId()) then
 			exports.spawnmanager:setAutoSpawn(false)
 			DoScreenFadeOut(0)
+			Wait(500)
 			TriggerServerEvent('esx:onPlayerJoined')
 			break
 		end
@@ -20,14 +21,14 @@ AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
 	FreezeEntityPosition(PlayerPedId(), true)
 
 	if Config.Multichar then
-		Citizen.Wait(3000)
+		Wait(3000)
 	else
 		exports.spawnmanager:spawnPlayer({
 			x = ESX.PlayerData.coords.x,
 			y = ESX.PlayerData.coords.y,
 			z = ESX.PlayerData.coords.z + 0.25,
 			heading = ESX.PlayerData.coords.heading,
-			model = `mp_m_freemode_01`,
+			model = GetHashKey("mp_m_freemode_01"),
 			skipFade = false
 		}, function()
 			TriggerServerEvent('esx:onPlayerSpawn')
@@ -48,7 +49,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
 		end)
 	end
 
-	while ESX.PlayerData.ped == nil do Citizen.Wait(20) end
+	while ESX.PlayerData.ped == nil do Wait(20) end
 	-- enable PVP
 	if Config.EnablePVP then
 		SetCanAttackFriendly(ESX.PlayerData.ped, true, false)
@@ -83,10 +84,15 @@ end)
 RegisterNetEvent('esx:setMaxWeight')
 AddEventHandler('esx:setMaxWeight', function(newMaxWeight) ESX.PlayerData.maxWeight = newMaxWeight end)
 
-AddEventHandler('esx:onPlayerSpawn', function()
-	ESX.SetPlayerData('ped', PlayerPedId())
-	ESX.SetPlayerData('dead', false)
-end)
+local function onPlayerSpawn()
+	if ESX.PlayerLoaded then
+		ESX.SetPlayerData('ped', PlayerPedId())
+		ESX.SetPlayerData('dead', false)
+	end
+end
+
+AddEventHandler('playerSpawned', onPlayerSpawn)
+AddEventHandler('esx:onPlayerSpawn', onPlayerSpawn)
 
 AddEventHandler('esx:onPlayerDeath', function()
 	ESX.SetPlayerData('ped', PlayerPedId())
@@ -95,7 +101,7 @@ end)
 
 AddEventHandler('skinchanger:modelLoaded', function()
 	while not ESX.PlayerLoaded do
-		Citizen.Wait(100)
+		Wait(100)
 	end
 	TriggerEvent('esx:restoreLoadout')
 end)
@@ -314,7 +320,7 @@ AddEventHandler('esx:deleteVehicle', function(radius)
 			local attempt = 0
 
 			while not NetworkHasControlOfEntity(entity) and attempt < 100 and DoesEntityExist(entity) do
-				Citizen.Wait(100)
+				Wait(100)
 				NetworkRequestControlOfEntity(entity)
 				attempt = attempt + 1
 			end
@@ -331,7 +337,7 @@ AddEventHandler('esx:deleteVehicle', function(radius)
 		end
 
 		while not NetworkHasControlOfEntity(vehicle) and attempt < 100 and DoesEntityExist(vehicle) do
-			Citizen.Wait(100)
+			Wait(100)
 			NetworkRequestControlOfEntity(vehicle)
 			attempt = attempt + 1
 		end
@@ -344,10 +350,11 @@ end)
 
 -- Pause menu disables HUD display
 if Config.EnableHud then
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local isPaused = false
+		local time = 500
 		while true do
-			Citizen.Wait(300)
+			Wait(time)
 
 			if IsPauseMenuActive() and not isPaused then
 				isPaused = true
@@ -398,7 +405,7 @@ function StartServerSyncLoops()
 	end)
 
 	-- sync current player coords with server
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local previousCoords = vector3(ESX.PlayerData.coords.x, ESX.PlayerData.coords.y, ESX.PlayerData.coords.z)
 
 		while ESX.PlayerLoaded do
@@ -416,7 +423,7 @@ function StartServerSyncLoops()
 					TriggerServerEvent('esx:updateCoords', formattedCoords)
 				end
 			end
-			Citizen.Wait(1500)
+			Wait(1500)
 		end
 	end)
 end
@@ -488,32 +495,100 @@ end)
 
 RegisterNetEvent("esx:tpm")
 AddEventHandler("esx:tpm", function()
-    local WaypointHandle = GetFirstBlipInfoId(8)
-    if DoesBlipExist(WaypointHandle) then
-        local waypointCoords = GetBlipInfoIdCoord(WaypointHandle)
+local PlayerPedId = PlayerPedId
+local GetEntityCoords = GetEntityCoords
+local GetGroundZFor_3dCoord = GetGroundZFor_3dCoord
 
-        for height = 1, 1000 do
-            SetPedCoordsKeepVehicle(ESX.PlayerData.ped, waypointCoords["x"], waypointCoords["y"], height + 0.0)
-
-            local foundGround, zPos = GetGroundZFor_3dCoord(waypointCoords["x"], waypointCoords["y"], height + 0.0)
-
-            if foundGround then
-                SetPedCoordsKeepVehicle(ESX.PlayerData.ped, waypointCoords["x"], waypointCoords["y"], height + 0.0)
-
-                break
-            end
-
-            Citizen.Wait(5)
-        end
-        TriggerEvent('chatMessage', "Successfully Teleported")
-    else
-        TriggerEvent('chatMessage', "No Waypoint Set")
-    end
+	ESX.TriggerServerCallback("esx:isUserAdmin", function(admin)
+		if admin then
+			local blipMarker = GetFirstBlipInfoId(8)
+			if not DoesBlipExist(blipMarker) then
+					ESX.ShowNotification('No Waypoint Set.', true, false, 140)
+					return 'marker'
+			end
+	
+			-- Fade screen to hide how clients get teleported.
+			DoScreenFadeOut(650)
+			while not IsScreenFadedOut() do
+					Wait(0)
+			end
+	
+			local ped, coords = PlayerPedId(), GetBlipInfoIdCoord(blipMarker)
+			local vehicle = GetVehiclePedIsIn(ped, false)
+			local oldCoords = GetEntityCoords(ped)
+	
+			-- Unpack coords instead of having to unpack them while iterating.
+			-- 825.0 seems to be the max a player can reach while 0.0 being the lowest.
+			local x, y, groundZ, Z_START = coords['x'], coords['y'], 850.0, 950.0
+			local found = false
+			if vehicle > 0 then
+					FreezeEntityPosition(vehicle, true)
+			else
+					FreezeEntityPosition(ped, true)
+			end
+	
+			for i = Z_START, 0, -25.0 do
+					local z = i
+					if (i % 2) ~= 0 then
+							z = Z_START - i
+					end
+	
+					NewLoadSceneStart(x, y, z, x, y, z, 50.0, 0)
+					local curTime = GetGameTimer()
+					while IsNetworkLoadingScene() do
+							if GetGameTimer() - curTime > 1000 then
+									break
+							end
+							Wait(0)
+					end
+					NewLoadSceneStop()
+					SetPedCoordsKeepVehicle(ped, x, y, z)
+	
+					while not HasCollisionLoadedAroundEntity(ped) do
+							RequestCollisionAtCoord(x, y, z)
+							if GetGameTimer() - curTime > 1000 then
+									break
+							end
+							Wait(0)
+					end
+	
+					-- Get ground coord. As mentioned in the natives, this only works if the client is in render distance.
+					found, groundZ = GetGroundZFor_3dCoord(x, y, z, false)
+					if found then
+							Wait(0)
+							SetPedCoordsKeepVehicle(ped, x, y, groundZ)
+							break
+					end
+					Wait(0)
+			end
+	
+			-- Remove black screen once the loop has ended.
+			DoScreenFadeIn(650)
+			if vehicle > 0 then
+					FreezeEntityPosition(vehicle, false)
+			else
+					FreezeEntityPosition(ped, false)
+			end
+	
+			if not found then
+					-- If we can't find the coords, set the coords to the old ones.
+					-- We don't unpack them before since they aren't in a loop and only called once.
+					SetPedCoordsKeepVehicle(ped, oldCoords['x'], oldCoords['y'], oldCoords['z'] - 1.0)
+					ESX.ShowNotification('Successfully Teleported', true, false, 140)
+			end
+	
+			-- If Z coord was found, set coords in found coords.
+			SetPedCoordsKeepVehicle(ped, x, y, groundZ)
+			ESX.ShowNotification('Successfully Teleported', true, false, 140)
+		end
+	end)
 end)
 
 local noclip = false
 RegisterNetEvent("esx:noclip")
 AddEventHandler("esx:noclip", function(input)
+	ESX.TriggerServerCallback("esx:isUserAdmin", function(admin)
+		if admin then
     local player = PlayerId()
 	
     local msg = "disabled"
@@ -528,14 +603,17 @@ AddEventHandler("esx:noclip", function(input)
 	end
 
 	TriggerEvent("chatMessage", "Noclip has been ^2^*" .. msg)
+	end
 	end)
-	
+end)
+
 	local heading = 0
-	Citizen.CreateThread(function()
+	CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		local Sleep = 1500
 
 		if(noclip)then
+			Sleep = 0
 			SetEntityCoordsNoOffset(ESX.PlayerData.ped, noclip_pos.x, noclip_pos.y, noclip_pos.z, 0, 0, 0)
 
 			if(IsControlPressed(1, 34))then
@@ -571,9 +649,8 @@ AddEventHandler("esx:noclip", function(input)
 			if(IsControlPressed(1, 173))then
 				noclip_pos = GetOffsetFromEntityInWorldCoords(ESX.PlayerData.ped, 0.0, 0.0, -1.0)
 			end
-		else
-			Citizen.Wait(200)
 		end
+	Wait(Sleep)
 	end
 end)
 

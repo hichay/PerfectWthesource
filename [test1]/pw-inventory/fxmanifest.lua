@@ -1,53 +1,63 @@
-fx_version 'bodacious'
-games { 'gta5' }
+fx_version 'cerulean'
+games {'gta5'}
 
 
 ui_page 'nui/ui.html'
 
 files {
-	"nui/ui.html",
-	"nui/pricedown.ttf",
-	"nui/default.png",
-	"nui/background.png",
-	"nui/weight-hanging-solid.png",
-	"nui/hand-holding-solid.png",
-	"nui/search-solid.png",
-	"nui/invbg.png",
-	"nui/styles.css",
-	"nui/scripts.js",
-	"nui/debounce.min.js",
-	"nui/loading.gif",
-	"nui/loading.svg",
-	"nui/icons/*"
-  }
+  "nui/ui.html",
+  "nui/pricedown.ttf",
+  "nui/default.png",
+  "nui/background.png",
+  "nui/weight-hanging-solid.png",
+  "nui/hand-holding-solid.png",
+  "nui/search-solid.png",
+  "nui/invbg.png",
+  "nui/styles.css",
+  "nui/i18n.js",
+  "nui/scripts.js",
+  "nui/debounce.min.js",
+  "nui/loading.gif",
+  "nui/loading.svg",
+  "nui/icons/*"
+}
+
+
+
+shared_script 'shared_list.js'
+shared_script '@pw-lib/shared/sh_cacheable.js'
+  
 client_scripts {
-	'client.js',
-	'functions.lua',
-	'cl_vehicleweights.js',	
+	"@pw-lib/client/cl_rpc.js",
+    "@pw-lib/client/cl_rpc.lua",
+	'client/client.js',
+	'client/cl_*.lua',
 	"@PolyZone/client.lua"
+	
+	
 	
 }
 
 server_scripts {
-	'server_degradation.js',
-	'server_shops.js',
-	'server.js',
-	'server.lua'
+	'@pw-rpc/server/sv_main.lua',
+	'@oxmysql/lib/MySQL.lua',
+	'server/server_degradation.js',
+	'server/server_shops.js',
+	'server/server.js',
+	'server/server.lua'
+	
 }
 
-shared_script 'shared_list.js'
-export 'hasEnoughOfItem'
+
+
+
 exports{
+  'getFreeSpace',
+  'hasEnoughOfItem',
   'getQuantity',
   'GetCurrentWeapons',
-  'getCash',
-  'getJobsss',	
-  'GetItemInfoName',
-  'GetInfoForFirstItemOfName',	
-  'GetItemInfo'
+  'GetItemInfo',
+  'GetInfoForFirstItemOfName',
+  'getFullItemList',
 }
 
-
-dependencies {
-    "PolyZone"
-}

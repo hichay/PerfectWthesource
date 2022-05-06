@@ -100,7 +100,7 @@ end)
 RegisterServerEvent('pw-garages:server:setFirstData')
 AddEventHandler('pw-garages:server:setFirstData', function()
     local src = source
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles`", function(vehicles)
+    MySQL.query("SELECT * FROM `owned_vehicles`", function(vehicles)
         if vehicles[1] ~= nil then
             local counter, impound = 0, 0
             for _, veh in pairs(vehicles) do
@@ -114,11 +114,11 @@ AddEventHandler('pw-garages:server:setFirstData', function()
                     serverConfig['houses'][data[2]]['slots'][data[1]][2] = false
                     serverConfig['houses'][data[2]]['slots'][data[1]][3] = {model = veh.model, vehicle = json.decode(veh.vehicle), plate = veh.plate}
                 elseif veh.state == 'unknown' then
-                    exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `state` = 'impound', `parking` = '' WHERE `plate` = '" .. veh.plate .. "' AND `owner` = '" .. veh.owner .. "' LIMIT 1")
+                    MySQL.query("UPDATE `owned_vehicles` SET `state` = 'impound', `parking` = '' WHERE `plate` = '" .. veh.plate .. "' AND `owner` = '" .. veh.owner .. "' LIMIT 1")
                 end
 
                 if veh.fakeplate ~= nil and veh.fakeplate ~= '' then
-                    exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `fakeplate` = '' WHERE `plate` = '" .. veh.plate .. "' AND `owner` = '" .. veh.owner .. "' LIMIT 1")
+                    MySQL.query("UPDATE `owned_vehicles` SET `fakeplate` = '' WHERE `plate` = '" .. veh.plate .. "' AND `owner` = '" .. veh.owner .. "' LIMIT 1")
                 end
             end
             
@@ -128,7 +128,7 @@ AddEventHandler('pw-garages:server:setFirstData', function()
             print('^6[PerfectW garages] ^7Could not find any vehicles.')
         end
 
-        exports['ghmattimysql']:execute("SELECT * FROM `player_houses`", function(housing)
+        MySQL.query("SELECT * FROM `player_houses`", function(housing)
             local counter = 0
             if housing[1] ~= nil then
                 for key, house in pairs(housing) do
@@ -160,7 +160,7 @@ AddEventHandler('pw-garages:server:impoundVehicle', function(plate)
     local xPlayer = ESX.GetPlayerFromId(src)
     
     
-    exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `state` = 'impound', `parking` = '' WHERE `plate` = '" .. plate .. "' AND `owner` = '" .. xPlayer.getIdentifier() .. "' LIMIT 1")
+    MySQL.query("UPDATE `owned_vehicles` SET `state` = 'impound', `parking` = '' WHERE `plate` = '" .. plate .. "' AND `owner` = '" .. xPlayer.getIdentifier() .. "' LIMIT 1")
 end)
     
 RegisterServerEvent('pw-garages:server:parkVehicle')
@@ -180,12 +180,12 @@ AddEventHandler('pw-garages:server:parkVehicle', function(garage, typ, slots, pl
             ["plate"] = plate, 
             ["time"] = time,
         } ]]
-        exports['ghmattimysql']:execute("SELECT `vehicle` FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(props)
+        MySQL.query("SELECT `vehicle` FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(props)
             if props[1] ~= nil then
                 local vehicleprops = json.decode(props[1].vehicle)
                 serverConfig['garages'][garage]['slots'][slots[1]][3] = {model = vehicleprops.model, vehicle = vehicleprops, plate = plate}
 
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'garage', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
+                MySQL.query("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'garage', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
                 TriggerClientEvent('pw-garages:client:syncConfig', -1, 2, 'garages', garage, 'slots', serverConfig['garages'][garage]['slots'])
                 TriggerClientEvent('pw-garages:client:createParkingVehicle', src, false, serverConfig['garages'][garage]['slots'][slots[1]])
                 TriggerEvent("ESX:Notify",source,"Đỗ xe vào bãi đỗ thành công","success")
@@ -202,12 +202,12 @@ AddEventHandler('pw-garages:server:parkVehicle', function(garage, typ, slots, pl
             ["plate"] = plate, 
             ["time"] = time,
         } ]]
-        exports['ghmattimysql']:execute("SELECT `vehicle` FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(props)
+        MySQL.query("SELECT `vehicle` FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(props)
             if props[1] ~= nil then
                 local vehicleprops = json.decode(props[1].props)
                 serverConfig['houses'][garage]['slots'][slots[1]][3] = {model = vehicleprops.model, props = vehicleprops, plate = plate}
 
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'house', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
+                MySQL.query("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'house', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
                 TriggerClientEvent('pw-garages:client:syncConfig', -1, 2, 'houses', garage, 'slots', serverConfig['houses'][garage]['slots'])
                 TriggerClientEvent('pw-garages:client:createParkingVehicle', src, false, serverConfig['houses'][garage]['slots'][slots[1]])
             else
@@ -223,7 +223,7 @@ AddEventHandler('pw-garages:server:setVehicleOwned', function(props, stats, mode
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    exports['ghmattimysql']:execute("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `stats`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
+    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `stats`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
 end)
 
 RegisterServerEvent('pw-garages:server:updateProps')
@@ -232,8 +232,8 @@ AddEventHandler('pw-garages:server:updateProps', function(props)
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'garage', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
-    exports['ghmattimysql']:execute("UPDATE `owned_vehicles` (`vehicle`) VALUES ('" .. xPlayer.getIdentifier() .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
+    MySQL.query("UPDATE `owned_vehicles` SET `stats` = '" .. json.encode(stats) .. "', `state` = 'garage', `parking` = '" .. json.encode(jsonz) .. "' WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'")
+    MySQL.query("UPDATE `owned_vehicles` (`vehicle`) VALUES ('" .. xPlayer.getIdentifier() .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
 end)
 
 RegisterNetEvent("pw-garages:server:removeOldVehicle")
@@ -256,7 +256,7 @@ AddEventHandler('pw-garages:server:vehiclePayout', function(garage, plate, price
     
     if typ ~= 'houses' then
         if xPlayer.getMoney() >= price or (GaragesConfig['settings']['bank-payments'] == true and xPlayer.getMoney() >= price) then
-            exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(vehicle)
+            MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(vehicle)
                 if vehicle[1] ~= nil then
                     local veh = vehicle[1]
                     --local modelExists = IsModelExists(veh.model)
@@ -265,7 +265,7 @@ AddEventHandler('pw-garages:server:vehiclePayout', function(garage, plate, price
 						xPlayer.removeMoney(price)
                         if true then
 							
-                            exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `state` = 'unknown', `parking` = '' WHERE `id` = '" .. veh.id .. "'")
+                            MySQL.query("UPDATE `owned_vehicles` SET `state` = 'unknown', `parking` = '' WHERE `id` = '" .. veh.id .. "'")
                             if typ == 'garages' then
                                 serverConfig['garages'][garage]['slots'][json.decode(veh.parking)[1]][2] = true
                                 serverConfig['garages'][garage]['slots'][json.decode(veh.parking)[1]][3] = nil
@@ -293,14 +293,14 @@ AddEventHandler('pw-garages:server:vehiclePayout', function(garage, plate, price
             TriggerClientEvent('ESX:Notify', src, "Bạn không có đủ tiền.", "error")
         end
     else
-        exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(vehicle)
+        MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "' LIMIT 1", function(vehicle)
             local veh = vehicle[1]
 
             --local modelExists = IsModelExists(veh.model)
 			local a = true
             if a then
 				
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `state` = 'unknown', `parking` = '' WHERE `id` = '" .. veh.id .. "'")
+                MySQL.query("UPDATE `owned_vehicles` SET `state` = 'unknown', `parking` = '' WHERE `id` = '" .. veh.id .. "'")
                 
                 serverConfig['houses'][garage]['slots'][json.decode(veh.parking)[1]][2] = true
                 serverConfig['houses'][garage]['slots'][json.decode(veh.parking)[1]][3] = nil
@@ -326,7 +326,7 @@ ESX.RegisterServerCallback('pw-garages:server:getOwnedVehicles', function(source
     
 
 
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "'", function(vehicles)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "'", function(vehicles)
         function nospaceButton(plate)
             return "<a id='button' btn-type='nospace' btn-plate='" .. plate .. "' href=\"#\" class=\"btn btn-danger btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-times-circle\"></i></span><span class=\"text\">Hết chỗ</span></a>"
         end
@@ -410,7 +410,7 @@ end)
 
 RegisterServerEvent('pw-garages:renamevehicle')
 AddEventHandler('pw-garages:renamevehicle', function(vehicleplate, vehiclename)
-    exports['ghmattimysql']:execute("UPDATE owned_vehicles SET name = @name WHERE plate=@plate",{['@name'] = vehiclename , ['@plate'] = vehicleplate})
+    MySQL.query("UPDATE owned_vehicles SET name = @name WHERE plate=@plate",{['@name'] = vehiclename , ['@plate'] = vehicleplate})
 end)
 
 ESX.RegisterServerCallback('pw-garages:server:getImpoundedVehicles', function(source, cb, name)
@@ -418,7 +418,7 @@ ESX.RegisterServerCallback('pw-garages:server:getImpoundedVehicles', function(so
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `state` = 'impound'", function(vehicles)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `state` = 'impound'", function(vehicles)
         function payButton(plate)
             return "<a id='button' btn-type='pay' btn-plate='" .. plate .. "' href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-warning btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Trả tiền</span></a>"
         end
@@ -439,7 +439,7 @@ ESX.RegisterServerCallback('pw-garages:server:isVehicleOwned', function(source, 
     local xPlayer = ESX.GetPlayerFromId(src)
     
     print(plate)
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'", function(result)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'", function(result)
         if result[1] ~= nil then
             cb(true)
         else
@@ -453,7 +453,7 @@ ESX.RegisterServerCallback('pw-garages:server:hasFines', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    exports['ghmattimysql']:execute("SELECT * FROM `billing` WHERE `status` = 'unpaid' AND `society` = 'police' AND `receiver_identifier` = '" .. xPlayer.getIdentifier() .. "'", function(result)
+    MySQL.query("SELECT * FROM `billing` WHERE `status` = 'unpaid' AND `society` = 'police' AND `receiver_identifier` = '" .. xPlayer.getIdentifier() .. "'", function(result)
         if result[1] ~= nil and #result > 0 then
             cb(true)
         else
@@ -549,7 +549,7 @@ AddEventHandler('pw-garages:server:addHouseGarage', function(house, coord, max)
         }
 
         local saved = SaveResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'houses.json', json.encode(houseGarages), -1)
-        exports['ghmattimysql']:execute("SELECT * FROM `allhousing` WHERE `id` = '" .. house .. "' LIMIT 1", function(housing)
+        MySQL.query("SELECT * FROM `allhousing` WHERE `id` = '" .. house .. "' LIMIT 1", function(housing)
             serverConfig['houses'][house] = {
                 coords = coord,
                 max = max,
@@ -600,7 +600,7 @@ end)
 RegisterNetEvent('pw-garages:server:buyHouseGarage1')
 AddEventHandler('pw-garages:server:buyHouseGarage1', function(house)
     local holders
-    exports['ghmattimysql']:execute("SELECT `keyholders` FROM `player_houses` WHERE `id` = '"..house.."'", function(result)
+    MySQL.query("SELECT `keyholders` FROM `player_houses` WHERE `id` = '"..house.."'", function(result)
         for k,v in pairs(result) do 
             holders = json.decode(v.keyholders)
         end
@@ -611,7 +611,7 @@ end)
 
 ESX.RegisterServerCallback('pw-garages:server:buyHouseGarage1', function(source, cb, house)
     local holders
-    exports['ghmattimysql']:execute("SELECT `keyholders` FROM `player_houses` WHERE `id` = '"..house.."'", function(result)
+    MySQL.query("SELECT `keyholders` FROM `player_houses` WHERE `id` = '"..house.."'", function(result)
         for k,v in pairs(result) do 
             
             holders = json.decode(v.keyholders)
@@ -623,7 +623,7 @@ end)
 
 ESX.RegisterServerCallback('pw-garages:server:GetVehicleStatus', function(source, cb, plate)
     local status
-    exports['ghmattimysql']:execute("SELECT `stats` FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
+    MySQL.query("SELECT `stats` FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
         for k,v in pairs(result) do 
             status = json.decode(v.stats)
         end
@@ -675,19 +675,19 @@ end)
 RegisterServerEvent('pw-garages:server:isPlayerVehicle')
 AddEventHandler('pw-garages:server:isPlayerVehicle', function(typ, plate, vehicle)
     if typ == 'STEAL' then
-        exports['ghmattimysql']:execute("SELECT `model` FROM `owned_vehicles` WHERE `plate` = '" .. plate .. "' LIMIT 1", function(result)
+        MySQL.query("SELECT `model` FROM `owned_vehicles` WHERE `plate` = '" .. plate .. "' LIMIT 1", function(result)
             if result[1] ~= nil then
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `fakeplate` = '%' WHERE `plate` = '" .. plate .. "' AND `model` = '" .. result[1].model .. "' LIMIT 1")
+                MySQL.query("UPDATE `owned_vehicles` SET `fakeplate` = '%' WHERE `plate` = '" .. plate .. "' AND `model` = '" .. result[1].model .. "' LIMIT 1")
                 networkVehicles[vehicle] = {plate, '%'}
             end
         end)
     elseif typ == 'SET' then
         if networkVehicles[vehicle] ~= nil then
             if networkVehicles[vehicle][1] == plate then
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `fakeplate` = '' WHERE `plate` = '" .. plate .. "' LIMIT 1")
+                MySQL.query("UPDATE `owned_vehicles` SET `fakeplate` = '' WHERE `plate` = '" .. plate .. "' LIMIT 1")
                 networkVehicles[vehicle] = nil
             else
-                exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `fakeplate` = '" .. plate .. "' WHERE `plate` = '" .. networkVehicles[vehicle][1] .. "' LIMIT 1")
+                MySQL.query("UPDATE `owned_vehicles` SET `fakeplate` = '" .. plate .. "' WHERE `plate` = '" .. networkVehicles[vehicle][1] .. "' LIMIT 1")
                 networkVehicles[vehicle][2] = plate
             end
         end

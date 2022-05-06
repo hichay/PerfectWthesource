@@ -1,13 +1,15 @@
 ESX = {}
 ESX.Players = {}
+Core = {}
 ESX.PlayersID = {}
-ESX.UsableItemsCallbacks = {}
+Core.UsableItemsCallbacks = {}
 ESX.Items = {}
-ESX.ServerCallbacks = {}
-ESX.TimeoutCount = -1
-ESX.CancelledTimeouts = {}
-ESX.Pickups = {}
-ESX.PickupId = 0
+Core.ServerCallbacks = {}
+Core.TimeoutCount = -1
+Core.CancelledTimeouts = {}
+Core.RegisteredCommands = {}
+Core.Pickups = {}
+Core.PickupId = 0
 ESX.Jobs = {}
 ESX.RegisteredCommands = {}
 
@@ -20,10 +22,10 @@ function getSharedObject()
 end
 
 local function StartDBSync()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
-			Citizen.Wait(10 * 60 * 1000)
-			ESX.SavePlayers()
+			Wait(10 * 60 * 1000)
+			Core.SavePlayers()
 		end
 	end)
 end
@@ -70,6 +72,9 @@ MySQL.ready(function()
 			StartPayCheck()
 		end)
 	end)
+	print('[^2INFO^7] ESX ^5Legacy^0 initialized')
+	StartDBSync()
+	StartPayCheck()
 end)
 
 RegisterServerEvent('esx:clientLog')

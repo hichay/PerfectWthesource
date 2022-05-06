@@ -1,9 +1,10 @@
 ESX                           = {}
+Core                          = {}
 ESX.PlayerData                = {}
 ESX.PlayerLoaded              = false
-ESX.CurrentRequestId          = 0
-ESX.ServerCallbacks           = {}
-ESX.TimeoutCallbacks          = {}
+Core.CurrentRequestId          = 0
+Core.ServerCallbacks          = {}
+Core.TimeoutCallbacks          = {}
 
 ESX.UI                        = {}
 ESX.UI.HUD                    = {}
@@ -20,12 +21,12 @@ ESX.Scaleform.Utils           = {}
 
 ESX.Streaming                 = {}
 
-ESX.SetTimeout = function(msec, cb)
-	table.insert(ESX.TimeoutCallbacks, {
+function ESX.SetTimeout(msec, cb)
+	table.insert(Core.TimeoutCallbacks, {
 		time = GetGameTimer() + msec,
 		cb   = cb
 	})
-	return #ESX.TimeoutCallbacks
+	return #Core.TimeoutCallbacks
 end
 
 ESX.ClearTimeout = function(i)
@@ -181,15 +182,15 @@ ESX.ShowFloatingHelpNotification = function(msg, coords)
 	EndTextCommandDisplayHelp(2, false, false, -1)
 end
 
-ESX.TriggerServerCallback = function(name, cb, ...)
-	ESX.ServerCallbacks[ESX.CurrentRequestId] = cb
+function ESX.TriggerServerCallback(name, cb, ...)
+	Core.ServerCallbacks[Core.CurrentRequestId] = cb
 
-	TriggerServerEvent('esx:triggerServerCallback', name, ESX.CurrentRequestId, ...)
+	TriggerServerEvent('esx:triggerServerCallback', name, Core.CurrentRequestId, ...)
 
-	if ESX.CurrentRequestId < 65535 then
-		ESX.CurrentRequestId = ESX.CurrentRequestId + 1
+	if Core.CurrentRequestId < 65535 then
+		Core.CurrentRequestId = Core.CurrentRequestId + 1
 	else
-		ESX.CurrentRequestId = 0
+		Core.CurrentRequestId = 0
 	end
 end
 
@@ -422,7 +423,7 @@ ESX.Game.Teleport = function(entity, coords, cb)
 	if DoesEntityExist(entity) then
 		RequestCollisionAtCoord(vector.xyz)
 		while not HasCollisionLoadedAroundEntity(entity) do
-			Citizen.Wait(0)
+			Wait(0)
 		end
 
 		SetEntityCoords(entity, vector.xyz, false, false, false, false)
@@ -439,7 +440,7 @@ ESX.Game.SpawnObject = function(object, coords, cb, networked)
 	local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
 	networked = networked == nil and true or networked
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		ESX.Streaming.RequestModel(model)
 
 		local obj = CreateObject(model, vector.xyz, networked, false, true)
@@ -467,7 +468,7 @@ ESX.Game.SpawnVehicle = function(vehicle, coords, heading, cb, networked)
 	local model = (type(vehicle) == 'number' and vehicle or GetHashKey(vehicle))
 	local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
 	networked = networked == nil and true or networked
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		ESX.Streaming.RequestModel(model)
 
 		local vehicle = CreateVehicle(model, vector.xyz, heading, networked, false)
@@ -485,7 +486,7 @@ ESX.Game.SpawnVehicle = function(vehicle, coords, heading, cb, networked)
 
 		RequestCollisionAtCoord(vector.xyz)
 		while not HasCollisionLoadedAroundEntity(vehicle) do
-			Citizen.Wait(0)
+			Wait(0)
 		end
 
 		if cb then
@@ -562,7 +563,7 @@ ESX.Game.GetPlayers = function(onlyOtherPlayers, returnKeyValue, returnPeds)
 			if returnKeyValue then
 				players[player] = ped
 			else
-				table.insert(players, returnPeds and ped or player)
+				players[#players + 1] = returnPeds and ped or player
 			end
 		end
 	end
@@ -586,7 +587,28 @@ ESX.Game.GetClosestVehicle = function(coords, modelFilter)
 	return ESX.Game.GetClosestEntity(ESX.Game.GetVehicles(), false, coords, modelFilter)
 end
 
-ESX.Game.GetPlayersInArea = function(coords, maxDistance)
+local function EnumerateEntitiesWithinDistance(entities, isPlayerEntities, coords, maxDistance)
+	local nearbyEntities = {}
+
+	if coords then
+		coords = vector3(coords.x, coords.y, coords.z)
+	else
+		local playerPed = ESX.PlayerData.ped
+		coords = GetEntityCoords(playerPed)
+	end
+
+	for k,entity in pairs(entities) do
+		local distance = #(coords - GetEntityCoords(entity))
+
+		if distance <= maxDistance then
+			nearbyEntities[#nearbyEntities + 1] = isPlayerEntities and k or entity
+		end
+	end
+
+	return nearbyEntities
+end
+
+function ESX.Game.GetPlayersInArea(coords, maxDistance)
 	return EnumerateEntitiesWithinDistance(ESX.Game.GetPlayers(true, true), true, coords, maxDistance)
 end
 
@@ -788,7 +810,7 @@ ESX.Game.SetVehicleProperties = function(vehicle, props)
 		end
 
 		if props.neonColor then SetVehicleNeonLightsColour(vehicle, props.neonColor[1], props.neonColor[2], props.neonColor[3]) end
-		if props.xenonColor then SetVehicleXenonLightsColour(vehicle, props.xenonColor) end
+		if props.xenonColor then SetVehicleXenonLightsColor(vehicle, props.xenonColor) end
 		if props.modSmokeEnabled then ToggleVehicleMod(vehicle, 20, true) end
 		if props.tyreSmokeColor then SetVehicleTyreSmokeColor(vehicle, props.tyreSmokeColor[1], props.tyreSmokeColor[2], props.tyreSmokeColor[3]) end
 		if props.modSpoilers then SetVehicleMod(vehicle, 0, props.modSpoilers, false) end
@@ -845,7 +867,7 @@ end
 ESX.Game.Utils.DrawText3D = function(coords, text, size, font)
 	local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
 
-	local camCoords = GetGameplayCamCoords()
+	local camCoords = GetFinalRenderedCamCoord()
 	local distance = #(vector - camCoords)
 
 	if not size then size = 1 end
@@ -859,11 +881,11 @@ ESX.Game.Utils.DrawText3D = function(coords, text, size, font)
 	SetTextFont(font)
 	SetTextProportional(1)
 	SetTextColour(255, 255, 255, 215)
-	SetTextEntry('STRING')
+	BeginTextCommandDisplayText('STRING')
 	SetTextCentre(true)
-	AddTextComponentString(text)
+	AddTextComponentSubstringPlayerName(text)
 	SetDrawOrigin(vector.xyz, 0)
-	DrawText(0.0, 0.0)
+	EndTextCommandDisplayText(0.0, 0.0)
 	ClearDrawOrigin()
 end
 
@@ -1042,7 +1064,7 @@ ESX.ShowInventory = function()
 					if type == 'item_weapon' then
 						menu1.close()
 						TaskPlayAnim(playerPed, dict, anim, 8.0, 1.0, 1000, 16, 0.0, false, false, false)
-						Citizen.Wait(1000)
+						Wait(1000)
 						TriggerServerEvent('esx:removeInventoryItem', type, item)
 					else
 						ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'inventory_item_count_remove', {
@@ -1054,7 +1076,7 @@ ESX.ShowInventory = function()
 								menu2.close()
 								menu1.close()
 								TaskPlayAnim(playerPed, dict, anim, 8.0, 1.0, 1000, 16, 0.0, false, false, false)
-								Citizen.Wait(1000)
+								Wait(1000)
 								TriggerServerEvent('esx:removeInventoryItem', type, item, quantity)
 							else
 								ESX.ShowNotification(_U('amount_invalid'))
@@ -1117,8 +1139,8 @@ end
 
 RegisterNetEvent('esx:serverCallback')
 AddEventHandler('esx:serverCallback', function(requestId, ...)
-	ESX.ServerCallbacks[requestId](...)
-	ESX.ServerCallbacks[requestId] = nil
+	Core.ServerCallbacks[requestId](...)
+	Core.ServerCallbacks[requestId] = nil
 end)
 
 RegisterNetEvent('esx:showNotification')
@@ -1149,16 +1171,16 @@ Citizen.CreateThread(function()
 	
 	while true do
 		local sleep = 100
-		if #ESX.TimeoutCallbacks > 0 then
+		if #Core.TimeoutCallbacks > 0 then
 			local currTime = GetGameTimer()
 			sleep = 0
-			for i=1, #ESX.TimeoutCallbacks, 1 do
-				if currTime >= ESX.TimeoutCallbacks[i].time then
-					ESX.TimeoutCallbacks[i].cb()
-					ESX.TimeoutCallbacks[i] = nil
+			for i=1, #Core.TimeoutCallbacks, 1 do
+				if currTime >= Core.TimeoutCallbacks[i].time then
+					Core.TimeoutCallbacks[i].cb()
+					Core.TimeoutCallbacks[i] = nil
 				end
 			end
 		end
-		Citizen.Wait(sleep)
+		Wait(sleep)
 	end
 end)

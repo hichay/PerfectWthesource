@@ -19,3 +19,7 @@ server_scripts {
   'creation_sv.lua',
   'server.lua'
 }
+
+exports{
+  'AddBoxZone',
+}

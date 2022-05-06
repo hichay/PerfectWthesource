@@ -6,7 +6,22 @@ function loadAnimDict(dict)
 end
 
 RegisterNetEvent('pw-scripts:client:Duatien')
-AddEventHandler('pw-scripts:client:Duatien', function(player,soluong)
+AddEventHandler('pw-scripts:client:Duatien', function()
+
+
+	local elements = {
+		{ name = "amount", label = "Số tiền", icon = "scroll" }
+	}
+    
+	local prompt = exports['np-ui']:OpenInputMenu(elements, function(values)
+		return type(tonumber(values.amount)) == 'number' and tonumber(values.amount) >= 0
+	end)
+
+	if prompt == nil or prompt.amount == nil then return end 
+
+	TriggerServerEvent("apartment:serverLockdownCID",prompt.amount,loc)
+		
+		
 	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 	
 		if closestPlayer ~= -1 and closestDistance <= 3.0 then

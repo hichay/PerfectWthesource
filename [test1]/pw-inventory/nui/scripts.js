@@ -1,10 +1,11 @@
+const bindSlots = [1, 2, 3, 4];
 let isDragging = false;
 let draggingid = 'none';
 let mousedown = false;
 let personalWeight = 0;
 let secondaryWeight = 0;
-let personalMaxWeight = 150;
-let secondaryMaxWeight = 700;
+let personalMaxWeight = 250;
+let secondaryMaxWeight = 250;
 let movementAmount = 0;
 let currentInventory = 0;
 let weight = 0;
@@ -22,6 +23,7 @@ let crafting = false;
 let clicking = false;
 let userCash = 0;
 let userWeaponLicense = false;
+let userClass2WeaponLicense = false;
 let itemList = {};
 let exluded = {};
 let brought = false;
@@ -29,16 +31,180 @@ let isCop = false;
 let dateNow = Date.now();
 let _lastInfo = '';
 
+let shopPriceMap = new Map();
+let shopValidItems = [];
+let isPropertyOwner = false;
+let priceEdit = '';
+
 //Sky's stuff
 let isOverAmount = false;
 let amountEdit = '';
 
 //User settings
-let holdToDrag = true;
+let holdToDrag = false;
 let closeOnClick = true;
 let ctrlMovesHalf = false;
 let showTooltips = true;
 let enableBlur = true;
+
+let customImageItems = [
+    "musicmerch",
+    "customfooditem",
+    "customwateritem",
+    "customjointitem",
+    "customcoffeeitem",
+    "vehicle_part",
+    "custommerchitem",
+    "customciggyitem",
+    "custombandageitem",
+    "newstape",
+    "summonablepet",
+    "tcgcard",
+    "book",
+    "petaccessory",
+    "resfooditem",
+    "ressideitem",
+    "resdessertitem",
+    "resdrinkitem",
+    "resalcoholitem",
+    "bentobox",
+    "spraycan",
+    "gallerygem",
+    "784503678",
+    "vineyardwinebox",
+    "vineyardwinebottle",
+    "honestwineglass",
+    "vineyardgrapes",
+];
+let customNameItems = [
+    "customfooditem",
+    "customwateritem",
+    "customjointitem",
+    "customcoffeeitem",
+    "vehicle_part",
+    "custommerchitem",
+    "customciggyitem",
+    "custombandageitem",
+    "tcgcard",
+    "tcgpromobooster",
+    "tcgbinder",
+    "book",
+    "petaccessory",
+    "resfooditem",
+    "ressideitem",
+    "resdessertitem",
+    "resdrinkitem",
+    "resalcoholitem",
+    "gallerygem",
+    "vineyardwinebox",
+    "vineyardwinebottle",
+    "honestwineglass",
+];
+let customNameItemsDescriptions = {
+    "customfooditem": "(FM) ",
+    "customcoffeeitem": "(FM) ",
+    "customwateritem": "(FM) ",
+    "customjointitem": "(FM) ",
+    "custommerchitem": "(FM) ",
+    "customciggyitem": "(FM) ",
+    "custombandageitem": "(FM) ",
+    "book": "(B) ",
+    "gallerygem": "(G) ",
+};
+let customDescriptionItems = [
+    "customfooditem",
+    "customwateritem",
+    "customjointitem",
+    "customcoffeeitem",
+    "custommerchitem",
+    "customciggyitem",
+    "custombandageitem",
+    "tcgcard",
+    "resfooditem",
+    "ressideitem",
+    "resdessertitem",
+    "resdrinkitem",
+    "resalcoholitem",
+    "jewelry_ring",
+    "jewelry_necklace",
+    "jewelry_relic",
+    "npolaroid_photo",
+    "vineyardwinebox",
+    "vineyardwinebottle",
+    "honestwineglass",
+];
+let customDescriptionItemsDescriptions = {
+    "resfooditem": "Filling, scrumpious, with something special from the restaurant. ",
+    "ressideitem": "Makes you feel better. ",
+    "resdessertitem": "Sugary boost! ",
+    "resdrinkitem": "Thirst quencher. ",
+    "resalcoholitem": "Gets you shitfaced. ",
+};
+
+const timestampColumns = {
+    "animalshotat": "Shot",
+    "certExpiry": "Expiry"
+}
+
+const foodCatMaps = {
+    dairy: 'Dairy helps you feel calmer.',
+    grain: 'Grains really fill you up!',
+    oil: 'Oils really help with your stress levels.',
+    leavening: 'Leavening helps your intellect.',
+    protein: 'Protein helps you feel stronger.',
+    seasoning: 'Seasoning makes those around you appreciate you more!',
+    sugar: 'Sugar helps with your focus.',
+    vegetables: 'Vegetables really improve your cardio.',
+}
+
+const ignoreMetaKeysInComparison = ["_remove_id", "_hideKeys", "_is_poisoned", "_foodEnhancements", "potency", "interval", "duration", "nonLethal", "quality", "foodEnhancement", "_foodEnhancement", "_crafted", "_factory"];
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const isObject = (object) => object != null && typeof object === 'object';
+const deepEqual = (object1, object2) => {
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+    for (const key of keys1) {
+        const val1 = object1[key];
+        const val2 = object2[key];
+        const areObjects = isObject(val1) && isObject(val2);
+        if (
+            (areObjects && !deepEqual(val1, val2)) ||
+            (!areObjects && val1 !== val2)
+        ) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const isMetadataEqual = (obj1, obj2) => {
+    const removedKeys = ignoreMetaKeysInComparison.reduce((acc, key) => {
+        acc[key] = undefined;
+        return acc;
+    }, {});
+
+    return deepEqual(
+        { ...obj1, ...removedKeys },
+        { ...obj2, ...removedKeys }
+    );
+}
+
+function getInvImage(item, info) {
+    let imgSrc = `icons/${item.image}`;
+    try {
+        if (!!info && (customImageItems.includes(item._name) || (info._factory || JSON.parse(info)._factory))) {
+            imgSrc = info._image_url || JSON.parse(info)._image_url || imgSrc;
+        }
+    } catch (err) { }
+    return imgSrc;
+}
 
 function fallbackCopyTextToClipboard(text) {
     var textArea = document.createElement('textarea');
@@ -55,128 +221,43 @@ function fallbackCopyTextToClipboard(text) {
 
     try {
         document.execCommand('copy');
-    } catch (err) {}
+    } catch (err) { }
 
     document.body.removeChild(textArea);
 }
 
-exluded["2578778090"] = true
-exluded["1737195953"] = true
-exluded["1317494643"] = true
-exluded["2508868239"] = true
-exluded["1141786504"] = true
-exluded["2227010557"] = true
-exluded["883325847"] = true
-exluded["4192643659"] = true
-exluded["2460120199"] = true
-exluded["3638508604"] = true
-exluded["4191993645"] = true
-exluded["3713923289"] = true
-exluded["2343591895"] = true
-exluded["2484171525"] = true
-exluded["419712736"] = true
-exluded["-1810795771"] = true
-exluded["-1121678507"] = true
-exluded["-1045183535"] = true
-exluded["-879347409"] = true
-exluded["-72657034"] = true
-exluded["-1074790547"] = true
-exluded["-1075685676"] = true
-exluded["-1355376991"] = true
-exluded["-1357824103"] = true
-exluded["-1654528753"] = true
-exluded["-1810795771"] = true
-exluded["-2066285827"] = true
-exluded["-2084633992"] = true
-exluded["-270015777"] = true
-exluded["-538741184"] = true
-exluded["-619010992"] = true
-exluded["-771403250"] = true 
-exluded["-86904375"] = true
-exluded["100416529"] = true
-exluded["101631238"] = true
-exluded["1141786504"] = true
-exluded["1198879012"] = true
-exluded["1233104067"] = true
-exluded["125959754"] = true
-exluded["126349499"] = true
-exluded["1305664598"] = true
-exluded["1317494643"] = true
-exluded["137902532"] = true
-exluded["1432025498"] = true
-exluded["1593441988"] = true
-exluded["1627465347"] = true
-exluded["1649403952"] = true
-exluded["1672152130"] = true
-exluded["171789620"] = true
-exluded["1737195953"] = true
-exluded["2017895192"] = true
-exluded["2024373456"] = true
-exluded["2132975508"] = true
-exluded["2138347493"] = true
-exluded["2144741730"] = true	
-exluded["2210333304"] = true
-exluded["2227010557"] = true	
-exluded["2343591895"] = true
-exluded["2460120199"] = true	
-exluded["2484171525"] = true
-exluded["2508868239"] = true
-exluded["2578377531"] = true
-exluded["2578778090"] = true	
-exluded["2640438543"] = true
-exluded["2726580491"] = true
-exluded["2828843422"] = true	
-exluded["2874559379"] = true
-exluded["2937143193"] = true
-exluded["2982836145"] = true
-exluded["3125143736"] = true
-exluded["317205821"] = true
-exluded["3173288789"] = true
-exluded["3218215474"] = true	 
-exluded["3219281620"] = true
-exluded["3220176749"] = true
-exluded["3231910285"] = true
-exluded["324215364"] = true	 
-exluded["3342088282"] = true	
-exluded["3441901897"] = true	 
-exluded["3523564046"] = true	 
-exluded["3638508604"] = true	
-exluded["3675956304"] = true	 
-exluded["3696079510"] = true
-exluded["3713923289"] = true	
-exluded["3800352039"] = true
-exluded["4019527611"] = true
-exluded["4024951519"] = true
-exluded["4191993645"] = true	
-exluded["4192643659"] = true
-exluded["419712736"] = true	
-exluded["453432689"] = true
-exluded["487013001"] = true
-exluded["584646201"] = true
-exluded["615608432"] = true
-exluded["736523883"] = true
-exluded["741814745"] = true
-exluded["883325847"] = true
-exluded["911657153"] = true
-exluded["940833800"] = true
-exluded["984333226"] = true
-exluded["extended_ap"] = true
-exluded["extended_micro"] = true
-exluded["extended_sns"] = true
-exluded["extended_tec9"] = true
-exluded["silencer_l"] = true
-exluded["silencer_l2"] = true
-exluded["silencer_s"] = true
-exluded["silencer_s2"] = true
-exluded["SmallScope"] = true
-exluded["sniperammo"] = true
-exluded["subammo"] = true
-exluded["TinyScope"] = true
-exluded["heavyammo"] = true
-exluded["lmgammo"] = true
-exluded["shotgunammo"] = true
-exluded["MediumScope"] = true
-exluded["pistolammo"] = true
+function isOwnerAndShop(inventoryName,isOwner) {
+    if (inventoryName.includes('player-Shop'))
+    {
+       if(isOwner && isPropertyOwner) {
+           return true
+       }
+       else {
+            if (!isPropertyOwner) {
+                return true
+            }
+            return false
+       }
+    }
+    return false
+}
+
+exluded['2578778090'] = true;
+exluded['1737195953'] = true;
+exluded['1317494643'] = true;
+exluded['2508868239'] = true;
+exluded['1141786504'] = true;
+exluded['2227010557'] = true;
+exluded['883325847'] = true;
+exluded['4192643659'] = true;
+exluded['2460120199'] = true;
+exluded['3638508604'] = true;
+exluded['4191993645'] = true;
+exluded['3713923289'] = true;
+exluded['2343591895'] = true;
+exluded['2484171525'] = true;
+exluded['419712736'] = true;
+exluded['-1810795771'] = true;
 
 $(document).ready(function () {
     $('.save-settings').click(() => {
@@ -200,14 +281,14 @@ $(document).ready(function () {
     });
 
     $(document).keydown((event) => {
-        let craft = TargetInventoryName === 'Craft';
+        let craft = TargetInventoryName.indexOf('Craft') > -1;
 
         if (event.keyCode === 67 && (!craft || $('#move-amount').is(':focus'))) {
             try {
                 if (_lastInfo) {
                     fallbackCopyTextToClipboard(_lastInfo);
                 }
-            } catch (err) {}
+            } catch (err) { }
         }
 
         //TODO: Get the +generalInventory key?
@@ -218,19 +299,32 @@ $(document).ready(function () {
         //if (isOverAmount) {
         if (!craft || (craft && isOverAmount) || $('#move-amount').is(':focus')) {
             if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {
-                amountEdit += event.key.toString();
-                if (parseInt(amountEdit) > 9999) {
-                    amountEdit = 9999;
-                }
-                if (parseInt(amountEdit) < 0) {
-                    amountEdit = 0;
-                }
-                $('#move-amount').val(amountEdit);
+                var dummyEl = document.getElementById('price-amount');
+                var isFocused = (document.activeElement === dummyEl);
+                if(!isFocused){
+                    amountEdit += event.key.toString();
+                    if (parseInt(amountEdit) > 9999) {
+                        amountEdit = 9999;
+                    }
+                    if (parseInt(amountEdit) < 0) {
+                        amountEdit = 0;
+                    }
+                    $('#move-amount').val(amountEdit);
 
-                //Update dragged item amount
-                if (isDragging && amountEdit) {
-                    let actualAmount = Math.min($('#draggedItem > img').data('amount'), amountEdit);
-                    $('#draggedItem > .information').html(actualAmount + ' (' + $('#draggedItem > img').data('weight').toFixed(2) + ')');
+                    //Update dragged item amount
+                    if (isDragging && amountEdit) {
+                        let actualAmount = Math.min($('#draggedItem > img').data('amount'), amountEdit);
+                        $('#draggedItem > .information').html(actualAmount + ' (' + $('#draggedItem > img').data('weight').toFixed(2) + ')');
+                    }
+                } else {
+                    priceEdit += event.key.toString();
+                    if (parseInt(priceEdit) > 99999) {
+                        priceEdit = 99999;
+                    }
+                    if (parseInt(priceEdit) < 0) {
+                        priceEdit = 0;
+                    }
+                    $('#price-amount').val(priceEdit);
                 }
             } else {
                 //Exceptions for shift, ctrl, caps, W/S, and Escape
@@ -244,14 +338,24 @@ $(document).ready(function () {
                     event.keyCode === 27
                 )
                     return;
-                amountEdit = '';
-                $('#move-amount').val(amountEdit);
 
-                //Reset dragged item amount
-                if (isDragging)
-                    $('#draggedItem > .information').html(
-                        $('#draggedItem > img').data('amount') + ' (' + $('#draggedItem > img').data('weight').toFixed(2) + ')',
-                    );
+
+                var dummyEl = document.getElementById('price-amount');
+                var isFocused = (document.activeElement === dummyEl);
+                if(!isFocused){
+
+                    amountEdit = '';
+                    $('#move-amount').val(amountEdit);
+
+                    //Reset dragged item amount
+                    if (isDragging)
+                        $('#draggedItem > .information').html(
+                            $('#draggedItem > img').data('amount') + ' (' + $('#draggedItem > img').data('weight').toFixed(2) + ')',
+                        );
+                } else {
+                    priceEdit = '';
+                    $('#price-amount').val(priceEdit);
+                }
             }
         } else {
             let searchString = $('.craftSearch').val().trim();
@@ -342,8 +446,8 @@ $(document).ready(function () {
         if (isDragging) {
             /* Move element with the mouse so it looks like we drag it.. */
             let ele = document.getElementById('draggedItem');
-            ele.style.left = event.clientX - 50 + 'px';
-            ele.style.top = event.clientY - 50 + 'px';
+            ele.style.left = event.clientX - (ele.offsetWidth / 2) + 'px';
+            ele.style.top = event.clientY - (ele.offsetHeight / 2) + 'px';
         }
     });
 
@@ -356,7 +460,14 @@ $(document).ready(function () {
             document.getElementById('wrapmain').innerHTML = '';
             document.getElementById('wrapsecondary').innerHTML = '';
             $('#app').fadeIn();
-            $('#containers-wrapper').slideDown(400);
+            $('#containers-wrapper').css({ display: "flex" }).slideDown(400).style;
+            $('.i18n-replace').each(function() {
+                $(this).text(_i18n($(this).text()));
+            });
+            $('.i18n-replace-placeholder').each(function() {
+                $(this).attr('placeholder', _i18n($(this).attr('placeholder')));
+            });
+            // $(".wrapsecondary").css({ height: "93%" });
         } else if (item.response == 'closeGui') {
             $('#app').fadeOut(100);
             $('#containers-wrapper').fadeOut(10);
@@ -374,16 +485,28 @@ $(document).ready(function () {
                 item.cash,
                 item.StoreOwner,
                 item.targetInvWeight,
+                item.targetInvSlots
             );
+            isPropertyOwner = item.isPropertyOwner
+
+            if(isPropertyOwner && item.targetinvName.includes('player-Shop')){
+                var priceInput = document.getElementById("price-amount");
+                priceInput.style.display = "block";
+            } else {
+                var priceInput = document.getElementById("price-amount");
+                priceInput.style.display = "none";
+            }
+
         } else if (item.response == 'PopulateSingle') {
-            PersonalWeight = 0;
+            personalWeight = 0;
             MyInventory = item.playerinventory;
             MyItemCount = item.itemCount;
             DisplayInventory(item.playerinventory, item.itemCount, item.invName, true);
             UpdateSetWeights(item.invName);
         } else if (item.response == 'cashUpdate') {
             userCash = item.amount;
-            userWeaponLicense = false
+            userWeaponLicense = item.weaponlicence;
+            userClass2WeaponLicense = item.class2license;
             brought = item.brought;
             isCop = item.cop;
         } else if (item.response == 'DisableMouse') {
@@ -442,6 +565,19 @@ $(document).ready(function () {
             $('input[name="enableCtrlMovesHalf"]').prop('checked', ctrlMovesHalf);
             $('input[name="enableShowTooltips"]').prop('checked', showTooltips);
             $('input[name="enableBlur"]').prop('checked', enableBlur);
+        } else if (item.response === 'playerWeight') {
+            personalMaxWeight = parseFloat(item.personalMaxWeight)
+        } else if (item.response === 'UpdateShopPrices') {
+
+            let singleShopInfo = new Map();
+
+            for (const key in item.shopinformation) {
+                const shopItem = item.shopinformation[key];
+                singleShopInfo.set(shopItem.item_id,shopItem.item_price)
+            }
+            shopPriceMap.set(item.shopid,singleShopInfo)
+
+            shopValidItems = item.shopValidItems;
         }
     });
 });
@@ -452,7 +588,7 @@ function UpdateQuality(data, penis) {
     let inventory = data.inventory;
 
     let divslot = 'secondaryslot' + data.slot;
-    if (inventory.indexOf('ply-') > -1) {
+    if (inventory.startsWith('ply-')) {
         divslot = 'playerslot' + data.slot;
     }
 
@@ -467,9 +603,9 @@ function UpdateQuality(data, penis) {
     let name = item.dataset.name;
     let itemcount = parseInt(item.dataset.amount);
     let itemid = item.dataset.itemid;
-    let image = itemList[itemid].image;
+    let image = getInvImage(itemList[itemid], item.dataset.info);
     let inventoryNumber = parseInt(item.dataset.inventory);
-    let info = JSON.parse(item.dataset.info);
+    let info = JSON.parse(unescape(item.dataset.info));
     let creationDate = parseInt(item.dataset.creationDate);
 
     let quality = ConvertQuality(itemid, data.creationDate);
@@ -528,7 +664,7 @@ function UpdateQuality(data, penis) {
         if (meta.indexOf('{}') === 0) {
             meta = meta.substring(2).trim();
         }
-    } catch (e) {}
+    } catch (e) { }
 
     let htmlstring =
         '<div ' +
@@ -540,13 +676,11 @@ function UpdateQuality(data, penis) {
         "px;'></div> <div class='itemname'> " +
         name +
         " </div> <div class='information'>  " +
-        itemcount +
-        ' (' +
-        weight +
-        ".00) </div>          <img src='icons/" +
-        image +
+        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>"
+        +
+        `<img src='${image}` +
         "' data-info='" +
-        info +
+        escape(info) +
         "' data-inventory='" +
         inventoryNumber +
         "' data-quality='" +
@@ -598,17 +732,16 @@ function UseBar(itemid, text, amount) {
     let htmlstring = '';
     let id = RandomGen(10);
     fadeOut = id;
-    image = itemList[itemid].image;
+    image = getInvImage(itemList[itemid]);
     name = itemList[itemid].displayname;
     htmlstring =
         " <div class='item3' > <div class='UseBarHead'> " +
-        text +
+        _i18n(text, 'actionbar') +
         ' ' +
         amount +
         "x  </div> <div class='itemname2'> " +
         name +
-        " </div> <img src='icons/" +
-        image +
+        ` </div> <img src='${image}` +
         "' class='itemimage'>  </div>";
 
     var p = document.getElementById('UseBar');
@@ -617,7 +750,7 @@ function UseBar(itemid, text, amount) {
     newElement.innerHTML = htmlstring;
     p.prepend(newElement);
 
-    $('#UseBar').fadeIn(1000);
+    $('#UseBar').css({ display: "flex" }).fadeIn(1000);
 
     setTimeout(() => {
         $(newElement).fadeOut(500);
@@ -649,14 +782,14 @@ function ToggleBar(toggle, boundItems, boundItemsAmmo) {
             }
 
             htmlstring =
-                "<div id='bind1'> 1 </div> <div class='item3' > <div class='itemname3'> " +
+                "<div class='item3'>" + "<div class='quickbind' id='bind1'>1</div>" + "<div class='itemname3'> " +
                 name +
                 " </div> <img src='icons/" +
                 image +
                 "' class='itemimage'>  </div>";
         } else {
             htmlstring =
-                "<div id='bind1'> 1 </div> <div class='item3' > <div class='itemname3'> unbound </div> <img src='icons/empty.png' class='itemimage'>  </div>";
+                "<div class='item3' ><div class='quickbind' id='bind1'> 1 </div><div class='itemname3'> unbound </div> <img src='icons/empty.png' class='itemimage'>  </div>";
         }
 
         for (let i = 2; i < 5; i++) {
@@ -670,11 +803,7 @@ function ToggleBar(toggle, boundItems, boundItemsAmmo) {
 
                 htmlstring =
                     htmlstring +
-                    "<div id='bind" +
-                    i +
-                    "'> " +
-                    i +
-                    " </div><div class='item3' > <div class='itemname3'> " +
+                    "<div class='item3' >" + "<div class='quickbind' id='bind" + i + "'> " + i + " </div>" + "<div class='itemname3'> " +
                     name +
                     " </div> <img src='icons/" +
                     image +
@@ -682,18 +811,14 @@ function ToggleBar(toggle, boundItems, boundItemsAmmo) {
             } else {
                 htmlstring =
                     htmlstring +
-                    "<div id='bind" +
-                    i +
-                    "'> " +
-                    i +
-                    " </div><div class='item3' > <div class='itemname3'> unbound </div> <img src='icons/empty.png' class='itemimage'>  </div>";
+                    "<div class='item3' >" + "<div class='quickbind' id='bind" + i + "'>" + i + "</div> " + "<div class='itemname3'> unbound </div> <img src='icons/empty.png' class='itemimage'>  </div>";
             }
         }
         document.getElementById('ActionBar').innerHTML = htmlstring;
 
-        $('#ActionBar').fadeIn(500);
+        $('#ActionBar').css({ display: "flex" }).fadeIn(500);
     } else {
-        $('#ActionBar').fadeOut(500);
+        $('#ActionBar').fadeOut(2000);
     }
 }
 
@@ -712,11 +837,11 @@ function invStack(
     purchase,
     itemCosts,
     itemidsent,
+    metainformation,
     amountmoving,
     crafting,
     weapon,
     amountRemaining,
-	
 ) {
     let arr = [
         targetSlot,
@@ -727,12 +852,12 @@ function invStack(
         purchase,
         itemCosts,
         itemidsent,
+        metainformation,
         amountmoving,
         crafting,
         weapon,
         PlayerStore,
         amountRemaining,
-		
     ];
     $.post('https://pw-inventory/stack', JSON.stringify(arr));
 }
@@ -745,10 +870,10 @@ function invMove(
     purchase,
     itemCosts,
     itemidsent,
+    metainformation,
+    amountmoving,
     crafting,
-	amountmoving,
     weapon,
-	PlayerStore,
 ) {
     let arr = [
         targetSlot,
@@ -757,9 +882,10 @@ function invMove(
         originInventory,
         purchase,
         itemCosts,
-        itemidsent,     
+        itemidsent,
+        metainformation,
+        amountmoving,
         crafting,
-		amountmoving,
         weapon,
         PlayerStore,
     ];
@@ -771,8 +897,8 @@ function invSwap(targetSlot, targetInventory, originSlot, originInventory, itemi
     $.post('https://pw-inventory/swap', JSON.stringify(arr));
 }
 
-function removeCraftItems(itemid, moveAmount) {
-    let arr = itemList[itemid].craft;
+function removeCraftItems(itemid, moveAmount, CraftArrayID) {
+    let arr = itemList[itemid].craft[CraftArrayID];
     let amount = moveAmount;
     $.post('https://pw-inventory/removeCraftItems', JSON.stringify([arr, amount]));
 }
@@ -781,17 +907,12 @@ function CreateEmptyPersonalSlot(slotLimit) {
     //Clear player slots
     $('#wrapmain').html('');
     for (i = 1; i < slotLimit + 1; i++) {
-        let htmlstring = "<div id='playerslot" + i + "' class='item' > </div>";
+        let htmlstring = "<div id='playerslot" + i + "' class='item'></div>";
 
-        if (i == 1) {
-            htmlstring = "<div id='playerslot" + i + "' class='item' > </div> <div id='bind1'> 1 </div> ";
-        } else if (i == 2) {
-            htmlstring = "<div id='playerslot" + i + "' class='item' > </div> <div id='bind2'> 2 </div>  ";
-        } else if (i == 3) {
-            htmlstring = "<div id='playerslot" + i + "' class='item' >  </div> <div id='bind3'> 3 </div> ";
-        } else if (i == 4) {
-            htmlstring = "<div id='playerslot" + i + "' class='item' >  </div> <div id='bind4'> 4 </div> ";
+        if (bindSlots.includes(i)) {
+            htmlstring = "<div id='playerslot" + i + "' class='item'><div id='bind" + i + "'>" + i + "</div></div>";
         }
+
         document.getElementById('wrapmain').innerHTML += htmlstring;
     }
 }
@@ -799,7 +920,7 @@ function CreateEmptyPersonalSlot(slotLimit) {
 function CreateEmptySecondarySlot(slotLimit) {
     let classColorName = 'default';
 
-    if (TargetInventoryName === 'Craft') {
+    if (TargetInventoryName.indexOf('Craft') > -1) {
         $('#wrapsecondary').addClass('craftGrid');
         return;
     }
@@ -842,7 +963,7 @@ let MyItemCount = 0;
 let StoreOwner = false;
 let PlayerStore = false;
 // weights are done here, based on the string of the inventory name
-function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinventory, targetitemCount, targetinvName, cash, Owner, targetInvWeight = 0) {
+function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinventory, targetitemCount, targetinvName, cash, Owner, targetInvWeight = 0, targetInvSlots = 40) {
     secondaryWeight = 0;
     StoreOwner = Owner;
     PlayerStore = false;
@@ -851,12 +972,13 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
     MyInventory = playerinventory;
     MyItemCount = itemCount;
 
-    let displayName = 'Kho đồ';
+
+    let displayName = 'Storage';
 
     if (targetinvName.indexOf('Drop') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 30;
-        displayName = 'Mặt đất';
+        displayName = 'Ground';
     } else if (targetinvName.indexOf('PlayerStore') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 2;
@@ -869,93 +991,243 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 100.0;
         slotLimitTarget = 5;
     } else if (targetinvName.indexOf('housing') > -1) {
-        secondaryMaxWeight = 400.0;
+        secondaryMaxWeight = 1200.0;
         slotLimitTarget = 40;
     } else if (targetinvName.indexOf('warehouse') > -1) {
-        secondaryMaxWeight = 3000.0;
-        slotLimitTarget = 100;
-    } else if (targetinvName.indexOf('motel1') > -1) {
+        secondaryMaxWeight = 6500.0;
+        slotLimitTarget = 1000;
+    } else if (targetinvName.indexOf('motel-1') > -1) {
         secondaryMaxWeight = 300.0;
         slotLimitTarget = 30;
-    } else if (targetinvName.indexOf('motel2') > -1) {
+    } else if (targetinvName.indexOf('motel-2') > -1) {
         secondaryMaxWeight = 600.0;
         slotLimitTarget = 50;
-    } else if (targetinvName.indexOf('motel3') > -1) {
-        secondaryMaxWeight = 900.0;
+    } else if (targetinvName.indexOf('motel-3') > -1) {
+        secondaryMaxWeight = 1000.0;
         slotLimitTarget = 90;
     } else if (targetinvName.indexOf('Glovebox') > -1) {
         secondaryMaxWeight = 50.0;
         slotLimitTarget = 5;
         displayName = 'Glovebox';
     } else if (targetinvName.indexOf('Trunk') > -1) {
-        secondaryMaxWeight = 1000.0;
-        slotLimitTarget = 20;
-        displayName = 'Cốp xe';
+        secondaryMaxWeight = 650.0;
+        slotLimitTarget = 65;
+        displayName = 'Trunk';
     } else if (targetinvName.indexOf('Craft') > -1) {
-        slotLimitTarget = 90;
-        displayName = 'Chế tạo';
+        slotLimitTarget = 100;
+        displayName = 'Crafting';
     } else if (targetinvName.indexOf('hidden') > -1) {
         secondaryMaxWeight = 2000.0;
         slotLimitTarget = 200;
         displayName = 'Stash';
+        if (targetinvName.indexOf('Apartments') > -1) {
+            secondaryMaxWeight = 1000.0;
+            slotLimitTarget = 30;
+            displayName = 'Apartment Floor';
+        }
     } else if (targetinvName.indexOf('evidence') > -1) {
-        secondaryMaxWeight = 4000.0;
-        slotLimitTarget = 100;
+        secondaryMaxWeight = 12000.0;
+        slotLimitTarget = 400;
         displayName = 'Evidence';
-	} else if (targetinvName.indexOf('PoliceBox') > -1) {
-        secondaryMaxWeight = 4000.0;
-        slotLimitTarget = 200;
-        displayName = 'Kho cảnh sát';
-	} else if (targetinvName.indexOf('MechanicBox') > -1) {
-        secondaryMaxWeight = 4000.0;
-        slotLimitTarget = 200;
-        displayName = 'Kho cứu hộ';		
     } else if (targetinvName.indexOf('Case') > -1) {
         secondaryMaxWeight = 4000.0;
-        slotLimitTarget = 200;
-        displayName = 'Case: ' + targetinvName;
+        slotLimitTarget = 400;
+        displayName = 'Case';
     } else if (targetinvName.indexOf('docks') > -1) {
         secondaryMaxWeight = 20000.0;
         slotLimitTarget = 2000;
     } else if (targetinvName.indexOf('trash') > -1) {
-        secondaryMaxWeight = 4000.0;
-        slotLimitTarget = 200;
+        secondaryMaxWeight = 12000.0;
+        slotLimitTarget = 400;
         displayName = 'Trash';
     } else if (targetinvName.indexOf('personal') > -1) {
-        secondaryMaxWeight = 150.0;
+        secondaryMaxWeight = 250.0;
         slotLimitTarget = 5;
     } else if (targetinvName.indexOf('Stolen-Goods') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 5;
+    } else if (targetinvName.indexOf('bizlarge') === 0) {
+        secondaryMaxWeight = 5000.0;
+        slotLimitTarget = 800;
     } else if (targetinvName.indexOf('biz') === 0) {
         secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
+        slotLimitTarget = 400;
     } else if (targetinvName.indexOf('Shop') > -1) {
         displayName = 'Shop';
-        secondaryMaxWeight = 2000.0;
+        secondaryMaxWeight = 50000.0;
+        slotLimitTarget = 50;
+    } else if (targetinvName.startsWith('ply')) {
+        secondaryMaxWeight = 250.0;
         slotLimitTarget = 40;
-    } else if (targetinvName.indexOf('steam') > -1) {
-        secondaryMaxWeight = 100.0;
-        slotLimitTarget = 40;
-        displayName = 'Túi người khác';
+        displayName = 'Other Player';
     } else if (targetinvName.indexOf('rifle-rack') > -1) {
-        secondaryMaxWeight = 25.0;
-        slotLimitTarget = 2;
-        displayName = 'Rifle Rack';
-    } else if (targetinvName.indexOf('mechanic') > -1) {
-        secondaryMaxWeight = 3000.0;
+        secondaryMaxWeight = 250.0;
+        slotLimitTarget = 10;
+        displayName = 'Locked Compartment';
+    } else if (targetinvName.indexOf('fisher-bucket-') > -1) {
+        secondaryMaxWeight = 99.0;
+        slotLimitTarget = 99;
+        displayName = 'Fisher Bucket';
+    } else if (targetinvName.indexOf('burgerjob_shelf') > -1 || targetinvName.startsWith('restaurants_shelf')) {
+        secondaryMaxWeight = 300.0;
         slotLimitTarget = 40;
-        displayName = 'Kho Mechanic'
-    } else if (targetinvName.indexOf('burgerjob_counter') > -1) {
+        displayName = 'Food Shelf'
+    } else if (targetinvName.indexOf('trays') > -1 || targetinvName.indexOf('burgerjob_window') > -1) {
+        secondaryMaxWeight = 110.0;
+        slotLimitTarget = 10;
+
+        // Figure out display name from targetinvName
+        const splitName = targetinvName.split("-");
+        displayName = splitName[1];
+
+        if (targetinvName.indexOf('burgerjob_window') > -1) {
+            displayName = "Window Tray"
+        }
+
+    } else if (targetinvName.startsWith('paynless-') || targetinvName.startsWith('rr_hotel-') || targetinvName.startsWith('casino_hotel-')) {
+        slotLimitTarget = 40;
+        displayName = 'Storage Container'
+        const splitName = targetinvName.split("-");
+        if (splitName[2] && typeof parseInt(splitName[2]) === "number") {
+            secondaryMaxWeight = parseInt(splitName[2]);
+        }
+    } else if (targetinvName.indexOf('burgerjob_fridge') > -1) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 100;
+        displayName = 'Ingredient Storage';
+    } else if (targetinvName.indexOf('gallery_gemtrade') > -1) {
+        secondaryMaxWeight = 10.0;
+        slotLimitTarget = 10;
+        displayName = 'Gem Table';
+    } else if (targetinvName.indexOf('casino bag') > -1) {
+        secondaryMaxWeight = 10.0;
+        slotLimitTarget = 10;
+        displayName = 'Casino Bag';
+    } else if (targetinvName.startsWith('container')) {
+        let invname = targetinvName.split("-");
+        displayName = invname[2];
+
+        if (targetinvName.endsWith('_Oil-pumpinventory')) {
+            displayName = 'Oil Pump Parts'
+        }
+    } else if (targetinvName.startsWith('RR_Tavern_Storage')) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 100;
+        displayName = 'Ingredient Storage';
+    } else if (targetinvName.startsWith('digital_den_counter')) {
+        secondaryMaxWeight = 350.0;
+        slotLimitTarget = 10;
+        displayName = 'Counter';
+    } else if (targetinvName.startsWith('pixel_perfect_counter')) {
+        secondaryMaxWeight = 350.0;
+        slotLimitTarget = 10;
+        displayName = 'Counter';
+    } else if (targetinvName.startsWith('business:counter:')) {
+        secondaryMaxWeight = 350.0;
+        slotLimitTarget = 20;
+        displayName = 'Counter';
+    } else if (targetinvName.startsWith('farmersmarket_inventory_')) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 50;
+        displayName = 'Booth';
+    } else if (targetinvName.startsWith('tcg_truck_tailgate_')) {
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 5;
+        displayName = 'Tailgate';
+    } else if (targetinvName.startsWith('comic_shop_appraisal_')) {
+        secondaryMaxWeight = 10.0;
+        slotLimitTarget = 50;
+        displayName = 'Appraisal Counter';
+    } else if (targetinvName.startsWith('mayor_stash')) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 50;
+        displayName = 'Mayor Stash';
+    } else if (targetinvName.startsWith('display-case-')) {
+        secondaryMaxWeight = 10.0;
+        slotLimitTarget = 5;
+        displayName = 'Display Case';
+    } else if (targetinvName.startsWith('mobile-stash-small_')) {
+        secondaryMaxWeight = 100.0;
+        slotLimitTarget = 5;
+        displayName = 'Small Mobile Stash';
+    } else if (targetinvName.startsWith('mobile-stash-medium_')) {
+        secondaryMaxWeight = 250.0;
+        slotLimitTarget = 7;
+        displayName = 'Medium Mobile Stash';
+    } else if (targetinvName.startsWith('mobile-stash-big_')) {
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 10;
+        displayName = 'Big Mobile Stash';
+    } else if (targetinvName.startsWith('mobile-stash-canister_')) {
+        secondaryMaxWeight = 100.0;
+        slotLimitTarget = 1;
+        displayName = 'Canister';
+    } else if (targetinvName.indexOf('prison:stash') > -1) {
+        displayName = 'Stash';
+        secondaryMaxWeight = 250.0;
+    } else if (targetinvName === 'gooddropoff') {
+        displayName = 'Dropoff'
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 100;
+    } else if (targetinvName === 'scrapyardscrap') {
+        displayName = 'Scrapyard'
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 20;
+    } else if (targetinvName === 'comicshop_recycle') {
+        displayName = 'Comic Shop Recycle'
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 20;
+    } else if (targetinvName.startsWith('mobile-stash-containersmall_')) {
+        secondaryMaxWeight = 500.0;
+        slotLimitTarget = 50;
+        displayName = 'Small Mobile Container';
+    } else if (targetinvName.startsWith('mobile-stash-containermedium_')) {
+        secondaryMaxWeight = 750.0;
+        slotLimitTarget = 50;
+        displayName = 'Medium Mobile Container';
+    } else if (targetinvName.startsWith('mobile-stash-containerbig_')) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 50;
+        displayName = 'Big Mobile Container';
+    } else if (targetinvName.startsWith('mobile-stash-bodybag_')) {
         secondaryMaxWeight = 100.0;
         slotLimitTarget = 10;
-        displayName = 'Pickup Order';
-    }else {
-        secondaryMaxWeight = 700.0;
+        displayName = 'Bodybag';
+    } else if (targetinvName.startsWith('mobile-stash-fridge_')) {
+        secondaryMaxWeight = 10.0;
+        slotLimitTarget = 5;
+        displayName = 'Fridge';
+    } else if (targetinvName.startsWith('mailbox')) {
+        secondaryMaxWeight = 300.0;
+        slotLimitTarget = 30;
+        displayName = 'Mailbox';
+    } else if (targetinvName.startsWith('shop-stash')) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 50;
+        displayName = 'Shop Stash';
+    } else if (targetinvName.startsWith('mailtemp')) {
+        secondaryMaxWeight = 110.0;
+        slotLimitTarget = 5;
+        displayName = 'Mailbox';
+    } else if (targetinvName.startsWith('mobile-stash-loot_')) {
+        secondaryMaxWeight = 300.0;
+        slotLimitTarget = 40;
+        displayName = 'Body Remains';
+    } else if (targetinvName.startsWith('arcade-ply-')) {
+        secondaryMaxWeight = 250.0;
+        slotLimitTarget = 40;
+        displayName = 'Arcade Inventory';
+    } else if (targetinvName.startsWith('arcade-lobby-')) {
+        secondaryMaxWeight = 250.0;
+        slotLimitTarget = 40;
+        displayName = 'Arcade Lobby Inventory';
+    } else {
+        secondaryMaxWeight = 250.0;
         slotLimitTarget = 40;
     }
 
-      if (targetInvWeight != 0) secondaryMaxWeight = targetInvWeight;
+    if (targetInvWeight != 0) secondaryMaxWeight = targetInvWeight;
+    if (targetInvSlots != 40) slotLimitTarget = targetInvSlots;
 
     //InventoryLog(targetinvName + " | " + invName)
     DisplayInventory(targetinventory, targetitemCount, targetinvName, false);
@@ -989,9 +1261,10 @@ function produceInfo(data) {
 }
 
 function DisplayInventory(sqlInventory, itemCount, invName, main) {
+	
     clicking = false;
     sqlInventory = JSON.parse(sqlInventory);
-    let maxWeight = 150;
+    let maxWeight = 250;
     let slotLimit = 40;
 
     let inventory = {};
@@ -1053,6 +1326,10 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
     }
 
     let inventoryName = invName;
+    let shopPriceData;
+    if (shopPriceMap.get(inventoryName)){
+        shopPriceData = shopPriceMap.get(inventoryName)
+    }
 
     if (itemCount != 0) {
         inventoryName = ' Error grabbing item names.';
@@ -1069,12 +1346,11 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
 
                 inventoryName = inventory[slot].inventoryName;
 
-                let weight = itemList[itemid].weight;
-                let item_cost = itemList[itemid].price;
+                let weight = parseFloat(itemList[itemid].weight);
+                let item_cost = itemList[itemid].priceWithTax;
 
                 let stackable = !itemList[itemid].nonStack;
-                let image = itemList[itemid].image;
-
+                let image = getInvImage(itemList[itemid], inventory[i].information);
                 let name = itemList[itemid].displayname;
 
                 let meta = inventory[i].information;
@@ -1086,12 +1362,18 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     meta = '';
                 }
 
+                if(shopPriceData){
+                    if (shopPriceData.get(itemid))
+                        item_cost = shopPriceData.get(itemid);
+                }
+
+                
                 try {
                     const obj = JSON.parse(meta);
                     if (obj.hideInfo) {
                         meta = '';
                     }
-                } catch (err) {}
+                } catch (err) { }
 
                 let keysToFilter = [];
                 try {
@@ -1099,19 +1381,38 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (obj._hideKeys) {
                         keysToFilter = obj._hideKeys;
                     }
-                } catch (err) {}
+                    if (obj._hideAllKeys) {
+                        keysToFilter = Object.keys(obj);
+                    }
+                } catch (err) { }
+
+                keysToFilter = [...keysToFilter, '_description', '_name', '_image_url', '_crafted', '_factory', '_hideKeys', '_hideAllKeys'];
 
                 try {
                     const obj = JSON.parse(meta);
                     const keys = Object.keys(obj);
-                    const newMeta = keys.filter((k) => k !== '_hideKeys' && !keysToFilter.includes(k)).map((k) => `${k}: ${obj[k]}`);
+                    const newMeta = keys.filter((k) => k !== '_hideKeys' && !keysToFilter.includes(k) && obj[k] !== null && typeof obj[k] !== 'undefined')
+                        .map((k) => {
+                            if (timestampColumns[k]) {
+                                return `${timestampColumns[k]}: ${calculateTimeDiff(obj[k])}`;
+                            }
+                            return `${_i18n(k, 'metakey:1372')}: ${obj[k].toString().replace(/'|"/g, '')}`;
+                        });
                     meta = newMeta.join(' | ');
-                } catch (err) {}
+                } catch (err) {
+					console.log('dsa')
+                    console.log(err)
+                }
 
                 let quality = inventory[i].quality;
-
                 if (itemList[itemid].information) {
                     meta = meta ? meta + '<br><br>' + itemList[itemid].information : itemList[itemid].information;
+                }
+                if (itemList[itemid].foodCategory) {
+                    meta = `${meta}<br><br>Food categories: ${[...itemList[itemid].foodCategory].map(f => capitalizeFirstLetter(f)).join(', ')}`;
+                    (itemList[itemid].__og_food_cats || itemList[itemid].foodCategory).forEach((cat) => {
+                        meta = `${meta}<br>${_i18n(foodCatMaps[cat], 'foodCatMaps')}`;
+                    });
                 }
 
                 let stackString = '(nS)';
@@ -1140,13 +1441,6 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                 if (quality == 100) {
                     itemMaxed = "class='perfect'";
                 }
-				
-				/* $.post("http://pw-inventory/updateMyQuality", JSON.stringify({
-				item_id: itemid,
-				slot: slot,
-				quality: quality
-				})); */
-
 
                 if (quality == 0) {
                     qualityText = 'Destroyed';
@@ -1165,7 +1459,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (meta.indexOf('{}') === 0) {
                         meta = meta.substring(2).trim();
                     }
-                } catch (e) {}
+                } catch (e) { }
                 let htmlstring =
                     '<div ' +
                     itemMaxed +
@@ -1176,11 +1470,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     "%;'></div> <div class='itemname'> " +
                     name +
                     " </div> <div class='information'>  " +
-                    itemcount +
-                    ' (' +
-                    weight +
-                    ".00) </div>          <img src='icons/" +
-                    image +
+                    "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span></div>"
+                    + `<img src='${image}` +
                     "' data-inventory='" +
                     inventoryNumber +
                     "' data-quality='" +
@@ -1190,7 +1481,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     "' data-name='" +
                     name +
                     "' data-info='" +
-                    info +
+                    escape(info) +
                     "' data-metainformation='" +
                     meta +
                     "' data-itemid='" +
@@ -1209,23 +1500,28 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     inventoryName +
                     "' class='itemimage' draggable='false'>";
 
-                if (TargetInventoryName == 'Shop' && !main) {
-                    /* if (sqlInventory[i - 1].amount === undefined) {
+                if (bindSlots.includes(parseInt(slot)) && inventoryName.includes("ply-")) {
+                    htmlstring += "<div id='bind" + slot + "'>" + slot + "</div>";
+                }
+
+                const isPlayerShop = TargetInventoryName.includes('player-Shop');
+
+                if ((TargetInventoryName == 'Shop' || isPlayerShop) && !main) {
+                    /*if (sqlInventory[i - 1].amount === undefined) {
                         itemcount = 10;
                     } else {
                         itemcount = sqlInventory[i - 1].amount;
-                    } */
-                     itemcount = 9999;
+                    }*/
+
+                    //Quick fix for joint shop, we lazy
+                    if (itemid !== "joint" && !isPlayerShop) itemcount = 9999;
 
                     htmlstring =
                         "<div class='itemname itemnameShop'> " +
                         name +
-                        " </div> <div class='information'>  " +
-                        (!stackable ? '1' : '') +
-                        ' (' +
-                        weight +
-                        ".00) </div>          <img src='icons/" +
-                        image +
+                        " </div> <div class='information shopInformation'>  " +
+                        "<span class='item-qty'>" + (isPlayerShop ? itemcount + 'x'  : !stackable ? '1' : '') + " </span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>"
+                        + `</div> <img src='${image}` +
                         "' data-inventory='" +
                         inventoryNumber +
                         "' data-creationDate='" +
@@ -1235,7 +1531,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "' data-name='" +
                         name +
                         "' data-info='" +
-                        info +
+                        escape(info) +
                         "' data-metainformation='" +
                         meta +
                         "' data-fwewef='" +
@@ -1252,7 +1548,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         weight +
                         "' data-inventoryname='" +
                         inventoryName +
-                        "' class='itemimage smaller' draggable='false'><div class='itemcost'><span class='money'>" +
+                        "' class='itemimage smaller' draggable='false'><div class='itemcost'><span class='money'> $" +
                         Number(item_cost).toLocaleString('en') +
                         '</span></div>';
                 }
@@ -1272,9 +1568,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         " </div> <div class='information'>  " +
                         itemcount +
                         ' (' +
-                        weight +
-                        ".00) </div>          <img src='icons/" +
-                        image +
+                        weight.toFixed(2) +
+                        `) </div>          <img src='${image}` +
                         "' data-inventory='" +
                         inventoryNumber +
                         "' data-creationDate='" +
@@ -1284,7 +1579,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "' data-name='" +
                         name +
                         "' data-info='" +
-                        info +
+                        escape(info) +
                         "' data-metainformation='" +
                         meta +
                         "' data-fwewef='" +
@@ -1304,8 +1599,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "' class='itemimage' draggable='false'>";
                 }
 
-                if (TargetInventoryName == 'Craft' && !main) {
-                    if (sqlInventory[i - 1].amount === undefined) {
+                if (TargetInventoryName.indexOf('Craft') > -1 && !main) {
+                    if (sqlInventory[i - 1] === undefined || sqlInventory[i - 1].amount === undefined) {
                         itemcount = 1;
                     } else {
                         itemcount = sqlInventory[i - 1].amount;
@@ -1313,27 +1608,30 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
 
                     let requirementHtml = '<b>None</b>';
                     if (itemList[itemid].craft !== undefined && invName.indexOf('Craft') > -1) {
-                        let requirements = itemList[itemid].craft;
                         requirementHtml = '';
-                        for (let xx = 0; xx < requirements.length; xx++) {
-                            //meta = meta + '<br>' + itemList[requirements[xx].itemid].displayname + ': ' + requirements[xx].amount;
-                            let requirementName = itemList[requirements[xx].itemid].displayname;
-                            let requiredClasses = 'requirementName';
+                        let requirementsArray = itemList[itemid].craft;
+                        let ArrayCount = 0
+                        for (let ArrayX = 0; ArrayX < requirementsArray.length; ArrayX++) {
+                            ArrayCount++
+                            let requirements = requirementsArray[ArrayX]
 
-                            if (requirementName.length > 15) {
-                                requiredClasses += ' requirementSmall';
+                            for (let xx = 0; xx < requirements.length; xx++) {
+                                let requirementName = itemList[requirements[xx].itemid].displayname;
+                                let requiredClasses = 'requirementSmall';
+
+                                requirementHtml +=
+                                    "<img id='requirementImage' src='icons/" +
+                                    itemList[requirements[xx].itemid].image +
+                                    "' /><span class=' " + requiredClasses + "'>" +
+                                    requirementName +
+                                    ": </span><span class=' " + requiredClasses + "'>" +
+                                    requirements[xx].amount + "</span>" +
+                                    '<br>';
+                            }
+                            if (ArrayCount < requirementsArray.length) {
+                                requirementHtml += ' <hr> ';
                             }
 
-                            requirementHtml +=
-                                "<img id='requirementImage' src='icons/" +
-                                itemList[requirements[xx].itemid].image +
-                                "' /><span class=' " +
-                                requiredClasses +
-                                "'>" +
-                                requirementName +
-                                '</span>: ' +
-                                requirements[xx].amount +
-                                '<br>';
                         }
                     }
 
@@ -1343,11 +1641,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "'><div class='itemname'> " +
                         name +
                         " </div> <div class='information'> " +
-                        itemcount +
-                        ' (' +
-                        weight +
-                        ".00) </div>          <img src='icons/" +
-                        image +
+                        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span>"
+                        + `</div> <img src='${image}` +
                         "' data-inventory='" +
                         inventoryNumber +
                         "' data-creationDate='" +
@@ -1357,7 +1652,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "' data-name='" +
                         name +
                         "' data-info='" +
-                        info +
+                        escape(info) +
                         "' data-metainformation='" +
                         meta +
                         "' data-fwewef='" +
@@ -1378,7 +1673,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         requirementHtml +
                         '</div></div>';
                     $('#wrapsecondary').html($('#wrapsecondary').html() + fill);
-                    secondaryWeight = secondaryWeight + weight * itemCount;
+                    secondaryWeight = Math.max(secondaryWeight + weight * itemCount, 0);
                     continue;
                 }
 
@@ -1390,7 +1685,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (slot != 0) {
                         document.getElementById('secondaryslot' + slot).innerHTML = htmlstring;
 
-                        secondaryWeight = secondaryWeight + weight * itemcount;
+                        secondaryWeight = Math.max(secondaryWeight + weight * itemcount, 0);
                     }
                 }
             }
@@ -1420,67 +1715,60 @@ function ConvertQuality(itemID, creationDate) {
 
 function UpdateSetWeights(secondaryName) {
     let shop = false;
-    if (TargetInventoryName === 'Shop') {
+    if (TargetInventoryName === 'Shop'|| TargetInventoryName.includes('player-Shop')) {
         shop = true;
     }
 
     let craft = false;
-    if (TargetInventoryName === 'Craft') {
+    if (TargetInventoryName.indexOf('Craft') > -1) {
         craft = true;
     }
 
-    if (!$('#playerWeight').html() || $('#secondaryInvName').attr('title') !== TargetInventoryName) {
-        $('#wrapPersonalWeight').html(
-            "<h2 title='" +
-                PlayerInventoryName +
-                "'>Player</h2>" +
-                "<div class='weightcontainer'><img src='weight-hanging-solid.png' id='weight-hanger' class='weight-hanging' /><div class='weightbar'>" +
-                "<div id='playerWeight' class='weightfill' style='width:" +
-                (personalWeight / personalMaxWeight) * 100 +
-                "%;'><span class='weight-current'>" +
-                personalWeight.toFixed(2) +
-                "</span></div></div><span class='weight-max'>" +
-                personalMaxWeight.toFixed(2) +
-                '</span></div>',
-        );
+    if (!$('#mainInvHeading').html() || $('#secondaryInvName').attr('title') !== TargetInventoryName) {
+        let mainHeader = `
+            <h1 id='mainInvName' class='inventory-name' title='${PlayerInventoryName}'>${_i18n('Player', 'player')}</h1>
+            <div class="inventory-weight">
+                <span id='playerWeight'>${personalWeight.toFixed(0)}</span>/${personalMaxWeight.toFixed(0)}
+            </div>
+            <div class='weightbar'><div id='playerWeightBar' class='weightfill' style='width:${(personalWeight / personalMaxWeight) * 100}%;'></div></div>
+        `;
+
+        $("#mainInvHeading").html(mainHeader)
 
         if (!secondaryName && $('#secondaryInvName').attr('title') !== TargetInventoryName) secondaryName = 'Ground';
 
-        let secondaryHeader = "<h2 id='secondaryInvName' title='" + TargetInventoryName + "'>" + secondaryName + '</h2>';
-        if (shop) {
-            secondaryHeader +=
-                "<div class='cashcontainer'>Tiền mặt hiện có <span class='money'>" +
-                Number(userCash).toLocaleString('en') +
-                '</span> để mua</div>';
-        } else if (craft) {
-            secondaryHeader +=
-                "<img src='search-solid.png' id='weight-hanger' class='searchIcon' /><input type='text' name='craftSearch' placeholder='Search' class='craftSearch'>";
-        } else {
-            secondaryHeader +=
-                "<div class='weightcontainer'><img src='weight-hanging-solid.png' id='weight-hanger' class='weight-hanging' /><div class='weightbar'>" +
-                "<div id='secondaryWeight' class='weightfill' style='width:" +
-                (secondaryWeight / secondaryMaxWeight) * 100 +
-                "%;'><span class='weight-current'>" +
-                secondaryWeight.toFixed(2) +
-                "</span></div></div><span class='weight-max'>" +
-                secondaryMaxWeight.toFixed(2) +
-                '</span></div>';
+        let secondaryHeader = `<h1 id='secondaryInvName' class='inventory-name' title='${TargetInventoryName}'>${_i18n(secondaryName, 'secondaryName')}</h1>`;
+
+        if (!shop && !craft) {
+            secondaryHeader += `
+                <div class="inventory-weight"><span id='secondaryWeight'>${secondaryWeight.toFixed(0)}</span>/${secondaryMaxWeight.toFixed(0)}</div>
+                <div class='weightbar'><div id='secondaryWeightBar' class='weightfill' style='width:${(secondaryWeight / secondaryMaxWeight) * 100}%;'></div></div>
+            `;
         }
-        $('#wrapSecondaryWeight').html(secondaryHeader);
-    } else {
-        //Update weights
-        $('#playerWeight').css('width', (personalWeight / personalMaxWeight) * 100 + '%');
-        animateValue('playerWeight', $('#playerWeight').text(), personalWeight.toFixed(2), 1000);
+
+        $(".craftingSearch").css({ display: craft ? "flex" : "none" });
+        $(".cashcontainer").css({ display: shop ? "block" : "none" });
+
 
         if (shop) {
-            $('.money').eq(0).text(Number(userCash).toLocaleString('en'));
+            document.getElementById('invShopMoney').innerHTML = Number(userCash).toLocaleString('en');
+        }
+
+        $("#secondaryInvHeading").html(secondaryHeader)
+    } else {
+        //Update weights
+        $('#playerWeightBar').css('width', (personalWeight / personalMaxWeight) * 100 + '%');
+        animateValue('playerWeight', $('#playerWeight').text(), personalWeight.toFixed(0), 1000);
+
+        if (shop) {
+            if (document.getElementById('invShopMoney')) {
+                document.getElementById('invShopMoney').innerHTML = Number(userCash).toLocaleString('en');
+            }
         } else if (craft) {
             //??
         } else {
-            $('#secondaryWeight')
-                .css('width', (secondaryWeight / secondaryMaxWeight) * 100 + '%')
-                .text();
-            animateValue('secondaryWeight', $('#secondaryWeight').text(), secondaryWeight.toFixed(2), 1000);
+            $('#secondaryWeightBar').css('width', (secondaryWeight / secondaryMaxWeight) * 100 + '%');
+            animateValue('secondaryWeight', $('#secondaryWeight').text(), secondaryWeight.toFixed(0), 1000);
         }
     }
 
@@ -1504,8 +1792,6 @@ $(document).on('mousedown mouseup', (event) => {
     if (
         element.id === 'CurrentInformation' ||
         element.id === 'Logs' ||
-        element.id === 'wrapPersonalWeight' ||
-        element.id === 'wrapSecondaryWeight' ||
         element.id === 'wrapmain' ||
         element.id === 'wrapsecondary' ||
         element.id === 'inventory-wrapper' ||
@@ -1514,7 +1800,12 @@ $(document).on('mousedown mouseup', (event) => {
         element.id === 'weight-hanger' ||
         element.id === 'playerWeight' ||
         element.id === 'secondaryInvName' ||
-        element.id === 'requirementImage'
+        element.id === 'requirementImage' ||
+        element.id === 'secondaryInvHeading' ||
+        element.id === 'mainInvHeading' ||
+        element.id === 'secondaryInv' ||
+        element.id === 'mainInv'
+
     ) {
         if (isDragging) EndDrag(draggingid);
         else if (element.id === 'containers-wrapper' && closeOnClick && event.button === 0) closeInv(); //Close when clicking outside inventory (Left click only)
@@ -1537,21 +1828,20 @@ $(document).on('mousedown mouseup', (event) => {
         }
     }
 
-    let isImg = element.nodeName.toLowerCase() === 'img';
+    const isImg = element.nodeName.toLowerCase() === 'img';
 
-    if (isImg == true) {
-        element = element.parentNode.id;
-        DisplayInformation(element);
+    const _element = isImg ? element.parentNode : element;
 
-        //Middle mouse click
-        if (event.button === 1) {
-            DragToggle(element, true, event);
-            useitem();
-        } else {
-            DragToggle(element, false, event);
-        }
+    if (isImg) {
+        DisplayInformation(_element.id);
+    }
+
+    //Middle mouse click
+    if (event.button === 1) {
+        DragToggle(_element.id, true, event);
+        useitem();
     } else {
-        DragToggle(element.id, false, event);
+        DragToggle(_element.id, false, event);
     }
 });
 
@@ -1581,14 +1871,14 @@ function DragToggle(fromSlot, isUsing, mouseEvent) {
     }
 
     let moveAmount = parseInt(document.getElementById('move-amount').value);
-    let shopOrCraft = TargetInventoryName == 'Shop' || TargetInventoryName == 'Craft' || PlayerStore;
+    let shopOrCraft = TargetInventoryName == 'Shop' || TargetInventoryName.indexOf('Craft') > -1 || PlayerStore || TargetInventoryName.includes('player-Shop');
 
     if (!moveAmount) {
         if (shopOrCraft) {
             document.getElementById('move-amount').value = 1;
             moveAmount = 1;
         } else {
-            //document.getElementById("move-amount").value = 1;
+            //document.getElementById("move-amount").value = 0;
             moveAmount = 0;
         }
     }
@@ -1599,7 +1889,7 @@ function DragToggle(fromSlot, isUsing, mouseEvent) {
         let c = document.getElementById(fromSlot).children.length;
 
         let occupiedslot = false;
-        if (c > 0) {
+        if (c > 1) {
             /* Here we declare if there is already an item in the slot we are dragging too by checking if there is an existing child node. */
             occupiedslot = true;
         }
@@ -1610,7 +1900,7 @@ function DragToggle(fromSlot, isUsing, mouseEvent) {
             isDragging = true;
             draggingid = fromSlot;
 
-            $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
+            // $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
 
             let draggedItemHtml = document.getElementById(draggingid).innerHTML;
             document.getElementById('draggedItem').innerHTML = draggedItemHtml;
@@ -1625,11 +1915,11 @@ function DragToggle(fromSlot, isUsing, mouseEvent) {
                 $('#draggedItem > .information').html(actualAmount + ' (' + $('#draggedItem > img').data('weight').toFixed(2) + ')');
             }
             //If we're using the item or in crafting, don't shift/ctrl move it.
-            if (isUsing || (TargetInventoryName === 'Craft' && fromSlot.includes('player'))) return;
+            if (isUsing || (TargetInventoryName.indexOf('Craft') > -1 && fromSlot.includes('player'))) return;
 
             //If we're in a shop/craft and ctrl or shift click, just do non-half move b/c a half move would fail
             if ((mouseEvent.shiftKey || mouseEvent.ctrlKey) && shopOrCraft && fromSlot.includes('secondary')) {
-                FindNextSlotAndMove(false);
+                // FindNextSlotAndMove(false);
                 return;
             }
 
@@ -1652,7 +1942,7 @@ function DragToggle(fromSlot, isUsing, mouseEvent) {
         }
 
         if (!occupiedslot && isDragging) {
-            $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
+            // $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
             /* Here we are droping an item to an open slot - I guess we should check waits etc to confirm this is allowed before doing so. */
             AttemptDropInEmptySlot(fromSlot, false);
         }
@@ -1680,12 +1970,14 @@ function FindNextSlotAndMove(half) {
     for (let i = 1; i <= slotCounter; i++) {
         let foundSlot = moveToSlotName + i;
         let c = document.getElementById(foundSlot).children.length;
-        if (c == 0) {
+        if (c == 0 || (c == 1 && document.getElementById(foundSlot).children[0].id.startsWith('bind'))) {
             if (!firstEmpty) firstEmpty = foundSlot;
         } else {
             let existingItem = $('#' + foundSlot + ' > img');
             let stackItem = $('#' + draggingid + ' > img');
-            if (existingItem.data('itemid') === stackItem.data('itemid') && existingItem.data('stackable')) {
+            const metadata1 = stackItem.data('info');
+            const metadata2 = existingItem.data('info');
+            if (existingItem.data('stackable') && existingItem.data('itemid') === stackItem.data('itemid') && isMetadataEqual(metadata1, metadata2)) {
                 stackSlot = foundSlot;
             }
         }
@@ -1696,7 +1988,7 @@ function FindNextSlotAndMove(half) {
         //Stack items
         AttemptDropInFilledSlot(stackSlot);
     } else if (firstEmpty) {
-        $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
+        // $.post('https://pw-inventory/SlotInuse', JSON.stringify(parseInt(draggingid.replace(/\D/g, ''))));
         AttemptDropInEmptySlot(firstEmpty, false, half);
     }
 }
@@ -1737,7 +2029,7 @@ function searchUpdate() {
 
 function ErrorCheck(startingInventory, inventoryDropName, movementWeight) {
     let sameInventory = true;
-    let ErrorReason = 'Success';
+    let ErrorReason = _i18n('Success', 'error-check');
 
     if (inventoryDropName == 'wrapsecondary' && startingInventory == 1) {
         sameInventory = false;
@@ -1758,12 +2050,12 @@ function ErrorCheck(startingInventory, inventoryDropName, movementWeight) {
 
         if (startingInventory == 1) {
             if (movementWeight + secondaryWeight > secondaryMaxWeight) {
-                ErrorReason = 'Your target weight is too much.';
+                ErrorReason = _i18n("They don't have space in their pockets", 'error-check');
                 $('.weightcontainer').eq(1).shake();
             }
         } else {
             if (movementWeight + personalWeight > personalMaxWeight) {
-                ErrorReason = 'The personal weight is too much.';
+                ErrorReason = _i18n("You don't have space in your pockets", 'error-check');
                 $('.weightcontainer').eq(0).shake();
             }
         }
@@ -1788,7 +2080,7 @@ function UpdateTextInformation(slot) {
             } else {
                 stackable = '(nS)';
             }*/
-            informationDiv.html(amount + ' (' + weight + '.00)');
+            informationDiv.html("<span class='item-qty'>" + amount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span>");
             // "..itemcount.."x ("..weight..") " .. stackString .. "
         }
     }
@@ -1846,8 +2138,9 @@ function CompileStacks(
     purchase,
     itemCosts,
     itemidsent,
+    metainformation,
     moveAmount,
-	isWeapon,
+    arraySlot
 ) {
     let originInventory;
     let targetInventory;
@@ -1876,8 +2169,9 @@ function CompileStacks(
     );
 
     var isWeapon = false;
-    if (itemList[itemidsent].weapon != null && exluded[itemidsent]) {
+    if (itemList[itemidsent].weapon != null && !exluded[itemidsent] && !isCop && targetInventory !== originInventory) {
         brought = true;
+		console.log("check point")
         isWeapon = itemList[itemidsent].weapon;
     }
 
@@ -1890,23 +2184,23 @@ function CompileStacks(
         purchase,
         itemCosts,
         itemidsent,
+        metainformation,
         moveAmount,
         crafting,
         isWeapon,
         remainingAmount,
-		
     );
 
     //("Changed Slot: " + targetSlot + "(" + targetAmount + ") of " + inv2 + " to " + originSlot + "(" + originAmount + ") of " + inv1 + " ")
     if (crafting) {
-        removeCraftItems(itemidsent, moveAmount);
+        removeCraftItems(itemidsent, moveAmount, arraySlot);
         //closeInv();
         return;
     }
     UpdateSetWeights('');
 }
 
-function MoveStack(targetSlot, originSlot, inv1, inv2, purchase, itemCosts, itemidsent, metainformation, moveAmount, isWeapon) {
+function MoveStack(targetSlot, originSlot, inv1, inv2, purchase, itemCosts, itemidsent, metainformation, moveAmount, arraySlot) {
     let originInventory;
     let targetInventory;
 
@@ -1934,8 +2228,7 @@ function MoveStack(targetSlot, originSlot, inv1, inv2, purchase, itemCosts, item
     );
 
     var isWeapon = false;
-	
-    if (itemList[itemidsent].weapon != null && exluded[itemidsent]) {
+    if (itemList[itemidsent].weapon != null && !exluded[itemidsent] && !isCop && targetInventory !== originInventory) {
         brought = true;
         isWeapon = itemList[itemidsent].weapon;
     }
@@ -1949,14 +2242,13 @@ function MoveStack(targetSlot, originSlot, inv1, inv2, purchase, itemCosts, item
         itemCosts,
         itemidsent,
         metainformation,
-		moveAmount,
+        moveAmount,
         crafting,
         isWeapon,
     );
-
     //InventoryLog("Moved Slot " + targetSlot + " of " + targetInventory + " to " + originSlot + " of " + originInventory + " #" + itemidsent + " Information :" + metainformation)
     if (crafting) {
-        removeCraftItems(itemidsent, moveAmount);
+        removeCraftItems(itemidsent, moveAmount, arraySlot);
         //closeInv();
         return;
     }
@@ -2004,6 +2296,37 @@ function SwapStacks(targetSlot, originSlot, inv1, inv2, itemid1, metainformation
     UpdateSetWeights('');
 }
 
+function InsertItem(targetSlot, originSlot, inv1, inv2, itemid1, iteminfo1, itemid2, iteminfo2) {
+    let originInventory;
+    let targetInventory;
+
+    if (inv2 == 'wrapmain') {
+        originInventory = PlayerInventoryName;
+    } else {
+        originInventory = TargetInventoryName;
+    }
+
+    if (inv1 == 'wrapmain') {
+        targetInventory = PlayerInventoryName;
+    } else {
+        targetInventory = TargetInventoryName;
+    }
+
+    $.post(
+        'https://pw-inventory/insert-item',
+        JSON.stringify({
+            originInventory,
+            targetInventory,
+            originSlot,
+            targetSlot,
+            originItemId: itemid1,
+            targetItemId: itemid2,
+            originItemInfo: iteminfo1,
+            targetItemInfo: iteminfo2,
+        })
+    );
+}
+
 function closeInv(pIsItemUsed = false) {
     personalWeight = 0;
     secondaryWeight = 0;
@@ -2030,8 +2353,8 @@ function CountItems(ItemIdToCheck) {
     let sqlInventory = JSON.parse(MyInventory);
     let amount = 0;
     for (let i = 0; i < parseInt(MyItemCount); i++) {
-        if (sqlInventory[i].item_id == ItemIdToCheck) {
-            amount = amount + sqlInventory[i].amount;
+        if (sqlInventory[i].item_id == ItemIdToCheck && sqlInventory[i].quality > 0) {
+            amount += sqlInventory[i].amount;
         }
     }
     return amount;
@@ -2040,58 +2363,71 @@ function CountItems(ItemIdToCheck) {
 //itemid, amount, return
 
 function CheckCraftFail(itemid, moveAmount) {
-    let requirements = itemList[itemid].craft;
+    let requirementsArray = itemList[itemid].craft;
 
-    if (!requirements) return true;
+    if (!requirementsArray) return true;
 
     let itemcheck = false;
     let weightcheck = false;
+    let arraySlot = 0
 
-    let ingredientWeight = 0;
-    let craftWeight = itemList[itemid].weight * moveAmount;
+    for (let ArrayX = 0; ArrayX < requirementsArray.length; ArrayX++) {
+        itemcheck = false
+        weightcheck = false
+        let requirements = requirementsArray[ArrayX]
+        let ingredientWeight = 0;
+        let craftWeight = itemList[itemid].weight * moveAmount;
 
-    let ingredientsJson = {};
+        let ingredientsJson = {};
 
-    for (let i = 0; i < requirements.length; i++) {
-        let requiredAmount = Math.ceil(moveAmount * requirements[i]['amount']);
-        let itemNeededId = requirements[i]['itemid'];
-        let countedItems = CountItems(itemNeededId);
+        for (let i = 0; i < requirements.length; i++) {
+            let requiredAmount = Math.ceil(moveAmount * requirements[i]['amount']);
+            let itemNeededId = requirements[i]['itemid'];
+            let countedItems = CountItems(itemNeededId);
 
-        if (countedItems < requiredAmount) {
-            itemcheck = true;
-        } else {
-            ingredientsJson[itemNeededId] = requiredAmount;
-            ingredientWeight += itemList[itemNeededId].weight * requiredAmount;
-        }
-    }
-
-    if (personalWeight + craftWeight - ingredientWeight > personalMaxWeight) {
-        //Failed
-        weightcheck = true;
-    }
-
-    if (!itemcheck && !weightcheck) {
-        //Remove ingredients from inventory
-        let sqlInventory = JSON.parse(MyInventory);
-        for (let i = 0; i < parseInt(MyItemCount); i++) {
-            let item = sqlInventory[i];
-            if (item.item_id in ingredientsJson) {
-                let amountDiff = item.amount - ingredientsJson[item.item_id];
-                if (amountDiff > 0) {
-                    //Have more than enough, so just change amount
-                    sqlInventory[i].amount = amountDiff;
-                } else {
-                    //Have exactly enough, remove item
-                    delete sqlInventory[i];
-                }
+            if (countedItems < requiredAmount) {
+                itemcheck = true;
+            } else {
+                ingredientsJson[itemNeededId] = requiredAmount;
+                ingredientWeight += itemList[itemNeededId].weight * requiredAmount;
             }
         }
-        MyInventory = JSON.stringify(sqlInventory);
-        MyItemCount = sqlInventory.length;
-    }
 
+        if (personalWeight + craftWeight - ingredientWeight > personalMaxWeight) {
+            //Failed
+            weightcheck = true;
+        }
+
+        if (!itemcheck && !weightcheck) {
+            //Remove ingredients from inventory
+            let sqlInventory = JSON.parse(MyInventory);
+            for (let i = 0; i < parseInt(MyItemCount); i++) {
+                let item = sqlInventory[i];
+                if (item.item_id in ingredientsJson && item.quality > 0) {
+                    let amountDiff = item.amount - ingredientsJson[item.item_id];
+                    if (amountDiff > 0) {
+                        //Have more than enough, so just change amount
+                        sqlInventory[i].amount = amountDiff;
+                    } else {
+                        //Have exactly enough, remove item
+                        delete sqlInventory[i];
+                    }
+                }
+            }
+            MyInventory = JSON.stringify(sqlInventory);
+            MyItemCount = sqlInventory.length;
+
+            $.post('https://pw-inventory/craftProgression', JSON.stringify({
+                "inventory": TargetInventoryName,
+                "item": itemid,
+                "amount": moveAmount,
+            }));
+            return [itemcheck, weightcheck, arraySlot];
+        }
+        arraySlot = arraySlot + 1
+    }
+    return [itemcheck, weightcheck, arraySlot];
     //InventoryLog("We should add " + moveAmount + " of " + itemid)
-    return [itemcheck, weightcheck];
 }
 
 function AttemptDropInFilledSlot(slot) {
@@ -2108,16 +2444,20 @@ function AttemptDropInFilledSlot(slot) {
     }
     let itemReturnItem = document.getElementById(slot).getElementsByTagName('img')[0];
     let itemidsent = item.dataset.itemid;
-
+    let craftCheck = false;
+    let weightCheck = false;
+    let arraySlot = 0;
     let currentInventory = parseInt(item.dataset.inventory);
     let weight = parseInt(item.dataset.weight);
     let amount = parseInt(item.dataset.amount);
     let name = item.dataset.name;
     let itemid1 = item.dataset.itemid;
+    let itemmetadata1 = unescape(item.dataset.info);
     let metainformation1 = item.dataset.metainformation;
     let stackable = JSON.parse(item.dataset.stackable);
 
     let itemid2 = itemReturnItem.dataset.itemid;
+    let itemmetadata2 = unescape(itemReturnItem.dataset.info);
     let metainformation2 = itemReturnItem.dataset.metainformation;
     let returnItemInventory = itemReturnItem.dataset.inventory;
     let weightReturnItem = parseInt(itemReturnItem.dataset.weight);
@@ -2125,7 +2465,6 @@ function AttemptDropInFilledSlot(slot) {
     let nameReturnItem = itemReturnItem.dataset.name;
     let inventoryDropName = document.getElementById(slot).parentElement.className;
     let inventoryReturnItemDropName = document.getElementById(draggingid).parentElement.className;
-	let isWeapon = itemList[itemidsent].weapon;
 
     let sameinventory = true;
     purchase = false;
@@ -2138,10 +2477,10 @@ function AttemptDropInFilledSlot(slot) {
     let fullstack = false;
 
     //Prevent people from buying stacks of guns
-    if (inventoryReturnItemDropName === 'wrapsecondary' && TargetInventoryName === 'Shop') {
-        if ((moveAmount > 1 && !stackable) || itemid1 === 'jailfood') moveAmount = 1;
+    if (inventoryReturnItemDropName === 'wrapsecondary' && (TargetInventoryName === 'Shop' || TargetInventoryName.includes('player-Shop'))) {
+        if ((moveAmount > 1 && !stackable)) moveAmount = 1;
         if (moveAmount > 50) moveAmount = 50;
-        if (itemid2 === 'jailfood') {
+        if (itemid2 === 'jailfood' || itemid2 === "slushy") {
             moveAmount = 1;
             closeOnMove = true;
         }
@@ -2155,33 +2494,36 @@ function AttemptDropInFilledSlot(slot) {
         }
         movementWeight = weight * moveAmount;
         movementReturnItemWeight = weightReturnItem * moveAmount;
-        stacking = true;
+
+        const metadata1 = JSON.parse(itemmetadata1);
+        const metadata2 = JSON.parse(itemmetadata2);
+        stacking = isMetadataEqual(metadata1, metadata2);
     }
 
     let result, result2;
 
-    if (inventoryDropName === 'wrapmain' && inventoryReturnItemDropName === 'craftContainer' && TargetInventoryName == 'Craft') {
+    if (inventoryDropName === 'wrapmain' && inventoryReturnItemDropName === 'craftContainer' && TargetInventoryName.indexOf('Craft') > -1) {
         //InventoryLog('eh: Crafting');
         inventoryReturnItemDropName = 'wrapsecondary';
 
-        let [craftCheck, weightCheck] = CheckCraftFail(itemidsent, moveAmount);
+        [craftCheck, weightCheck, arraySlot] = CheckCraftFail(itemidsent, moveAmount);
 
         if (!craftCheck && !weightCheck && currentInventory == 2 && inventoryDropName == 'wrapmain') {
-            InventoryLog('Attempted to craft item with itemid: ' + itemidsent);
+            InventoryLog(`[1] ${_i18n('Attempted to craft item with item id')}: ` + itemidsent);
             crafting = true;
-            result = 'Success';
-            result2 = 'Success';
+            result = _i18n('Success');
+            result2 = _i18n('Success');
         } else {
             if (craftCheck) {
-                result = 'You dont have the required materials!';
+                result = _i18n("You don't have the required materials!", 'craft-error');
             }
             if (weightCheck) {
-                result2 = 'The personal weight is too much.';
+                result2 = _i18n("You don't have space in your pockets", 'craft-error');
                 $('.weightcontainer').eq(0).shake();
             }
 
             EndDragError(slot);
-            InventoryLog('Lỗi: ' + result + ' | ' + result2);
+            InventoryLog(`${i18n('Error', 'craft-error')}: ` + result + ' | ' + result2);
             return;
         }
     } else {
@@ -2192,7 +2534,7 @@ function AttemptDropInFilledSlot(slot) {
             result = ErrorCheck(currentInventory, inventoryDropName, movementWeight - movementReturnItemWeight);
         } else {
             // the item was stacked so its automatically successful for return item weight.
-            result2 = 'Success';
+            result2 = _i18n('Success');
             result = ErrorCheck(currentInventory, inventoryDropName, movementWeight);
         }
     }
@@ -2202,32 +2544,79 @@ function AttemptDropInFilledSlot(slot) {
     result2 = "Warning";
     result = "You do not have that amount!";
   }*/
-
     if (
         (inventoryDropName === 'wrapsecondary' && TargetInventoryName === 'Shop') ||
         (!StoreOwner && PlayerStore && inventoryDropName === 'wrapsecondary') ||
-        (TargetInventoryName === 'Shop' && inventoryReturnItemDropName === 'wrapsecondary' && inventoryDropName === 'wrapmain' && !stacking)
+        (TargetInventoryName === 'Shop' && inventoryReturnItemDropName === 'wrapsecondary' && inventoryDropName === 'wrapmain' && !stacking) ||
+        (inventoryDropName === 'wrapsecondary' && isOwnerAndShop(TargetInventoryName,false))
+        
     ) {
-        result = 'You can not drop items into the shop!';
+        result = _i18n('You can not drop items into the shop!');
     }
     if (
-        (inventoryDropName === 'craftContainer' && TargetInventoryName == 'Craft') ||
-        (inventoryDropName == 'wrapmain' && inventoryReturnItemDropName === 'wrapsecondary' && TargetInventoryName == 'Craft' && !stacking)
+        (inventoryDropName === 'craftContainer' && TargetInventoryName.indexOf('Craft') > -1) ||
+        (inventoryDropName == 'wrapmain' && inventoryReturnItemDropName === 'wrapsecondary' && TargetInventoryName.indexOf('Craft') > -1 && !stacking)
     ) {
-        result = 'You can not drop items into the craft table!';
+        result = _i18n('You can not drop items into the craft table!');
     }
 
-    if (result == 'Success' && result2 == 'Success') {
+    if ((TargetInventoryName.startsWith("container") || TargetInventoryName.startsWith("fisher-bucket")) &&
+        (
+            ((inventoryReturnItemDropName == 'wrapmain' && inventoryDropName == 'wrapsecondary')) ||
+            (inventoryDropName == 'wrapmain' && inventoryReturnItemDropName == 'wrapsecondary')
+        )) {
+        let sqlInventory = JSON.parse(MyInventory);
+        let hasInventoryKey = false;
+        for (let i = 0; i < parseInt(MyItemCount); i++) {
+            if (sqlInventory[i].item_id !== itemidsent && sqlInventory[i].item_id !== itemid2) continue;
+            let meta = JSON.parse(sqlInventory[i].information);
+            if (meta.inventoryId !== undefined) {
+                hasInventoryKey = true;
+            }
+        }
+        if (hasInventoryKey) {
+            result = _i18n("Boxception.");
+        }
+
+        if (!TargetInventoryName.includes('dodo container') && (itemList[itemid1].weapon || itemList[itemid2].weapon)) {
+            result = _i18n("Can't fit inside container.");
+        }
+
+        if (TargetInventoryName.split("-").length > 3) {
+            let hasItem1Key = false;
+            let hasItem2Key = false;
+            let whitelistItemKey = TargetInventoryName.split("-")[3];
+            for (let i = 0; i < parseInt(MyItemCount); i++) {
+                if (sqlInventory[i].item_id !== itemidsent && sqlInventory[i].item_id !== itemid2) continue;
+                let meta = JSON.parse(sqlInventory[i].information);
+                itemList[whitelistItemKey].whitelist.forEach(whitelistKey => {
+                    if (itemList[sqlInventory[i].item_id][whitelistKey] || meta[whitelistKey]) {
+                        hasItem1Key = sqlInventory[i].item_id === itemidsent || hasItem1Key;
+                        hasItem2Key = sqlInventory[i].item_id === itemid2 || hasItem2Key;
+                    }
+                })
+            }
+            if (!hasItem1Key || !hasItem2Key) {
+                result = _i18n("Can't place this here.");
+            }
+        }
+    }
+
+    if (TargetInventoryName.startsWith('mailbox') && ((inventoryDropName == 'wrapsecondary') || (inventoryReturnItemDropName == 'wrapsecondary') && !stacking)) {
+        result = _i18n('Cannot place into mailboxes.')
+    }
+
+    if ((result == 'Success' || result == _i18n('Success')) && (result2 == 'Success' || result2 == _i18n('Success'))) {
         // Here we are moving from player inventory to the secondary inventory
         if (currentInventory == 1 && inventoryDropName == 'wrapsecondary') {
             item.dataset.inventory = 2;
             itemReturnItem.dataset.inventory = 1;
             if (stacking) {
                 personalWeight = personalWeight - movementWeight;
-                secondaryWeight = secondaryWeight + movementWeight;
+                secondaryWeight = Math.max(secondaryWeight + movementWeight, 0);
             } else {
                 personalWeight = personalWeight + movementReturnItemWeight - movementWeight;
-                secondaryWeight = secondaryWeight + movementWeight - movementReturnItemWeight;
+                secondaryWeight = Math.max(secondaryWeight + movementWeight - movementReturnItemWeight, 0);
             }
         }
 
@@ -2237,10 +2626,10 @@ function AttemptDropInFilledSlot(slot) {
             itemReturnItem.dataset.inventory = 2;
             if (stacking) {
                 personalWeight = personalWeight + movementWeight;
-                secondaryWeight = secondaryWeight - movementWeight;
+                secondaryWeight = Math.max(secondaryWeight - movementWeight, 0);
             } else {
                 personalWeight = personalWeight + movementWeight - movementReturnItemWeight;
-                secondaryWeight = secondaryWeight + movementReturnItemWeight - movementWeight;
+                secondaryWeight = Math.max(secondaryWeight + movementReturnItemWeight - movementWeight, 0);
             }
         }
 
@@ -2259,36 +2648,53 @@ function AttemptDropInFilledSlot(slot) {
 
             let purchaseCost = parseInt(item.dataset.fwewef) * parseInt(moveAmount);
 
-            if (TargetInventoryName == 'Shop' || (!StoreOwner && PlayerStore)) {
+            if ((TargetInventoryName == 'Shop' || (!StoreOwner && PlayerStore) || TargetInventoryName.includes('player-Shop') ) && inventoryReturnItemDropName !== inventoryDropName) {
                 // InventoryLog("eh: PURCHASE")
-                if (purchaseCost > userCash) {
-                    result = 'You cant afford this.!';
-                    result2 = 'You cant afford this.!';
-                    InventoryLog('Lỗi: ' + result);
-                    EndDragError(slot);
-                    return;
-                } else {
-                    if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
-                        if (!exluded[itemidsent] && !userWeaponLicense) {
-                            result = 'Bạn không có giấy phép!';
-                            result2 = 'Bạn không có giấy phép!';
-                            InventoryLog('Lỗi: ' + result);
+                if(isOwnerAndShop(TargetInventoryName,false) || !TargetInventoryName.includes('player-Shop')) {
+                    if (purchaseCost > userCash && purchaseCost !== 0) {
+                        result = _i18n("You can't afford this!");
+                        result2 = _i18n("You can't afford this!");
+                        InventoryLog(_i18n('Error') + ': ' + result);
+                        EndDragError(slot);
+                        return;
+                    } else {
+                        if (itemList[itemidsent].classTwo && inventoryReturnItemDropName !== inventoryDropName && !userClass2WeaponLicense) {
+                            result = _i18n("You don't have a class 2 license!");
+                            InventoryLog(_i18n('Error') + ': ' + result);
                             EndDragError(slot);
                             return;
                         }
 
-                        if (!exluded[itemidsent] && brought && !isCop) {
-                            result = 'Bạn chỉ có thể mua một khẩu súng mỗi ngày!';
-                            InventoryLog('Lỗi: ' + result);
-                            EndDragError(slot);
-                            return;
+                        if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
+                            if (!exluded[itemidsent] && !userWeaponLicense) {
+                                result = _i18n("You don't have a license!");
+                                result2 = _i18n("You don't have a license!");
+                                InventoryLog(_i18n('Error') + ': ' + result);
+                                EndDragError(slot);
+                                return;
+                            }
+
+                            if (!exluded[itemidsent] && brought && !isCop) {
+                                result = _i18n("You can only buy one gun a day!");
+                                InventoryLog(_i18n('Error') + ': ' + result);
+                                EndDragError(slot);
+                                return;
+                            }
+                        }
+
+                        if (currentInventory == 2 && inventoryDropName == 'wrapmain') {
+                            userCash = userCash - purchaseCost;
+                            InventoryLog(`${_i18n('Purchase Cost')}: $${purchaseCost} - ${_i18n('you have')} $${userCash}`);
+                            purchase = true;
                         }
                     }
-
-                    if (currentInventory == 2 && inventoryDropName == 'wrapmain') {
-                        userCash = userCash - purchaseCost;
-                        InventoryLog('Mua hàng: $' + purchaseCost + ' bạn còn lại $' + userCash + '.');
-                        purchase = true;
+                } else {
+                    if (isOwnerAndShop(TargetInventoryName,true)){
+                        let setPrice = setPriceForItem(itemidsent,TargetInventoryName)
+                        if (!setPrice[0]) {
+                            InventoryLog(`${_i18n('Error')}: ${setPrice[1]}`);
+                            EndDragError(slot);
+                        }
                     }
                 }
             }
@@ -2319,8 +2725,9 @@ function AttemptDropInFilledSlot(slot) {
                     purchase,
                     purchaseCost,
                     itemidsent,
+                    itemmetadata1,
                     moveAmount,
-					isWeapon,
+                    arraySlot,
                 );
             } else {
                 document.getElementById(draggingid).innerHTML = '';
@@ -2336,8 +2743,9 @@ function AttemptDropInFilledSlot(slot) {
                     purchase,
                     purchaseCost,
                     itemidsent,
+                    itemmetadata1,
                     moveAmount,
-					isWeapon,
+                    arraySlot,
                 );
             }
 
@@ -2348,15 +2756,34 @@ function AttemptDropInFilledSlot(slot) {
             if (startQuality < targetQuality && !purchase) {
                 data.inventory = item.dataset.inventoryname;
                 data.slot = parseInt(slot.replace(/\D/g, ''));
-                data.information = item.dataset.info;
+                data.information = unescape(item.dataset.info);
                 data.information.quality = startQuality;
                 UpdateQuality(data, startQuality);
             }
         } else {
-            if (inventoryDropName == 'Shop' || inventoryDropName == 'Craft' || (!StoreOwner && PlayerStore)) {
+            if (inventoryDropName == 'Shop' || inventoryDropName.indexOf('Craft') > -1 || (!StoreOwner && PlayerStore) || isOwnerAndShop(inventoryDropName,false)) {
                 result = 'You can not drop items into the shop!';
                 EndDragError(slot);
-                InventoryLog('Lỗi: ' + result2 + ' | ' + result);
+                InventoryLog('Error: ' + result2 + ' | ' + result);
+            } else if (
+                (
+                    (itemList[itemid1].insertTo && itemList[itemid1].insertTo.includes(itemid2))
+                    ||
+                    (itemList[itemid2].insertFrom && itemList[itemid2].insertFrom.includes(itemid1))
+                )
+                && inventoryDropName === 'wrapmain' && inventoryDropName === inventoryReturnItemDropName
+            ) {
+
+                InsertItem(
+                    parseInt(slot.replace(/\D/g, '')),
+                    parseInt(draggingid.replace(/\D/g, '')),
+                    inventoryDropName,
+                    inventoryReturnItemDropName,
+                    itemid1,
+                    itemmetadata1,
+                    itemid2,
+                    itemmetadata2,
+                );
             } else {
                 SwapStacks(
                     parseInt(slot.replace(/\D/g, '')),
@@ -2377,6 +2804,9 @@ function AttemptDropInFilledSlot(slot) {
 
                 document.getElementById(draggingid).innerHTML = currentdropHTML;
                 document.getElementById(slot).innerHTML = currentdragHTML;
+
+                UpdateSlotBind(draggingid);
+                UpdateSlotBind(slot);
             }
         }
 
@@ -2389,7 +2819,22 @@ function AttemptDropInFilledSlot(slot) {
     } else {
         // errored?
         EndDragError(slot);
-        InventoryLog('Lỗi: ' + result2 + ' | ' + result);
+        InventoryLog('Error: ' + result2 + ' | ' + result);
+    }
+}
+
+// Takes a slot id as playerslot1, or playerslot2
+function UpdateSlotBind(slot) {
+    const newSlotId = slot.split("playerslot")[1];
+
+    // Does this slot already have a slot bind number assigned? if so remove it
+    for (const bind of bindSlots) {
+        const bindEle = document.getElementById(slot).querySelector(`#bind${bind}`)
+        if (bindEle) bindEle.remove();
+    }
+
+    if (bindSlots.includes(parseInt(newSlotId)) && slot.includes("playerslot")) {
+        document.getElementById(slot).insertAdjacentHTML("beforeend", "<div id='bind" + newSlotId + "'>" + newSlotId + "</div>")
     }
 }
 
@@ -2416,12 +2861,27 @@ function EndDrag(slot) {
 function DisplayInformation(slot) {
     let item = document.getElementById(slot).getElementsByTagName('img')[0];
 
-    let weight = parseInt(item.dataset.weight);
+    let weight = parseFloat(item.dataset.weight);
     let amount = parseInt(item.dataset.amount);
     let quality = item.dataset.quality;
 
     let name = item.dataset.name;
     let metainformation = item.dataset.metainformation;
+
+    try {
+        if (item.dataset.info) {
+            let jsonInfo = JSON.parse(unescape(item.dataset.info));
+            if (customNameItems.includes(item.dataset.itemid) || jsonInfo._factory) {
+                name = `${customNameItemsDescriptions[item.dataset.itemid] || ''}${jsonInfo._name || name}`;
+            }
+            if (customDescriptionItems.includes(item.dataset.itemid) || jsonInfo._factory) {
+                metainformation =
+                    `${_i18n(customDescriptionItemsDescriptions[item.dataset.itemid], 'customDescriptionItemsDescriptions') || ''}${jsonInfo._description || metainformation}`;
+            }
+        } else {
+            name = `${customNameItemsDescriptions[item.dataset.itemid] || ''}${name}`;
+        }
+    } catch (err) { }
 
     _lastInfo = metainformation;
 
@@ -2450,31 +2910,31 @@ function DisplayInformation(slot) {
     if (quality != '' && quality != null && quality != 'undefined') {
         element.html(
             '<h2> ' +
-                name +
-                "</h2> <div class='DispInfo'>" +
-                metainformation +
-                '</div> <hr><strong>Cân nặng</strong>: ' +
-                weight.toFixed(2) +
-                ' | <strong>Có</strong>: ' +
-                amount +
-                '' +
-                ' | <strong>Chất lượng</strong>: <span style="color:' +
-                color +
-                '">' +
-                quality +
-                '</span>' +
-                '',
+            name +
+            "</h2> <div class='DispInfo'>" +
+            metainformation +
+            `</div> <hr><strong>${_i18n('Weight', 'weight')}</strong>: ` +
+            weight.toFixed(2) +
+            ` | <strong>${_i18n('Amount')}</strong>: ` +
+            amount +
+            '' +
+            ` | <strong>${_i18n('Quality')}</strong>: <span style="color:` +
+            color +
+            '">' +
+            quality +
+            '</span>' +
+            '',
         );
     } else {
         element.html(
             '<h2> ' +
-                name +
-                "</h2><div class='DispInfo'>" +
-                metainformation +
-                '</div> <br><hr><strong>Cân nặng</strong>: ' +
-                weight.toFixed(2) +
-                '| <strong>Có</strong>: ' +
-                amount,
+            name +
+            "</h2><div class='DispInfo'>" +
+            metainformation +
+            '</div> <br><hr><strong>Weight</strong>: ' +
+            weight.toFixed(2) +
+            '| <strong>Amount</strong>: ' +
+            amount,
         );
     }
 
@@ -2508,7 +2968,9 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
         EndDragError(slot);
         return;
     }
-
+    let craftCheck = false;
+    let weightCheck = false;
+    let arraySlot = 0;
     let currentInventory = item.dataset.inventory;
     let weight = parseInt(item.dataset.weight);
     let amount = parseInt(item.dataset.amount);
@@ -2519,17 +2981,16 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
     purchase = false;
     crafting = false;
     let itemidsent = item.dataset.itemid;
-    let metainformation = item.dataset.metainformation;
+    let metainformation = unescape(item.dataset.info);
     let moveAmount = parseInt(document.getElementById('move-amount').value);
-	let isWeapon = itemList[itemidsent].weapon;
 
     let closeOnMove = false;
 
     //Prevent people from buying stacks of guns
-    if (inventoryReturnItemDropName === 'wrapsecondary' && TargetInventoryName === 'Shop') {
+    if (inventoryReturnItemDropName === 'wrapsecondary' && (TargetInventoryName === 'Shop'|| TargetInventoryName.includes('player-Shop'))) {
         if (moveAmount > 1 && !JSON.parse(item.dataset.stackable)) moveAmount = 1;
         if (moveAmount > 50) moveAmount = 50;
-        if (itemidsent === 'jailfood') {
+        if (itemidsent === 'jailfood' || itemidsent === "slushy") {
             moveAmount = 1;
             closeOnMove = true;
         }
@@ -2557,28 +3018,28 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
     }
 
     let result = 'Success';
-    if (inventoryDropName === 'wrapmain' && inventoryReturnItemDropName === 'craftContainer' && TargetInventoryName == 'Craft') {
+    if (inventoryDropName === 'wrapmain' && inventoryReturnItemDropName === 'craftContainer' && TargetInventoryName.indexOf('Craft') > -1) {
         // InventoryLog("eh: Crafting")
         inventoryReturnItemDropName = 'wrapsecondary';
 
-        let [craftCheck, weightCheck] = CheckCraftFail(itemidsent, moveAmount);
+        [craftCheck, weightCheck, arraySlot] = CheckCraftFail(itemidsent, moveAmount);
 
         if (!craftCheck && !weightCheck && Number(currentInventory) === 2 && inventoryDropName === 'wrapmain') {
-            InventoryLog('Attempted to craft item with itemid: ' + itemidsent);
+            InventoryLog(`[2] ${_i18n('Attempted to craft item with item id')}: ${itemidsent}`);
             crafting = true;
             result = 'Success';
         } else {
             let result2 = 'Success';
             if (craftCheck) {
-                result = 'Không có đủ vật liệu yêu cầu!';
+                result = "You don't have the required materials!";
             }
             if (weightCheck) {
-                result2 = 'Không đủ cân để chứa.';
+                result2 = "You don't have space in your pockets";
                 $('.weightcontainer').eq(0).shake();
             }
 
             EndDragError(slot);
-            InventoryLog('Lỗi: ' + result + ' | ' + result2);
+            InventoryLog(`${_i18n('Error')}: ${_i18n(result)} | ${_i18n(result2)}`);
             return;
         }
     } else {
@@ -2586,16 +3047,17 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
     }
 
     if (isDropped && inventoryReturnItemDropName == 'wrapsecondary') {
-        result = 'Lỗi: can not drop a dropped item';
+        result = 'Error: can not drop a dropped item';
     }
 
     if (
         (inventoryDropName == 'wrapsecondary' && TargetInventoryName == 'Shop') ||
-        (inventoryDropName == 'wrapsecondary' && !StoreOwner && PlayerStore)
+        (inventoryDropName == 'wrapsecondary' && !StoreOwner && PlayerStore) || 
+        (inventoryDropName === 'wrapsecondary' && isOwnerAndShop(TargetInventoryName,false))
     ) {
         result = 'You can not drop items into the shop!';
     }
-    if (inventoryDropName === 'wrapsecondary' && TargetInventoryName === 'Craft') {
+    if (inventoryDropName === 'wrapsecondary' && TargetInventoryName.indexOf('Craft') > -1) {
         result = 'You can not drop items into the craft shop!';
     }
 
@@ -2606,38 +3068,95 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
         }
     }
 
-    if (result == 'Success') {
+    if ((TargetInventoryName.startsWith("container") || TargetInventoryName.startsWith("fisher-bucket")) && (inventoryReturnItemDropName == 'wrapmain' && inventoryDropName == 'wrapsecondary')) {
+        let sqlInventory = JSON.parse(MyInventory);
+        let hasInventoryKey = false;
+        for (let i = 0; i < parseInt(MyItemCount); i++) {
+            if (sqlInventory[i].item_id !== itemidsent) continue;
+            let meta = JSON.parse(sqlInventory[i].information);
+            if (meta.inventoryId !== undefined) {
+                hasInventoryKey = true;
+            }
+        }
+        if (hasInventoryKey) {
+            result = "Boxception.";
+        }
+
+        if (!TargetInventoryName.includes('dodo container') && itemList[itemidsent].weapon) {
+            result = "Can't fit inside container.";
+        }
+
+        if (TargetInventoryName.split("-").length > 3) {
+            let hasWhitelistedKey = false;
+            let whitelistItemKey = TargetInventoryName.split("-")[3];
+            for (let i = 0; i < parseInt(MyItemCount); i++) {
+                if (sqlInventory[i].item_id !== itemidsent) continue;
+                let meta = JSON.parse(sqlInventory[i].information);
+                itemList[whitelistItemKey].whitelist.forEach(whitelistKey => {
+                    if (itemList[sqlInventory[i].item_id][whitelistKey] || meta[whitelistKey]) {
+                        hasWhitelistedKey = true;
+                    }
+                })
+            }
+            if (!hasWhitelistedKey) {
+                result = "Can't place this here.";
+            }
+        }
+    }
+
+    if (TargetInventoryName.startsWith('mailbox') && inventoryDropName == 'wrapsecondary') {
+        result = 'Cannot place into mailboxes.'
+    }
+
+    if (result == 'Success' || result == _i18n('Success')) {
         let purchaseCost = parseInt(item.dataset.fwewef) * parseInt(moveAmount);
-        InventoryLog(item.dataset.fwewef + " | " + purchaseCost + " | " + moveAmount);
-        if (TargetInventoryName == 'Shop' || (!StoreOwner && PlayerStore)) {
-            //InventoryLog("eh: PURCHASE")
-            if (purchaseCost > userCash) {
-                result = 'Không thể mua món đồ này!';
-                EndDragError(slot);
-                InventoryLog('Lỗi: ' + result);
-                //userCash = userCash - purchaseCost; unsure why we are taking money on not enough money taken
-                return;
-            } else {
-                if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
-                    if (!exluded[itemidsent] && !userWeaponLicense) {
-                        result = 'Bạn không có giấy phép!';
-                        InventoryLog('Lỗi: ' + result);
+        //InventoryLog(item.dataset.fwewef + " | " + purchaseCost + " | " + moveAmount);
+        if ((TargetInventoryName == 'Shop' || (!StoreOwner && PlayerStore) || TargetInventoryName.includes('player-Shop') ) && inventoryReturnItemDropName !== inventoryDropName) {
+            if(isOwnerAndShop(TargetInventoryName,false) || !TargetInventoryName.includes('player-Shop') ) {
+                //InventoryLog("eh: PURCHASE")
+                if (purchaseCost > userCash && purchaseCost !== 0) {
+                    result = 'You cant afford that!';
+                    EndDragError(slot);
+                    InventoryLog('Error: ' + result);
+                    //userCash = userCash - purchaseCost; unsure why we are taking money on not enough money taken
+                    return;
+                } else {
+                    if (itemList[itemidsent].classTwo && inventoryReturnItemDropName !== inventoryDropName && !userClass2WeaponLicense) {
+                        result = 'You do not have a class 2 license!';
+                        InventoryLog('Error: ' + result);
                         EndDragError(slot);
                         return;
                     }
 
-                    if (!exluded[itemidsent] && brought && !isCop) {
-                        result = 'Bạn chỉ có thể mua một khẩu súng mỗi ngày!';
-                        InventoryLog('Lỗi: ' + result);
-                        EndDragError(slot);
-                        return;
+                    if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
+                        if (!exluded[itemidsent] && !userWeaponLicense) {
+                            result = 'You do not have a license!';
+                            InventoryLog('Error: ' + result);
+                            EndDragError(slot);
+                            return;
+                        }
+
+                        if (!exluded[itemidsent] && brought && !isCop) {
+                            result = 'You can only buy one gun a day!';
+                            InventoryLog('Error: ' + result);
+                            EndDragError(slot);
+                            return;
+                        }
+                    }
+
+                    if (currentInventory == 2 && inventoryDropName == 'wrapmain') {
+                        userCash = userCash - purchaseCost;
+                        InventoryLog('Purchase Cost: $' + purchaseCost + ' you have $' + userCash + ' left.');
+                        purchase = true;
                     }
                 }
-
-                if (currentInventory == 2 && inventoryDropName == 'wrapmain') {
-                    userCash = userCash - purchaseCost;
-                    InventoryLog('Mua hàng: $' + purchaseCost + ' Còn lại $' + userCash + '.');
-                    purchase = true;
+            } else {
+                if (isOwnerAndShop(TargetInventoryName,true)){
+                    let setPrice = setPriceForItem(itemidsent,TargetInventoryName)
+                    if (!setPrice[0]) {
+                        InventoryLog('Error: ' + setPrice[1]);
+                        EndDragError(slot);
+                    }                   
                 }
             }
         }
@@ -2648,14 +3167,14 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
             personalWeight = personalWeight - movementWeight;
             if (!isDropped) {
                 item.dataset.inventory = 2;
-                secondaryWeight = secondaryWeight + movementWeight;
+                secondaryWeight = Math.max(secondaryWeight + movementWeight, 0);
             }
         }
 
         //moving from secondary to player
         if (currentInventory == 2 && (inventoryDropName == 'wrapmain' || isDropped)) {
             // tell lua the new location and stuff?
-            secondaryWeight = secondaryWeight - movementWeight;
+            secondaryWeight = Math.max(secondaryWeight - movementWeight, 0);
             if (!isDropped) {
                 item.dataset.inventory = 1;
                 personalWeight = personalWeight + movementWeight;
@@ -2698,7 +3217,9 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
                     purchase,
                     purchaseCost,
                     itemidsent,
+                    metainformation,
                     moveAmount,
+                    arraySlot,
                 );
 
                 EndDrag(slot);
@@ -2725,10 +3246,10 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
                     inventoryReturnItemDropName,
                     purchase,
                     purchaseCost,
-                    itemidsent,      
+                    itemidsent,
                     metainformation,
-					moveAmount,
-					isWeapon,
+                    moveAmount,
+                    arraySlot,
                 );
 
                 if (inventoryDropName == 'wrapsecondary') {
@@ -2739,7 +3260,11 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
 
                 item.dataset.currentslot = parseInt(slot.replace(/\D/g, ''));
                 if (document.getElementById(draggingid)) {
+
                     document.getElementById(slot).innerHTML = document.getElementById(draggingid).innerHTML;
+
+                    UpdateSlotBind(slot)
+                    UpdateSlotBind(draggingid)
                 }
 
                 EndDrag(slot);
@@ -2751,6 +3276,7 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
             }
 
             document.getElementById(oldDragId).innerHTML = '';
+            UpdateSlotBind(oldDragId)
         }
         if (closeOnMove) {
             closeInv();
@@ -2758,11 +3284,11 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
     } else {
         if (isDropped) {
             CleanEndDrag();
-            InventoryLog('Lỗi: ' + result);
+            InventoryLog('Error: ' + result);
         } else {
             EndDragError(slot);
             // errored?
-            InventoryLog('Lỗi: ' + result);
+            InventoryLog('Error: ' + result);
         }
     }
 }
@@ -2788,7 +3314,7 @@ function RequestItemData() {
     itemid = item.dataset.itemid;
     inventoryUsedName = item.dataset.inventoryname;
     slotusing = item.dataset.currentslot;
-    itemusinginfo = item.dataset.info;
+    itemusinginfo = unescape(item.dataset.info);
 }
 
 function EndDragUsage(type) {
@@ -2805,13 +3331,12 @@ function EndDragUsage(type) {
 function useitem() {
     RequestItemData();
     let isWeapon = itemList[itemid].weapon;
-	let isEsx = itemList[itemid].esxuse;
-	let RemoveAfterUse = itemList[itemid].removuse;
     if (isWeapon === undefined) {
         isWeapon = false;
     }
-    if (inventoryUsedName == PlayerInventoryName) {
-        let arr = [inventoryUsedName, itemid, slotusing, isWeapon, itemusinginfo, isEsx, RemoveAfterUse];
+    if (currentInventory == 1) {
+        inventoryUsedName = PlayerInventoryName;
+        let arr = [inventoryUsedName, itemid, slotusing, isWeapon, itemusinginfo];
         $.post('https://pw-inventory/invuse', JSON.stringify(arr));
         //InventoryLog("Using item: " + name + "(" + amount + ") from " + inventoryUsedName + " | slot " + slotusing)
     }
@@ -2819,23 +3344,78 @@ function useitem() {
     closeInv(true);
 }
 
+function calculateTimeDiff(time) {
+    const now = Date.now()
+
+    const diff = now - time
+
+    if (diff < 0) {
+        if (diff > -3600000) {
+            const minutes = Math.abs(Math.floor(diff / 60000))
+            return `in about ${minutes} ${minutes == 1 ? 'minute' : 'minutes'}`
+        }
+        const hours = Math.abs(Math.floor(diff / 3600000))
+        return `in about ${hours} ${hours == 1 ? 'hour' : 'hours'}`
+    }
+
+    if (diff < 3600000) {
+        const minutes = Math.floor(diff / 60000)
+        return `about ${minutes} ${minutes == 1 ? 'minute' : 'minutes'} ago`
+    }
+    const hours = Math.floor(diff / 3600000)
+    return `about ${hours} ${hours == 1 ? 'hour' : 'hours'} ago`
+}
+
+function setPriceForItem(item,targetName) {
+    if(priceEdit == ''){
+        if (shopPriceMap.has(targetName)) {
+            const prices = shopPriceMap.get(targetName);
+            if (prices.has(item)) {
+                return [true, 'done'];
+            }
+        }
+        return [false ,'No Price Set']
+    } else {
+        // if (!shopValidItems.find(x => x == item)) {
+        //     return [false ,'Item cannot be sold here.'];
+        // }
+        let price = Number(priceEdit)
+        if(price >= 1){
+            let information = {
+                item: item,
+                price: price,
+                targetName:targetName
+            }
+            $.post('https://pw-inventory/invSetPrice', JSON.stringify(information));
+            return [true, 'done']
+        } else {
+            return [false ,'Price too low']
+        }
+    }
+}
+
 //https://stackoverflow.com/questions/16994662/count-animation-from-number-a-to-b
+var timer = {}
 function animateValue(id, start, end, duration) {
+    if (timer[id]) {
+        clearInterval(timer[id])
+    }
     start = Number(start);
     end = Number(end);
     duration = Number(duration);
     if (start === end) return;
     var range = end - start;
     var current = start;
-    var increment = end > start ? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duration / range));
+    var increment = range / 10;
+    var stepTime = Math.abs(Math.floor(duration / 10));
     var obj = document.getElementById(id);
-    var timer = setInterval(function () {
+    timer[id] = setInterval(() => {
         current += increment;
-        obj.innerHTML = "<span class='weight-current'>" + current.toFixed(2) + '</span';
-        if (current == end) {
-            clearInterval(timer);
+        if (current.toFixed(0) === end.toFixed(0)) {
+            clearInterval(timer[id]);
+            current = end;
         }
+        obj.innerHTML = current.toFixed(0);
     }, stepTime);
 }
 
