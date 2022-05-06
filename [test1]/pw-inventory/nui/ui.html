@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+        <script src="scripts.js" type="text/javascript"></script>
+        <script src="debounce.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="styles.css" type="text/css" />
+        <title>Inventory</title>
+    </head>
+
+    <body style="position: relative">
+        <div id="ActionBar"></div>
+        <div id="UseBar"></div>
+        <div id="app" style="height: 100%; width: 100%">
+            <div id="inventory-wrapper" class="inventory" style="height: 100%; width: 100%">
+                <div class="move-form" id="inventory-wrapper">
+                    <div class="move-center" id="usearea">
+                        <input tabindex="-1" type="number" id="move-amount" max="9999" min="0" readonly placeholder="Số lượng" />
+                        <img src="./hand-holding-solid.png" class="Use" id="usearea" />
+                        <div id="CloseInv" class="buttondude CloseInv">Đóng</div>
+                    </div>
+                    <div class="bottom-buttons">
+                        <span class="bottom-button settings-button" onclick="$('.settings-menu').fadeIn();">⚙️</span>
+                        <span
+                            class="bottom-button help-button"
+                            onmouseover="$('.help-menu').fadeIn();"
+                            onmouseout="$('.help-menu').fadeOut();"
+                        >
+                            ?
+                        </span>
+                    </div>
+                </div>
+                <div id="Logs" class="Logs"></div>
+                <div id="CurrentInformation" class="CurrentInformation"></div>
+                <div id="containers-wrapper">
+                    <div id="wrapPersonalWeight" class="wrapPersonalWeight"></div>
+                    <div id="wrapSecondaryWeight" class="wrapSecondaryWeight"></div>
+                    <div id="wrapmain" onfocus="this.blur();" class="wrapmain"></div>
+                    <div id="wrapsecondary" onfocus="this.blur();" class="wrapsecondary"></div>
+                </div>
+                <div id="draggedItem"></div>
+
+                <div class="help-menu">
+                    <h3>Thông tin:</h3>
+                    <p>
+                        Để di chuyển toàn bộ stack đồ, Hãy chắc chắn ô số lương đang không để giá trị nào<br />
+                        Sử dụng các con số hoặc con lăn chuột, bạn có thể đặt số tiền bạn muốn di chuyển. Bạn có thể làm điều này khi đang kéo.
+                        <br />
+                        Để <strong>Sử Dụng</strong> một món đồ, Kéo nó vô ô bàn tay ở giữa.
+                        <br />
+                        Ô số lượng sẽ không được đặt lại khi đóng túi đồ, vì vậy hãy làm quen với việc xóa nó!
+                    </p>
+                    <h3>Phím tắt (mặc định):</h3>
+                    <ul>
+                        <li>Shift + Chuột trái: Chuyển một nửa stack tới bên túi đối diện.</li>
+                        <li>Ctrl + Chuột trái: Chuyển số lượng đúng với số lượng đã điền ở ô sang bên đối diện.</li>
+                        <li>Chuột trái: Kéo đồ thông thường (Chỉnh sửa không cần giữ nút khi kéo đồ trong cài đặt túi)</li>
+                        <li>Chuột phải: Không cần giữ nút khi kéo đồ</li>
+                        <li>Chuột giữa: Sử dụng đồ thay vì kéo vào ô giữa</li>
+                        <hr />
+                        <li>Lăn chuột: Khi chỉ vào ô Số lượng và lăn thì sẽ thay đổi số lượng lên xuống</li>
+                        <li>Số 0 - 9: Khi bấm vào ô số lượng sẽ ghi số cần.</li>
+                        <li>Bất cứ phím nào khác: Sẽ đặt ô Số Lượng về giá trị trắng tương ứng với việc chuyển toàn bộ thay vì số lượng.</li>
+                        <hr />
+                        <li>Nhấn Ctrl + C Khi đang chỉ trên một đồ thì nó sẽ copy toàn bộ thông tin của đồ đấy, Dùng cho những đồ có thông tin.</li>
+                    </ul>
+                    <h3>Cửa hàng:</h3>
+                    <p>Đặt số lượng bạn muốn mua vào ô Số lượng và sau đó kéo đồ từ bên cửa hàng sang túi cá nhân của bạn.</p>
+                    <h3>Chế tạo:</h3>
+                    <p>
+                        Đảm bảo bạn biết trước các yêu cầu đối với bất kỳ menu chế tạo nào mất nhiều thời gian để mở.
+                        <br />
+                        Khi chế tạo, bạn phải đặt số lượng chính xác mà bạn có thể chế tạo.
+                    </p>
+                    <h3>Độ bền:</h3>
+                    <p>
+                        Hầu hết tất cả các vật phẩm sẽ bị phân hủy theo thời gian (bao gồm cả vũ khí) Thanh bên dưới mỗi vật phẩm sẽ giảm dần kích thước khi nó
+                        phân hủy ngày càng nhiều, sau đó dần dần chuyển sang màu hơi đỏ. Sau khi một vật phẩm bị phá hủy hoàn toàn, nó sẽ có một thanh màu đỏ.
+                    </p>
+                </div>
+                <div class="settings-menu">
+                    <input type="checkbox" checked name="enableHoldToDrag" /> Giữ nhấn chuột trái để kéo
+                    <br />
+                    <input type="checkbox" checked name="enableClickToClose" /> Nhấn ra ngoài túi đồ để đóng túi đồ
+                    <br />
+                    <input type="checkbox" name="enableCtrlMovesHalf" /> Ctrl chuyển một nữa stack (Không tích sẽ làm cho Shift chuyển một nửa)
+                    <br />
+                    <input type="checkbox" checked name="enableShowTooltips" /> Hiển thị Tooltips
+                    <br />
+                    <input type="checkbox" checked name="enableBlur" /> Bật tính năng làm mờ nền
+                    <hr />
+                    <button type="button" class="save-settings">Lưu</button>
+                    <button type="button" onclick="$('.settings-menu').fadeOut();">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

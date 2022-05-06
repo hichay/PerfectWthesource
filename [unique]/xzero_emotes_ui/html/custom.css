@@ -1,0 +1,95 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+.emo-itemlist-content {
+  color: #000000;
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgb(0, 0, 0) 55%
+    ),
+    radial-gradient(
+        at top center,
+        rgb(0 0 0 / 40%) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      hsl(0 0% 46% / 0.35);
+  background-blend-mode: multiply, multiply;
+  /* transition: 0.1s; */
+}
+.emo-itemlist-content:hover {
+  box-shadow: 1px 1px 8px 2px rgba(255, 255, 255, 1);
+}
+.emo-itemlist-type {
+  color: #fff;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(to bottom, #38A43E 0%, #192C1B 40%, #1E5B21 150%),
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.25) 200%
+    );
+  background-blend-mode: multiply;
+  border-radius: 0px 0px 10px 10px;
+}
+.emo-item:hover,
+.emo-item:focus {
+  /* transition: 0.1s; */
+  font-size: 18px;
+  color: gold;
+  background: linear-gradient(
+      to bottom,
+      #000000 0%,
+      rgb(0 0 0 / 50%) 40%,
+      rgb(0 0 0 / 50%) 150%
+    ),
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgb(0 0 0 / 25%) 200%
+    );
+  background-blend-mode: multiply;
+}
+.emo-itemlist-history-item {
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgb(0 0 0) 100%
+    ),
+    radial-gradient(
+        at top center,
+        rgb(119 119 119 / 40%) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      hsl(0 0% 46% / 0.35);
+  background-blend-mode: multiply, multiply;
+  /* transition: 0.1s; */
+}
+.emo-itemlist-history-item:hover,
+.emo-itemlist-history-item:focus {
+  color: gold;
+}
+
+/* ===== Input ====== */
+input {
+    outline: 0;
+  }
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .input-search {
+    font-size: 22px;
+    border: 0;
+    border-radius: 5px;
+    text-align: center;
+    padding: 4px;
+    color: rgb(90,90,90);
+    border: solid 2px rgb(255 255 255 / 0.65);
+    transition: 0.1s;
+    background-image: linear-gradient(to right, #000000 0%, #1f1d1d 100%);
+  }
+  .input-search:hover,
+  .input-search:focus {
+    border: solid 2px #fff;
+    box-shadow: 1px 1px 8px 0px rgb(255 255 255);
+  }

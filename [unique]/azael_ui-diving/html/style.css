@@ -1,0 +1,159 @@
+html {
+	height: 100%;
+	width:100%;
+}
+
+body {
+    overflow: hidden;
+    min-height: 100%;
+    width:100%;
+}
+
+.scuba-container {
+    position: absolute;
+    width: 100%;
+	top: 0.7em;
+    display: none;
+}
+
+.scuba-container-inner {
+    display: table;
+    margin: 0 auto;
+}
+
+.scuba-icon {
+    position: absolute;
+}
+
+.scuba-icon i {
+    font-size: 1.3em;
+    color: #fafafa;
+    margin: 0.2em;
+}
+
+#scuba-box {
+    width: 10em;
+    height: 1.2em;
+    padding: 0.25em;
+    padding-left: 1.8em;
+    padding-right: 0.3em;
+    background-color: rgb(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+#scuba-val {
+    width: 100%;
+    height: 100%;
+    transition: 0.2s ease-in-out;
+    background: #c3d04c;
+}
+
+#scuba-text-box {
+    position: absolute;
+    width: 10em;
+    top: 0.3em;
+}
+
+#scuba-text {
+    display: table;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#scuba-alert {
+    width: 100%;
+    height: 100%;
+}
+
+.snorkelling-container {
+    position: absolute;
+    width: 100%;
+	top: 0.7em;
+    display: none;
+}
+
+.snorkelling-container-inner {
+    display: table;
+    margin: 0 auto;
+}
+
+.snorkelling-container-depth {
+    float: left;
+    margin-left: 0.25rem;
+}
+
+.snorkelling-icon {
+    position: absolute;
+}
+
+.snorkelling-icon i {
+    font-size: 1.3em;
+    color: #fafafa;
+    margin: 0.2em;
+}
+
+#snorkelling-box {
+    width: 10em;
+    height: 1.2em;
+    padding: 0.25em;
+    padding-left: 1.8em;
+    padding-right: 0.3em;
+    background-color: rgb(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+#snorkelling-text-box {
+    position: absolute;
+    width: 10em;
+    top: 0.3em;
+}
+
+#snorkelling-val-depth {
+    width: 100%;
+    height: 100%;
+    transition: 0.2s ease-in-out;
+    background: #4cd0bc;
+}
+
+#snorkelling-text-depth {
+    display: table;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#snorkelling-alert-depth {
+    width: 100%;
+    height: 100%;
+}
+
+#snorkelling-val-timer {
+    width: 100%;
+    height: 100%;
+    transition: 0.2s ease-in-out;
+    background: #ffd800;
+}
+
+#snorkelling-text-timer {
+    display: table;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#snorkelling-alert-timer {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes blinker {  
+    50% { opacity: 0; }
+  }
+  
+  @keyframes blinker-stop {  
+    50% { opacity: 1; }
+  }

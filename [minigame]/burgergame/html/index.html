@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body style="display:none">
+<!-- partial:index.partial.html -->
+<div class='game'>
+  <div class='game_inner'>
+    <div class='game_inner__end'>
+      <h1>Giờ làm việc đã hết!</h1>
+      <p>Tốt lắm. You helped Ed make $2000 today.</p>
+	  
+	  <button id="1" onClick="EndShif()">Kết thúc</button>
+    </div>
+    <div class='game_inner__overlay'></div>
+    <div class='game_inner__tutorial'>
+      <h1>Good burger mini game.</h1>
+      <p>Make the customers order by clicking on the ingredients needed.</p>
+      <p>Click on the till when you are ready to serve. Get bonus points for getting the ingredients in the correct order.</p>
+      
+	  <button onClick="StartGame()">Begin</button>
+    </div>
+    <div class='game_inner__elements'>
+      <div class='lettuce ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_lettuce.png'>
+        <div class='tooltip'>
+          Xà lách
+        </div>
+      </div>
+      <div class='tomato ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_tomato.png'>
+        <div class='tooltip'>
+          Cà chua
+        </div>
+      </div>
+      <div class='cheese ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_cheese.png'>
+        <div class='tooltip'>
+          Pho mai
+        </div>
+      </div>
+      <div class='ketchup ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_ketchup.png'>
+        <div class='tooltip'>
+          Tương cà
+        </div>
+      </div>
+      <div class='mustard ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_mustard.png'>
+        <div class='tooltip'>
+          Mù tạt
+        </div>
+      </div>
+      <div class='patty ingredient'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_patty.png'>
+        <div class='tooltip'>
+          Thịt miếng
+        </div>
+      </div>
+      <div class='burger'>
+        <img class='top' src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_bun_top.png'>
+        <img class='bottom' src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_bun_bottom.png'>
+      </div>
+      <div class='restart'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_restart.png'>
+      </div>
+      <div class='till'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_till.png'>
+        <div class='tooltip'>
+          Phục vụ
+        </div>
+      </div>
+      <div class='counter'></div>
+      <div class='ed'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_ed.png'>
+      </div>
+      <div class='car'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_car.png'>
+      </div>
+      <div class='game_inner__result'>
+        Perfect
+      </div>
+    </div>
+    <div class='game_inner__order'>
+      <div class='message'>
+        <p>Chào mừng tới với Burger King!</p>
+        <p>thưởng thức theo cách của bạn!</p>
+        <p>Hôm nay anh muốn order gì?</p>
+      </div>
+      <div class='order'></div>
+    </div>
+    <div class='game_inner__ui'>
+      <div class='game_inner__timer'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_timer.png'>
+        <span>90</span>
+      </div>
+      <div class='game_inner__score'>
+        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/gb_score.png'>
+        <span>$0</span>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas class='grain'></canvas>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="js/script.js"></script>
+
+</body>
+</html>

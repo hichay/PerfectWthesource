@@ -1,0 +1,259 @@
+<html>
+    <head>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script src="chart.min.js" type="text/javascript"></script>
+		 <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script> 		
+		<script>
+		$(function() {
+			/* open the UI for user */
+			window.addEventListener('message', function(event) {
+				if(event.data.type == "open"){
+					$('.pomoc').css('display', 'block')
+					$('body').css('display', 'block')
+					$('html').css('display', 'block')
+				} else if (event.data.type == "close"){
+					$('.pomoc').css('display', 'none')
+					$('body').css('display', 'none')
+					$('html').css('display', 'none')
+				}
+			});
+		});	
+		</script>
+	</head>
+
+    <body>	
+		<div class="pomoc">	
+			<div class="container main">
+				<div class="row">
+					<ul class="menu">
+						<li data-id="page-main">
+							<span>Trang chủ</span>
+						</li>						
+						<li data-id="rules">
+							<span>Luật Server</span>
+						</li>				
+						<li data-id="keybinds">
+							<span>Phím tắt</span>
+						</li>
+						<li data-id="commands">
+							<span>Lệnh</span>
+						</li>
+						<li data-id="faq">
+						<span>Điều bạn cần biết</span>
+						</li>
+					</ul>
+					
+					<div id="close-help" class ="btn btn-danger" style="display: inline-block;">
+							<span>Tắt bảng này</span>
+					</div>
+				</div>	
+				
+				<div class=" page page-main">
+						<div class="row">
+							<div class="col-12">
+								<H1> Chào mừng bạn đến server</H1>
+								<p><b>Đây là một server Roleplay Hardcore. Mọi thứ trong server sẽ phải tự bạn tìm kiếm và không có sự giúp đỡ từ admin hay helper</b></p><br>
+								<p><b>Lần đầu vào bạn hãy đọc qua tóm tắt luật ở trang kế bên hoặc lên discord để đọc luật để tránh trường hợp non-roleplay nhé</b></p>
+								<br/>
+								<h2>Thông tin về server</h2>
+								<p><b>Discord:</b> https://discord.gg/2VpDcC3</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-lg-12"></div>
+							<div class="col-12  col-lg-12">
+								
+							</div>
+						</div>
+				</div>	
+				
+					<div class=" page keybinds" style="display:none;">						
+						<h2>Phím tắt</h2>
+						<div class="row">
+							<div class="col-12 col-lg-6"><b>Phím tắt thường dùng</b><br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>W,A,S,D</b></span> - Di chuyển nhân vật <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>B</b></span> - Chỉ tay <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>X</b></span> - Dơ tay đầu hàng <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>T</b></span> - Mở Chat <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>N</b></span> - Nói trong game / Đổi nói chuyện <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>Z</b></span> - Quỳ xuống dơ tay ra sau đầu <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>C</b></span> - Cúi người <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>ALT</b></span> - Nói qua bộ đàm / Mở con mắt định hướng <br/>
+								<span class="btn btn-warning btn-sm mb-1"><b>Dấu ngã (~)</b></span> - Mở menu nhanh <br/>
+							</div>
+								<div class="col-12  col-lg-6">
+								<b>Phím tắt Menu</b><br/>							
+								<span class="btn btn-primary btn-sm mb-1"><b>F1</b></span> - Sử dụng điện thoại <br/>
+								<span class="btn btn-primary btn-sm mb-1"><b>F2</b></span> - Mở túi đồ <br/>
+								<span class="btn btn-primary btn-sm mb-1"><b>HOME</b></span> - Mở danh sách người chơi <br/>
+								<span class="btn btn-primary btn-sm mb-1"><b>DEL</b></span> - Bắt đầu công việc. Ở một số nghề <br/>
+								<span class="btn btn-primary btn-sm mb-1"><b>F6</b></span> - Mở menu công việc (Nếu có) <br/>
+								<span class="btn btn-primary btn-sm mb-1"><b>F7</b></span> - Mở menu hoá đơn <br/>	
+								<span class="btn btn-primary btn-sm mb-1"><b>ESC</b></span> - Tắt menu <br>	
+								<br>
+								<b>Phím tắt trên xe</b><br/>	
+								<!-- <span class="btn btn-success btn-sm mb-1"><b>M</b></span> - Khoá xe <br/> -->
+								<span class="btn btn-success btn-sm mb-1"><b>G</b></span> - Thắt dây an toàn<br/>
+								<span class="btn btn-success btn-sm mb-1"><b>Capslock</b></span> - Khoá tốc độ xe<br/>
+								<!-- <span class="btn btn-success btn-sm mb-1"><b>-</b></span> - Xi nhan trái <br/>
+								<span class="btn btn-success btn-sm mb-1"><b>=</b></span> - Xi nhan phải <br/>
+								<span class="btn btn-success btn-sm mb-1"><b>Dấu phẩy (,)</b></span> - Mở menu xe <br/> -->
+								</div>
+							</div>
+						</div>	
+						
+					<div class=" page commands"  style="display:none;">						
+						<div class="row">
+							<div class="col-12 col-lg-6">
+							<h2>Lệnh cơ bản</h2></br>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/e (hành động)</b></span> - Để sử dụng hành động (animation) <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/e c</b></span> hoặc <span class="btn btn-warning btn-sm mb-1 mb-1"><b>X</b></span> - Huỷ bỏ hành động  <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/tudonglai</b></span> - Mở tự động lái <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/loadphone</b></span> - Load lại điện thoại nếu không hiện icon <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/tattuido  </b></span> - Dùng để tắt túi đồ F2 khi lỡ tay bấm kèm cả F2 + F1 làm bị kẹt không thể làm gì. Nếu bị kẹt thì F8 ghi vào tattuido thay vì /tattuido<br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/emotes </b></span> - Danh sách hành động <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/duatien </b></span> - Lệnh đưa tiền cho người chơi khác. Vd: /duatien [ID] [Số tiền] _ /duatien 15 123 <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/ghibill</b></span> - Lệnh ghi hoá đơn cho ban ngành. VD: /ghibill [ID] [Số tiền] _ /ghibill 10 2000 <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/streamermode</b></span> - Lệnh tắt nhạc do người khác mở <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/on</b></span> - Hiện ui <br/>
+								
+
+								<br/>
+							</div>
+							<div class="col-12  col-lg-6">
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/hoisinh</b></span> - Dùng để hồi sinh khi không có bác sĩ <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/ems</b></span> - Dùng để gọi bác sĩ ví dụ: /ems [nội dung] - /ems cuu toi voi <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/911</b></span> - Dùng để gọi cảnh sát ví dụ: /911 [nội dung] - /911 co 1 vu cuop<br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/ooc</b></span> - Chat thế giới (Out of character) hạn chế lạm dụng <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/tattiemxam</b></span> - Tắt khi lỡ tay bị kẹt tiệm xăm. Sử dụng với F8 gõ vào tattiemxam để tắt không cần thoát <br/>
+								<!--<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/nui</b></span> - Dùng lệnh nếu bị lag UI <br>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/pingmed</b></span> - Dùng để Ping cho MED <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/pingch</b></span> - Dùng để Ping cho CH <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/rainbow</b></span> - Dùng để bật màu xe 7 màu <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/rainbowlight</b></span> - Dùng để bật đèn xe 7 màu <br>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/rainbowneon</b></span> - Dùng để bận đèn neon 7 màu <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/boombox</b></span> - Đặt hộp chơi nhạc <br/>
+								<span class="btn btn-warning btn-sm mb-1 mb-1"><b>/giayto</b></span> - Xem giấy tờ của bạn <br/> --> 
+							</div>
+						</div>
+				</div>	
+				<div class=" page rules" 	style="display:none;">
+						<div class="row">
+							<div class="col-12">
+								<h1>Luật server</h1>
+								<br>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-lg-12"></div>
+							<p><b>1. Giải thích ngắn gọn về OOC và IC:</b><br>
+							OOC (out of character): Ngoài đời thực và khống dính líu gì đến game.
+							IC (in character): Đóng vai làm một người khác (trong game).<br>
+							<p><b>2. Ý thức:</b><br>
+								&bull; Không sử dụng lời lẽ lăng mạ, xúc phạm đến người khác.<br>
+								&bull; Không sử dụng lời lẽ lăng mạ, xúc phạm đến văn hoá, sắc tộc, giới tính, tôn giáo hay kinh tế của bất kì cá nhân nào.<br>
+								&bull; Không bàn về chuyện chính trị trừ việc chửi mấy thằng ba que.<br>
+								&bull; Không cố ý tạo DRAMA. [ Không cố tình đổi tên giống người khác, xuyên tạc tên...vân vân và mây mây ( có tính cà khịa và fake tên gây drama và hiểu lầm giữa các member ) ]<br>
+								&bull; Không phá game. (dùng các hành vi non-roleplay)<br>
+								Vi phạm sẽ bị: Ban 7 ngày / 7 ngày và WIPE tài khoản / vĩnh viễn
+								Chú thích: WIPE tài khoản tức là xoá hết toàn bộ tài nguyên trong tài khoản và áp dụng cho các trường hợp phá game.
+							</p>
+							<p><b>3. DeathMatching:</b><br>
+								&bull; Sử dụng súng bắn/giết người không lý do.<br>
+								&bull; Phá phương tiện không lý do.<br>
+								Vi phạm sẽ bị: Ban 7 ngày / vĩnh viễn
+							</p>
+							<p><b>4. Car Ramming:</b><br>
+								&bull; Sử dụng phương tiện để gây sát thương hoặc gây rối đến người khác.<br>
+								Vi phạm sẽ bị: Ban 7 ngày / vĩnh viễn
+							</p><br>
+							<p><b>5. Combat Logout:</b><br>
+								&bull; Thoát khỏi game khi gặp tình huống bất lợi (bị bắt, đang combat nhưng thua).<br>
+								Vi phạm sẽ bị: Ban 7 ngày / vĩnh viễn
+							</p><br>
+							<p><b>6. Sử dụng phần mềm thứ 3:</b><br>
+								&bull; Hack/cheat các loại đều bị cấm sử dụng.<br>
+								Vi phạm sẽ bị: Ban vĩnh viễn
+							</p><br>
+							<p><b>7. BUG:</b><br>
+								&bull; Lạm dụng bug trong server để chuộc lợi cho bản thân.<br>
+								Vi phạm sẽ bị: Ban vĩnh viễn + Thu hồi tất cả vật phẩm BUG kể cả vật phẩm gốc
+							</p><br>
+							<p><b>8. Camp xác:</b><br>
+								&bull; Giết người chơi nào đó liên tục không cho MED cứu hoặc camp tại bệnh viện.<br>
+								Vi phạm sẽ bị: Ban 7 / vĩnh viễn
+							</p>	
+							<p><b>9. Đá STREAM:</b><br>
+								&bull; Đi theo STREAMER liên tục hoặc không gọi tên ROLEPLAY của STREAMER.<br>
+								Vi phạm sẽ bị: Ban 7 / 30 ngày
+							</p>			
+							<p><b>10. SCAM:</b><br>
+								&bull; Không tin tưởng bất kì người chơi nào cho dù là bạn của mình. Khuyến cáo giao dịch thông qua ADMIN. (bị lừa admin sẽ không hoàn trả đồ)<br>
+								Vi phạm sẽ bị: Ban vĩnh viễn
+							</p>
+						</div>
+				</div>
+				<div class=" page faq" 	style="display:none;">
+						<div class="row">
+							<div class="col-12">
+								<h1>Điều bạn cần biết</h1>
+								<br>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-lg-12"></div>
+							<p><b>Cách nào để nói trong game?</b><br>
+								Trong server bạn có thể nói trong game bằng cách giữ nút <span class="btn btn-warning btn-sm mb-1"><b>N</b></span> <br><br>
+
+							<b>Làm thế nào để kiếm tiền?</b><br>
+								Để bắt đầu kiếm tiền bạn cần phải có 1 nghề nghiệp. Để nhận 1 nghề bạn phải đến trung tâm xin việc (Chữ i màu tím trên bản đồ) để nhận việc.<br><br>
+
+							<b>Tại sao tôi bị đói/khát?</b><br>
+								Như ngoài đời, nhân vật trong game của bạn cũng bị đói/khát, hãy mua bánh mì hoặc nước tại các tạp hoá trên thành phố để thoả mãn cơn đói của bạn.<br><br>
+
+							<b>Tôi bị thằng đầu trọc kia đấm chết, bây giờ làm sao?</b><br>
+								Nếu bạn bị chết, vui lòng bấm <span class="btn btn-danger btn-sm mb-1"><b>G</b></span> trên màn hình , hoặc dùng lệnh <span class="btn btn-danger btn-sm mb-1"><b>/ems</b></span> để gọi bác sỹ đến cứu bạn <br><br>
+
+							<b>Làm thế nào để làm nghề bẩn?</b><br>
+								Nghề bẩn là những nghề không chính thống nên sẽ không hiển thị trên map hay minimap, Bạn phải tìm các địa điểm bị ẩn này<br><br>
+
+							<b>Làm sao để có xe?</b><br>
+								Bạn có thể mua xe tại Shop xe ở trong thành phố, xe trong game được chia ra nhiều loại xe, vd: xe moto, xe thể thao,...<br><br>
+						</div>
+				</div>
+			</div>	 
+		</div>
+    </body>
+	
+	<script type="text/javascript">
+	$(".pulpit li span").click(function(){
+		$('.main.container > *').hide();		
+		$('.'+$(this).data('id')).show();
+
+	});
+	$(".close-dialog").click(function(){	
+		$('.dialog').hide();
+	});		
+	$("#close-help").click(function(){
+		$('.page').hide();
+		$('.page-main').show();
+		$.post('http://pw-menuhelp/NUIFocusOff', JSON.stringify({}));
+	});
+	$(".menu li").click(function(){
+		$('.container .page').hide();		
+		$('.container .page.'+$(this).data('id')).show();
+	});
+	document.onkeyup = function (data) {
+		if (data.which == 27) { // Escape key
+			$('.pomoc').css('display', 'none')
+			$.post('http://pw-menuhelp/NUIFocusOff', JSON.stringify({}));
+		}
+	};
+	</script>
+</html>

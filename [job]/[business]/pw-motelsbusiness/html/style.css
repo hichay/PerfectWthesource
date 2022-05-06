@@ -1,0 +1,1350 @@
+html {
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    -webkit-user-select: none;
+}
+
+@font-face {
+    font-family: Coda;
+    src: url(fonts/Coda.ttf);
+}
+
+@font-face {
+    font-family: bebas;
+    src: url(fonts/bebas.ttf);
+}
+
+@font-face {
+    font-family: Zen;
+    src: url(./fonts/Zen.ttf);
+}
+
+@font-face {
+    font-family: fira;
+    src: url(./fonts/fira.ttf);
+}
+
+@font-face {
+    font-family: Knewave;
+    src: url(./fonts/Knewave.ttf);
+}
+
+@font-face {
+    font-family: monster;
+    src: url(./fonts/Monster.otf);
+}
+
+body {
+    background-repeat: no-repeat;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#notification-container {
+    position: absolute;
+    display: none;
+    font-family: fira;
+    width: 500px;
+    height: 250px;
+    left: 35%;
+    top: 35%;
+    border-radius: 8px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+}
+
+#information-container {
+    position: absolute;
+    display: none;
+    font-family: fira;
+    width: 250px;
+    height: 75px;
+    left: -100%;
+    top: 3%;
+    border-radius: 4px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+    text-align: center;
+}
+
+.inform-msg {
+    position: relative;
+    top: 37%;
+    color: rgb(206, 208, 216);
+}
+
+.notify-msg {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 42%;
+    color: rgb(206, 208, 216);
+}
+
+.fa-exclamation-circle {
+    position: absolute;
+    left: 48%;
+    top: 26%;
+    color: rgb(206, 208, 216);
+}
+
+#core {
+    position: absolute;
+    display: none;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1250px;
+    height: 800px;
+    border-radius: 5px;
+    overflow: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(74, 74, 116);
+    border-radius: 30px;
+}
+
+.name {
+    position: absolute;
+    display: flex;
+    top: 15px;
+    left: 32px;
+    color: rgb(227, 231, 255);
+    font-family: Zen;
+    font-size: 25px;
+}
+
+.nearbyManagementMenu, .requestsManagementMenu, .EmptyMotels, .CustomersManagementMenu, .bankManagementMenu, .selfManagementMenu {
+    position: absolute;
+    display: none;
+}
+
+#head {
+    border-radius: 8px 8px 0px 0px;
+    background-color: rgb(31, 31, 47);
+    width: 1250px;
+    height: 70px;
+    border-bottom:solid 2px  rgb(50, 49, 71);
+}
+
+#body {
+    position: relative;
+    width: 950px;
+    left: 300px;
+    height: 450px;
+    bottom: 550px;
+    background: rgb(31, 31, 47);
+    border-radius: 0 0 0px 0px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+#bottom {
+    position: relative;
+    border-radius: 0 0 8px 8px;
+    background-color: rgb(31, 31, 47);
+    width: 1250px;
+    height: 150px;
+    bottom: 550px;
+}
+
+#left {
+    position: relative;
+    background-color: rgb(31, 31, 47);
+    width: 300px;
+    height: 550px;
+}
+
+.time-utc {
+    color: rgb(168, 171, 186);
+    position: relative;
+    left: 1137px;
+    top: 110px;
+    font-size: 16px;
+    font-family: Zen;
+}
+
+.home-msg {
+    position: absolute;
+    color: rgb(168, 171, 186);
+    left: 45px;
+    top: -10px;
+}
+
+.EmployeeMan {
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 4%;
+    left: 3%;
+}
+
+.lol {
+    position: relative;
+    width: 0;
+    height: 0.1px;
+}
+
+.home {
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 2.5%;
+    left: 3%;
+}
+
+.fa-id-card-alt, .fa-user-friends, .fa-street-view, .fa-home, .fa-hand-holding-usd, .fa-cog, .fa-info-circle, .fa-comment-dollar {
+    position: absolute;
+    left: 3%;
+    top: 25%;
+}
+
+.fa-id-card-alt, .fa-user-friends, .fa-street-view, .fa-home {
+    position: absolute;
+    color: rgb(168, 171, 186);
+}
+
+.EmployeeMan-msg {
+    position: absolute;
+    color: rgb(168, 171, 186);
+    left: 45px;
+    top: -10px;
+}
+
+.customerMan {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 5%;
+    left: 3%;
+}
+
+.customerMan-msg {
+    color: rgb(168, 171, 186);
+    position: absolute;
+    left: 45px;
+    top: -10px;
+}
+
+.nearby {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 7%;
+    left: 3%;
+    overflow: hidden;
+}
+
+.bankMan {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 9%;
+    left: 3%;
+    overflow: hidden;
+}
+
+.self-msg, .request-msg, .bank-msg, .nearby-msg, .sell-msg {
+    color: rgb(168, 171, 186);
+    position: relative;
+    left: 45px;
+    top: -10px;
+}
+
+.requests {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 11%;
+    left: 3%;
+    overflow: hidden;
+}
+
+.SellMotel {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 13%;
+    left: 3%;
+    overflow: hidden;
+}
+
+.selfMan {
+    color: rgb(168, 171, 186);
+    position: relative;
+    width: 250px;
+    height: 40px;
+    top: 2.5%;
+    left: 3%;
+    overflow: hidden;
+}
+
+.motels {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.currentMoney-container {
+    position: relative;
+    width: 400px;
+    height: 150px;
+    top: 25px;
+    left: 240px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.depositMoney-container {
+    position: absolute;
+    width: 270px;
+    height: 125px;
+    top: 200px;
+    left: 5px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.depositMoney-container:hover {
+    transition: 0.4s;
+    border: 2.5px solid rgb(58, 71, 87);
+}
+
+.withdrawMoney-container {
+    position: absolute;
+    width: 270px;
+    height: 125px;
+    top: 200px;
+    left: 605px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.withdrawMoney-container:hover {
+    transition: 0.4s;
+    border: 2.5px solid rgb(58, 71, 87);
+}
+
+.employee-container {
+    position: absolute;
+    width: 270px;
+    height: 125px;
+    top: 25px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.employees-container, .customers-container, .motel-container, .nearbyPlayer-container, .requestPlayer-container {
+    position: relative;
+    width: 300px;
+    height: 125px;
+    margin-left: 10px;
+    margin-top: 15px;
+    top: 25px;
+    background-color:rgb(39, 40, 58);
+    float: left;
+    overflow-y: none;
+}
+
+.EmployeeManagementContainer, .CustomerManagamentContainer, .nearbyContainer, .requestsContainer {
+    position: relative;
+    width: 300px;
+    height: 125px;
+    margin-left: 10px;
+    margin-top: 50px;
+    top: 25px;
+    background-color:rgb(39, 40, 58);
+    float: left;
+}
+
+.selfManContainer {
+    position: relative;
+    width: 300px;
+    height: 125px;
+    top: 25px;
+    margin-left: 10px;
+    background-color:rgb(39, 40, 58);
+    float: left;
+}
+
+/* .EmployeeManagementContainer.update {
+    
+} */
+
+.EmployeePermissionContainer, .selfManRequestContainer {
+    position: relative;
+    width: 610px;
+    height: 200px;
+    margin-left: 10px;
+    margin-top: 50px;
+    top: 25px;
+    background-color:rgb(39, 40, 58);
+    float: left;
+    word-wrap: break-word;
+    overflow: none;
+}
+
+.permissionTopic, .RequestTopic {
+    position: relative;
+    left: 250px;
+    margin-top: 5px;
+    color: #f5f5f5;
+    font-family: Zen;
+}
+
+.permName {
+    position: relative;
+    color: rgb(168, 171, 186);
+}
+
+.checkboxes {
+    position: relative;
+    margin-top: 10px;
+}
+
+.checkboxes2 {
+    position: relative;
+    margin-top: 10px;
+}
+
+.checkboxes input[type=checkbox], .checkboxes2 input[type=checkbox] {
+    position: relative;
+    display: none;
+}
+
+.checkboxes2 input[type=checkbox] + label {
+    position: relative;
+    display: flexbox;
+    height: 100px;
+    align-items: center;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center left 7px;
+    transition: 0.5s;
+    padding-left: 38px;
+    background-image: url('./assets/imgs/question.png');
+  }
+
+.checkboxes input[type=checkbox] + label {
+  position: relative;
+  display: flexbox;
+  height: 100px;
+  align-items: center;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: center left 7px;
+  transition: 0.5s;
+  padding-left: 38px;
+  background-image: url('./assets/imgs/not-verified.png');
+}
+
+.checkboxes2 input[type=checkbox]:checked + label {
+    background-image: url('./assets/imgs/in-prog.png');
+}
+
+.checkboxes input[type=checkbox]:checked + label {
+    background-image: url('./assets/imgs/verified.png');
+}
+
+label[for=permKick], label[for=permChangeRoom], label[for=permRefreshTime], label[for=permCreateNewKey], label[for=reqEmployee], label[for=reqKey], label[for=reqChangeRoom] {
+    color: rgb(168, 171, 186);
+    font-family: fira;
+}
+
+label[for=permSendMessage], label[for=permRentRoom], label[for=permShowRequests], label[for=permWithdrawMoney], label[for=reqRefreshTime] {
+    position: relative;
+    top: 15px;
+    color: rgb(168, 171, 186);
+    font-family: fira;
+}
+
+label[for=permDepositMoney], label[for=permChangeStatus] {
+    position: relative;
+    top: 30px;
+    color: rgb(168, 171, 186);
+    font-family: fira;
+}
+
+.EmployeeManName, .employees-name, .nearbyPlayer-name, .requestPlayer-name, .motel-name, .customers-name, .CustomerManName, .nearbyMenuName, .requestsMenuName, .SelfManName {
+    position: relative;
+    left: 5%;
+    margin-top: 15px;
+    font-family: fira;
+    color: rgb(168, 171, 186);
+}
+
+.employees-container:hover, .customers-container:hover, .requestPlayer-container:hover, .nearbyPlayer-container:hover {
+    cursor: pointer;
+    transition: all .6s;
+    transform: scale(0.97);
+}
+
+.employees-firstlastname, .customers-firstlastname, .nearbyPlayer-firstlastname, .motel-id, .requestPlayer-firstlastname {
+    position: relative;
+    margin-top: 7px;
+    font-family: fira;
+    font-size: 20px;
+    color: rgb(211, 211, 211);
+}
+
+.fa-address-card, .fa-user-clock, .fa-save, .fa-exclamation-triangle, .fa-user-edit, .fa-user-alt, .fa-address-book, .fa-handshake, .fa-sign-out-alt, .fa-clock, .fa-user-times, .fa-user-cog, .fa-plus-square {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 230px;
+    margin-top: -30px;
+}
+
+.fa-money-check-alt {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 50px;
+    margin-top: -30px;
+}
+
+.fa-comment {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 65px;
+}
+
+.EmployeeManMsg-input, .Maas-input, .Prim-input, .CustomerManMsg-input, .CustomerManRem-input, .SelfManSec-input {
+    position: relative;
+    outline: none;
+    -webkit-appearance: none;
+    width: 59%;
+    border: 0;
+    font-family: inherit;
+    padding: 0;
+    height: 48px;
+    font-size: 17px;
+    line-height: 1px;
+    font-weight: 500;
+    background: none;
+    border-radius: 0;
+    color: #ccc;
+    transition: all .20s ease
+}
+
+.selectedName, .Customer-selectedName, .nearby-selectedName, .requests-selectedName {
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 20px;
+    font-family: Zen;
+    font-size: 30px;
+    color: rgb(56, 120, 184);
+}
+
+.EmployeeManFirstLastName, .CustomerManNameFirstLastName, .NearbyNameFirstLastName, .RequestsNameFirstLastName, .SelfManSecName {
+    position: relative;
+    margin-top: 7px;
+    font-family: fira;
+    font-size: 20px;
+    color: rgb(211, 211, 211);
+}
+
+.EmployeeManBalanceInput {
+    position: relative;
+    margin-top: 7px;
+    font-family: fira;
+    font-size: 15px;
+    color: rgb(211, 211, 211);
+}
+
+.motels-container {
+    position: absolute;
+    width: 270px;
+    height: 125px;
+    top: 25px;
+    left: 300px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.customer-container {
+    position: absolute;
+    width: 270px;
+    height: 125px;
+    top: 25px;
+    left: 600px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.transaction-container {
+    position: absolute;
+    width: 870px;
+    top: 200px;
+    background-color:rgb(39, 40, 58);
+    word-wrap: break-word;
+}
+
+.last-transaction {
+    position: relative;
+    top: 80px;
+    height: auto;
+}
+
+
+.transaction-name {
+    position: relative;
+    left: 37%;
+    top: 7px;
+    font-family: monster;
+    color: rgb(168, 171, 186);
+}
+
+.transaction-box {
+    position: relative;
+    left: 30%;
+    bottom: 72px;
+    margin-top: 20px;
+    font-family: fira;
+    color: rgb(168, 171, 186);
+}
+
+.transaction-line {
+    position: relative;
+    display: flex;
+    bottom: 55px;
+    height: 1.1px;
+    width: 500px;
+    left: 180px;
+    background-color: rgb(95, 95, 95); 
+    overflow: none;
+}
+
+.currentMoney {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    top: 15px;
+    margin-left: 15px;
+}
+
+.depositMoney {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    top: 10px;
+    margin-left: 15px;
+}
+
+.withdrawMoney {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    top: 10px;
+    margin-left: 15px;
+}
+
+.employees {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.customer {
+    color: rgb(168, 171, 186);
+    position: relative;
+    font-family: bebas;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.customerNum, .motelsNum, .employeeNum, .motelMoney {
+    position: relative;
+    width: 200px;
+    margin-top: 8px;
+    color: rgb(191, 194, 207);
+    font-size: 30px;
+}
+
+.depositAmount-input {
+    outline: none;
+    -webkit-appearance: none;
+    width: 59%;
+    border: 0;
+    font-family: inherit;
+    padding: 0;
+    height: 48px;
+    font-size: 15px;
+    line-height: 1px;
+    font-weight: 500;
+    background: none;
+    border-radius: 0;
+    color: #ccc;
+    transition: all .20s ease
+}
+
+.withdrawAmount-input {
+    outline: none;
+    -webkit-appearance: none;
+    width: 59%;
+    border: 0;
+    font-family: inherit;
+    padding: 0;
+    height: 48px;
+    font-size: 15px;
+    line-height: 1px;
+    font-weight: 500;
+    background: none;
+    border-radius: 0;
+    color: #ccc;
+    transition: all .20s ease
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.withdrawAmount-input ~ .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: rgb(41, 115, 201);
+    transition: 0.2s
+}
+
+.depositAmount-input ~ .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: rgb(41, 115, 201);
+    transition: 0.2s;
+}
+
+.depositAmount-input:focus ~ .focus-border {
+    width: 59.2%;
+    transition: 0.4s;
+}
+
+.withdrawAmount-input:focus ~ .focus-border {
+    width: 59.2%;
+    transition: 0.4s;
+}
+
+.fa-user-circle {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 205px;
+    margin-top: -50px;
+    /* bottom: 12px;  */
+}
+
+.fa-wallet {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 330px;
+    margin-top: -50px;
+}
+
+.fa-donate {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 50px;
+    bottom: 15px;
+}
+
+.fa-calendar-alt {
+    position: relative;
+    color: rgb(112, 114, 124);
+    left: 195px;
+    bottom: 88px;
+}
+
+.fa-donate:hover {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(206, 206, 206);
+}
+
+.fa-exclamation-triangle:hover, .fa-save:hover, .fa-user-edit:hover, .fa-user-alt:hover, .fa-address-book:hover, .fa-handshake:hover, .fa-sign-out-alt:hover, .fa-user-times:hover, .fa-money-check-alt:hover, .fa-user-cog:hover, .fa-user-clock:hover, .fa-plus-square:hover {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(206, 206, 206);
+}
+
+.fa-comment:hover, .fa-comment.hovered {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(206, 206, 206);
+}
+
+.fa-comment.hovered {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(73, 102, 153);
+}
+
+.fa-arrow-alt-circle-up {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 65px;
+    bottom: 15px;
+}
+
+.fa-money-bill-wave-alt {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 50px;
+    bottom: 30px;
+}
+
+.fa-arrow-alt-circle-up:hover, .fa-money-bill-wave-alt:hover {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(206, 206, 206);
+}
+
+.fa-money-bill-alt {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 50px;
+    bottom: 15px;
+}
+
+.fa-money-bill-alt:hover {
+    cursor:pointer;
+    transition: color 0.4s;
+    color: rgb(206, 206, 206);
+}
+
+.fa-hotel {
+    position: absolute;
+    color: rgb(112, 114, 124);
+    margin-left: 205px;
+    margin-top: -50px;
+}
+
+.fa-power-off {
+    color: rgb(255, 241, 241);
+    -webkit-filter: opacity(0.9);
+    position: absolute;
+    top: 60%;
+    left: 2%;
+}
+
+.fa-power-off:hover {
+    transition: all 0.3s;
+    color: rgb(73, 102, 153);
+}
+
+.power:hover, .EmployeeMan:hover, .customerMan:hover, .nearby:hover, .home:hover, .bankMan:hover, .requests:hover, .selfMan:hover, .SellMotel:hover {
+    transition: all 0.3s;
+    cursor: pointer;
+    background-color: rgb(61, 63, 80);
+    color: rgb(73, 102, 153);
+    filter: brightness(0.9);
+    border-radius: 8px;
+}
+
+.EmployeeMan:hover > .EmployeeMan-msg, .customerMan:hover > .customerMan-msg, .bankMan:hover > .bank-msg, .nearby:hover > .nearby-msg, .home:hover > .home-msg {
+    color: rgb(73, 102, 153);
+}
+
+.EmployeeMan:hover > .fa-id-card-alt, .customerMan:hover > .fa-user-friends, .nearby:hover > .fa-street-view, .bankMan:hover > .fa-hand-holding-usd, .home:hover > .fa-home {
+    color: rgb(73, 102, 153);
+}
+
+.EmployeeManagementMenu {
+    position: relative;
+    display: none;
+}
+
+.EmployeeManagementMenux2, .CustomersManagementMenux2, .nearbyManagementMenux2, .requestsManagementMenux2 {
+    position: relative;
+    display: none;
+}
+
+.welcomeName {
+    color: rgb(168, 171, 186);
+    position: relative;
+    display: block;
+    font-family: fira;
+    width: 300px;
+    top: 1%;
+    left: 85%;
+    font-size: 22px;
+}
+
+.welcome {
+    display: none;
+}
+
+#right-content {
+    position: absolute;
+    left: 680px;
+    top: 5px;
+    text-align: right;
+}
+
+.playerName {
+    position: relative;
+    color: rgb(168, 171, 186);
+    font-family: Zen;
+    top: 4.5%;
+    left: 77%;
+    font-size: 120%;
+}
+
+#popup-containerTakeEmployee {
+    position: absolute;
+    display: block;
+    font-family: fira;
+    width: 500px;
+    height: 250px;
+    left: 35%;
+    top: 35%;
+    border-radius: 8px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+}
+
+#popup-container {
+    display: none;
+}
+
+#popup-containerTakeCustomer {
+    position: absolute;
+    display: block;
+    font-family: fira;
+    width: 650px;
+    height: 280px;
+    left: 33%;
+    top: 30%;
+    border-radius: 8px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+}
+
+.popup-msg {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 6%;
+    font-size: 18px;
+    font-family: fira;
+    color: rgb(182, 187, 207);
+}
+
+.popup-msgTakeCustomer {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 4%;
+    font-size: 18px;
+    font-family: fira;
+    color: rgb(182, 187, 207);
+}
+
+#confirm-container {
+    position: absolute;
+    display: none;
+    font-family: fira;
+    width: 500px;
+    height: 150px;
+    left: 35%;
+    top: 35%;
+    border-radius: 8px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+}
+
+#areyousure-container {
+    position: absolute;
+    display: none;
+    font-family: fira;
+    width: 500px;
+    height: 200px;
+    left: 35%;
+    top: 35%;
+    border-radius: 8px;
+    background-color:rgb(31, 31, 47);
+    z-index: 99999;
+}
+
+.takeEmployeeSal-input {
+    position: absolute;
+    outline: none;
+    -webkit-appearance: none;
+    width: 45%;
+    border: 0.5px solid rgb(99, 103, 109);
+    font-family: inherit;
+    padding: 0;
+    height: 48px;
+    font-size: 17px;
+    line-height: 1px;
+    text-align: center;
+    font-weight: 500;
+    background: none;
+    border-radius: 0;
+    top: 40%;
+    left: 28%;
+    color: #ccc;
+    transition: all .20s ease
+}
+
+.takeCustomerTime-input {
+    position: absolute;
+    outline: none;
+    -webkit-appearance: none;
+    width: 38.5%;
+    border: 0.5px solid rgb(99, 103, 109);
+    font-family: fira;
+    text-align: center;
+    padding: 0;
+    height: 40px;
+    font-size: 18px;
+    line-height: 1px;
+    background: none;
+    border-radius: 0;
+    top: 50%;
+    left: 1%;
+    color: #ccc;
+    transition: all .20s ease;
+}
+
+.takeCustomerPrice-input {
+    position: absolute;
+    outline: none;
+    -webkit-appearance: none;
+    width: 38.5%;
+    border: 0.5px solid rgb(99, 103, 109);
+    font-family: fira;
+    text-align: center;
+    padding: 0;
+    height: 40px;
+    font-size: 18px;
+    line-height: 1px;
+    background: none;
+    border-radius: 0;
+    top: 50%;
+    left: 60%;
+    color: #ccc;
+    transition: all .20s ease;
+}
+
+.takeCustomerPriceText {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    left: 180px;
+    color: rgb(182, 187, 207);
+    bottom: 75px;
+}
+
+.takeEmployeeSal-msg {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: rgb(182, 187, 207);
+    bottom: 60px;
+    right: 5px;
+}
+
+.takeCustomerTime-input::placeholder, .takeCustomerPrice-input::placeholder {
+    position: relative;
+    left: 9px;
+}
+
+.areyousure-msg {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 12%;
+    font-size: 18px;
+    font-family: fira;
+    color: rgb(182, 187, 207);
+}
+
+.confirm-msg {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    top: 12%;
+    font-size: 18px;
+    font-family: fira;
+    color: rgb(182, 187, 207);
+}
+
+.areyousure-yes-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 20%;
+    left: 25%;
+    color: rgb(168, 171, 186);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.confirm-yes-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 25.9%;
+    left: 25%;
+    color: rgb(168, 171, 186);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.popup-yes-containerTakeCustomer {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 60%;
+    left: 25%;
+    color: rgb(168, 171, 186);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.popup-yes-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 52%;
+    left: 25%;
+    color: rgb(168, 171, 186);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.areyousure-no-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 3.4%;
+    left: 50%;
+    color: rgb(168, 171, 186);
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.confirm-no-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 3.4%;
+    left: 50%;
+    color: rgb(168, 171, 186);
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.popup-no-containerTakeCustomer {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 27.1%;
+    left: 50%;
+    color: rgb(168, 171, 186);
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.confirm-cancel {
+    position: absolute;
+    display: flex;
+    width: 35px;
+    height: 35px;
+    left: 465px;
+    bottom: 115px;
+}
+
+.confirm-cancel:hover {
+    transition: filter 0.4s;
+    filter: invert(13%) sepia(79%) saturate(5098%) hue-rotate(356deg) brightness(86%) contrast(107%);
+}
+
+.popup-no-container {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    top: 38.7%;
+    left: 50%;
+    color: rgb(168, 171, 186);
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid rgb(107, 107, 107);
+}
+
+.areyousure-yes-container:hover, .popup-yes-containerTakeCustomer:hover, .confirm-yes-container:hover {
+    transition: all 0.7s;
+    background-color:#169256;
+    border: 2px solid rgb(207, 207, 207);
+    color: rgb(218, 218, 218);
+    transform: scale(1.15);
+}
+
+.areyousure-no-container:hover, .popup-no-containerTakeCustomer:hover, .confirm-no-container:hover { 
+    transition: all 0.7s;
+    background-color:#c62828;
+    color: rgb(218, 218, 218);
+    border: 2px solid rgb(207, 207, 207);
+    transform: scale(1.15);
+}
+
+.popup-yes-container:hover {
+    transition: all 0.7s;
+    background-color:#169256;
+    border: 2px solid rgb(207, 207, 207);
+    color: rgb(218, 218, 218);
+    transform: scale(1.15);
+}
+
+.popup-no-container:hover { 
+    transition: all 0.7s;
+    background-color:#c62828;
+    color: rgb(218, 218, 218);
+    border: 2px solid rgb(207, 207, 207);
+    transform: scale(1.15);
+}
+
+
+.areyousure-yes, .confirm-yes {
+    position: relative;
+    top: 5px;
+}
+
+.areyousure-no, .confirm-no {
+    position: relative;
+    top: 5px;
+}
+
+.popup-yes {
+    position: relative;
+    top: 5px;
+}
+
+.popup-no {
+    position: relative;
+    top: 5px;
+}
+
+.select-method {
+    position: relative;
+    bottom: 10px;
+    left: 10px;
+    color: rgb(207, 207, 207)    
+}
+
+.select {
+    display:flex;
+    flex-direction: column;
+    position:relative;
+    width:250px;
+    height:40px;
+    left: 1%;
+}
+  
+.option {
+    padding:0 30px 0 10px;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    background:rgb(39, 40, 58);
+    color: rgb(168, 171, 186);
+    border-top: solid 1px rgb(122, 122, 122);
+    position:absolute;
+    top:0;
+    width: 100%;
+    pointer-events:none;
+    order:2;
+    z-index:1;
+    transition:background .4s ease-in-out;
+    box-sizing:border-box;
+    overflow:hidden;
+    white-space:nowrap;
+    
+}
+  
+.option:hover {
+    background:rgb(65, 67, 109);
+}
+  
+.select:focus .option {
+    position:relative;
+    pointer-events:all;
+}
+  
+input[name='test'] {
+    opacity:0;
+    position:absolute;
+    left:-99999px;
+}
+  
+input[name='test']:checked + .option {
+    order: 1;
+    z-index:2;
+    background:rgb(39, 40, 58);
+    border-top:none;
+    position:relative;
+}
+  
+input[name='test']:checked + .option:after {
+    content:'';
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid white;
+    position:absolute;
+    right:10px;
+    top:calc(50% - 2.5px);
+    pointer-events:none;
+    z-index:3;
+}
+  
+input[name='test']:checked + .option:before {
+    position:absolute;
+    right:0;
+    height: 40px;
+    width: 40px;
+    content: '';
+    background:rgb(39, 40, 58);
+}

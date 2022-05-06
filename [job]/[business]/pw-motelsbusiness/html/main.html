@@ -1,0 +1,429 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="notification-container">
+            <div class="notify-msg"></div>
+            <i class="fas fa-exclamation-circle fa-2x"></i>
+        </div>
+        <div id="information-container">
+            <span class="inform-msg"></span>
+        </div>
+        <div id="confirm-container">
+            <span class="confirm-msg"></span>
+            <br>
+            <div class="confirm-yes-container">
+                <span class="confirm-yes">Xác nhận</span>
+            </div>
+            <div class="confirm-no-container">
+                <span class="confirm-no">Từ chối</span>
+            </div>
+            <img src="./assets/imgs/cancel.png" class="confirm-cancel">
+        </div>
+        <div id="areyousure-container">
+            <span class="areyousure-msg"></span>
+            <br>
+            <div class="areyousure-yes-container">
+                <span class="areyousure-yes">Có</span>
+            </div>
+            <div class="areyousure-no-container">
+                <span class="areyousure-no">Không</span>
+            </div>
+        </div>
+        <div id="popup-container">
+            <!-- <div id="popup-containerRefreshTime">
+                <div class="popup-yes-containerRefreshTime">
+                    <span class="popup-yes">Confirm</span>
+                </div>
+                <span class="select-method">Süre Methodu</span>
+                <div class="select-RefreshTime" tabindex="1">
+                    <input class="selectopt" name="test" type="radio" value='minute' id="opt1" checked>
+                    <label for="opt1" class="option">Dakika</label>
+                    <input class="selectopt" name="test" type="radio" value='hour' id="opt2">
+                    <label for="opt2" class="option">Saat</label>
+                </div>
+                <div class="popup-no-containerTakeCustomer">
+                    <span class="popup-no">Refuse</span>
+                </div>
+                <input autocomplete="off" class='RefreshTime-input' type="number" placeholder="Minimum 0 Max 60">
+                <h4 class="refreshTimePriceText">Enter Price</h4>
+                <input autocomplete="off" class='RefreshTimePrice-input' type="number" placeholder="Minimum 0 Max 60">
+            </div> 
+            <div id="popup-containerTakeCustomer">
+                <span class="popup-msgTakeCustomer">Admin Banned</span>
+                <br>
+                <div class="popup-yes-containerTakeCustomer">
+                    <span class="popup-yes">Confirm</span>
+                </div>
+                <span class="select-method">Süre Methodu</span>
+                <div class="select" tabindex="1">
+                    <input class="selectopt" name="test" type="radio" value='minute' id="opt1" checked>
+                    <label for="opt1" class="option">Dakika</label>
+                    <input class="selectopt" name="test" type="radio" value='hour' id="opt2">
+                    <label for="opt2" class="option">Saat</label>
+                </div>
+                <div class="popup-no-containerTakeCustomer">
+                    <span class="popup-no">Refuse</span>
+                </div>
+                <input autocomplete="off" class='takeCustomerTime-input' type="number" placeholder="Minimum 0 Max 60">
+                <h4 class="takeCustomerPriceText">Enter Price</h4>
+                <input autocomplete="off" class='takeCustomerPrice-input' type="number" placeholder="Minimum 0 Max 60"> -->
+            <!-- </div>
+            <div id="popup-containerTakeEmployee">
+                <span class="popup-msg">Test mesajı aga</span>
+                <br>
+                <div class="popup-yes-container">
+                    <span class="popup-yes">Confirm</span>
+                </div>
+                <div class="popup-no-container">
+                    <span class="popup-no">Refuse</span>
+                </div>
+                <h3 class="takeEmployeeSal-msg">Enter Salary</h3>
+                <input autocomplete="off" class='takeEmployeeSal-input' type="number" placeholder="Min 600 Max 120000">
+            </div> -->
+        </div>
+        <div id="core">
+            <div id="head">
+                <span class="name">Armut Motel</span>
+                <div id='right-content'>
+                    <span class="welcomeName">Chào mừng</span>
+                    <span class="playername">Not founded</span>
+                </div>
+            </div>
+            <div id="left">
+                <div class="lol"></div>
+                <div class="home">
+                    <i class="fas fa-home"></i>
+                    <p class="home-msg">Trang chính</p>
+                </div>
+                <div class="EmployeeMan">
+                    <i class="fas fa-id-card-alt"></i>
+                    <p class="EmployeeMan-msg">Nhân viên</p>
+                </div>
+                <div class="customerMan">
+                    <i class="fas fa-user-friends"></i>
+                    <p class="customerMan-msg">Khách hàng</p>
+                </div>
+                <div class="nearby">
+                    <i class="fas fa-street-view"></i>
+                    <p class="nearby-msg">Người ở gần</p>
+                </div>
+                <div class="bankMan">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <p class="bank-msg">Quỹ tiền</p>
+                </div>
+                <div class="requests">
+                    <i class="fas fa-info-circle"></i>
+                    <p class="request-msg">Yêu cầu</p>
+                </div>
+                <div class="SellMotel">
+                    <i class="fas fa-comment-dollar"></i>
+                    <p class="sell-msg">Bán nhà nghĩ</p>
+                </div>
+                <div class="selfMan">
+                    <i class="fas fa-cog"></i>
+                    <p class="self-msg">Phòng của tôi</p>
+                </div>
+            </div>
+            <div id="body">
+                <div class="Welcome">
+                    <div class="employee-container">
+                        <div class="employees">Çalışan Sayısı
+                            <div class="employeeNum">0</div>
+                            <i class="fas fa-user-circle fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="motels-container">
+                        <div class="motels">Boş Oda Sayısı
+                            <div class="motelsNum">0</div>
+                            <i class="fas fa-hotel fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="customer-container">
+                        <div class="customer">Müşteri Sayısı
+                            <div class="customerNum">0</div>
+                            <i class="far fa-user-circle fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="transaction-container">
+                        <span class="transaction-name">Giao dịch cuối cùng</span>
+                        <div class="last-transaction">
+                            <!-- <div class="transaction-box">Admin Banned $5000 kirasını ödedi.</div>
+                            <span class="transaction-line"></span>
+                            <i class="fas fa-calendar-alt"></i>  -->
+                        </div>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="EmployeeManagementMenu">
+                    <div class="employees-container">
+                        <div class="employees-name">Employee
+                            <br>
+                            <div class="employees-firstlastname">NOT FOUNDED</div>
+                            <i class="fas fa-address-card fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="EmployeeManagementMenux2">
+                    <div class="selectedName">NOT FOUNDED</div>  
+                    <div class="EmployeeManagementContainer">
+                        <div class="EmployeeManName">Đuổi
+                            <br>
+                            <div class="EmployeeManFirstLastName">Đuổi việc</div>
+                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="EmployeeManagementContainer">
+                        <div class="EmployeeManName">Gửi tin nhắn
+                            <br>
+                            <input autocomplete="off" class='EmployeeManMsg-input' type="" placeholder="Enter Message">
+                            <i class="fas fa-comment fa-2x" id="EmployeeMsg"></i>
+                        </div>
+                    </div>
+                    <div class="EmployeeManagementContainer">
+                        <div class="EmployeeManName">Thưởng nóng
+                            <br>
+                            <input autocomplete="off" class='Prim-input' type="number" placeholder="Amount">
+                            <i class="fas fa-arrow-alt-circle-up fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="EmployeeManagementContainer update">
+                        <div class="EmployeeManName">Cập nhật lương
+                            <br>
+                            <div class="EmployeeManBalanceInput">Current Salary: $5000</div>
+                            <input autocomplete="off" class='Maas-input' type="number" placeholder="Amount">
+                            <i class="fas fa-money-bill-wave-alt fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="EmployeePermissionContainer">
+                        <div class="permissionTopic">Quyền hạn</div>
+                        <div class="checkboxes">
+                            <input type="checkbox" id="permKick">
+                            <label for="permKick">Đuổi khách</label>
+                            <input type="checkbox" id="permChangeRoom">
+                            <label for="permChangeRoom">Đổi phòng</label>
+                            <input type="checkbox" id="permRefreshTime">
+                            <label for="permRefreshTime">Thay đổi thời gian</label>
+                            <input type="checkbox" id="permCreateNewKey">
+                            <label for="permCreateNewKey">Giao lại chìa khoá</label>
+                            <input type="checkbox" id="permSendMessage">
+                            <label for="permSendMessage">Gửi tin nhắn</label>
+                            <input type="checkbox" id="permRentRoom">
+                            <label for="permRentRoom">Thuê phòng</label>
+                            <input type="checkbox" id="permShowRequests">
+                            <label for="permShowRequests">Hiện thị yêu cầu</label>
+                            <input type="checkbox" id="permWithdrawMoney">
+                            <label for="permWithdrawMoney">Rút tiền</label>
+                            <input type="checkbox" id="permDepositMoney">
+                            <label for="permDepositMoney">Gửi tiền</label>
+                            <input type="checkbox" id="permChangeStatus">
+                            <label for="permChangeStatus">Đổi tình trạng khách sạn</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="CustomersManagementMenu">
+                    <div class="customers-container">
+                        <div class="customers-name">Customer
+                            <br>
+                            <div class="customers-firstlastname">NOT FOUNDED</div>
+                            <i class="fas fa-address-card fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="EmptyMotels">
+                    <!-- <div class="motel-container">
+                        <div class="motel-name">Motel
+                            <br>
+                            <div class="motel-id">Room ID - 1</div>
+                            <i class="fas fa-save fa-2x"></i>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="CustomersManagementMenux2">
+                    <div class="Customer-selectedName">NOT FOUNDEDS</div>  
+                    <div class="CustomerManagamentContainer update">
+                        <div class="CustomerManName Status">Update Room Status
+                            <br>
+                            <div class="CustomerManNameFirstLastName Status">Normal</div>
+                            <i class="fas fa-user-edit fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="CustomerManagamentContainer delete">
+                        <div class="CustomerManName">Delete Motel Room
+                            <br>
+                            <div class="CustomerManNameFirstLastName">Deletes Motel Room</div>
+                            <i class="fas fa-user-times fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="CustomerManagamentContainer change">
+                        <div class="CustomerManName">Change Room
+                            <br>
+                            <div class="CustomerManNameFirstLastName">Motel Room 1</div>
+                            <i class="fas fa-user-cog fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="CustomerManagamentContainer">
+                        <div class="CustomerManName">Time Refresh
+                            <br>
+                            <div class="CustomerManNameFirstLastName">Remaining 59 Minute</div>
+                            <i class="fas fa-user-clock fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="CustomerManagamentContainer">
+                        <div class="CustomerManName">Create New Key
+                            <br>
+                            <div class="CustomerManNameFirstLastName newKey">Creates New Key</div>
+                            <i class="fas fa-plus-square fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="CustomerManagamentContainer">
+                        <div class="CustomerManName">Send Message
+                            <br>
+                            <input class='CustomerManMsg-input' type="" placeholder="Enter Message">
+                            <i class="fas fa-comment fa-2x" id="CustomerMsg"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="requestsManagementMenu">
+                    <div class="requestPlayer-container">
+                        <div class="requestPlayer-name">Requests
+                            <br>
+                            <div class="requestPlayer-firstlastname">NOT FOUNDEDS</div>
+                            <i class="fas fa-address-card fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="requestsManagementMenux2">
+                    <div class="requests-selectedName">NOT FOUNDEDS</div>  
+                    <div class="allRequests">
+                        <div class="requestsContainer">
+                            <div class="requestsMenuName">Request Employee
+                                <br>
+                                <div class="RequestsNameFirstLastName">Requested Employee</div>
+                                <i id="RequestEmployee" class="fas fa-user-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="requestsContainer">
+                            <div class="requestsMenuName">Request Motel Key
+                                <br>
+                                <div class="RequestsNameFirstLastName">Requested New Key</div>
+                                <i id="reqMotelKey" class="fas fa-user-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="requestsContainer">
+                            <div class="requestsMenuName">Request Change Room
+                                <br>
+                                <div class="RequestsNameFirstLastName">Requested New Room</div>
+                                <i id="RequestChangeRoom" class="fas fa-user-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="requestsContainer">
+                            <div class="requestsMenuName">Request Refresh Time
+                                <br>
+                                <div class="RequestsNameFirstLastName">Requested Refresh Time</div>
+                                <i id="RequestRefreshTime" class="fas fa-user-alt fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nearbyManagementMenu">
+                    <!-- <div class="nearbyPlayer-container">
+                        <div class="nearbyPlayer-name">Nearby
+                            <br>
+                            <div class="nearbyPlayer-firstlastname">Admin Banned</div>
+                            <i class="fas fa-address-card fa-2x"></i>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="nearbyManagementMenux2">
+                    <!-- <div class="nearby-selectedName">Admin Banned</div>  
+                    <div class="nearbyContainer">
+                        <div class="nearbyMenuName">Take Employee
+                            <br>
+                            <div class="NearbyNameFirstLastName TakeEmployee">Target Take Employee</div>
+                            <i class="fas fa-handshake fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="nearbyContainer">
+                        <div class="nearbyMenuName">Take Customer
+                            <br>
+                            <div class="NearbyNameFirstLastName TakeCustomer">Target Take Customer</div>
+                            <i class="fas fa-address-book fa-2x"></i>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="selfManagementMenu">
+                    <div class="selfManContainer">
+                        <div class="SelfManName">Trả tiền thuê
+                            <br>
+                            <div class="SelfManSecName CurRent">Current: $0</div>
+                            <input class='SelfManSec-input' type="number" placeholder="Amount">
+                            <i class="fas fa-money-check-alt fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="selfManContainer">
+                        <div class="SelfManName">Thời gian còn lại
+                            <br>
+                            <div class="SelfManSecName CurRem">Current: 0</div>
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="selfManContainer">
+                        <div class="SelfManName">Phòng còn lại
+                            <br>
+                            <div class="SelfManSecName">Leave The Room</div>
+                            <i class="fas fa-sign-out-alt fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="selfManRequestContainer">
+                        <div class="RequestTopic">Yêu cầu cho chủ</div>
+                        <div class="checkboxes2">
+                            <input type="checkbox" id="reqEmployee">
+                            <label for="reqEmployee">Yêu cầu gặp mặt</label>
+                            <input type="checkbox" id="reqKey">
+                            <label for="reqKey">Yêu cầu giao chìa khoá</label>
+                            <input type="checkbox" id="reqChangeRoom">
+                            <label for="reqChangeRoom">Yêu cầu thay đổi phòng</label>
+                            <input type="checkbox" id="reqRefreshTime">
+                            <label for="reqRefreshTime">Yêu cầu gia hạn thời gian thuê</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="bankManagementMenu">
+                    <div class="currentMoney-container">
+                        <div class="currentMoney">Current Amount
+                            <div class="motelMoney">0</div>
+                            <i class="fas fa-wallet fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="depositMoney-container">
+                        <div class="depositMoney">DEPOSITE Money
+                            <br>
+                            <input autocomplete="off" class='depositAmount-input' type="number" name="depositAmount" placeholder="AMOUNT">
+                            <i class="fas fa-donate fa-2x"></i>
+                            <span class="focus-border"></span>
+                        </div>
+                    </div>
+                    <div class="withdrawMoney-container">
+                        <div class="withdrawMoney">WITHDRAW Money    
+                            <br>
+                            <input autocomplete="off" class='withdrawAmount-input' type="number" name="withdrawAmount" placeholder="AMOUNT">
+                            <i class="far fa-money-bill-alt fa-2x"></i>
+                            <span class="focus-border"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom">
+                <i class="fas fa-power-off fa-2x"></i>
+                <div class="time-utc"></div>
+            </div>
+        </div>
+        <script src="./main.js"></script>
+    </body>
+</html>

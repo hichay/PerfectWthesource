@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CWeaponModelInfo__InitDataList>
+	<InitDatas>
+		
+	    <!-- Carbine Division -->
+		<Item>
+		  <modelName>w_ar_carbinerifledivi</modelName>
+		  <txdName>w_ar_carbinerifledivi</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <ExpressionDictionaryName>W_AR_CarbineRifle</ExpressionDictionaryName>
+		  <ExpressionName>w_ar_carbinerifle</ExpressionName>
+		  <lodDist value="400"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_carbinerifledivi_mag1</modelName>
+		  <txdName>w_ar_carbinerifledivi_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="400"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_carbinerifledivi_mag2</modelName>
+		  <txdName>w_ar_carbinerifledivi_mag2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="400"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_ar_afgripdivi</modelName>
+		  <txdName>w_at_ar_afgripdivi</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="400"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_ar_flshdivi</modelName>
+		  <txdName>w_at_ar_flshdivi</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="400"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_ar_suppdivi</modelName>
+		  <txdName>w_at_ar_suppdivi</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="400"/>
+		</Item>
+		
+		<!-- Carbine RedCamo -->
+		<Item>
+		  <modelName>w_ar_carbinerifleredcamo</modelName>
+		  <txdName>w_ar_carbinerifleredcamo</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <ExpressionDictionaryName>W_AR_CarbineRifle</ExpressionDictionaryName>
+		  <ExpressionName>w_ar_carbinerifle</ExpressionName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_carbinerifleredcamo_mag1</modelName>
+		  <txdName>w_ar_carbinerifleredcamo_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_carbinerifleredcamo_mag2</modelName>
+		  <txdName>w_ar_carbinerifleredcamo_mag2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_arredcamo_afgrip</modelName>
+		  <txdName>w_at_arredcamo_afgrip</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_arredcamo_flsh</modelName>
+		  <txdName>w_at_arredcamo_flsh</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_arredcamo_supp</modelName>
+		  <txdName>w_at_arredcamo_supp</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		<Item>
+		  <modelName>w_at_scoperedcamo_medium</modelName>
+		  <txdName>w_at_scoperedcamo_medium</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="401"/>
+		</Item>
+		
+		
+		<!-- AssaultRifle (AK47) Orbit -->
+		<Item>
+		  <modelName>w_ar_assaultrifleorbit</modelName>
+		  <txdName>w_ar_assaultrifleorbit</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="403"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleorbit_mag1</modelName>
+		  <txdName>w_ar_assaultrifleorbit_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="403"/>
+		</Item>
+		
+		<!-- AssaultRifle (AK47) Aqua Marine -->
+		<Item>
+		  <modelName>w_ar_assaultrifleaquamarine</modelName>
+		  <txdName>w_ar_assaultrifleaquamarine</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleaquamarine_mag1</modelName>
+		  <txdName>w_ar_assaultrifleaquamarine_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		
+		<!-- AssaultRifle (AK47) Elite Build -->
+		<Item>
+		  <modelName>w_ar_assaultrifleelitebuild</modelName>
+		  <txdName>w_ar_assaultrifleelitebuild</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="405"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleelitebuild_mag1</modelName>
+		  <txdName>w_ar_assaultrifleelitebuild_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="405"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Frontside Misty -->
+		<Item>
+		  <modelName>w_ar_assaultriflefrontsidem</modelName>
+		  <txdName>w_ar_assaultriflefrontsidem</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="406"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflefrontsidem_mag1</modelName>
+		  <txdName>w_ar_assaultriflefrontsidem_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="406"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Jaguar -->
+		<Item>
+		  <modelName>w_ar_assaultriflejaguar</modelName>
+		  <txdName>w_ar_assaultriflejaguar</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="407"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflejaguar_mag1</modelName>
+		  <txdName>w_ar_assaultriflejaguar_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="407"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Wasteland Rebel -->
+		<Item>
+		  <modelName>w_ar_assaultriflerebel</modelName>
+		  <txdName>w_ar_assaultriflerebel</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="408"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflerebel_mag1</modelName>
+		  <txdName>w_ar_assaultriflerebel_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="408"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Redline -->
+		<Item>
+		  <modelName>w_ar_assaultrifleredline</modelName>
+		  <txdName>w_ar_assaultrifleredline</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="409"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleredline_mag1</modelName>
+		  <txdName>w_ar_assaultrifleredline_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="409"/>
+		</Item>
+		<!-- AssaultRifle (AK47) VULKAN -->
+		<Item>
+		  <modelName>w_ar_assaultriflevulkan</modelName>
+		  <txdName>w_ar_assaultriflevulkan</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="410"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflevulkan_mag1</modelName>
+		  <txdName>w_ar_assaultriflevulkan_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="410"/>
+		</Item>
+		
+		<!-- AssaultRifle (AK47) ASSIMOV -->
+		<Item>
+		  <modelName>w_ar_assaultrifleassimov</modelName>
+		  <txdName>w_ar_assaultrifleassimov</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleassimov_mag1</modelName>
+		  <txdName>w_ar_assaultrifleassimov_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) BLACKLAMINATE -->
+		<Item>
+		  <modelName>w_ar_assaultrifleblacklaminate</modelName>
+		  <txdName>w_ar_assaultrifleblacklaminate</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleblacklaminate_mag1</modelName>
+		  <txdName>w_ar_assaultrifleblacklaminate_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) BLOODSPORT -->
+		<Item>
+		  <modelName>w_ar_assaultriflebloodsport</modelName>
+		  <txdName>w_ar_assaultriflebloodsport</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflebloodsport_mag1</modelName>
+		  <txdName>w_ar_assaultriflebloodsport_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) CARTEL -->
+		<Item>
+		  <modelName>w_ar_assaultriflecartel</modelName>
+		  <txdName>w_ar_assaultriflecartel</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflecartel_mag1</modelName>
+		  <txdName>w_ar_assaultriflecartel_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+        <!-- AssaultRifle (AK47) CASE HARDENED -->
+		<Item>
+		  <modelName>w_ar_assaultriflecasehardened</modelName>
+		  <txdName>w_ar_assaultriflecasehardened</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflecasehardened_mag1</modelName>
+		  <txdName>w_ar_assaultriflecasehardened_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Emerald Pinstripe -->
+		<Item>
+		  <modelName>w_ar_assaultrifleemeraldpinstripe</modelName>
+		  <txdName>w_ar_assaultrifleemeraldpinstripe</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleemeraldpinstripe_mag1</modelName>
+		  <txdName>w_ar_assaultrifleemeraldpinstripe_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Epress -->
+		<Item>
+		  <modelName>w_ar_assaultrifleempress</modelName>
+		  <txdName>w_ar_assaultrifleempress</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="405"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleempress_mag1</modelName>
+		  <txdName>w_ar_assaultrifleempress_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="405"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Fire Serpent -->
+		<Item>
+		  <modelName>w_ar_assaultriflefireserpent</modelName>
+		  <txdName>w_ar_assaultriflefireserpent</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflefireserpent_mag1</modelName>
+		  <txdName>w_ar_assaultriflefireserpent_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) First Class -->
+		<Item>
+		  <modelName>w_ar_assaultriflefirstclass</modelName>
+		  <txdName>w_ar_assaultriflefirstclass</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflefirstclass_mag1</modelName>
+		  <txdName>w_ar_assaultriflefirstclass_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Fuel Injector -->
+		<Item>
+		  <modelName>w_ar_assaultriflefuelinjector</modelName>
+		  <txdName>w_ar_assaultriflefuelinjector</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflefuelinjector_mag1</modelName>
+		  <txdName>w_ar_assaultriflefuelinjector_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Hydroponic -->
+		<Item>
+		  <modelName>w_ar_assaultriflehydroponic</modelName>
+		  <txdName>w_ar_assaultriflehydroponic</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflehydroponic_mag1</modelName>
+		  <txdName>w_ar_assaultriflehydroponic_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Jet Set -->
+		<Item>
+		  <modelName>w_ar_assaultriflejetset</modelName>
+		  <txdName>w_ar_assaultriflejetset</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflejetset_mag1</modelName>
+		  <txdName>w_ar_assaultriflejetset_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Neon Revolution -->
+		<Item>
+		  <modelName>w_ar_assaultrifleneonrevolution</modelName>
+		  <txdName>w_ar_assaultrifleneonrevolution</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleneonrevolution_mag1</modelName>
+		  <txdName>w_ar_assaultrifleneonrevolution_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Neon Raider -->
+		<Item>
+		  <modelName>w_ar_assaultrifleneonrider</modelName>
+		  <txdName>w_ar_assaultrifleneonrider</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleneonrider_mag1</modelName>
+		  <txdName>w_ar_assaultrifleneonrider_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Point Disarray -->
+		<Item>
+		  <modelName>w_ar_assaultriflepointdisarray</modelName>
+		  <txdName>w_ar_assaultriflepointdisarray</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflepointdisarray_mag1</modelName>
+		  <txdName>w_ar_assaultriflepointdisarray_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Predator -->
+		<Item>
+		  <modelName>w_ar_assaultriflepredator</modelName>
+		  <txdName>w_ar_assaultriflepredator</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflepredator_mag1</modelName>
+		  <txdName>w_ar_assaultriflepredator_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Red Laminate -->
+		<Item>
+		  <modelName>w_ar_assaultrifleredlaminate</modelName>
+		  <txdName>w_ar_assaultrifleredlaminate</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleredlaminate_mag1</modelName>
+		  <txdName>w_ar_assaultrifleredlaminate_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Safari Mesh -->
+		<Item>
+		  <modelName>w_ar_assaultriflesafarimesh</modelName>
+		  <txdName>w_ar_assaultriflesafarimesh</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflesafarimesh_mag1</modelName>
+		  <txdName>w_ar_assaultriflesafarimesh_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Safety Net -->
+		<Item>
+		  <modelName>w_ar_assaultriflesafetynet</modelName>
+		  <txdName>w_ar_assaultriflesafetynet</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflesafetynet_mag1</modelName>
+		  <txdName>w_ar_assaultriflesafetynet_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Uncharted -->
+		<Item>
+		  <modelName>w_ar_assaultrifleuncharted</modelName>
+		  <txdName>w_ar_assaultrifleuncharted</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultrifleuncharted_mag1</modelName>
+		  <txdName>w_ar_assaultrifleuncharted_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<!-- AssaultRifle (AK47) Blue Laminate -->
+		<Item>
+		  <modelName>w_ar_assaultriflebluelaminate</modelName>
+		  <txdName>w_ar_assaultriflebluelaminate</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+		<Item>
+		  <modelName>w_ar_assaultriflebluelaminate_mag1</modelName>
+		  <txdName>w_ar_assaultriflebluelaminate_mag1</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="404"/>
+		</Item>
+
+	</InitDatas>
+</CWeaponModelInfo__InitDataList>

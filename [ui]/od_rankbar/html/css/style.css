@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'UVNBaiSau_R';
+    src: url(../fonts/UVNBaiSau_R.ttf);
+}
+
+.container {
+	margin: 0 auto;
+    width: 500px; 
+	height: 600px;
+	margin-top: 5%;
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+}
+
+.rankbar_title {
+    background-image: repeating-linear-gradient(to right, rgb(0, 204, 255), rgb(235, 141, 34));
+    background-size: 200% 200%;
+    background-position: 100% 100%;  
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 100%;
+    height: 30px;
+    animation: fade 5s ease infinite;
+	line-height: 30px;
+	text-align: center;
+	color: white;
+    font-family: UVNBaiSau_R;
+}
+
+.rankbar_title {
+    -webkit-animation: Fade 10s ease infinite;
+    -moz-animation: Fade 10s ease infinite;
+    animation: Fade 10s ease infinite;
+}
+
+.rankbar_list {
+    background-color: rgba(0,0,0,0.7);
+	width: 100%;
+    height: 600px;
+	overflow-y: scroll;
+}
+
+.rankbar {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 65px;
+    overflow: hidden;
+	color:#FFFFFF;
+	margin-top: 5px;
+}
+
+.rankbar:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#rankbar_name {
+	margin-left: 20px;
+	text-align: left;
+	height: 64px;
+	font-size: 20px;
+	line-height: 64px;
+	color: #FFFFFF;
+	font-family: 'UVNBaiSau_R';
+}
+
+#rankbar_XP {
+	float: right;
+	text-align: center;
+	margin-right: 10px;
+	width: auto;
+	height: 64px;
+	line-height: 64px;
+}
+
+#rankbar_XP_IMG {
+	float: left;
+	margin-right: 20px;
+	width: 64px;
+	height: 64px;
+	line-height: 64px;
+}
+
+@-webkit-keyframes Fade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@-moz-keyframes Fade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@keyframes Fade { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: rgba(0,0,0,0.7);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ec8e22; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ec8e22; 
+}
+ 
+button {
+	font-family: 'UVNBaiSau_R';
+	background-color: rgba(255,255,255,0.3);
+	border: 1px solid #ec8e22;
+	color: #FFFFFF;
+}
+
+button {
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+
+button:hover {
+	background-color: #ec8e22; /* Green */
+	color: white;
+}

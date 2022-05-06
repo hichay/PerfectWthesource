@@ -1,0 +1,105 @@
+<head>
+  <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+  <script src="scripts.js" type="text/javascript"></script>
+  <script src="debounce.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="clipboard">
+      <div class="clipboard__clip"></div>
+      <div class="clipboard__paper">
+        <div class="clipboard__header">
+          <h2>ĐÁNH GIÁ LÁI XE</h2>
+        </div>
+
+        <div class="clipboard__section">
+          <h3>Thông tin</h3>
+
+          <label class="input__text">
+            Người hướng dẫn: <span id="instructor-name"></span>
+          </label>
+
+          <label class="input__text">
+            ID người lái: <input type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" name="cid" />
+          </label>
+        </div>
+
+        <div class="clipboard__section">
+          <h3>-2 Điểm (Mỗi lỗi)</h3>
+
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="2" name="failure-to-obey" />
+            Không tuân theo thiết bị điều khiển giao thông
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="2" name="unauthorized-parking" />
+            Đậu xe không đúng chỗ quy định
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="2" name="illegal-turn" />
+            Rẽ sai phép
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="2" name="road-rage" />
+            Bực tức, Leo lề, Hú còi inh ỏi
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="2" name="three-degree-speeding" value="0" />
+            3rd Degree Speeding (10-35 over)
+          </label>
+        </div>
+
+        <div class="clipboard__section">
+          <h3>-5 Điểm</h3>
+
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="5" name="illegal-passing" />
+            Vượt đèn đỏ
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="5" name="ridding-on-sidewalk" />
+            Lái xe trên lề đi bộ
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="5" name="failure-to-yield" />
+            Không nhường đường cho xe cấp cứu
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="5" name="second-degree-speeding" />
+            2nd Degree Speeding (36-55 over)
+          </label>
+        </div>
+
+        <div class="clipboard__section">
+          <h3>Lập tức loại</h3>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="10" name="hit-and-run" />
+            Đụng xe và chạy khỏi cảnh sát
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="10" name="wrong-side" />
+            Lái trên làn không được phép
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="10" name="dui-dwi" />
+            DUI/DWI
+          </label>
+          <label class="input__group">
+            <input class="amount" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" step="1" min="0" value="0" data-points="10" name="first-degree-speeding" />
+            1st Degree Speeding (56+ over)
+          </label>
+        </div>
+
+        <div class="clipboard__footer">
+          <span id="points-remaining" class="pass">10</span> Điểm còn lại<br />
+          0 Điểm = <span class="fail">Không đạt</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>

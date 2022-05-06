@@ -1,0 +1,38 @@
+
+@font-face {
+	font-family: bankgothic;
+	src: url('../fonts/bankgothic.ttf');
+}
+
+@font-face {
+	font-family: pcdown;
+	src: url('../fonts/pdown.ttf');
+}
+#container {
+    position: absolute;
+    right: 10px;
+    top: 34%;
+    color:#fff;
+	font-family: 'arial', cursive;
+
+    z-index: -3;
+}
+
+.iconhd {
+    margin-bottom: 3px;
+    text-align: right;
+	font-family: 'arial', cursive;
+    font-weight: bold;
+    line-height: 2;
+}
+
+.backgroundicon {
+    background-color:#020202da;
+     padding:1 0.4px;  
+     display:inline-block !important;  
+    min-width: 30px;
+    font-weight: bold;
+    color:rgb(81, 200, 247);
+    text-align: center;
+    border-radius: 3px;
+}

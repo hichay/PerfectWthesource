@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CWeaponComponentInfoBlob>
+  <Data>
+
+  </Data>
+  <Infos>
+    <!-- Carbine Division -->
+    <Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_CARBINERIFLE_MKMOD_DIVI</Name>
+      <Model>w_ar_carbinerifledivi</Model>
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents>
+		<Item>
+		  <ComponentName>COMPONENT_CARBINERIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_carbinerifledivi_mag1</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_CARBINERIFLE_CLIP_02</ComponentName>
+		  <ComponentModel>w_ar_carbinerifledivi_mag2</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_CARBINERIFLE_CLIP_03</ComponentName>
+		  <ComponentModel>w_at_ar_afgripdivi</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_AR_FLSH</ComponentName>
+		  <ComponentModel>w_at_ar_flshdivi</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_AR_SUPP</ComponentName>
+		  <ComponentModel>w_at_ar_suppdivi</ComponentModel>
+		</Item>	
+	  </ExtraComponents>
+    </Item>
+	
+	<!-- Carbine RED CAMO -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_CARBINERIFLE_MKMOD_REDCAMO</Name>
+      <Model>w_ar_carbinerifleredcamo</Model>
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents>
+		<Item>
+		  <ComponentName>COMPONENT_CARBINERIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_carbinerifleredcamo_mag1</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_CARBINERIFLE_CLIP_02</ComponentName>
+		  <ComponentModel>w_ar_carbinerifleredcamo_mag2</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_AR_AFGRIP</ComponentName>
+		  <ComponentModel>w_at_arredcamo_afgrip</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_AR_FLSH</ComponentName>
+		  <ComponentModel>w_at_arredcamo_flsh</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_AR_SUPP</ComponentName>
+		  <ComponentModel>w_at_arredcamo_supp</ComponentModel>
+		</Item>
+		<Item>
+		  <ComponentName>COMPONENT_AT_SCOPE_MEDIUM</ComponentName>
+		  <ComponentModel>w_at_scoperedcamo_medium</ComponentModel>
+		</Item>
+		
+	  </ExtraComponents>
+    </Item>
+	
+	<!-- AK47 Orbit -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_ORBIT</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleorbit</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleorbit_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	
+	
+	<!-- AK47 AquaMarine -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_AMARINE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleaquamarine</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleaquamarine_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	
+	<!-- AK47 EliteBuild -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_ELITEBUILD</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleelitebuild</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleelitebuild_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	
+	<!-- AK47 Frontside Misty -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_FRONTSIDEM</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflefrontsidem</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflefrontsidem_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	
+	<!-- AK47 Jaguar -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_JAGUAR</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflejaguar</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflejaguar_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Rebel -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_REBEL</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflerebel</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflerebel_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+    <!-- AK47 Red Line -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_REDLINE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleredline</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleredline_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 VulKan -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_VULKAN</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflevulkan</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflevulkan_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Assimov -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_ASSIMOV</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleassimov</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleassimov_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 BLACKLAMINATE -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_BLACKLAMINATE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleblacklaminate</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleblacklaminate_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 BLOODSPORT -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_BLOODSPORT</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflebloodsport</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflebloodsport_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 CARTEL -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_CARTEL</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflecartel</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflecartel_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 CASE HARDENED -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_CASEHARDENED</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflecasehardened</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflecasehardened_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Emerald Pinstripe -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_EMERALDPINSTRIPE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleemeraldpinstripe</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleemeraldpinstripe_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Empress -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_EMPRESS</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleempress</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleempress_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Fire Serpent -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_FIRESERPENT</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflefireserpent</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflefireserpent_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 First Class -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_FIRSTCLASS</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflefirstclass</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflefirstclass_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Fuel Injector -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_FUELINJECTOR</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflefuelinjector</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflefuelinjector_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Hydroponic -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_HYDROPONIC</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflehydroponic</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflehydroponic_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Jet Set -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_JETSET</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflejetset</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflejetset_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Neon Revolution -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_NEONREVOLUTION</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleneonrevolution</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleneonrevolution_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Neon Raider -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_NEONRAIDER</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleneonrider</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleneonrider_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Point Disarray -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_POINTDISARRAY</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflepointdisarray</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflepointdisarray_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Predator -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_PREDATOR</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflepredator</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflepredator_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Red Laminate -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_REDLAMINATE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleredlaminate</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleredlaminate_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Safari Mesh -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_SAFARIMESH</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflesafarimesh</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflesafarimesh_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Safety Net -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_SAFETYNET</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflesafetynet</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflesafetynet_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Uncharted -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_UNCHARTED</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultrifleuncharted</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultrifleuncharted_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+	<!-- AK47 Blue Laminate -->
+	<Item type="CWeaponComponentVariantModelInfo">
+      <Name>COMPONENT_ASSAULTRIFLE_MKMOD_BLUELAMINATE</Name> <!-- Tên định danh riêng của mod skin-->
+      <Model>w_ar_assaultriflebluelaminate</Model> <!--Model định danh của mod skin -->
+      <LocName>WCT_INVALID</LocName>
+      <LocDesc>WCD_INVALID</LocDesc>
+      <AttachBone />
+      <AccuracyModifier type="NULL" />
+      <DamageModifier type="NULL" />
+      <bShownOnWheel value="false" />
+      <CreateObject value="false" />
+      <HudDamage value="0" />
+      <HudSpeed value="0" />
+      <HudCapacity value="0" />
+      <HudAccuracy value="0" />
+      <HudRange value="0" />
+	  <TintIndexOverride value="2"/>
+	  <ExtraComponents> <!--Các phụ kiện đi kèm với skin này -->
+		<Item>
+		  <ComponentName>COMPONENT_ASSAULTRIFLE_CLIP_01</ComponentName>
+		  <ComponentModel>w_ar_assaultriflebluelaminate_mag1</ComponentModel>
+		</Item>
+	  </ExtraComponents>
+    </Item>
+
+	
+  </Infos>
+  <InfoBlobName>Core Game</InfoBlobName>
+</CWeaponComponentInfoBlob>

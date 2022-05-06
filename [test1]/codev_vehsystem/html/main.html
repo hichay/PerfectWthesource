@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script>
+        window.addEventListener('message', (event) => {
+            let data = event.data
+            var odometer = document.querySelector('.odometer');
+            var kmsReales = (data.value / 100).toFixed(2)
+
+            if (data.action == 'showMessage') {
+                var el = document.querySelector('.odometer');
+
+                od = new Odometer({
+                    el: el,
+                    value: 2223765,
+                    format: '',
+                    theme: 'digital',
+                    theme: 'car',
+                });
+                var vehicleSpeedUnit = kmsReales;
+                var mileage = document.querySelector('.odometer span');
+
+                saferInnerHTML(mileage, vehicleSpeedUnit);
+                odometer.style.display = null;
+            }
+
+            if (data.action == 'hideMessage') {
+                odometer.style.display = 'none';
+            }
+        });
+    </script>
+    </style>
+
+    <link rel="stylesheet" href="https://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
+    <script src="https://github.hubspot.com/odometer/odometer.js"></script>
+
+    <style>
+        .odometer {
+            font-size: 25px;
+            position: absolute;
+            top: 96%;
+            left: 96%;
+            transform: translate(-96%, -96%);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="milage" class="odometer" style="display: none;"><span></span></div>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/saferInnerHTML@1/dist/saferInnerHTML.polyfills.min.js"></script>
+</body>
+
+</html>

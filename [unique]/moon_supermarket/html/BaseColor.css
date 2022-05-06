@@ -1,0 +1,122 @@
+.base-bg-color {
+  background: linear-gradient(to bottom, #323232 0%, #3f3f3f 40%, #1c1c1c 150%),
+    linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(0, 0, 0, 0.25) 200%
+    );
+  background-blend-mode: multiply;
+}
+
+/* Shop Layout */
+.shop-layout {
+  background-color: var(--bg-black-color);
+  width: 100%;
+  max-height: 690px;
+  height: 100%;
+  /* box-shadow: 0px 0px 8px 2px rgba(255, 255, 255, 0.5); */
+  overflow: hidden;
+}
+
+/* Shop ItemList */
+.shop-item {
+  width: 160px;
+  margin: 5px;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.65);
+  color: #fff;
+}
+.shop-item:hover,
+.shop-item:focus,
+.shop-item:active {
+  box-shadow: 0px 0px 6px 1px rgba(255, 255, 255, 1);
+  outline: solid 2px #fff;
+}
+
+/* Button Count Add/Remove */
+.btn-count-add,
+.btn-count-remove {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: solid 2px rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+.btn-count-add:hover,
+.btn-count-remove:hover {
+  box-shadow: 0px 0px 6px 1px #fff;
+  border: solid 2px #fff;
+}
+.btn-count-add {
+  background-color: rgb(90 90 90 / 35%);
+}
+.btn-count-remove {
+  background-color: rgb(90 90 90 / 35%);
+}
+
+/* Button Buy */
+.btn-item-buy {
+  width: 100%;
+  background-image: linear-gradient(to top, #056709 0%, #109415 100%);
+}
+.btn-item-buy:hover {
+  box-shadow: 0px 0px 6px 1px #fff;
+}
+
+/* Button Style */
+.btn.btn-xzero {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+}
+.btn-xzero:hover {
+  border-color: rgba(255, 255, 255, 1);
+}
+
+/* Loading */
+.xloading-container {
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.xloading-fullbox {
+  --loading-red-fade: 80, 80, 80;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(var(--loading-red-fade), 0.5) 30%,
+    rgba(var(--loading-red-fade), 1) 48%,
+    rgba(var(--loading-red-fade), 0.5) 70%,
+    rgba(var(--loading-red-fade), 0.1) 100%,
+    transparent
+  );
+  width: 910px;
+  height: 80px;
+}
+.xloading-content {
+  font-size: 30px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.xloading-content i {
+  margin: 15px;
+}

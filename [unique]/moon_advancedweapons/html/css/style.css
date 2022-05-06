@@ -1,0 +1,75 @@
+@font-face {
+	font-family: 'Helvetica_Neue';
+	src: url('../fonts/helveticaneue.ttf')
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+* {-webkit-touch-callout: none;-webkit-user-select: none;user-select: none;}
+p {cursor: default;}
+body {background-color: transparent;width: 100vw;height: 100vh;overflow: hidden;font-family: 'Helvetica_Neue';}
+button:focus {outline:0;}
+ul {list-style: none;padding:0px;margin:0px;}
+li {list-style: none;}
+.character-equipment {position: absolute;/*display:none;*/top: 15%;left: 15%;background-color: rgba(0, 0, 0, 0.8);width: 650px;height: 80%;user-select: none;border:1px solid #000;}
+.character-equipment .item-slot {background-color: rgba(0, 0, 0, 0.8);width:80px;height:80px;position:absolute;}
+.character-equipment .item-slot .item-image {width: 100%;background-size: contain;height: 100%;display: block;}
+.character-equipment .item-slot .btn-unwear {color: #fff;position: absolute;bottom: 0;text-align: center;width: 100%;background-color: rgba(0, 0, 0, 0.5);}
+.character-equipment .item-slot .btn-unwear:hover {color:#000;background-color:#fff;}
+.character-equipment .title {color: #fff;font-size: 20px;padding:0px;background-color:#000;}
+.character-equipment .title span {padding:8px 10px;display:inline-block;}
+.character-equipment .title .close-btn {float:right;width:40px;height:100%;display:block;padding:8px 0;text-align:center;cursor:pointer;}
+.character-equipment .title .close-btn:hover {color:#000;background-color: #fff;}
+.wp-com-ui {display:inline-flex;height:94%;}
+
+.inventory-list {width: 300px;display: inline-block;/*height: 440px;*/border-right:1px solid #6d6c6c;margin-top:10px;}
+.inventory-list p {margin:4px 10px;color:#fff;}
+.inventory-list ul {overflow-y: auto;height:97%;}
+.inventory-list li {padding:4px 0;/*border-bottom:1px solid #6d6c6c;*/margin:0 10px;display:inline-flex;width:280px;}
+.item {background-color: rgba(103, 103, 103, 0.14);display:inline-flex;width:280px;height:74px;cursor:pointer;position: relative;}
+.item-info {width:68%;height:70px;display:inline-block;color:#fff;line-height:60px;padding-left:10px;}
+.item-info p {margin:4px 0 0 0;font-size:14px;cursor:pointer;}
+.item-icon {display:inline-block;width:70px;padding:3px;background-color: rgba(103, 103, 103, 0.4);cursor:pointer;}
+.item-icon .image {width:64px;height:64px;display:inline-block;}
+.item .amount {position: absolute;bottom:0px;left:1%;color:#fff;}
+.fl-r-btn {position: absolute;right: 0;top: 0;line-height: 30px;padding: 0 7px;background-color: rgba(103, 103, 103, 0.49);}
+
+.weapon-list {padding:0 20px;display:inline-block;max-height:680px;margin-top:10px;}
+.weapon-list p {margin: 4px 10px;color:#fff;}
+.weapon-list ul.main-wp-list {overflow-y:auto;height:100%;}
+.weapon-item {position: relative;color:#fff;border-bottom:1px solid #6d6c6c;}
+.weapon-item .weapon-info {text-align: center;}
+.weapon-item .weapon-info p {text-align: left;}
+.weapon-item .weapon-info .image {width:300px;height:100px;display:inline-block;}
+.weapon-item .component-list {margin-bottom:6px;text-align: right;display:inline-flex;justify-content: flex-end;width:100%;}
+.weapon-item .component-list ul {display:inline-flex;}
+.weapon-item .component-list li {width:48px;height:48px;display:inline-flex;margin:0 4px;background-color: rgba(95, 95, 95, 0.8);}
+.weapon-item .component-list li .item-icon {width:48px;height:48px;background-color:transparent;}
+.weapon-item .component-list li .item-icon .image {width:42px;height:42px;}
+.ui-draggable-dragging .item-icon {width:48px;height:48px;background-color:transparent;}
+.ui-draggable-dragging .item-icon .image {width:42px;height:42px;}
+.ui-droppable-hover {background-color: rgba(255, 244, 191, 0.79) !important;}
+
+.character-equipment .helmet {top:13%;left:37%;}
+.character-equipment .helmet::before {content: "Mũ";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .mask {top:13%;left:7%;}
+.character-equipment .mask::before {content: "Mặt nạ";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .torso {top:34%;left:37%;}
+.character-equipment .torso::before {content: "Áo";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .vest {top:34%;left:68%;}
+.character-equipment .vest::before {content: "Áo giáp";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .glasses {top:55%;left:7%;}
+.character-equipment .glasses::before {content: "Kính";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .watches {top:55%;left:68%;}
+.character-equipment .watches::before {content: "Đồng hồ";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .pant {top:55%;left:37%;}
+.character-equipment .pant::before {content: "Quần";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .shoe {top:76%;left:37%;}
+.character-equipment .shoe::before {content: "Giầy";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.character-equipment .card {top:76%;left:7%;}
+.character-equipment .card::before {content: "Thẻ";text-align:center;display:block;position: absolute;top:0px;left:0px;width:80px;height:80px;line-height:80px;color: rgba(255,255,255, 0.6);}
+.total-armor {color:#fff;position:absolute;bottom:2%;left:7%;}
+
+
+
+

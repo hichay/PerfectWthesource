@@ -1,0 +1,89 @@
+.cs-incoming-call-container #cs-remote-video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.cs-incoming-call-container #cs-self-video-container {
+    position: absolute;
+    z-index: 3;
+    top: 20%;
+    right: 3%;
+    width: 25%;
+    transition: top 1s ease;
+}
+
+.cs-incoming-call-container #cs-self-video {
+    width: 100%;
+    height: 100%;
+    zoom: 0.3;
+    border-radius: 5%;
+    opacity: 0.85;
+    float: right;
+    background: #2b2b2b;
+}
+
+[data-action="cs-video-call-swap-camera"] {
+    background: #009657;
+    fill: #e6e6e6;
+}
+
+[data-action="cs-video-call-swap-filter"] {
+    background: #a00070;
+    fill: #e6e6e6;
+}
+
+[data-action="cs-video-call-swap-transmission"] {
+    background: #a90000;
+    fill: #e6e6e6;
+}
+
+.cs-incoming-call-container .buttons-container {
+    zoom: 0.7;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.cs-incoming-call-container .buttons-container button svg {
+    scale: 0.75;
+    width: 100%;
+    height: 100%;
+}
+
+.cs-incoming-call-container .buttons-container button {
+    width: 32.5%;
+    height: 32.5%;
+    padding: 3% 1.5%;
+    text-align: center;
+    margin-top: 3%;
+    margin-right: 3%;
+    border: 0;
+    padding: 0 7.5%;
+}
+
+.cs-incoming-call-container .buttons-container button:last-child {
+    margin-right: 0;
+}
+
+[data-action="cs-video-call-swap-transmission"] {
+    width: 70px;
+    height: 70px;
+    border-radius: 250px;
+    padding: 15px;
+}
+
+.cs-incoming-call-container.remote-video-active #cs-remote-video {
+    background: black;
+}
+
+.cs-incoming-call-container.remote-video-active #cs-self-video-container {
+    top: 5.5%;
+}
+
+.cs-incoming-call-container.remote-video-active .phone_app .backblur, .cs-incoming-call-container.remote-video-active .phone_app .num, .cs-incoming-call-container.remote-video-active .phone_app .contactName, .cs-incoming-call-container.remote-video-active .phone_app .time, .cs-incoming-call-container.remote-video-active .phone_app .time-display {
+    display: none;
+}

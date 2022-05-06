@@ -1,0 +1,161 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap');
+
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url("Poppins-Regular.ttf");
+}
+
+*{
+  font-family: 'Odibee Sans', cursive;
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+.container{
+    z-index: 100000;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #191e25;
+}
+
+.wrapper{
+    min-height: 100px;
+}
+
+.content{
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.span{
+ text-color: red;
+}
+.dialog-text{
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ddd;
+    padding: 10px 0 20px;
+    margin-left: 20px;
+}
+
+.buttons-container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.close-button{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position: absolute;
+    right: 0.5vh;
+    top:0;
+
+    width: 2vh;
+    height:2vh;
+    color: white;
+    font-size: 16px;
+    border-radius: 50%;
+
+}
+
+.header{
+    color:#ddd;
+    font-size: 21px;
+
+}
+
+.ped-text{
+    font-size: 18px;
+  
+    color:#ddd;
+}
+
+hr{
+    margin-bottom: 20px;
+}
+
+.fa-plus{
+    text-align: center;
+    color: white;
+    min-width: 250px;
+    display: flex;
+
+    justify-content:center;
+    position: relative;
+}
+
+.fas{
+    line-height: normal;
+}
+
+.buttons-container{
+    display:flex;
+    justify-content:center;
+
+}
+
+.buttons{
+        margin-top: 2vh;
+    display:flex;
+    min-height: 120px;
+    position:relative;
+
+}
+
+.button{
+    color:#ddd;
+    font-size: 1.4vmin;
+
+    min-width: 170px;
+
+}
+
+.button:hover{
+    transition: 0.2s opacity ease;
+    opacity: 0.8;
+}
+
+.button-1{
+    min-width: 500px;
+    position:absolute;
+    left:7vh;
+    top: -3vh; 
+    text-align: left;
+
+}
+
+.button-2{
+    position:absolute;
+    text-align: right;
+    left:-9.5vh;
+    top:1.5vh;
+    max-width: 180px;
+}
+.button-3{
+    min-width: 500px;
+    text-align: left;
+    left:7vh;
+
+    position:absolute;
+    bottom: 3vh;
+
+}.button-4{
+    position:absolute;
+    right: -10vh;
+    top: 1.5vh;
+    text-align: left;
+    max-width: 180px;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

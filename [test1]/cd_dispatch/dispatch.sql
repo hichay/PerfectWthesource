@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD COLUMN `callsign` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_bin';

@@ -1,0 +1,135 @@
+.cs-incoming-call-container #cs-remote-video {
+    width: 100%;
+    height: 130%;
+    position: absolute;
+    top: -10%;
+    left: 0;
+    z-index: 0;
+}
+
+.cs-incoming-call-container #cs-self-video-container {
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    right: 7%;
+    width: 25%;
+    transition: top 1s ease;
+}
+
+.cs-incoming-call-container #cs-self-video {
+    width: 100%;
+    height: 100%;
+    zoom: 0.3;
+    border-radius: 5%;
+    opacity: 0.85;
+    float: right;
+    background: #2b2b2b;
+}
+
+[data-action="cs-video-call-swap-camera"] {
+    background: #009657;
+    fill: #e6e6e6;
+}
+
+[data-action="cs-video-call-swap-filter"] {
+    background: #a00070;
+    fill: #e6e6e6;
+}
+
+[data-action="cs-video-call-swap-transmission"] {
+    background: #a90000;
+    fill: #e6e6e6;
+}
+
+.cs-incoming-call-container .buttons-container {
+    zoom: 0.7;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.cs-incoming-call-container .buttons-container button svg {
+    scale: 0.75;
+    width: 100%;
+    height: 100%;
+}
+
+.cs-incoming-call-container .buttons-container button {
+    width: 32.5%;
+    height: 32.5%;
+    padding: 3% 1.5%;
+    text-align: center;
+    margin-top: 3%;
+    margin-right: 3%;
+    border: 0;
+    padding: 0 7.5%;
+}
+
+.cs-incoming-call-container .buttons-container button:focus {
+    outline: none;
+}
+
+.cs-incoming-call-container .buttons-container button:last-child {
+    margin-right: 0;
+}
+
+.cs-incoming-call-container.remote-video-active #cs-remote-video {
+    background: black;
+}
+
+[data-action="cs-video-call-swap-transmission"] {
+    position: absolute;
+    bottom: 1.5vh;
+    left: 43.5%;
+    color: rgb(255, 255, 255, 0.8) !important;
+    background-color: rgb(4, 181, 67, 0.8);
+    /* background: linear-gradient(180deg, rgba(93,245,111,1) 0%, rgba(56,221,83,1) 50%, rgba(19,192,51,1) 100%); */
+    font-size: 1.5vh;
+    margin: 0px auto;
+    padding: 1.25vh;
+    padding-top: 1vh;
+    border-radius: 150px;
+    height: 7.5%;
+    transition: background-color 0.1s ease-in-out 0s;
+    animation: 2s ease 0s infinite normal none running pulse;
+}
+
+/* body #ongoing-cancel {
+    left: 35%;
+} */
+
+.cs-incoming-call-container .phone-call-ongoing-caller, .cs-incoming-call-container .phone-call-ongoing-title, .cs-incoming-call-container .phone-call-ongoing-picture, .cs-incoming-call-container .phone-call-ongoing-time {
+    transition: all 1s ease;
+}
+
+.cs-incoming-call-container .phone-call-ongoing-caller, .cs-incoming-call-container .phone-call-ongoing-title, .cs-incoming-call-container .phone-call-ongoing-time {
+    width: 100%;
+}
+
+.cs-incoming-call-container.video-active .phone-call-ongoing-caller, .cs-incoming-call-container.video-active .phone-call-ongoing-title, .cs-incoming-call-container.video-active .phone-call-ongoing-time {
+    width: 68%;
+}
+
+.cs-incoming-call-container .phone-call-ongoing-picture {
+    margin-right: 29.3%;
+}
+
+.cs-incoming-call-container.video-active .phone-call-ongoing-picture {
+    margin-right: 45%;
+}
+
+.cs-incoming-call-container.remote-video-active .phone-call-ongoing-picture {
+    display: none;
+}
+
+.cs-incoming-call-container.remote-video-active .phone-call-ongoing-title {
+    top: 9%;
+}
+
+.cs-incoming-call-container.remote-video-active .phone-call-ongoing-caller {
+    top: 10%;
+}
+
+.cs-incoming-call-container.remote-video-active .phone-call-ongoing-time {
+    top: 11%;
+}
