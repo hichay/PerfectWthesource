@@ -26,6 +26,8 @@ local Interact = {
   exports["pw-interact"]:AddPeekEntryByFlag({'isPlayerModel'}, Interact.data, Interact.options)
 
 end)
+
+
 RegisterNetEvent('pw-scripts:client:Duatien')
 AddEventHandler('pw-scripts:client:Duatien', function()
 

@@ -380,7 +380,7 @@ function StartPeekin()
             blockInteractHint[zone.id] = true
         end
     end
-    print(nearbyZones, json.encode(nearbyZones, { indent = true }))
+    --print(nearbyZones, json.encode(nearbyZones, { indent = true }))
 
     Citizen.CreateThread(function()
         local rgbGreen, rgbWhite = {0, 248, 185}, {255, 255, 255}
@@ -399,7 +399,7 @@ function StartPeekin()
 
             if IsPeakActive and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
                 SetCursorLocation(0.5, 0.5)
-
+				print('eye')
                 exports["np-ui"]:openApplication("eye", {
                     action = "interact",
                     payload = { active = true, display = true, context = context, entity = CurrentTarget }
