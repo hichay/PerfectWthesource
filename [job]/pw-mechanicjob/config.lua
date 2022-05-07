@@ -171,7 +171,7 @@ Config.RepairCostAmount = {
         costs = 1,
 		}
     },
-    ["brakes"] = {
+    ["brake"] = {
 		A = {
 		label = "Phanh xe Hạng A",
         item = "brakeparta",
@@ -233,7 +233,7 @@ Config.RepairCostAmount = {
         costs = 1,
 		}
     },
-    ["fuelinjector"] = {
+    ["injector"] = {
 		A = {
 		label = "Kim phun Hạng A",
         item = "fuelinjectora",
@@ -299,7 +299,7 @@ Config.RepairCostAmount = {
     },
 	
 	
-	["electronic"] = {
+	["electronics"] = {
 		A = {
 		label = "Thiết bị điển tự Hạng A",
         item = "electronicparta",

@@ -14,7 +14,7 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
 
     local vehicle = nil
 
-    local target = exports["np-interact"]:GetCurrentEntity()
+    local target = exports["pw-interact"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end
@@ -29,157 +29,157 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
     degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
 
     local data = {
-        {
-            title = "Thông tin xe",
-            description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
-        },
-        {
-          icon = "check",
-            title = "Kiểm tra xe",
-            children = {
-                {
-                    title = "Axle Tree",
-                    description = "Current State: " .. degHealth.axle .. "% | Parts Required: " .. 0,
-                    action = "",
-                    --[[ children = { 
-                      { icon = "wrench", description = Config.RepairCostAmount["axle"][class].label.." : ".. Config.RepairCostAmount["axle"][class].costs ,title = "Sửa chữa bộ phận này", action = "caue-vehicles:repairVehicle", key = {name = "axle"} },
-                    }, ]]
-                },
-                {
-                    title = "Body",
-                    description = "Current State: " .. degHealth.body .. "% | Parts Required: " .. 0,
-                    --[[ children = { 
-                      { icon = "wrench", description = Config.RepairCostAmount["body_damage"][class].label.." : ".. Config.RepairCostAmount["body_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "caue-vehicles:repairVehicle", key = {name = "body"} },
-                    }, ]]
-                },
-                {
-                    title = "Brake Discs",
-                    description = "Current State: " .. degHealth.brake .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Clutch",
-                    description = "Current State: " .. degHealth.clutch .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Eletronics",
-                    description = "Current State: " .. degHealth.electronics .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Engine Block",
-                    description = "Current State: " .. degHealth.engine .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Engine Radiator",
-                    description = "Current State: " .. degHealth.radiator .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Fuel Injectors",
-                    description = "Current State: " .. degHealth.injector .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Transmission",
-                    description = "Current State: " .. degHealth.transmission .. "% | Parts Required: " .. 0,
-                },
-                {
-                    title = "Tyres",
-                    description = "Current State: " .. degHealth.tire .. "% | Parts Required: " .. 0,
+      {
+          title = "Thông tin xe",
+          description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
+      },
+      {
+        icon = "check",
+        title = "Kiểm tra xe",
+        children = {
+            
+            {
+              title = "1. Động cơ",
+              description = "Tình trạng: " .. degHealth.engine,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["engine_damage"][class].label.." : ".. Config.RepairCostAmount["engine_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "engine"} },
+              },
+            },
+            {
+                title = "2. Thân vỏ",
+                description = "Tình trạng: " .. degHealth.body,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["body_damage"][class].label.." : ".. Config.RepairCostAmount["body_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "body"} },
                 },
             },
+            
+            {
+                title = "3. Ly hợp",
+                description = "Tình trạng: " .. degHealth.clutch,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["clutch"][class].label.." : ".. Config.RepairCostAmount["clutch"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "clutch"} },
+                },
+            },
+            {
+                title = "4. Thiết bị điện tử",
+                description = "Tình trạng: " .. degHealth.electronics,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["electronics"][class].label.." : ".. Config.RepairCostAmount["electronics"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "electronic"} },
+                },
+            },
+            
+            {
+                title = "5. Bộ tản nhiệt động cơ",
+                description = "Tình trạng: " .. degHealth.radiator,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["radiator"][class].label.." : ".. Config.RepairCostAmount["radiator"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "radiator"} },
+                },
+            },
+            {
+                title = "6. Kim phun nhiên liệu",
+                description = "Tình trạng: " .. degHealth.injector,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["injector"][class].label.." : ".. Config.RepairCostAmount["injector"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "injector"} },
+                },
+            },
+            {
+                title = "7. Trục chuyển",
+                description = "Tình trạng: " .. degHealth.transmission,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["transmission"][class].label.." : ".. Config.RepairCostAmount["transmission"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "transmission"} },
+                },
+            },
+            {
+                title = "8. Lốp xe",
+                description = "Tình trạng: " .. degHealth.tire,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["tire"][class].label.." : ".. Config.RepairCostAmount["tire"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "tire"} },
+                },
+            },
+            {
+                title = "9. Đĩa phanh",
+                description = "Tình trạng: " .. degHealth.brake,
+                children = { 
+                  { icon = "wrench", description = Config.RepairCostAmount["brake"][class].label.." : ".. Config.RepairCostAmount["brake"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "brake"} },
+                },
+            },
+            {
+                title = "10. Cây trục",
+                description = "Tình trạng: " .. degHealth.axle,
+                children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["axle"][class].label.." : ".. Config.RepairCostAmount["axle"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "axle"} },
+              },
+            },
+          },
         },
-    }
+    },
 
     exports["np-ui"]:showContextMenu(data)
 end)
 
+RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
+	cb({ data = {}, meta = { ok = true, message = '' } })
+  local type = data.key.name
+  print(type)
+  local target = exports["pw-interact"]:GetCurrentEntity()
+  if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
+      vehicle = target
+  end
 
+  if not vehicle then return end
 
+  local plate = GetVehicleNumberPlateText(vehicle)
+  local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+  local bodyHealth = GetVehicleBodyHealth(vehicle)
+  local engineHealth = GetVehicleEngineHealth(vehicle)
+  local class = exports["pw-vehicles"]:GetVehicleClass(vehicle)
 
+  if class == "X" then
+    class = "S"
+  end
 
-RegisterNetEvent('pw-mechanicjob:Partmenu', function(part)
-	local name = part.name
-	local veh = GetVehiclePedIsIn(PlayerPedId())
-	classvehicle = GetVehicleClass(veh)
-	if classvehicle == 0 or classvehicle == 8 then
-		classvehicle = "A"
-	elseif classvehicle == 1 or classvehicle == 1 then
-		classvehicle = "B"
-	elseif classvehicle == 4 or classvehicle == 9 or classvehicle == 18 then
-		classvehicle = "C"
-	elseif classvehicle == 2 or classvehicle == 12 then
-		classvehicle = "D"
-	elseif classvehicle == 5 or classvehicle == 6 or classvehicle == 7 then
-		classvehicle = "S"
-	else
-		classvehicle = "All"
-	end	
+  --[[ local item = type.."repair"..string.lower(class)
+  if not exports["pw-inventory"]:hasEnoughOfItem(item, 1, true) then return end
 
-	TriggerEvent('pw-context:sendMenu', {
-		{
-			id = 1,
-			header = "Sửa chữa" ,
-			txt = Config.RepairCostAmount[name][classvehicle].label.." : ".. Config.RepairCostAmount[name][classvehicle].costs ,
-			params = {
-				event = "pw-mechanicjob:RepairPart",
-				 args = {
-					namethis = name
-				}
-			}
-		},
-		
-		{
-			id = 2,
-			header = "<< Trở lại",
-			txt = "" ,
-			params = {
-				event = "pw-mechanicjob:Partsmenu",
-			}
-		},
+  TriggerEvent("inventory:removeItem", item, 1) ]]
 
-	})		
+  Citizen.Wait(100)
+
+  RequestAnimDict("mp_car_bomb")
+	TaskPlayAnim(PlayerPedId(), "mp_car_bomb","car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
+	Citizen.Wait(100)
+	TaskPlayAnim(PlayerPedId(), "mp_car_bomb","car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
+
+	local finished = exports["np-taskbar"]:taskBar(15000, "Repairing")
+    if finished then
+        if type == "body" then
+            SetVehicleBodyHealth(vehicle, 1000.0)
+            SetVehicleFixed(vehicle)
+			      SetVehiclePetrolTankHealth(vehicle, 4000.0)
+            SetVehicleEngineHealth(vehicle, engineHealth)
+            for i = 0, 4 do
+                SetVehicleTyreFixed(vehicle, i)
+            end
+
+            exports["pw-vehicles"]:updateVehicleHealth()
+        elseif type == "engine" then
+            SetVehicleEngineHealth(vehicle, 1000.0)
+            SetVehicleFixed(vehicle)
+			      SetVehiclePetrolTankHealth(vehicle, 4000.0)
+            SetVehicleBodyHealth(vehicle, bodyHealth)
+
+            exports["pw-vehicles"]:updateVehicleHealth()
+        else
+            if type == "tire" then
+                for i = 0, 4 do
+                    SetVehicleTyreFixed(vehicle, i)
+                end
+            end
+
+            degHealth[type] = 100
+            TriggerServerEvent("pw-vehicles:updateVehicleDegradation", plate, degHealth)
+        end
+    end
+
+    ClearPedTasks(PlayerPedId())
 end)
-
-
-
--- function GardrobeMenu()
-    -- local elements = {}
-    -- elements[1] = {label = "Thay đồ",val="Change"}
-  
-    -- ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'dressing', {
-      -- title    = "Tủ đồ cá nhân",
-      -- align    = 'top-left',
-      -- elements = elements
-    -- }, function(data, menu)
-      -- ESX.TriggerServerCallback('pw-mechanicjob:GetDressing', function(d)
-        -- local dressing = d
-        -- if data.current.val == "Change" then
-          -- local elements = {}
-          -- for i=1, #dressing, 1 do
-            -- table.insert(elements, {
-              -- label = dressing[i],
-              -- value = i
-            -- })
-          -- end
-  
-          -- ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'change', {
-            -- title    = "Thay đồ",
-            -- align    = 'top-left',
-            -- elements = elements
-          -- }, function(data2, menu2)
-            -- TriggerEvent('skinchanger:getSkin', function(skin)
-              -- ESX.TriggerServerCallback('pw-mechanicjob:getOutfit', function(clothes)
-                -- TriggerEvent('skinchanger:loadClothes', skin, clothes)
-                -- TriggerEvent('esx_skin:setLastSkin', skin)
-                -- TriggerEvent('skinchanger:getSkin', function(skin)
-                  -- TriggerServerEvent('esx_skin:save', skin)
-                -- end)
-              -- end, data2.current.value)
-            -- end)
-          -- end, function(data2, menu2)
-            -- menu2.close()
-          -- end)
-		-- end
-      -- end)
-    -- end, function(data, menu)
-      -- menu.close()
-    -- end)
--- end

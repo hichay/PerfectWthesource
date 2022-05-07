@@ -33,6 +33,8 @@ function updateVehicleHealth()
     TriggerServerEvent("pw-vehicles:updateVehicleHealth", plate, body, engine)
 end
 
+exports('updateVehicleHealth', updateVehicleHealth)
+
 function getDegredation()
 	local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
 	local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
@@ -674,7 +676,7 @@ end)
 AddEventHandler("pw-vehicles:repairKit", function(pItemDBID)
     local vehicle = nil
 
-    local target = exports["pw-target"]:GetCurrentEntity()
+    local target = exports["pw-interact"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end

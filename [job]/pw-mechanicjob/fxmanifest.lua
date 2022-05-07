@@ -5,6 +5,7 @@ description 'QB-MechanicJob'
 version '1.0.0'
 
 client_scripts {
+	'@pw-lib/client/cl_ui.lua',	
 	'@pw-lib/client/cl_rpc.lua',
 	'config.lua',
 	'client/main.lua',
