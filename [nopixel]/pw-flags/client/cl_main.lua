@@ -1,5 +1,5 @@
-RegisterNetEvent("caue:flags:get")
-AddEventHandler("caue:flags:get", function(callID, netID, entityType, flagType)
+RegisterNetEvent("pw:flags:get")
+AddEventHandler("pw:flags:get", function(callID, netID, entityType, flagType)
     local flags, entity = 0
 
     if entityType == "player" then
@@ -12,11 +12,11 @@ AddEventHandler("caue:flags:get", function(callID, netID, entityType, flagType)
         flags = DecorGetInt(entity, flagType)
     end
 
-    TriggerServerEvent("caue:flags:set", callID, netID, flagType, flags)
+    TriggerServerEvent("pw:flags:set", callID, netID, flagType, flags)
 end)
 
-RegisterNetEvent("caue:flags:set")
-AddEventHandler("caue:flags:set", function(netID, entityType, flagType, flags)
+RegisterNetEvent("pw:flags:set")
+AddEventHandler("pw:flags:set", function(netID, entityType, flagType, flags)
     local entity = nil
 
     if entityType == "player" then
@@ -31,7 +31,7 @@ AddEventHandler("caue:flags:set", function(netID, entityType, flagType, flags)
 end)
 
 function NotifyChange(pType, pEntity, pFlag, pState)
-    local event = ("caue:flags:%s:stateChanged"):format(pType)
+    local event = ("pw:flags:%s:stateChanged"):format(pType)
     local netId = NetworkGetNetworkIdFromEntity(pEntity)
 
     -- fml... Maybe we should move player flags to its own category?

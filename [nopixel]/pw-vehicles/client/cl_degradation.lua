@@ -449,14 +449,14 @@ AddEventHandler("caue-vehicles:examineVehicle", function(degradation)
         },
     }
 
-    exports["pw-context"]:showContext(data)
+    exports["pw-context"]:showContextMenu(data)
 end)
 
 RegisterNetEvent("caue-vehicles:repairVehicle")
 AddEventHandler("caue-vehicles:repairVehicle", function(type)
     local vehicle = nil
 
-    local target = exports["caue-target"]:GetCurrentEntity()
+    local target = exports["np-interact"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end

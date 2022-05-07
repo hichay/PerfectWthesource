@@ -60,8 +60,8 @@ end
 
 ]]
 
-RegisterNetEvent("caue:flags:ped:stateChanged")
-AddEventHandler("caue:flags:ped:stateChanged", function(netId, pFlag, pState)
+RegisterNetEvent("pw:flags:ped:stateChanged")
+AddEventHandler("pw:flags:ped:stateChanged", function(netId, pFlag, pState)
     local src = source
 
     if pedsFlags[netID] then
@@ -69,8 +69,8 @@ AddEventHandler("caue:flags:ped:stateChanged", function(netId, pFlag, pState)
     end
 end)
 
-RegisterNetEvent("caue-base:sessionStarted")
-AddEventHandler("caue-base:sessionStarted", function()
+RegisterNetEvent("pw-base:sessionStarted")
+AddEventHandler("pw-base:sessionStarted", function()
     local src = source
 
     pedsFlags[src] = defaultpedsFlags
@@ -83,14 +83,14 @@ AddEventHandler("SpawnEventsServer", function()
     Citizen.Wait(5000)
 
     pedsFlags[src] = defaultpedsFlags
-    TriggerClientEvent("caue:flags:set", src, src, "player", "PedFlags", GetPedFlags(src))
+    TriggerClientEvent("pw:flags:set", src, src, "player", "PedFlags", GetPedFlags(src))
 end)
 
-RegisterNetEvent("caue-flags:ped:getFlags")
-AddEventHandler("caue-flags:ped:getFlags", function()
+RegisterNetEvent("pw-flags:ped:getFlags")
+AddEventHandler("pw-flags:ped:getFlags", function()
     local src = source
 
     if pedsFlags[src] then
-        TriggerClientEvent("caue:flags:set", src, src, "player", "PedFlags", GetPedFlags(src))
+        TriggerClientEvent("pw:flags:set", src, src, "player", "PedFlags", GetPedFlags(src))
     end
 end)
