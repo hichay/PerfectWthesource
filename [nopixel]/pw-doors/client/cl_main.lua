@@ -2,6 +2,7 @@
 local doors = {}
 local currentDoorCoords, currentDoorId, currentDoorLockState, currentZone = vector3(0, 0, 0), nil, nil, nil
 local listening = false
+local Throttles = {}
 
 local bollards = {
     mrpd_bollards_01 = {
@@ -188,8 +189,7 @@ end
 
 exports('GetNumberOfDoors', getNumDoors)
 
-
-local function listenForKeypress()
+function listenForKeypress()
     listening = true
     Citizen.CreateThread(function()
 
@@ -202,7 +202,7 @@ local function listenForKeypress()
         local isHidden = doors[currentDoorId] and doors[currentDoorId].hidden or false
 
         if not hasAccess and currentDoorLockState and not isHidden then
-            exports["np-ui"]:showInteraction('Locked', 'error')
+            exports["np-ui"]:showInteraction('Cửa khóa', 'error')
         end
 
         while listening do
@@ -214,10 +214,10 @@ local function listenForKeypress()
             end
 
             if currentDoorLockState ~= newLockState then
-                if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
+                if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.5 then
                     newLockState = currentDoorLockState
                     if hasAccess and not isHidden then
-                        exports["np-ui"]:showInteraction(("[E] %s"):format(newLockState and 'Locked' or 'Unlocked'), newLockState and 'error' or 'success')
+                        exports["np-ui"]:showInteraction(("[E] %s"):format(newLockState and 'Mở cửa' or 'Khóa cửa'), newLockState and 'error' or 'success')
                     else
                     end
                 else
@@ -255,11 +255,6 @@ function Throttled(name, time)
     return true
 end
 
---[[
-
-    Events
-
-]]
 
 RegisterNetEvent("pw-doors:initial-lock-state")
 AddEventHandler("pw-doors:initial-lock-state", function(pDoors)
@@ -307,23 +302,11 @@ AddEventHandler("dooranim", function()
     ClearPedTasks(PlayerPedId())
 end)
 
---[[
-
-    Commands
-
-]]
-
 RegisterCommand("+useKeyFob", function()
     if Throttled("pw-doors:doorKeyFob", 1000) then return end
     TriggerEvent("pw-doors:doorKeyFob")
 end, false)
 RegisterCommand("-useKeyFob", function() end, false)
-
---[[
-
-    Threads
-
-]]
 
 
 --[[

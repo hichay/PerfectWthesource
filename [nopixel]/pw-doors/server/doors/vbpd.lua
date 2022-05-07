@@ -7,7 +7,7 @@ DOORS[6001] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -18,7 +18,7 @@ DOORS[6002] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -29,7 +29,7 @@ DOORS[6003] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -40,7 +40,7 @@ DOORS[6004] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["double"] = 6005,
 }
@@ -52,7 +52,7 @@ DOORS[6005] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["double"] = 6004,
 }
@@ -64,7 +64,7 @@ DOORS[6006] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -75,7 +75,7 @@ DOORS[6007] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -86,7 +86,7 @@ DOORS[6008] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
 }
 
@@ -97,7 +97,7 @@ DOORS[6009] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["keyFob"] = true,
 }
@@ -109,7 +109,7 @@ DOORS[6010] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["keyFob"] = true,
 }
@@ -121,7 +121,7 @@ DOORS[6011] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["double"] = 6012,
     ["keyFob"] = true,
@@ -134,7 +134,7 @@ DOORS[6012] = {
     ["lock"] = 1,
     ["automatic"] = {},
     ["access"] = {
-        ["job"] = { "is_police" },
+        ["job"] = { ["police"] = true },
     },
     ["double"] = 6011,
     ["keyFob"] = true,

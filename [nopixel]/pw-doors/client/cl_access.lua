@@ -70,18 +70,6 @@ AddEventHandler("np-jobmanager:playerBecameJob", function(job, name, notify)
 end)
 
 
-RegisterNetEvent("isJudge")
-AddEventHandler("isJudge", function()
-    isJudge = true
-    clearAccessCache()
-end)
-
-RegisterNetEvent("isJudgeOff")
-AddEventHandler("isJudgeOff", function()
-    isJudge = false
-    clearAccessCache()
-end)
-
 RegisterNetEvent("np-doors:mrpd:keyStatusUpdate")
 AddEventHandler("np-doors:mrpd:keyStatusUpdate", function()
     clearAccessCache()
@@ -145,10 +133,8 @@ function hasSecuredAccess(pId, pType)
     if secured.access.business then
         for _ in pairs(secured.access.business) do businessCount = businessCount + 1 end
     end
-	print(CurrentJob)
     --local hasMrpdKey = RPC.execute("np-doors:charHasMrpdKeys", characterId)
-    if      (secured.access.job and secured.access.job[CurrentJob] or false) then
-		print('co quyen')
+    if (secured.access.job and secured.access.job[CurrentJob] or false) then
         accessCheckCache[pType][pId] = true
         return true
     end
@@ -156,7 +142,7 @@ function hasSecuredAccess(pId, pType)
     if secured.access.item ~= nil then
         accessCheckCacheTimer[pType][pId] = 0
         for i, v in pairs(secured.access.item) do
-            if exports["np-inventory"]:hasEnoughOfItem(i, 1, false) then
+            if exports["pw-inventory"]:hasEnoughOfItem(i, 1, false) then
                 return true
             end
         end

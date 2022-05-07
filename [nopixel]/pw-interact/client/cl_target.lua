@@ -56,11 +56,11 @@ Citizen.CreateThread(function()
         if entity and entityType ~= 0 then
             if entity ~= CurrentTarget then
                 CurrentTarget = entity
-                TriggerEvent('np:target:changed', CurrentTarget, entityType, entityCoords)
+                TriggerEvent('pw:target:changed', CurrentTarget, entityType, entityCoords)
             end
         elseif CurrentTarget then
             CurrentTarget = nil
-            TriggerEvent('np:target:changed', CurrentTarget)
+            TriggerEvent('pw:target:changed', CurrentTarget)
         end
 
         Citizen.Wait(idle)
