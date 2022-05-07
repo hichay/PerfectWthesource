@@ -10,93 +10,93 @@ end
 
 Citizen.CreateThread(function()
 	Wait(5000)
-	MySQL.Sync.execute([[
-		CREATE TABLE IF NOT EXISTS `trucker_available_contracts` (
-			`contract_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`contract_type` BIT(1) NOT NULL DEFAULT b'0',
-			`contract_name` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
-			`coords_index` SMALLINT(6) UNSIGNED NOT NULL DEFAULT '0',
-			`price_per_km` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`cargo_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`fragile` BIT(1) NOT NULL DEFAULT b'0',
-			`valuable` BIT(1) NOT NULL DEFAULT b'0',
-			`fast` BIT(1) NOT NULL DEFAULT b'0',
-			`truck` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-			`trailer` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-			PRIMARY KEY (`contract_id`) USING BTREE
-		)
-		COLLATE='utf8mb4_general_ci'
-		ENGINE=InnoDB
-		;
+	-- MySQL.query([[
+		-- CREATE TABLE IF NOT EXISTS `trucker_available_contracts` (
+			-- `contract_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+			-- `contract_type` BIT(1) NOT NULL DEFAULT b'0',
+			-- `contract_name` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
+			-- `coords_index` SMALLINT(6) UNSIGNED NOT NULL DEFAULT '0',
+			-- `price_per_km` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `cargo_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `fragile` BIT(1) NOT NULL DEFAULT b'0',
+			-- `valuable` BIT(1) NOT NULL DEFAULT b'0',
+			-- `fast` BIT(1) NOT NULL DEFAULT b'0',
+			-- `truck` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+			-- `trailer` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+			-- PRIMARY KEY (`contract_id`) USING BTREE
+		-- )
+		-- COLLATE='utf8mb4_general_ci'
+		-- ENGINE=InnoDB
+		-- ;
 
-		CREATE TABLE IF NOT EXISTS `trucker_drivers` (
-			`driver_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`user_id` VARCHAR(50) NULL DEFAULT NULL,
-			`name` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
-			`product_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`distance` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`valuable` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`fragile` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`fast` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`price` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`price_per_km` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`img` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-			PRIMARY KEY (`driver_id`) USING BTREE
-		)
-		COLLATE='utf8mb4_general_ci'
-		ENGINE=InnoDB
-		;
+		-- CREATE TABLE IF NOT EXISTS `trucker_drivers` (
+			-- `driver_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+			-- `user_id` VARCHAR(50) NULL DEFAULT NULL,
+			-- `name` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
+			-- `product_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `distance` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `valuable` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `fragile` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `fast` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `price` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `price_per_km` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `img` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+			-- PRIMARY KEY (`driver_id`) USING BTREE
+		-- )
+		-- COLLATE='utf8mb4_general_ci'
+		-- ENGINE=InnoDB
+		-- ;
 
-		CREATE TABLE IF NOT EXISTS `trucker_loans` (
-			`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`user_id` VARCHAR(50) NOT NULL,
-			`loan` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`remaining_amount` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`day_cost` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`taxes_on_day` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`timer` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			PRIMARY KEY (`id`) USING BTREE
-		)
-		COLLATE='utf8mb4_general_ci'
-		ENGINE=InnoDB
-		;
+		-- CREATE TABLE IF NOT EXISTS `trucker_loans` (
+			-- `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+			-- `user_id` VARCHAR(50) NOT NULL,
+			-- `loan` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `remaining_amount` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `day_cost` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `taxes_on_day` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `timer` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- PRIMARY KEY (`id`) USING BTREE
+		-- )
+		-- COLLATE='utf8mb4_general_ci'
+		-- ENGINE=InnoDB
+		-- ;
 
-		CREATE TABLE IF NOT EXISTS `trucker_trucks` (
-			`truck_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`user_id` VARCHAR(50) NOT NULL,
-			`truck_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-			`driver` INT(10) UNSIGNED NULL DEFAULT NULL,
-			`body` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
-			`engine` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
-			`transmission` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
-			`wheels` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
-			PRIMARY KEY (`truck_id`) USING BTREE
-		)
-		COLLATE='utf8mb4_general_ci'
-		ENGINE=InnoDB
-		;
+		-- CREATE TABLE IF NOT EXISTS `trucker_trucks` (
+			-- `truck_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+			-- `user_id` VARCHAR(50) NOT NULL,
+			-- `truck_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+			-- `driver` INT(10) UNSIGNED NULL DEFAULT NULL,
+			-- `body` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
+			-- `engine` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
+			-- `transmission` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
+			-- `wheels` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '1000',
+			-- PRIMARY KEY (`truck_id`) USING BTREE
+		-- )
+		-- COLLATE='utf8mb4_general_ci'
+		-- ENGINE=InnoDB
+		-- ;
 
-		CREATE TABLE IF NOT EXISTS `trucker_users` (
-			`user_id` VARCHAR(50) NOT NULL,
-			`money` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`total_earned` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`finished_deliveries` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`exp` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`traveled_distance` DOUBLE UNSIGNED NOT NULL DEFAULT '0',
-			`skill_points` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-			`product_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`distance` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`valuable` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`fragile` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`fast` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
-			`loan_notify` BIT(1) NOT NULL DEFAULT b'0',
-			PRIMARY KEY (`user_id`) USING BTREE
-		)
-		COLLATE='utf8mb4_general_ci'
-		ENGINE=InnoDB
-		;
+		-- CREATE TABLE IF NOT EXISTS `trucker_users` (
+			-- `user_id` VARCHAR(50) NOT NULL,
+			-- `money` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `total_earned` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `finished_deliveries` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `exp` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `traveled_distance` DOUBLE UNSIGNED NOT NULL DEFAULT '0',
+			-- `skill_points` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+			-- `product_type` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `distance` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `valuable` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `fragile` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `fast` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+			-- `loan_notify` BIT(1) NOT NULL DEFAULT b'0',
+			-- PRIMARY KEY (`user_id`) USING BTREE
+		-- )
+		-- COLLATE='utf8mb4_general_ci'
+		-- ENGINE=InnoDB
+		-- ;
 
-	]])
+	-- ]])
 end)
 
 local version = 2
@@ -169,18 +169,18 @@ Citizen.CreateThread(function()
 		if contract_type == 1 then truck = nil end
 
 		local sql = "SELECT COUNT(contract_id) as qtd FROM trucker_available_contracts";
-		local count = MySQL.Sync.fetchAll(sql, {})[1].qtd;
+		local count = MySQL.query.await(sql, {})[1].qtd;
 		
 		if count >= Config.contratos.max_contratos_ativos then
 			local sql = "SELECT MIN(contract_id) as min FROM trucker_available_contracts";
-			local min = MySQL.Sync.fetchAll(sql, {})[1].min;
+			local min = MySQL.query.await(sql, {})[1].min;
 			
 			local sql = "DELETE FROM `trucker_available_contracts` WHERE contract_id = @contract_id;";
-			MySQL.Sync.execute(sql, {['@contract_id'] = min});
+			MySQL.query(sql, {['@contract_id'] = min});
 		end
 
 		local sql = "INSERT INTO `trucker_available_contracts` (contract_type, contract_name, coords_index, price_per_km, cargo_type, fragile, valuable, fast, truck, trailer) VALUES (@contract_type, @contract_name, @coords_index, @price_per_km, @cargo_type, @fragile, @valuable, @fast, @truck, @trailer);";
-		MySQL.Sync.execute(sql, {['@contract_type'] = contract_type, ['@contract_name'] = contract_name, ['@coords_index'] = coords_index, ['@price_per_km'] = price_per_km, ['@cargo_type'] = cargo_type, ['@fragile'] = fragile, ['@valuable'] = valuable, ['@fast'] = fast, ['@truck'] = truck, ['@trailer'] = trailer});
+		MySQL.query(sql, {['@contract_type'] = contract_type, ['@contract_name'] = contract_name, ['@coords_index'] = coords_index, ['@price_per_km'] = price_per_km, ['@cargo_type'] = cargo_type, ['@fragile'] = fragile, ['@valuable'] = valuable, ['@fast'] = fast, ['@truck'] = truck, ['@trailer'] = trailer});
 
 		local users = ESX.GetPlayers()
 		for k,v in pairs(users) do
@@ -226,18 +226,18 @@ Citizen.CreateThread(function()
 		if contract_type == 1 then truck = nil end
 
 		local sql = "SELECT COUNT(driver_id) as qtd FROM trucker_drivers WHERE user_id IS NULL";
-		local count = MySQL.Sync.fetchAll(sql, {})[1].qtd;
+		local count = MySQL.query.await(sql, {})[1].qtd;
 		
 		if count >= Config.motoristas.max_motoristas_ativos then
 			local sql = "SELECT MIN(driver_id) as min FROM trucker_drivers WHERE user_id IS NULL";
-			local min = MySQL.Sync.fetchAll(sql, {})[1].min;
+			local min = MySQL.query.await(sql, {})[1].min;
 			
 			local sql = "DELETE FROM `trucker_drivers` WHERE driver_id = @driver_id;";
-			MySQL.Sync.execute(sql, {['@driver_id'] = min});
+			MySQL.query(sql, {['@driver_id'] = min});
 		end
 
 		local sql = "INSERT INTO `trucker_drivers` (user_id, name, product_type, distance, fragile, valuable, fast, price, price_per_km, img) VALUES (NULL, @name, @product_type, @distance, @fragile, @valuable, @fast, @price, @price_per_km, @img);";
-		MySQL.Sync.execute(sql, {['@name'] = name, ['@product_type'] = product_type, ['@distance'] = distance, ['@fragile'] = fragile, ['@valuable'] = valuable, ['@fast'] = fast, ['@price'] = price, ['@price_per_km'] = price_per_km, ['@img'] = driver.img});
+		MySQL.query(sql, {['@name'] = name, ['@product_type'] = product_type, ['@distance'] = distance, ['@fragile'] = fragile, ['@valuable'] = valuable, ['@fast'] = fast, ['@price'] = price, ['@price_per_km'] = price_per_km, ['@img'] = driver.img});
 		
 		local users = ESX.GetPlayers()
 		for k,v in pairs(users) do
@@ -256,7 +256,7 @@ Citizen.CreateThread(function()
 					FROM trucker_trucks t
 						INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
 					WHERE t.driver <> 0 AND t.driver IS NOT NULL]];
-		local data = MySQL.Sync.fetchAll(sql, {});
+		local data = MySQL.query.await(sql, {});
 		for k,v in pairs(data) do
 			local source = ESX.GetPlayerFromIdentifier(tonumber(v.user_id))
 
@@ -266,9 +266,9 @@ Citizen.CreateThread(function()
 				giveTruckerMoney(v.user_id,amount)
 			else
 				local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
-				MySQL.Sync.execute(sql, {['@driver_id'] = v.driver_id});
+				MySQL.query(sql, {['@driver_id'] = v.driver_id});
 				local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-				MySQL.Sync.execute(sql, {['@driver_id'] = v.driver_id});
+				MySQL.query(sql, {['@driver_id'] = v.driver_id});
 				if source then
 					TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
 				end
@@ -287,7 +287,7 @@ Citizen.CreateThread(function()
 	Citizen.Wait(10000)
 	while true do
 		local sql = "SELECT * FROM trucker_loans";
-		local data = MySQL.Sync.fetchAll(sql, {});
+		local data = MySQL.query.await(sql, {});
 		for k,v in pairs(data) do
 			if v.timer + Config.emprestimos.cooldown < os.time() then
 				local source = ESX.GetPlayerFromIdentifier(tonumber(v.user_id))
@@ -295,17 +295,17 @@ Citizen.CreateThread(function()
 					local new_loan = v.remaining_amount - v.taxes_on_day
 					if new_loan > 0 then
 						local sql = "UPDATE `trucker_loans` SET remaining_amount = @remaining_amount, timer = @timer WHERE id = @id";
-						MySQL.Sync.execute(sql, {['remaining_amount'] = new_loan, ['timer'] = os.time(), ['@id'] = v.id});
+						MySQL.query(sql, {['remaining_amount'] = new_loan, ['timer'] = os.time(), ['@id'] = v.id});
 					else
 						local sql = "DELETE FROM `trucker_loans` WHERE id = @id;";
-						MySQL.Sync.execute(sql, {['@id'] = v.id});
+						MySQL.query(sql, {['@id'] = v.id});
 					end
 				else
 					if source then
 						TriggerClientEvent("ESX:Notify",source,"importante",Lang[Config.lang]['no_loan_money'],"info")
 					else
 						local sql = "UPDATE `trucker_users` SET loan_notify = 1 WHERE user_id = @user_id";
-						MySQL.Sync.execute(sql, {['@user_id'] = v.user_id});
+						MySQL.query(sql, {['@user_id'] = v.user_id});
 					end
 				end
 				if source then
@@ -335,10 +335,10 @@ AddEventHandler("truck_logistics:startContract",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_available_contracts` WHERE contract_id = @id";
-		local query = MySQL.Sync.fetchAll(sql,{['@id'] = id});
+		local query = MySQL.query.await(sql,{['@id'] = id});
 		if query and query[1] then
 			local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
-			query_users = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+			query_users = MySQL.query.await(sql,{['@user_id'] = user_id});
 			if query_users and query_users[1] then
 				if tonumber(query_users[1].product_type) >= tonumber(query[1].cargo_type) then
 					if tonumber(query_users[1].fragile) >= tonumber(query[1].fragile) then
@@ -351,7 +351,7 @@ AddEventHandler("truck_logistics:startContract",function(data)
 									else
 										-- Checa se tem caminhão
 										local sql = "SELECT * FROM `trucker_trucks` WHERE driver = 0 AND user_id = @user_id";
-										query_truck = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+										query_truck = MySQL.query.await(sql,{['@user_id'] = user_id});
 										if query_truck and query_truck[1] then
 											TriggerClientEvent("truck_logistics:startContract",source,query[1],distance,reward,query_truck[1])
 										else
@@ -384,7 +384,7 @@ RegisterServerEvent("truck_logistics:spawnTruck")
 AddEventHandler("truck_logistics:spawnTruck",function(truck_id)
 	local source = source
 	local sql = "SELECT * FROM `trucker_trucks` WHERE truck_id = @truck_id";
-	query_truck = MySQL.Sync.fetchAll(sql,{['@truck_id'] = tonumber(truck_id)});
+	query_truck = MySQL.query.await(sql,{['@truck_id'] = tonumber(truck_id)});
 	if query_truck and query_truck[1] then
 		TriggerClientEvent("truck_logistics:spawnTruck",source,query_truck[1])
 	end
@@ -396,10 +396,10 @@ AddEventHandler("truck_logistics:upgradeSkill",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
-		local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 		if query.skill_points >= (data.value - query[data.id]) then
 			local sql = "UPDATE `trucker_users` SET "..data.id.." = @value, skill_points = @skill_points WHERE user_id = @user_id";
-			MySQL.Sync.execute(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - (data.value - query[data.id]))});
+			MySQL.query(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - (data.value - query[data.id]))});
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['upgraded_skill'],'success')
 			openUI(source,true)
 		else
@@ -414,13 +414,13 @@ AddEventHandler("truck_logistics:repairTruck",function(item)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_trucks` WHERE user_id = @user_id AND driver = 0";
-		local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 		if query then
 			local amount = math.floor((100-(tonumber(query[item])/10)) * Config.valor_reparo[item])
 			if amount > 0 then
 				if tryGetTruckerMoney(user_id,amount) then
 					local sql = "UPDATE `trucker_trucks` SET "..item.." = 1000 WHERE user_id = @user_id AND driver = 0";
-					MySQL.Sync.execute(sql, {['@user_id'] = user_id});
+					MySQL.query(sql, {['@user_id'] = user_id});
 					TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['repaired'],'success')
 					openUI(source,true)
 				else
@@ -442,7 +442,7 @@ AddEventHandler("truck_logistics:buyTruck",function(data)
 	if user_id then
 		if tryGetTruckerMoney(user_id,tonumber(data.price)) then
 			local sql = "INSERT INTO `trucker_trucks` (user_id, truck_name, driver) VALUES (@user_id, @name, NULL);";
-			MySQL.Sync.execute(sql, {['@user_id'] = user_id, ['@name'] = data.truck_name});
+			MySQL.query(sql, {['@user_id'] = user_id, ['@name'] = data.truck_name});
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['bought'],'success')
 			SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_buytruck']:format(data.truck_name,data.price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 			openUI(source,true)
@@ -458,10 +458,10 @@ AddEventHandler("truck_logistics:sellTruck",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_trucks` WHERE truck_id = @truck_id";
-		local query = MySQL.Sync.fetchAll(sql,{['@truck_id'] = data.truck_id})[1];
+		local query = MySQL.query.await(sql,{['@truck_id'] = data.truck_id})[1];
 		if query then 
 			local sql = "DELETE FROM `trucker_trucks` WHERE truck_id = @truck_id;";
-			MySQL.Sync.execute(sql, {['@truck_id'] = data.truck_id});
+			MySQL.query(sql, {['@truck_id'] = data.truck_id});
 			local amount = math.floor(tonumber(Config.concessionaria[data.truck_name].price * Config.multiplicador_venda))
 			giveTruckerMoney(user_id,amount)
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['sold'],'success')
@@ -476,11 +476,11 @@ AddEventHandler("truck_logistics:hireDriver",function(driver_id)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT COUNT(driver_id) as qtd FROM trucker_drivers WHERE user_id = @user_id";
-		local count = MySQL.Sync.fetchAll(sql, {['@user_id'] = user_id})[1].qtd;
+		local count = MySQL.query.await(sql, {['@user_id'] = user_id})[1].qtd;
 		
 		if count <= Config.motoristas.max_motoristas_por_player then
 			local sql = "UPDATE `trucker_drivers` SET user_id = @user_id WHERE driver_id = @driver_id";
-			MySQL.Sync.execute(sql, {['@user_id'] = user_id, ['@driver_id'] = driver_id});
+			MySQL.query(sql, {['@user_id'] = user_id, ['@driver_id'] = driver_id});
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['hired'],'success')
 			openUI(source,true)
 		else
@@ -495,9 +495,9 @@ AddEventHandler("truck_logistics:fireDriver",function(driver_id)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
-		MySQL.Sync.execute(sql, {['@driver_id'] = driver_id});
+		MySQL.query(sql, {['@driver_id'] = driver_id});
 		local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-		MySQL.Sync.execute(sql, {['@driver_id'] = driver_id});
+		MySQL.query(sql, {['@driver_id'] = driver_id});
 		TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['fired'],'success')
 		openUI(source,true)
 	end
@@ -509,9 +509,9 @@ AddEventHandler("truck_logistics:setDriver",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-		MySQL.Sync.execute(sql, {['@driver_id'] = data.driver_id});
+		MySQL.query(sql, {['@driver_id'] = data.driver_id});
 		local sql = "UPDATE `trucker_trucks` SET driver = @driver_id WHERE truck_id = @truck_id";
-		MySQL.Sync.execute(sql, {['@driver_id'] = data.driver_id, ['@truck_id'] = data.truck_id});
+		MySQL.query(sql, {['@driver_id'] = data.driver_id, ['@truck_id'] = data.truck_id});
 		openUI(source,true)
 	end
 end)
@@ -523,14 +523,14 @@ AddEventHandler("truck_logistics:withdrawMoney",function()
 	local user_id = xPlayer.identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_loans` WHERE user_id = @user_id";
-		local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 		if not query or not query.remaining_amount or query.remaining_amount <= 0 then
 			local sql = "SELECT money FROM `trucker_users` WHERE user_id = @user_id";
-			local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+			local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 			local amount = tonumber(query.money)
 			if amount and amount > 0 then
 				local sql = "UPDATE `trucker_users` SET money = 0 WHERE user_id = @user_id";
-				MySQL.Sync.execute(sql, {['@user_id'] = user_id});
+				MySQL.query(sql, {['@user_id'] = user_id});
 				xPlayer.addAccountMoney('bank', amount)
 				TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['money_withdrawn'],'success')
 				openUI(source,true)
@@ -572,7 +572,7 @@ AddEventHandler("truck_logistics:loan",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_loans` WHERE user_id = @user_id";
-		local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id});
 		local amount_loans = 0;
 		for k,v in pairs(query) do
 			amount_loans = amount_loans + tonumber(v.loan)
@@ -580,7 +580,7 @@ AddEventHandler("truck_logistics:loan",function(data)
 		
 		if amount_loans + Config.emprestimos.valores[data.loan_id][1] <= getMaxEmprestimo(user_id) then
 			local sql = "INSERT INTO `trucker_loans` (user_id,loan,remaining_amount,day_cost,taxes_on_day,timer) VALUES (@user_id,@loan,@remaining_amount,@day_cost,@taxes_on_day,@timer);";
-			MySQL.Sync.execute(sql, {['@user_id'] = user_id, ['@loan'] = Config.emprestimos.valores[data.loan_id][1], ['@remaining_amount'] = Config.emprestimos.valores[data.loan_id][1], ['@day_cost'] = Config.emprestimos.valores[data.loan_id][2], ['@taxes_on_day'] = Config.emprestimos.valores[data.loan_id][3], ['timer'] = os.time()});
+			MySQL.query(sql, {['@user_id'] = user_id, ['@loan'] = Config.emprestimos.valores[data.loan_id][1], ['@remaining_amount'] = Config.emprestimos.valores[data.loan_id][1], ['@day_cost'] = Config.emprestimos.valores[data.loan_id][2], ['@taxes_on_day'] = Config.emprestimos.valores[data.loan_id][3], ['timer'] = os.time()});
 			giveTruckerMoney(user_id,Config.emprestimos.valores[data.loan_id][1])
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['loan'],'success')
 			openUI(source,true)
@@ -596,10 +596,10 @@ AddEventHandler("truck_logistics:payLoan",function(data)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "SELECT * FROM `trucker_loans` WHERE id = @id";
-		local query = MySQL.Sync.fetchAll(sql,{['@id'] = data.loan_id})[1];
+		local query = MySQL.query.await(sql,{['@id'] = data.loan_id})[1];
 		if tryGetTruckerMoney(user_id,query.remaining_amount) then
 			local sql = "DELETE FROM `trucker_loans` WHERE id = @id;";
-			MySQL.Sync.execute(sql, {['@id'] = data.loan_id});
+			MySQL.query(sql, {['@id'] = data.loan_id});
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['loan_paid'],'success')
 			openUI(source,true)
 		else
@@ -619,7 +619,7 @@ AddEventHandler("truck_logistics:finishJob",function(data,distance,reward,truck_
 		local bonus_exp = 0
 		local level = getPlayerLevel(user_id)
 		local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
-		local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 		if data.fragile > 0 then
 			bonus = bonus + reward*(Config.bonus['fragile']['dinheiro'][query.fragile]/100)
 			bonus_exp = bonus_exp + exp_amount*(Config.bonus['fragile']['exp'][query.fragile]/100)
@@ -644,10 +644,10 @@ AddEventHandler("truck_logistics:finishJob",function(data,distance,reward,truck_
 
 		if truck_data.truck_id then
 			local sql = "UPDATE `trucker_trucks` SET engine = @engine, transmission = @transmission, body = @body, wheels = wheels - @wheels WHERE truck_id = @truck_id";
-			MySQL.Sync.execute(sql, {['@engine'] = truck_engine, ['@body'] = truck_body, ['@transmission'] = math.floor((truck_engine + truck_body)/2), ['@wheels'] = tonumber(string.format("%.2f", distance))*10, ['@truck_id'] = truck_data.truck_id});
+			MySQL.query(sql, {['@engine'] = truck_engine, ['@body'] = truck_body, ['@transmission'] = math.floor((truck_engine + truck_body)/2), ['@wheels'] = tonumber(string.format("%.2f", distance))*10, ['@truck_id'] = truck_data.truck_id});
 		end
 		local sql = "UPDATE `trucker_users` SET total_earned = total_earned + @reward, finished_deliveries = finished_deliveries + 1, traveled_distance = traveled_distance + @distance, exp = exp + @exp_amount WHERE user_id = @user_id";
-		MySQL.Sync.execute(sql, {['@reward'] = money_amount, ['@distance'] = tonumber(string.format("%.2f", distance)), ['@exp_amount'] = exp_amount, ['@user_id'] = user_id});
+		MySQL.query(sql, {['@reward'] = money_amount, ['@distance'] = tonumber(string.format("%.2f", distance)), ['@exp_amount'] = exp_amount, ['@user_id'] = user_id});
 
 		giveTruckerMoney(user_id,money_amount)
 		TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['reward']:format(tostring(money_amount),tostring(trailer_body*100),tostring(exp_amount)),'success')
@@ -655,7 +655,7 @@ AddEventHandler("truck_logistics:finishJob",function(data,distance,reward,truck_
 		local level2 = getPlayerLevel(user_id)
 		if level2 - level > 0 then
 			local sql = "UPDATE `trucker_users` SET skill_points = skill_points + @skill WHERE user_id = @user_id";
-			MySQL.Sync.execute(sql, {['@skill'] = (level2 - level), ['@user_id'] = user_id});
+			MySQL.query(sql, {['@skill'] = (level2 - level), ['@user_id'] = user_id});
 			SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_skill']:format((level2 - level),user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 		end
 	end
@@ -668,7 +668,7 @@ AddEventHandler("truck_logistics:updateTruckStatus",function(truck_data,truck_en
 	if user_id then
 		if truck_data.truck_id then
 			local sql = "UPDATE `trucker_trucks` SET engine = @engine, transmission = @transmission, body = @body WHERE truck_id = @truck_id";
-			MySQL.Sync.execute(sql, {['@engine'] = truck_engine, ['@body'] = truck_body, ['@transmission'] = math.floor((truck_engine + truck_body)/2), ['@truck_id'] = truck_data.truck_id});
+			MySQL.query(sql, {['@engine'] = truck_engine, ['@body'] = truck_body, ['@transmission'] = math.floor((truck_engine + truck_body)/2), ['@truck_id'] = truck_data.truck_id});
 		end
 	end
 end)
@@ -679,7 +679,7 @@ AddEventHandler("truck_logistics:deleteContract",function(id)
 	local user_id = ESX.GetPlayerFromId(source).identifier
 	if user_id then
 		local sql = "DELETE FROM `trucker_available_contracts` WHERE contract_id = @id;";
-		MySQL.Sync.execute(sql, {['@id'] = id});
+		MySQL.query(sql, {['@id'] = id});
 		local users = ESX.GetPlayers()
 		for k,v in pairs(users) do
 			openUI(v,true)
@@ -689,15 +689,15 @@ end)
 
 function giveTruckerMoney(user_id,amount)
 	local sql = "UPDATE `trucker_users` SET money = money + @amount WHERE user_id = @user_id";
-	MySQL.Sync.execute(sql, {['@amount'] = amount, ['@user_id'] = user_id});
+	MySQL.query(sql, {['@amount'] = amount, ['@user_id'] = user_id});
 end
 
 function tryGetTruckerMoney(user_id,amount)
 	local sql = "SELECT money FROM `trucker_users` WHERE user_id = @user_id";
-	local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+	local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 	if tonumber(query.money) >= amount then
 		local sql = "UPDATE `trucker_users` SET money = @amount WHERE user_id = @user_id";
-		MySQL.Sync.execute(sql, {['@amount'] = (tonumber(query.money) - amount), ['@user_id'] = user_id});
+		MySQL.query(sql, {['@amount'] = (tonumber(query.money) - amount), ['@user_id'] = user_id});
 		return true
 	else
 		return false
@@ -717,7 +717,7 @@ end
 
 function getPlayerLevel(user_id)
 	local sql = "SELECT exp FROM `trucker_users` WHERE user_id = @user_id";
-	local query = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+	local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 	local level = 0
 	if query then
 		for k,v in pairs(Config.exp_por_level) do
@@ -739,35 +739,35 @@ function openUI(source, reset)
 		if user_id then
 			-- Busca os contratos
 			local sql = "SELECT * FROM `trucker_available_contracts`";
-			query.trucker_available_contracts = MySQL.Sync.fetchAll(sql,{});
+			query.trucker_available_contracts = MySQL.query.await(sql,{});
 
 			-- Busca os dados do usuário
 			local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
-			query.trucker_users = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+			query.trucker_users = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 			if query.trucker_users == nil then
 				local sql = "INSERT INTO `trucker_users` (user_id) VALUES (@user_id);";
-				MySQL.Sync.execute(sql, {['@user_id'] = user_id});
+				MySQL.query(sql, {['@user_id'] = user_id});
 				local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
-				query.trucker_users = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id})[1];
+				query.trucker_users = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
 			else
 				if query.trucker_users.loan_notify == 1 then
 					local sql = "UPDATE `trucker_users` SET loan_notify = 0 WHERE user_id = @user_id";
-					MySQL.Sync.execute(sql, {['@user_id'] = user_id});
+					MySQL.query(sql, {['@user_id'] = user_id});
 					TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['no_loan_money'],'info')
 				end
 			end
 
 			-- Busca os caminhões
 			local sql = "SELECT * FROM `trucker_trucks` WHERE user_id = @user_id";
-			query.trucker_trucks = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+			query.trucker_trucks = MySQL.query.await(sql,{['@user_id'] = user_id});
 
 			-- Busca os motoristas
 			local sql = "SELECT * FROM `trucker_drivers` WHERE user_id = @user_id OR user_id IS NULL";
-			query.trucker_drivers = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+			query.trucker_drivers = MySQL.query.await(sql,{['@user_id'] = user_id});
 
 			-- Busca os emprestimos
 			local sql = "SELECT * FROM `trucker_loans` WHERE user_id = @user_id";
-			query.trucker_loans = MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+			query.trucker_loans = MySQL.query.await(sql,{['@user_id'] = user_id});
 
 			-- Busca as configs necessárias
 			query.config = {}

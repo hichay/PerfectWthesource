@@ -12,8 +12,7 @@ client_scripts {
 }
 
 server_scripts {
-	"@mysql-async/lib/MySQL.lua",
-	
+	"@oxmysql/lib/MySQL.lua",
 	"lang/br.lua",
 	"lang/en.lua",
 

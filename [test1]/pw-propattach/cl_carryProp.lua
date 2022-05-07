@@ -30,7 +30,7 @@ AddEventHandler('attachPropPerm', function(attachModelSent,boneNumberSent,x,y,z,
 		return
 	end
 	TriggerEvent("DoLongHudText","Press 7 to drop or pickup the object.",37)
-	
+
 	holdingPackage = true
 	attachModel = GetHashKey(attachModelSent)
 	boneNumber = boneNumberSent
@@ -103,7 +103,7 @@ function propAttachDrop()
 end
 
 Citizen.CreateThread(function()
-  --exports["pw-binds"]:registerKeyMapping("", "Player", "Drop Prop", "+propAttachDrop", "-propAttachDrop")
+  exports["pw-keybinds"]:registerKeyMapping("", "Player", "Drop Prop", "+propAttachDrop", "-propAttachDrop")
   RegisterCommand('+propAttachDrop', propAttachDrop, false)
   RegisterCommand('-propAttachDrop', function() end, false)
 end)
@@ -121,13 +121,17 @@ function removeAttachedProp()
 	end
 end
 
+exports('GetAttachedProp', function()
+	return attachedProp
+end)
+
 RegisterNetEvent('destroyProp')
 AddEventHandler('destroyProp', function()
 	removeAttachedProp()
 end)
 
 RegisterNetEvent('attachProp')
-AddEventHandler('attachProp', function(attachModelSent,boneNumberSent,x,y,z,xR,yR,zR, pVertexIndex)
+AddEventHandler('attachProp', function(attachModelSent,boneNumberSent,x,y,z,xR,yR,zR, pVertexIndex, disableCollision)
 	removeAttachedProp()
 	attachModel = GetHashKey(attachModelSent)
 	boneNumber = boneNumberSent
@@ -139,17 +143,19 @@ AddEventHandler('attachProp', function(attachModelSent,boneNumberSent,x,y,z,xR,y
 		Citizen.Wait(100)
 	end
 	attachedProp = CreateObject(attachModel, 1.0, 1.0, 1.0, 1, 1, 0)
+	if disableCollision then
+		SetEntityCollision(attachedProp, false, false)
+	end
 	SetModelAsNoLongerNeeded(attachModel)
 	AttachEntityToEntity(attachedProp, PlayerPedId(), bone, x, y, z, xR, yR, zR, 1, 1, 0, 0, pVertexIndex and pVertexIndex or 2, 1)
+
 end)
 
 -- Phone
 attachedPropPhone = 0
 function removeAttachedPropPhone()
-	if DoesEntityExist(attachedPropPhone) then
-		DeleteEntity(attachedPropPhone)
-		attachedPropPhone = 0
-	end
+  DeleteEntity(attachedPropPhone)
+  attachedPropPhone = 0
 end
 
 RegisterNetEvent('destroyPropPhone')
@@ -167,8 +173,9 @@ AddEventHandler('attachPropPhone', function(attachModelSent,boneNumberSent,x,y,z
 	--local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(), true))
 	RequestModel(attachModelPhone)
 	while not HasModelLoaded(attachModelPhone) do
-		Citizen.Wait(100)
+		Citizen.Wait(0)
 	end
+	removeAttachedPropPhone()
 	attachedPropPhone = CreateObject(attachModelPhone, 1.0, 1.0, 1.0, 1, 1, 0)
 	AttachEntityToEntity(attachedPropPhone, PlayerPedId(), bone, x, y, z, xR, yR, zR, 1, 0, 0, 0, 2, 1)
 end)
@@ -182,11 +189,11 @@ AddEventHandler('attachPropPoliceIdBoard', function(attachModelSent,boneNumberSe
     end
     if not IsEntityPlayingAnim(PlayerPedId(), "mp_character_creation@lineup@male_a", "loop_raised", 3) then
         local animLength = GetAnimDuration("mp_character_creation@lineup@male_a", "loop_raised")
-        TaskPlayAnim(PlayerPedId(), "mp_character_creation@lineup@male_a", "loop_raised", 1.0, 1.0, animLength, 1, 0, 0,0, 0)
+        TaskPlayAnim(PlayerPedId(), "mp_character_creation@lineup@male_a", "loop_raised", 1.0, 1.0, animLength, 54, 0, 0,0, 0)
     end
     attachModel = GetHashKey(attachModelSent)
     boneNumber = boneNumberSent
-    SetCurrentPedWeapon(PlayerPedId(), 0xA2719263) 
+    SetCurrentPedWeapon(PlayerPedId(), 0xA2719263)
     local bone = GetPedBoneIndex(PlayerPedId(), boneNumberSent)
     RequestModel(attachModel)
     while not HasModelLoaded(attachModel) do
@@ -335,6 +342,17 @@ attachPropList = {
 		["model"] = "prop_cs_tablet", ["bone"] = 60309, ["x"] = 0.02,["y"] = -0.01,["z"] = -0.03,["xR"] = 0.0,["yR"] = 0.0, ["zR"] = -10.0
 	},
 
+	["binder01"] = {
+		["model"] = "np_npc_binder", ["bone"] = 60309, ["x"] = 0.1,["y"] = 0.025,["z"] = -0.15,["xR"] = 0.0,["yR"] = 100.0, ["zR"] = -90.0
+	},
+
+	["npolaroid_photobook"] = {
+		["model"] = "np_poly_binder", ["bone"] = 60309, ["x"] = 0.1,["y"] = 0.025,["z"] = -0.15,["xR"] = 0.0,["yR"] = 100.0, ["zR"] = -90.0
+	},
+
+	["openBook"] = {
+		["model"] = "v_ilev_mp_bedsidebook", ["bone"] = 60309, ["x"] = 0.05,["y"] = 0.0,["z"] = 0.0,["xR"] = -90.0,["yR"] = 0.0, ["zR"] = 0.0
+	},
 
 	["pencil01"] = {
 		["model"] = "prop_pencil_01", ["bone"] = 58870, ["x"] = 0.04,["y"] = 0.0225,["z"] = 0.08,["xR"] = 320.0,["yR"] = 0.0, ["zR"] = 220.0
@@ -353,14 +371,30 @@ attachPropList = {
 	},
 
 	["box01"] = {
-		["model"] = "prop_cs_cardbox_01", ["bone"] = 28422, ["x"] = 0.01,["y"] = 0.01,["z"] = 0.0,["xR"] = -255.0,["yR"] = -120.0, ["zR"] = 40.0
-	},
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_cs_cardbox_01",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.12,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
 
 	["bomb01"] = {
 		["model"] = "prop_ld_bomb", ["bone"] = 28422, ["x"] = 0.22,["y"] = -0.01,["z"] = 0.0,["xR"] = -25.0,["yR"] = -100.0, ["zR"] = 0.0
 	},
 
-
+	["spraycan"] = {
+		["model"] = "prop_paint_spray01b", ["bone"] = 28422, ["x"] = 0.02,["y"] = -0.02,["z"] = -0.1,["xR"] = 0.0,["yR"] = 0.0, ["zR"] = 0.0
+	},
 
 	["money01"] = {
 		["model"] = "prop_anim_cash_note", ["bone"] = 28422, ["x"] = 0.1,["y"] = 0.04,["z"] = 0.0,["xR"] = 25.0,["yR"] = 0.0, ["zR"] = 10.0
@@ -385,7 +419,7 @@ attachPropList = {
 	["securityCase"] = {
 		["model"] = "prop_security_case_01", ["bone"] = 28422, ["x"] = 0.1,["y"] = 0.0,["z"] = 0.0,["xR"] = -50.0,["yR"] = -90.0, ["zR"] = 0.0
 	},
-	
+
 	["toolbox"] = {
 		["model"] = "prop_tool_box_04", ["bone"] = 28422, ["x"] = 0.37,["y"] = 0.0,["z"] = 0.0,["xR"] = -50.0,["yR"] = -90.0, ["zR"] = 0.0
 	},
@@ -427,6 +461,10 @@ attachPropList = {
 		["model"] = "p_ing_microphonel_01", ["bone"] = 18905, ["x"] = 0.1,["y"] = 0.05,["z"] = 0.0,["xR"] = -85.0,["yR"] = -80.0, ["zR"] = -80.0
 	},
 
+	["tvmic02"] = {
+		["model"] = "p_ing_microphonel_01_lsbn", ["bone"] = 18905, ["x"] = 0.1,["y"] = 0.05,["z"] = 0.05,["xR"] = -85.0,["yR"] = -80.0, ["zR"] = -80.0
+	},
+
 	["nosbottle"] = {
 		["model"] = "p_cs_bottle_01", ["bone"] = 18905, ["x"] = 0.1,["y"] = 0.05,["z"] = 0.0,["xR"] = -85.0,["yR"] = -80.0, ["zR"] = -80.0
 	},
@@ -462,6 +500,16 @@ attachPropList = {
 
 	["golfdriver01"] = {
 		["model"] = "prop_golf_driver", ["bone"] = 57005, ["x"] = 0.14,["y"] = 0.00,["z"] = 0.0,["xR"] = 160.0,["yR"] = -60.0, ["zR"] = 10.0
+	},
+
+	["knife"] = {
+		["model"] = "prop_knife", ["bone"] = 28422,
+		["x"] = 0.15,
+		["y"] = 0.1,
+		["z"] = -0.05,
+		["xR"] = 0.0,
+		["yR"] = 20.0,
+		["zR"] = -40.0
 	},
 
 	["glowstickRight"] = {
@@ -506,6 +554,16 @@ attachPropList = {
 	},
 	["hamburger"] = {
 		["model"] = "prop_cs_burger_01",
+		["bone"] = 18905,
+		["x"] = 0.13,
+		["y"] = 0.07,
+		["z"] = 0.02,
+		["xR"] = 120.0,
+		["yR"] = 16.0,
+		["zR"] = 60.0
+	},
+	["steak"] = {
+		["model"] = "prop_cs_steak",
 		["bone"] = 18905,
 		["x"] = 0.13,
 		["y"] = 0.07,
@@ -672,6 +730,23 @@ attachPropList = {
 		["zR"] = 0.0
 	},
 
+	["barrel_fuel"] = {
+		["stolen"] = true,
+		["blockGuns"] = true,
+		["blockCar"] = true,
+		["blockRunning"] = true,
+		["destroyOnDamage"] = false,
+		["inventoryBased"] = true,
+		["model"] = "prop_barrel_exp_01a",
+		["bone"] = 28422,
+		["x"] = -0.01,
+		["y"] = -0.27,
+		["z"] = 0.27,
+		["xR"] = 3.0,
+		["yR"] = 0.0,
+		["zR"] = 0.0
+	},
+
 	["stolenmusic"] = {
 		["stolen"] = true,
 		["blockGuns"] = true,
@@ -755,21 +830,21 @@ attachPropList = {
 		["xR"] = 0.0,
 		["yR"] = 0.0,
 		["zR"] = 0.0
-  	},
-  
-	["trashbag"] = {
-		["model"] = "prop_cs_street_binbag_01",
-		["bone"] = 57005,
-			["x"] = 0.39,
-			["y"] = -0.22,
-			["z"] = 0.06,
-			["xR"] = 63.0,
-			["yR"] = -126.0,
-		["zR"] = -99.0,
-		["vertexIndex"] = 0
+  },
+
+  ["trashbag"] = {
+    ["model"] = "prop_cs_street_binbag_01",
+    ["bone"] = 57005,
+    ["x"] = 0.39,
+    ["y"] = -0.22,
+    ["z"] = 0.06,
+    ["xR"] = 63.0,
+    ["yR"] = -126.0,
+    ["zR"] = -99.0,
+    ["vertexIndex"] = 0
 	},
 
-	["police_id_board"] = { 
+	["police_id_board"] = {
 		["model"] = "prop_police_id_board",
 		["bone"] = 28422,
 		["x"] = 0,
@@ -777,10 +852,50 @@ attachPropList = {
 		["z"] = 0.1,
 		["xR"] = 0.0,
 		["yR"] = 0.0,
-		["zR"] = 0.0 
+		["zR"] = 0.0
 	},
 
-	["police_badge"] = { 
+	["boe_bear"] = {
+		["model"] = "denis3d_teddyboe",
+		["bone"] = 57005,
+		["x"] = 0.0,
+		["y"] = 0.0,
+		["z"] = 0.0,
+		["xR"] = -60.0,
+		["yR"] = -35.0,
+		["zR"] = -15.0
+  },
+    ["tcg_card"] = {
+        ["model"] = "np_npc_card",
+        ["bone"] = 57005,
+        ["x"] = 0.15,
+        ["y"] = 0.055,
+        ["z"] = -0.025,
+        ["xR"] = 170.0,
+        ["yR"] = 0.0,
+        ["zR"] = -240.0
+    },
+    ["npolaroid_photo"] = {
+        ["model"] = "np_poly_card",
+        ["bone"] = 57005,
+        ["x"] = 0.15,
+        ["y"] = 0.055,
+        ["z"] = -0.025,
+        ["xR"] = 170.0,
+        ["yR"] = 0.0,
+        ["zR"] = -240.0
+    },
+	["tcg_card_inspect"] = {
+		["model"] = "np_npc_card",
+		["bone"] = 57005,
+		["x"] = 0.13,
+		["y"] = 0.05,
+		["z"] = -0.035,
+		["xR"] = 35.0,
+		["yR"] = 245.0,
+		["zR"] = -15.0
+  },
+	["police_badge"] = {
 		["model"] = "denis3d_policebadge_01",
 		["bone"] = 57005,
 		["x"] = 0.13,
@@ -788,42 +903,452 @@ attachPropList = {
 		["z"] = -0.06,
 		["xR"] = 40.0,
 		["yR"] = 55.0,
-		["zR"] = -267.0 
-	},
-	["prop_cs_walking_stick"] = {
-		["model"] = "prop_cs_walking_stick",
-		["bone"] = 28422, ["x"] = 0.06,["y"] = 0.03,["z"] = -0.01,["xR"] = 180.0,["yR"] = 288.0, ["zR"] = 0.0
-	},
-	["bscoffee"] = {
-			["model"] = "prop_food_bs_coffee",
-			["bone"] = 28422,
-			["x"] = 0.02,
-			["y"] = 0.01,
-			["z"] = -0.07,
-			["xR"] = 0.0,
-			["yR"] = 0.0,
-			["zR"] = 90.0
-	},
-	["softdrink"] = {
-			["model"] = "prop_food_bs_juice01",
-			["bone"] = 28422,
-			["x"] = 0.01,
-			["y"] = 0.01,
-			["z"] = -0.08,
-			["xR"] = 0.0,
-			["yR"] = 0.0,
-			["zR"] = 180.0
-	},
-	["fries"] = {
-			["model"] = "prop_food_bs_chips",
-			["bone"] = 18905,
-			["x"] = 0.1,
-			["y"] = -0.01,
-			["z"] = 0.05,
-			["xR"] = 0.0,
-			["yR"] = 90.0,
-			["zR"] = 60.0
-	}
+		["zR"] = -267.0
+  },
+  ["prop_cs_walking_stick"] = {
+    ["model"] = "prop_cs_walking_stick",
+    ["bone"] = 28422, ["x"] = 0.06,["y"] = 0.03,["z"] = -0.01,["xR"] = 180.0,["yR"] = 288.0, ["zR"] = 0.0
+  },
+  ["bscoffee"] = {
+		["model"] = "prop_food_bs_coffee",
+		["bone"] = 28422,
+		["x"] = 0.02,
+		["y"] = 0.01,
+		["z"] = -0.07,
+		["xR"] = 0.0,
+		["yR"] = 0.0,
+		["zR"] = 90.0
+  },
+  ["softdrink"] = {
+		["model"] = "prop_food_bs_juice01",
+		["bone"] = 28422,
+		["x"] = 0.01,
+		["y"] = 0.01,
+		["z"] = -0.08,
+		["xR"] = 0.0,
+		["yR"] = 0.0,
+		["zR"] = 180.0
+  },
+  ["fries"] = {
+		["model"] = "prop_food_bs_chips",
+		["bone"] = 18905,
+		["x"] = 0.1,
+		["y"] = -0.01,
+		["z"] = 0.05,
+		["xR"] = 0.0,
+		["yR"] = 90.0,
+		["zR"] = 60.0
+  },
+  ["wineglass"] = {
+  	["model"] = "prop_drink_redwine",
+  	["bone"] = 28422,
+  	["x"] = 0.0,
+  	["y"] = 0.0,
+  	["z"] = -0.08,
+  	["xR"] = 0.0,
+  	["yR"] = 0.0,
+  	["zR"] = 0.0
+  },
+  ["roostertea"] = {
+  	["model"] = "v_res_mcofcup",
+  	["bone"] = 28422,
+  	["x"] = -0.005,
+  	["y"] = -0.01,
+  	["z"] = -0.005,
+  	["xR"] = 0.0,
+  	["yR"] = 0.0,
+  	["zR"] = 0.0
+  },
+  ["mug"] = {
+  	["model"] = "prop_mug_02",
+  	["bone"] = 28422,
+  	["x"] = 0.02,
+  	["y"] = -0.01,
+  	["z"] = -0.005,
+  	["xR"] = 0.0,
+  	["yR"] = 0.0,
+  	["zR"] = 140.0
+  },
+  ["darkmarketpackage"] = {
+  	["animDict"] = "anim@heists@narcotics@trash",
+  	["animName"] = "drop_side",
+  	["model"] = "prop_idol_case_01",
+  	["bone"] = 28422,
+  	["x"] = 0.01,
+  	["y"] = -0.02,
+  	["z"] = -0.22,
+  	["xR"] = 0.0,
+  	["yR"] = 0.0,
+  	["zR"] = 0.0,
+  	["vertexIndex"] = 0,
+  	["blockGuns"] = true,
+  	["blockCar"] = true,
+  	["blockRunning"] = true,
+  	["inventoryBased"] = true,
+  },
+  ["weedpackage"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "hei_prop_heist_weed_block_01",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.12,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+  ["megaphone"] = {
+    ["model"] = "prop_megaphone_01",
+    ["bone"] = 28422,
+    ["x"] = 0.04,
+    ["y"] = -0.01,
+    ["z"] = 0.0,
+    ["xR"] = 22.0,
+    ["yR"] = -4.0,
+    ["zR"] = 87.0,
+    ["vertexIndex"] = 0
+  },
+  ["wateringcan"] = {
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_wateringcan",
+    ["bone"] = 28422,
+    ["x"] = 0.0,
+    ["y"] = -0.1,
+    ["z"] = -0.25,
+    ["xR"] = 0.0,
+    ["yR"] = -10.0,
+    ["zR"] = 0.0
+  },
+  ["boxscraps"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_cs_cardbox_01",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.12,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+  ["wateringcan2"] = {
+    ["model"] = "prop_wateringcan",
+		["bone"] = 18905,
+		["x"] = 0.08,
+		["y"] = -0.2,
+		["z"] = 0.3,
+		["xR"] = -10.0,
+		["yR"] = 80.0,
+		["zR"] = 90.0
+  },
+  ["digiscanner"] = {
+    ["model"] = "w_am_metaldetector",
+    ["bone"] = 18905,
+    ["x"] = 0.13, -- z
+    ["y"] = 0.03, -- right forward
+    ["z"] = -0.03, -- back right
+    ["xR"] = -150.0,
+    ["yR"] = -10.0,
+    ["zR"] = -10.0,
+    ["vertexIndex"] = 0,
+    ["disableCollision"] = true
+  },
+	["dodopackagesmall"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_cs_box_clothes",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.14,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+	["dodopackagemedium"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_cs_cardbox_01",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.12,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+	["dodopackagelarge"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_hat_box_06",
+    ["bone"] = 28422,
+    ["x"] = 5,
+    ["y"] = -0.02,
+    ["z"] = -0.17,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = -90.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+  ["methpackage"] = {
+    ["animDict"] = "anim@heists@narcotics@trash",
+    ["animName"] = "drop_side",
+    ["model"] = "prop_idol_case_01",
+    ["bone"] = 28422,
+    ["x"] = 0.01,
+    ["y"] = -0.02,
+    ["z"] = -0.22,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0,
+    ["blockGuns"] = true,
+    ["blockCar"] = true,
+    ["blockRunning"] = true,
+    ["inventoryBased"] = true,
+  },
+  ["broom"] = {
+	["model"] = "prop_tool_broom",
+    ["bone"] = 28422,
+    ["x"] = 0.0,
+    ["y"] = 0.0,
+    ["z"] = 0.0,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 0.0,
+    ["vertexIndex"] = 0
+  },
+  ["lawnchair"] = {
+    ["model"] = "prop_skid_chair_02",
+    ["bone"] = 0,
+    ["x"] = 0.0,
+    ["y"] = -0.12,
+    ["z"] = -0.16,
+    ["xR"] = 45.0,
+    ["yR"] = 4.0,
+    ["zR"] = -187.0,
+    ["vertexIndex"] = 0
+  },
+  ["lawnchair2"] = {
+	["model"] = "prop_skid_chair_01",
+    ["bone"] = 0,
+    ["x"] = 0.0,
+    ["y"] = -0.04,
+    ["z"] = -0.18,
+    ["xR"] = 8.0,
+    ["yR"] = -1.0,
+    ["zR"] = -174.0,
+    ["vertexIndex"] = 0
+  },
+  ["stopsign"] = {
+    ["model"] = "prop_sign_road_01a",
+    ["bone"] = 28422,
+    ["x"] = 0.0,
+    ["y"] = 0.0,
+    ["z"] = -0.55,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 124.0,
+    ["vertexIndex"] = 0
+  },
+  ["woodbench"] = {
+    ["model"] = "prop_bench_06",
+    ["bone"] = -1,
+    ["x"] = 0.0,
+    ["y"] = 0.0,
+    ["z"] = -0.515,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 180.0,
+    ["vertexIndex"] = 0
+  },
+  ["stonebench"] = {
+    ["model"] = "prop_bench_09",
+    ["bone"] = -1,
+    ["x"] = 0.0,
+    ["y"] = 0.0,
+    ["z"] = -0.295,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 180.0,
+    ["vertexIndex"] = 0
+  },
+  ["metalbench"] = {
+    ["model"] = "prop_bench_01a",
+    ["bone"] = -1,
+    ["x"] = 0.0,
+    ["y"] = 0.0,
+    ["z"] = -0.475,
+    ["xR"] = 0.0,
+    ["yR"] = 0.0,
+    ["zR"] = 180.0,
+    ["vertexIndex"] = 0
+  },
+  ["housesafe"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "prop_ld_int_safe_01",
+      ["bone"] = 28422,
+      ["x"] = 0.0,
+      ["y"] = -0.20,
+      ["z"] = 0.3,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["huntingcarcass4"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "hunting_pelt_01_d",
+      ["bone"] = 28422,
+      ["x"] = 0.0,
+      ["y"] = -0.10,
+      ["z"] = -0.0,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["huntingcarcass3"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "hunting_pelt_01_c",
+      ["bone"] = 28422,
+      ["x"] = 0.0,
+      ["y"] = -0.10,
+      ["z"] = -0.0,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["huntingcarcass2"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "hunting_pelt_01_b",
+      ["bone"] = 28422,
+      ["x"] = 0.0,
+      ["y"] = -0.10,
+      ["z"] = -0.0,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["huntingcarcass1"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "hunting_pelt_01_a",
+      ["bone"] = 28422,
+      ["x"] = 0.0,
+      ["y"] = -0.10,
+      ["z"] = -0.0,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["fridge"] = {
+      ["animDict"] = "anim@heists@box_carry@",
+      ["animName"] = "idle",
+      ["model"] = "v_res_fridgemodsml_np",
+      ["bone"] = 28422,
+      ["x"] = -0.01,
+      ["y"] = -0.44,
+      ["z"] = -0.19,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["atmblackbox"] = {
+      ["animDict"] = "anim@heists@narcotics@trash",
+      ["animName"] = "drop_side",
+      ["model"] = "loq_atm_02_console",
+      ["bone"] = 28422,
+      ["x"] = 0.01,
+      ["y"] = -0.02,
+      ["z"] = -0.84,
+      ["xR"] = 0.0,
+      ["yR"] = 0.0,
+      ["zR"] = 0.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    },
+    ["npolaroid_camera"] = {
+      ["animDict"] = "amb@code_human_wander_texting@female@base",
+      ["animName"] = "static",
+      ["model"] = "np_polaroid_c",
+      ["bone"] = 28422,
+      ["x"] = 0.18,
+      ["y"] = 0.02,
+      ["z"] = -0.09,
+      ["xR"] = 16.0,
+      ["yR"] = 53.0,
+      ["zR"] = 7.0,
+      ["vertexIndex"] = 0,
+      ["blockGuns"] = true,
+      ["blockCar"] = true,
+      ["blockRunning"] = true,
+      ["inventoryBased"] = true,
+    }
 }
 
 RegisterNetEvent('attachPropTest')
@@ -858,7 +1383,7 @@ end)
 
 RegisterNetEvent('attachItem')
 AddEventHandler('attachItem', function(item)
-	TriggerEvent("attachProp",attachPropList[item]["model"], attachPropList[item]["bone"], attachPropList[item]["x"], attachPropList[item]["y"], attachPropList[item]["z"], attachPropList[item]["xR"], attachPropList[item]["yR"], attachPropList[item]["zR"], attachPropList[item]["vertexIndex"])
+	TriggerEvent("attachProp", attachPropList[item]["model"], attachPropList[item]["bone"], attachPropList[item]["x"], attachPropList[item]["y"], attachPropList[item]["z"], attachPropList[item]["xR"], attachPropList[item]["yR"], attachPropList[item]["zR"], attachPropList[item]["vertexIndex"], attachPropList[item]["disableCollision"])
 end)
 
 RegisterNetEvent('attachItemPerm')
@@ -956,6 +1481,7 @@ AddEventHandler('attachcarryObject', function(attachModelSent,boneNumberSent,x,y
 		Citizen.Wait(100)
 	end
 	carryObject = CreateObject(attachModel, 1.0, 1.0, 1.0, 1, 1, 0)
+	SetEntityCollision(carryObject, 0, 0)
 	AttachEntityToEntity(carryObject, PlayerPedId(), bone, x, y, z, xR, yR, zR, 1, 1, true, 0, 2, 1)
 end)
 
@@ -969,8 +1495,10 @@ RegisterNetEvent('animation:carryshort');
 AddEventHandler('animation:carryshort', function()
 	carryAnimType = 16
 	carryingObject = true
+	TriggerServerEvent("propattach:carryingItem", carryingObject)
 	Citizen.Wait(5000)
 	carryingObject = false
+	TriggerServerEvent("propattach:carryingItem", carryingObject)
 	carryAnimType = 49
 end)
 
@@ -982,11 +1510,11 @@ end)
 local holding = "none"
 RegisterNetEvent('animation:carry');
 AddEventHandler('animation:carry', function(item,isInventory)
-	
+
 	local inventoryNone = true
 
 
-	if carryingObject and item == "none" then 
+	if carryingObject and item == "none" then
 		if attachPropList[holding].inventoryBased and isInventory then
 			inventoryNone = true
 		else
@@ -1004,6 +1532,7 @@ AddEventHandler('animation:carry', function(item,isInventory)
 		holding = "none"
 		removeAttachedcarryObject()
 		carryingObject = false
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		carryObject = 0
 		objectType = 0
 		carryAnimType = 49
@@ -1021,6 +1550,7 @@ AddEventHandler('animation:carry', function(item,isInventory)
 		holding = item
 		carryAnimType = 49
 		carryingObject = true
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		objectType = objectPassed
 		lastObjectHealth = 0
 		TriggerEvent("attachcarryObject",attachPropList[item]["model"], attachPropList[item]["bone"], attachPropList[item]["x"], attachPropList[item]["y"], attachPropList[item]["z"], attachPropList[item]["xR"], attachPropList[item]["yR"], attachPropList[item]["zR"])
@@ -1028,6 +1558,7 @@ AddEventHandler('animation:carry', function(item,isInventory)
 		holding = "none"
 		removeAttachedcarryObject()
 		carryingObject = false
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		carryObject = 0
 		objectType = 0
 		carryAnimType = 49
@@ -1118,8 +1649,8 @@ Citizen.CreateThread(function()
 				invehicle = false
 				hideObjectTillNeeded(invehicle)
 			end
-			
-			if attachPropList[holding] ~= nil and attachPropList[holding].blockRunning then 
+
+			if attachPropList[holding] ~= nil and attachPropList[holding].blockRunning then
 				if IsPedRunning(PlayerPedId()) or IsPedSprinting(PlayerPedId()) then
 					SetPlayerControl(PlayerId(), 0, 0)
 					Citizen.Wait(1000)
@@ -1135,13 +1666,13 @@ Citizen.CreateThread(function()
 				end
 
 				if IsPedRagdoll(PlayerPedId()) then
-					if (GetGameTimer() - radollTimer) >= 1200 and (GetGameTimer() - radollTimer) <= 1450 then 
+					if (GetGameTimer() - radollTimer) >= 1200 and (GetGameTimer() - radollTimer) <= 1450 then
 						destroyByRagdoll = true
 					end
 					if (GetGameTimer() - radollTimer) >= 1500 or (GetGameTimer() - radollTimer) <= 300 then
 						radollTimer = GetGameTimer();
 					end
-					
+
 				end
 
 				if destroyByRagdoll and not IsPedFalling(PlayerPedId()) then
@@ -1149,8 +1680,18 @@ Citizen.CreateThread(function()
 					radollTimer = 0
 					destroyByRagdoll = false
 				end
-				
+			elseif attachPropList[holding] ~= nil and not attachPropList[holding].destroyOnDamage then
+				local isColliding = HasEntityCollidedWithAnything(carryObject)
 
+				if isColliding then
+					local playerPed = PlayerPedId()
+					local velocity = GetEntityVelocity(playerPed)
+					local playerHealth = GetEntityHealth(playerPed)
+
+					exports['ragdoll']:SetPlayerHealth(playerHealth - 5)
+
+					SetEntityVelocity(PlayerPedId(), -velocity * 2)
+				end
 			end
 
 		end
@@ -1163,11 +1704,12 @@ function destroyObject()
 	lastObjectHealth = 0
 	if attachPropList[holding].stolen then
 		TriggerEvent("inventory:removeItem",holding, 1)
-		TriggerEvent( "player:receiveItem", "stolenBrokenGoods", 1 )     
+		TriggerEvent( "player:receiveItem", "stolenBrokenGoods", 1 )
 	else
 		holding = "none"
 		removeAttachedcarryObject()
 		carryingObject = false
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		carryObject = 0
 		objectType = 0
 		carryAnimType = 49
@@ -1180,6 +1722,7 @@ function hideObjectTillNeeded(hide)
 	if hide and holding ~= "none" then
 		removeAttachedcarryObject()
 		carryingObject = false
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		carryObject = 0
 		objectType = 0
 		carryAnimType = 49
@@ -1189,6 +1732,7 @@ function hideObjectTillNeeded(hide)
 		local item = holding
 		carryAnimType = 49
 		carryingObject = true
+		TriggerServerEvent("propattach:carryingItem", carryingObject)
 		objectType = objectPassed
 		TriggerEvent("attachcarryObject",attachPropList[item]["model"], attachPropList[item]["bone"], attachPropList[item]["x"], attachPropList[item]["y"], attachPropList[item]["z"], attachPropList[item]["xR"], attachPropList[item]["yR"], attachPropList[item]["zR"])
 	end
@@ -1197,7 +1741,7 @@ end
 
 
 function canPullWeaponHoldingEntity()
-	if attachPropList[holding] ~= nil and attachPropList[holding].blockGuns and (attachPropList[holding].blockCar and invehicle == false) then 
+	if attachPropList[holding] ~= nil and attachPropList[holding].blockGuns and (attachPropList[holding].blockCar and invehicle == false) then
 		return false
 	end
 	return true

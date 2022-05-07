@@ -17,7 +17,7 @@ Citizen.CreateThread(function()
 	end
 
     Citizen.Wait(1000)
-    exports.ghmattimysql:execute('SELECT * FROM `vehicles`', {}, function(result)
+    MySQL.query('SELECT * FROM `vehicles`', {}, function(result)
         vehicletable = result
     end)
 end)
@@ -48,7 +48,7 @@ end)
 ESX.RegisterServerCallback('pw-vehicleshop:retrieveJobVehicles', function(source, cb, type)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner = @owner AND type = @type AND job = @job', {
+	MySQL.query('SELECT * FROM owned_vehicles WHERE owner = @owner AND type = @type AND job = @job', {
 		['@owner'] = xPlayer.identifier,
 		['@type'] = type,
 		['@job'] = xPlayer.job.name
@@ -64,25 +64,25 @@ AddEventHandler('vehicleshop.CheckMoneyForVeh', function(modelcar, sale, name, v
 	if xPlayer.getMoney() >= sale then
         xPlayer.removeMoney(sale) 	
 		-- TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
-        exports['ghmattimysql']:execute('SELECT stock FROM vehicles WHERE model = @model', {
+        MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
             ['@model'] = modelcar
         }, function(result)
             if result[1].stock ~= nil then
                 if result[1].stock >= 1 then
                     local restock = result[1].stock - 1
-                    exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                    MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                         ['@model'] = modelcar,
                         ['@stock'] = restock
                     })
 					TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
 
-                    -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                    -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                         -- ['@owner']   = xPlayer.identifier,
                         -- ['@plate']   = vehicleProps.plate,
                         -- ['@props'] = json.encode({model = GetHashKey(modelcar), plate = vehicleProps.plate}),
                         -- ['stored']   = 0
                     -- }, function(rowsChanged)
-                        -- exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                        -- MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                             -- ['@model'] = modelcar,
                             -- ['@stock'] = restock
                         -- })
@@ -93,7 +93,7 @@ AddEventHandler('vehicleshop.CheckMoneyForVeh', function(modelcar, sale, name, v
                 end
             else
 				TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
-                -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                     -- ['@owner']   = xPlayer.identifier,
                     -- ['@plate']   = vehicleProps.plate,
                     -- ['@props'] = json.encode({model = GetHashKey(model), plate = vehicleProps.plate}),
@@ -107,25 +107,25 @@ AddEventHandler('vehicleshop.CheckMoneyForVeh', function(modelcar, sale, name, v
         end)
     elseif xPlayer.getAccount('bank') >= sale then
 		xPlayer.removeAccountMoney('bank', sale)
-		exports['ghmattimysql']:execute('SELECT stock FROM vehicles WHERE model = @model', {
+		MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
             ['@model'] = modelcar
         }, function(result)
             if result[1].stock ~= nil then
                 if result[1].stock >= 1 then
                     local restock = result[1].stock - 1
-                    exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                    MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                         ['@model'] = modelcar,
                         ['@stock'] = restock
                     })
 					TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
 
-                    -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                    -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                         -- ['@owner']   = xPlayer.identifier,
                         -- ['@plate']   = vehicleProps.plate,
                         -- ['@props'] = json.encode({model = GetHashKey(modelcar), plate = vehicleProps.plate}),
                         -- ['stored']   = 0
                     -- }, function(rowsChanged)
-                        -- exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                        -- MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                             -- ['@model'] = modelcar,
                             -- ['@stock'] = restock
                         -- })
@@ -136,7 +136,7 @@ AddEventHandler('vehicleshop.CheckMoneyForVeh', function(modelcar, sale, name, v
                 end
             else
 				TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
-                -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                     -- ['@owner']   = xPlayer.identifier,
                     -- ['@plate']   = vehicleProps.plate,
                     -- ['@props'] = json.encode({model = GetHashKey(model), plate = vehicleProps.plate}),
@@ -161,7 +161,7 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
 
 	if xPlayer.getMoney() >= vehicleModel.sale then
 		xPlayer.removeMoney(vehicleModel.sale)
-		exports['ghmattimysql']:execute('SELECT stock FROM vehicles WHERE model = @model', {
+		MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
             ['@model'] = vehicleModel.modelcar
         }, function(result)
 			
@@ -171,19 +171,19 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
 				TriggerEvent('moon_discordlogs:sendToDiscord','BuyVehicle', sendToDiscord, source, '^1') 
                 if result[1].stock >= 1 then
                     local restock = result[1].stock - 1
-                    exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                    MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                         ['@model'] = vehicleModel.modelcar,
                         ['@stock'] = restock
                     })
 					--TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
 
-                    -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                    -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                         -- ['@owner']   = xPlayer.identifier,
                         -- ['@plate']   = vehicleProps.plate,
                         -- ['@props'] = json.encode({model = GetHashKey(modelcar), plate = vehicleProps.plate}),
                         -- ['stored']   = 0
                     -- }, function(rowsChanged)
-                        -- exports['ghmattimysql']:execute('UPDATE vehicles SET stock = @stock WHERE model = @model', {
+                        -- MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
                             -- ['@model'] = modelcar,
                             -- ['@stock'] = restock
                         -- })
@@ -195,7 +195,7 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
                 end
             else
 				--TriggerEvent('pw-garages:server:setVehicleOwned', vehicleProps, stats, modelcar)
-                -- exports.ghmattimysql:execute('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
+                -- MySQL.query('INSERT INTO owned_vehicles (owner, plate, props, stored) VALUES (@owner, @plate, @props, @stored)', {
                     -- ['@owner']   = xPlayer.identifier,
                     -- ['@plate']   = vehicleProps.plate,
                     -- ['@props'] = json.encode({model = GetHashKey(model), plate = vehicleProps.plate}),
@@ -215,7 +215,7 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
 end)
 
 ESX.RegisterServerCallback('vehicleshop-plaka-cek', function(source, cb, plate)
-	exports.ghmattimysql:execute('SELECT 1 FROM owned_vehicles WHERE plate = @plate', {
+	MySQL.query('SELECT 1 FROM owned_vehicles WHERE plate = @plate', {
 		['@plate'] = plate
 	}, function(result)
 		cb(result[1] ~= nil)

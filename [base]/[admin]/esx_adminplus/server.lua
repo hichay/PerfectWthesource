@@ -14,14 +14,14 @@ RegisterCommand("admin", function(source, args, rawCommand)
 	end
 end, false)
 
-RegisterCommand("tpm", function(source, args, rawCommand)	-- /tpm		teleport to waypoint
-	if source ~= 0 then
-		local xPlayer = ESX.GetPlayerFromId(source)
-		if havePermission(xPlayer) then
-			xPlayer.triggerEvent("esx_admin:tpm")
-		end
-	end
-end, false)
+-- RegisterCommand("tpm", function(source, args, rawCommand)	-- /tpm		teleport to waypoint
+	-- if source ~= 0 then
+		-- local xPlayer = ESX.GetPlayerFromId(source)
+		-- if havePermission(xPlayer) then
+			-- xPlayer.triggerEvent("esx_admin:tpm")
+		-- end
+	-- end
+-- end, false)
 
 RegisterCommand("coords", function(source, args, rawCommand)	-- /coords		print exact ped location in console/F8
 	if source ~= 0 then

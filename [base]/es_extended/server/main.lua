@@ -234,7 +234,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 					count = count,
 					label = item.label,
 					weight = item.weight,
-					usable = ESX.UsableItemsCallbacks[name] ~= nil,
+					usable = Core.UsableItemsCallbacks[name] ~= nil,
 					rare = item.rare,
 					canRemove = item.canRemove
 				})

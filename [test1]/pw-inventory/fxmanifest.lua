@@ -39,7 +39,6 @@ client_scripts {
 }
 
 server_scripts {
-	'@pw-rpc/server/sv_main.lua',
 	'@oxmysql/lib/MySQL.lua',
 	'server/server_degradation.js',
 	'server/server_shops.js',

@@ -1,6 +1,8 @@
 fx_version 'bodacious'
 games { 'rdr3', 'gta5' }
 
-client_script 'client.lua'
+client_script {
+	'cl_*.lua',
+}
 
 export "canPullWeaponHoldingEntity"
