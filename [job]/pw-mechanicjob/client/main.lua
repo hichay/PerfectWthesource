@@ -391,6 +391,21 @@ AddEventHandler('pw-mechanicjob:client:RepaireeePart', function(part)
     ESX.Notify("Bộ phận "..Config.ValuesLabels[part].." đã được sửa chữa!")
 end)
 
+RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
+	cb({ data = {}, meta = { ok = true, message = '' } })
+    local coords = Config.Locations["exit"]
+    DoScreenFadeOut(150)
+    Wait(150)
+    FreezeEntityPosition(Config.Plates[ClosestPlate].AttachedVehicle, false)
+    SetEntityCoords(Config.Plates[ClosestPlate].AttachedVehicle, Config.Plates[ClosestPlate].coords.x, Config.Plates[ClosestPlate].coords.y, Config.Plates[ClosestPlate].coords.z)
+    SetEntityHeading(Config.Plates[ClosestPlate].AttachedVehicle, Config.Plates[ClosestPlate].coords.h)
+    TaskWarpPedIntoVehicle(PlayerPedId(), Config.Plates[ClosestPlate].AttachedVehicle, -1)
+    Wait(500)
+    DoScreenFadeIn(250)
+    Config.Plates[ClosestPlate].AttachedVehicle = nil
+    TriggerServerEvent('pw-mechanicjob:server:SetAttachedVehicle', false, ClosestPlate)
+end)
+
 RegisterNetEvent('pw-mechanicjob:DetachVehicle')
 AddEventHandler('pw-mechanicjob:DetachVehicle', function()
     local coords = Config.Locations["exit"]

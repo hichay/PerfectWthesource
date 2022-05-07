@@ -1,19 +1,10 @@
 RegisterCommand("kiemtra", function(source, args, rawCommand)
 	TriggerEvent('pw-mechanicjob:MainMenu')
 end, false)
-RegisterCommand("wow", function(source, args, rawCommand)
-  local data = {
-    {
-        title = "Thông tin xe",
-        description = "wow" ,
-    },
-  }
-exports["np-ui"]:showContextMenu(data)
-end, false)
+
 RegisterNetEvent('pw-mechanicjob:MainMenu', function()
 
     local vehicle = nil
-
     local target = exports["pw-interact"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
@@ -30,8 +21,9 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
 
     local data = {
       {
-          title = "Thông tin xe",
+          title = "Kết thúc sửa chữa",
           description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
+          action = 'pw-mechanicjob:DetachVehicle',
       },
       {
         icon = "check",

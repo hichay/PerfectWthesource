@@ -32,18 +32,6 @@ Config.ValuesLabels = {
 	["transmission"] = "Hộp số",
 }
 
--- Config.RepairCost = {
-    -- ["body_damage"] = "plastic",
-    -- ["radiator"] = "plastic",
-    -- ["axle"] = "steel",
-    -- ["brakes"] = "iron",
-    -- ["clutch"] = "aluminum",
-    -- ["fuelinjector"] = "plastic",
-	-- ["tire"] = "plastic",
-	-- ["electronic"] = "plastic",
-	-- ["transmission"] = "plastic",
--- }
-
 Config.RepairCostAmount = {
     ["engine_damage"] = {
 		A = {
