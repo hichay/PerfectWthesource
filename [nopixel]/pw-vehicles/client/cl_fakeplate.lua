@@ -16,7 +16,7 @@ DecorRegister("Vehicle-Fakeplate", 2)
 AddEventHandler("vehicle:addFakePlate", function()
     local vehicle = nil
 
-    local target = exports["caue-target"]:GetCurrentEntity()
+    local target = exports["pw-target"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end
@@ -26,7 +26,7 @@ AddEventHandler("vehicle:addFakePlate", function()
     local vid = GetVehicleIdentifier(vehicle)
     if not vid then return end
 
-    local plate = RPC.execute("caue-vehicles:addFakePlate", vid)
+    local plate = RPC.execute("pw-vehicles:addFakePlate", vid)
     if plate then
         SetVehiclePlate(vehicle, plate)
         Sync.DecorSetBool(vehicle, "Vehicle-Fakeplate", true)
@@ -36,7 +36,7 @@ end)
 AddEventHandler("vehicle:removeFakePlate", function()
     local vehicle = nil
 
-    local target = exports["caue-target"]:GetCurrentEntity()
+    local target = exports["pw-target"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end
@@ -46,7 +46,7 @@ AddEventHandler("vehicle:removeFakePlate", function()
     local vid = GetVehicleIdentifier(vehicle)
     if not vid then return end
 
-    local plate = RPC.execute("caue-vehicles:removeFakePlate", vid)
+    local plate = RPC.execute("pw-vehicles:removeFakePlate", vid)
     if plate then
         SetVehiclePlate(vehicle, plate)
         Sync.DecorSetBool(vehicle, "Vehicle-Fakeplate", false)

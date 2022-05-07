@@ -297,18 +297,14 @@ RegisterNUICallback("Buy", function(data, cb)
 				vehicleProps.plate = newPlate
 				SetVehicleNumberPlateText(vehicle, newPlate)
 				stats = {
-						["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
-						["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
-						["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity), 
-						["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
+						["brake"] = 100,
+						["axle"] = 100,
 						["radiator"] = 100,
-						["axle"] = GetVehicleSteeringScale(lastSelectedVehicleEntity), 
-						["brakes"] = 100,
 						["clutch"] = 100,
-						["tire"] = 100,
-						["electronic"] = 100,
 						["transmission"] = 100,
-						["fuelinjector"] = 100,
+						["electronics"] = 100,
+						["injector"] = 100,
+						["tire"] = 100,
 					}
 				
 			

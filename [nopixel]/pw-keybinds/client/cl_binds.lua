@@ -1,6 +1,6 @@
 -- Key binds:
 -- Usage:
--- exports["np-keybinds"]:registerKeyMapping(category, description, onKeyDownCommand, onKeyUpCommand, defaultKey)
+-- exports["pw-keybinds"]:registerKeyMapping(category, description, onKeyDownCommand, onKeyUpCommand, defaultKey)
 -- category - which category is this? e.g.: Voice, Vehicle, Police, etc REQUIRED
 -- description - SHORT description of the action REQUIRED
 -- onKeyDownCommand - see native RegisterKeyMapping / RegisterCommand REQUIRED
@@ -19,7 +19,7 @@
 -- RegisterCommand('-toggleSeatbelt', function() end, false)
 
 local shouldExecuteBind = true
-AddEventHandler("np-binds:should-execute", function(shouldExecute)
+AddEventHandler("pw-binds:should-execute", function(shouldExecute)
   shouldExecuteBind = shouldExecute
 end)
 

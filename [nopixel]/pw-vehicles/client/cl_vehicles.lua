@@ -128,7 +128,7 @@ function GetVehicleMetadata(vehicle, data)
 	return
 end
 
-function GetVehicleTier(vehicle)
+function GetVehicleClass(vehicle)
 	if not DoesEntityExist(vehicle) then
 		return
 	end
@@ -224,7 +224,7 @@ end
 exports("GetVehicleIdentifier", GetVehicleIdentifier)
 exports("GetVehiclePlate", GetVehiclePlate)
 exports("GetVehicleMetadata", GetVehicleMetadata)
-exports("GetVehicleTier", GetVehicleTier)
+exports("GetVehicleClass", GetVehicleClass)
 exports("GetVehicleAfterMarket", GetVehicleAfterMarket)
 exports("spawnVehicle", spawnVehicle)
 
@@ -234,8 +234,8 @@ exports("spawnVehicle", spawnVehicle)
 
 ]]
 
-RegisterNetEvent("caue-vehicles:spawnVehicle")
-AddEventHandler("caue-vehicles:spawnVehicle", spawnVehicle)
+RegisterNetEvent("pw-vehicles:spawnVehicle")
+AddEventHandler("pw-vehicles:spawnVehicle", spawnVehicle)
 
 AddEventHandler("vehicle:swapSeat", function(seat)
     local player = PlayerPedId()

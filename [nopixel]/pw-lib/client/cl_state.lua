@@ -47,13 +47,13 @@ function GetEntityContext(pEntity, pEntityType, pEntityModel)
     context.distance = #(playerCoords - entityCoords)
 
     if context.type == 1 then
-        context.flags = exports["caue-flags"]:GetPedFlags(pEntity)
+        context.flags = exports["pw-flags"]:GetPedFlags(pEntity)
         context.flags["isPlayer"] = IsPedAPlayer(pEntity)
         if context.flags["isNPC"] then GetPedContext(pEntity, context) end
     elseif context.type == 2 then
-        context.flags = exports["caue-flags"]:GetVehicleFlags(pEntity)
+        context.flags = exports["pw-flags"]:GetVehicleFlags(pEntity)
     elseif context.type == 3 then
-        context.flags = exports["caue-flags"]:GetObjectFlags(pEntity)
+        context.flags = exports["pw-flags"]:GetObjectFlags(pEntity)
     end
 
     if ModelFlags[context.model] then
@@ -69,22 +69,22 @@ function GetPedContext(pEntity, pContext)
     local npcId = DecorGetInt(pEntity, "NPC_ID")
 
     if pContext.flags["isJobEmployer"] then
-        pContext.job = exports["caue-jobs"]:GetNPCJobData(npcId)
+        pContext.job = exports["pw-jobs"]:GetNPCJobData(npcId)
     end
 end
 
 function isDisabled()
-    return exports["caue-base"]:getVar("dead") or
-        exports["caue-base"]:getVar("handcuffed")
+    return exports["pw-base"]:getVar("dead") or
+        exports["pw-base"]:getVar("handcuffed")
 end
 
 function hasPhone()
-    return exports["caue-inventory"]:hasEnoughOfItem("mobilephone", 1, false) or
-        exports["caue-inventory"]:hasEnoughOfItem("stoleniphone", 1, false) or
-        exports["caue-inventory"]:hasEnoughOfItem("stolens8", 1, false) or
-        exports["caue-inventory"]:hasEnoughOfItem("stolennokia", 1, false) or
-        exports["caue-inventory"]:hasEnoughOfItem("stolenpixel3", 1, false) or
-        exports["caue-inventory"]:hasEnoughOfItem("boomerphone", 1, false)
+    return exports["pw-inventory"]:hasEnoughOfItem("mobilephone", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("stoleniphone", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("stolens8", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("stolennokia", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("stolenpixel3", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("boomerphone", 1, false)
 end
 
 function GetBoneDistance(pEntity, pType, pBone)
@@ -231,7 +231,7 @@ end
 function hasKeys(pEntity)
     if HasKeysCache[pEntity] then return HasKeysCache[pEntity] end
 
-    local hasKeys = exports["caue-vehicles"]:HasVehicleKey(pEntity)
+    local hasKeys = exports["pw-vehicles"]:HasVehicleKey(pEntity)
 
     HasKeysCache[pEntity] = hasKeys
 
@@ -247,7 +247,7 @@ function hasRepairItems(type)
     end
 
     for i, v in pairs(items) do
-        if exports["caue-inventory"]:hasEnoughOfItem(v, 1, false) then
+        if exports["pw-inventory"]:hasEnoughOfItem(v, 1, false) then
             return true
         end
     end
@@ -261,8 +261,8 @@ end
 
 ]]
 
-AddEventHandler("caue-polyzone:enter", function(zone, data)
-    if zone == "caue-jobs:impound:dropOff" then IsImpoundDropOff = true end
+AddEventHandler("pw-polyzone:enter", function(zone, data)
+    if zone == "pw-jobs:impound:dropOff" then IsImpoundDropOff = true end
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = true, polyData = data } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = true, polyData = data } end
     if zone == "bennys" then
@@ -281,7 +281,7 @@ AddEventHandler("caue-polyzone:enter", function(zone, data)
     if zone == "prison" then polyChecks.prison = { isInside = true, polyData = nil } end
 end)
 
-AddEventHandler("caue-polyzone:exit", function(zone)
+AddEventHandler("pw-polyzone:exit", function(zone)
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = false, polyData = nil } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = false, polyData = nil } end
     if zone == "bennys" then polyChecks.bennys = { isInside = false, polyData = nil } end
@@ -289,8 +289,8 @@ AddEventHandler("caue-polyzone:exit", function(zone)
     if zone == "prison" then polyChecks.prison = { isInside = false, polyData = nil } end
 end)
 
-RegisterNetEvent("caue-jobs:jobChanged")
-AddEventHandler("caue-jobs:jobChanged", function(pJobId)
+RegisterNetEvent("pw-jobs:jobChanged")
+AddEventHandler("pw-jobs:jobChanged", function(pJobId)
     CurrentJob = pJobId
 
     HasKeysCache = {}

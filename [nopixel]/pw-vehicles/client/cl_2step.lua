@@ -14,7 +14,7 @@ local has2step = false
 
 ]]
 
-AddEventHandler("caue-vehicles:2step", function()
+AddEventHandler("pw-vehicles:2step", function()
     local vehicle = currentVehicle
 
 
@@ -27,7 +27,7 @@ AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, pCurrentS
     local vid = GetVehicleIdentifier(currentVehicle)
     if not vid then return end
 
-    has2step = RPC.execute("caue-vehicles:GetVehicleMetadata", vid, "2step")
+    has2step = RPC.execute("pw-vehicles:GetVehicleMetadata", vid, "2step")
 end)
 
 AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat, vehicleDisplayName)
@@ -56,7 +56,7 @@ Citizen.CreateThread(function()
                     local vehiclePos = GetEntityCoords(currentVehicle)
                     local BackFireDelay = (math.random(100, 500))
 
-                    TriggerEvent("caue-vehicles:2step")
+                    TriggerEvent("pw-vehicles:2step")
                     AddExplosion(vehiclePos["x"], vehiclePos["y"], vehiclePos["z"] - 0.4, 61, 0.0, true, false, 0.0, true)
 
                     Citizen.Wait(BackFireDelay)

@@ -87,9 +87,9 @@ exports("AddZoneEvent", function(eventName, zoneName)
   addZoneEvent(eventName, zoneName)
 end)
 
-exports("GetZones", function(point)
-  return comboZone:getZones(point)
-end)
+-- exports("GetZones", function(point)
+  -- return comboZone:getZones(point)
+-- end)
 
 RegisterNetEvent("pw-polyzone:createCircleZone")
 AddEventHandler("pw-polyzone:createCircleZone", function(name, ...)

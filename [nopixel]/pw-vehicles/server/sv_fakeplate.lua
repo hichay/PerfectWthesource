@@ -4,7 +4,7 @@
 
 ]]
 
-RPC.register("caue-vehicles:addFakePlate", function(src, vid)
+RPC.register("pw-vehicles:addFakePlate", function(src, vid)
     local plate = randomPlate()
 
     MySQL.update.await([[
@@ -19,7 +19,7 @@ RPC.register("caue-vehicles:addFakePlate", function(src, vid)
     return plate
 end)
 
-RPC.register("caue-vehicles:removeFakePlate", function(src, vid)
+RPC.register("pw-vehicles:removeFakePlate", function(src, vid)
     MySQL.update.await([[
         UPDATE vehicles_metadata
         SET fakePlate = NULL

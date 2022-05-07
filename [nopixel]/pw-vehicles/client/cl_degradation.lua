@@ -1,4 +1,11 @@
+ESX = nil
 
+Citizen.CreateThread(function ()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
 local currentVehicle = 0
 local blockedClasses = { 13, 14, 15, 16, 21 }
 local enteredVehicle = false
@@ -14,20 +21,27 @@ function ShowFloatingHelpNotification(msg, coords)
 end
 
 function updateVehicleHealth()
+	local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
+	local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
 	if currentVehicle == 0 or IsEntityDead(currentVehicle) then return end
 
-    local plate = GetVehiclePlate(currentVehicle)
+    local plate = GetVehicleNumberPlateText(currentVehicle)
 
     local body = math.ceil(GetVehicleBodyHealth(currentVehicle))
     local engine = math.ceil(GetVehicleEngineHealth(currentVehicle))
 
-    TriggerServerEvent("caue-vehicles:updateVehicleHealth", plate, body, engine)
+    TriggerServerEvent("pw-vehicles:updateVehicleHealth", plate, body, engine)
 end
 
 function getDegredation()
-    if currentVehicle == 0 or has_value(blockedClasses, GetVehicleClass(currentVehicle)) then return end
-
-    local plate = GetVehiclePlate(currentVehicle)
+	local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
+	local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
+		
+    --if currentVehicle == 0 or has_value(blockedClasses, GetVehicleClass(currentVehicle)) then return end
+	local plate = GetVehicleNumberPlateText(currentVehicle)
+	local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+	--TriggerEvent("table",json.decode(degHealth))
+    
 
 
     if degHealth.injector <= 45 then
@@ -311,15 +325,16 @@ end
 
 ]]
 
-RegisterNetEvent("caue-vehicles:randomDegredation")
-AddEventHandler("caue-vehicles:randomDegredation", function(vehicle, upperLimit, spinAmount)
+RegisterNetEvent("pw-vehicles:randomDegredation")
+AddEventHandler("pw-vehicles:randomDegredation", function(vehicle, upperLimit, spinAmount)
+	
     if not vehicle or not DoesEntityExist(vehicle) or has_value(blockedClasses, GetVehicleClass(vehicle)) then return end
 
-    local vid = GetVehicleIdentifier(vehicle)
-    local plate = GetVehiclePlate(vehicle)
+    --local vid = GetVehicleIdentifier(vehicle)
+    local plate = GetVehicleNumberPlateText(vehicle)
 	ESX.TriggerServerCallback('pw-mechanicjob:server:IsVehicleOwned', function(IsOwned)
 		if IsOwned then 
-			local degHealth = RPC.execute("caue-vehicles:getDegradation", plate)
+			local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
 
 			local br = degHealth.brake
 			local ax = degHealth.axle
@@ -329,7 +344,6 @@ AddEventHandler("caue-vehicles:randomDegredation", function(vehicle, upperLimit,
 			local elec = degHealth.electronics
 			local fi = degHealth.injector
 			local tire = degHealth.tire
-
 			for i = 1, spinAmount do
 				local chance =  math.random(0, 150)
 
@@ -371,14 +385,15 @@ AddEventHandler("caue-vehicles:randomDegredation", function(vehicle, upperLimit,
 				["injector"] = fi,
 				["tire"] = tire,
 			}
+			
 
-			TriggerServerEvent("caue-vehicles:updateVehicleDegradation", plate, degradations)
+			TriggerServerEvent("pw-vehicles:updateVehicleDegradation", plate, degradations)
 		end
 	end, plate)	
 end)
 
-RegisterNetEvent("caue-vehicles:examineVehicle")
-AddEventHandler("caue-vehicles:examineVehicle", function(degradation)
+RegisterNetEvent("pw-vehicles:examineVehicle")
+AddEventHandler("pw-vehicles:examineVehicle", function(degradation)
     local vehicle = nil
 
     local target = exports["np-interact"]:GetCurrentEntity()
@@ -389,11 +404,11 @@ AddEventHandler("caue-vehicles:examineVehicle", function(degradation)
     if not vehicle then return end
 
     local vid = GetVehicleIdentifier(vehicle)
-    local plate = GetVehiclePlate(vehicle)
+    local plate = GetVehicleNumberPlateText(vehicle)
 
     local tier = GetVehicleTier(vehicle)
-    local mileage = RPC.execute("caue-vehicles:getMileage", plate)
-    local degHealth = RPC.execute("caue-vehicles:getDegradation", plate)
+    local mileage = RPC.execute("pw-vehicles:getMileage", plate)
+    local degHealth = RPC.execute("pw-vehicles:getDegradation", plate)
     degHealth["body"] = round(GetVehicleBodyHealth(vehicle) / 10)
     degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
 
@@ -452,8 +467,8 @@ AddEventHandler("caue-vehicles:examineVehicle", function(degradation)
     exports["pw-context"]:showContextMenu(data)
 end)
 
-RegisterNetEvent("caue-vehicles:repairVehicle")
-AddEventHandler("caue-vehicles:repairVehicle", function(type)
+RegisterNetEvent("pw-vehicles:repairVehicle")
+AddEventHandler("pw-vehicles:repairVehicle", function(type)
     local vehicle = nil
 
     local target = exports["np-interact"]:GetCurrentEntity()
@@ -464,8 +479,8 @@ AddEventHandler("caue-vehicles:repairVehicle", function(type)
     if not vehicle then return end
 
     local vid = GetVehicleIdentifier(vehicle)
-    local plate = GetVehiclePlate(vehicle)
-    local degHealth = RPC.execute("caue-vehicles:getDegradation", plate)
+    local plate = GetVehicleNumberPlateText(vehicle)
+    local degHealth = RPC.execute("pw-vehicles:getDegradation", plate)
     local bodyHealth = GetVehicleBodyHealth(vehicle)
     local engineHealth = GetVehicleEngineHealth(vehicle)
     local tier = GetVehicleTier(vehicle)
@@ -512,17 +527,17 @@ AddEventHandler("caue-vehicles:repairVehicle", function(type)
             end
 
             degHealth[type] = 100
-            TriggerServerEvent("caue-vehicles:updateVehicleDegradation", plate, degHealth)
+            TriggerServerEvent("pw-vehicles:updateVehicleDegradation", plate, degHealth)
         end
     end
 
     ClearPedTasks(PlayerPedId())
 end)
 
-AddEventHandler("caue-vehicles:repairKitbennys", function(pItemDBID)
+AddEventHandler("pw-vehicles:repairKitbennys", function(pItemDBID)
     local vehicle = nil
 
-    local target = exports["caue-target"]:GetCurrentEntity()
+    local target = exports["pw-target"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end
@@ -564,7 +579,7 @@ AddEventHandler("caue-vehicles:repairKitbennys", function(pItemDBID)
             skill = {10000, 15}
         end
 
-        local finished = exports["caue-taskbarskill"]:taskBarSkill(skill[1],  skill[2])
+        local finished = exports["pw-taskbarskill"]:taskBarSkill(skill[1],  skill[2])
         if finished ~= 100 then
             ClearPedTasks(PlayerPedId())
             fixingvehicle = false
@@ -572,7 +587,7 @@ AddEventHandler("caue-vehicles:repairKitbennys", function(pItemDBID)
         end
     end
 
-    TriggerServerEvent("inventory:degItem", pItemDBID, 50, "repairkitbennys", exports["caue-base"]:getChar("id"))
+    TriggerServerEvent("inventory:degItem", pItemDBID, 50, "repairkitbennys", exports["pw-base"]:getChar("id"))
 
     if GetVehicleEngineHealth(vehicle) < 1000.0 then
         SetVehicleEngineHealth(vehicle, 1000.0)
@@ -613,15 +628,15 @@ AddEventHandler("animation:repair", function(pVehicle)
     Sync.SetVehicleDoorShut(pVehicle, 4, 1, 1)
 end)
 
-AddEventHandler("caue-inventory:itemUsed", function(item, info, inventory, slot, dbid)
+AddEventHandler("pw-inventory:itemUsed", function(item, info, inventory, slot, dbid)
     if item == "repairkit" then
-        TriggerEvent("caue-vehicles:repairKit", dbid)
+        TriggerEvent("pw-vehicles:repairKit", dbid)
     end
 end)
 
-AddEventHandler("caue-inventory:itemUsed", function(item, info, inventory, slot, dbid)
+AddEventHandler("pw-inventory:itemUsed", function(item, info, inventory, slot, dbid)
     if item == "repairkitbennys" then
-        TriggerEvent("caue-vehicles:repairKitbennys", dbid)
+        TriggerEvent("pw-vehicles:repairKitbennys", dbid)
     end
 end)
 
@@ -655,43 +670,11 @@ end)
 
 ]]
 
-Citizen.CreateThread(function()
-    local tick = 0
-	local rTick = 0
 
-    while true do
-        if currentVehicle ~= 0 then
-            tick = tick + 1
-			rTick = rTick + 1
-
-            if enteredVehicle then
-                enteredVehicle = false
-                -- tick = 13
-				-- rTick = 55
-            end
-
-            if tick >= 15 then
-				getDegredation()
-				updateVehicleHealth()
-				tick = 0
-			end
-
-			if rTick >= 60 then
-				TriggerEvent("caue-vehicles:randomDegredation", currentVehicle, 1, 3)
-				rTick = 0
-			end
-        else
-
-        end
-
-        Citizen.Wait(1000)
-    end
-end)
-
-AddEventHandler("caue-vehicles:repairKit", function(pItemDBID)
+AddEventHandler("pw-vehicles:repairKit", function(pItemDBID)
     local vehicle = nil
 
-    local target = exports["caue-target"]:GetCurrentEntity()
+    local target = exports["pw-target"]:GetCurrentEntity()
     if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
         vehicle = target
     end
@@ -733,7 +716,7 @@ AddEventHandler("caue-vehicles:repairKit", function(pItemDBID)
             skill = {10000, 15}
         end
 
-        local finished = exports["caue-taskbarskill"]:taskBarSkill(skill[1],  skill[2])
+        local finished = exports["pw-taskbarskill"]:taskBarSkill(skill[1],  skill[2])
         if finished ~= 100 then
             ClearPedTasks(PlayerPedId())
             fixingvehicle = false
@@ -741,7 +724,7 @@ AddEventHandler("caue-vehicles:repairKit", function(pItemDBID)
         end
     end
 
-    TriggerServerEvent("inventory:degItem", pItemDBID, 50, "repairkit", exports["caue-base"]:getChar("id"))
+    TriggerServerEvent("inventory:degItem", pItemDBID, 50, "repairkit", exports["pw-base"]:getChar("id"))
 
     if GetVehicleEngineHealth(vehicle) < 1000.0 then
         SetVehicleEngineHealth(vehicle, 1000.0)
@@ -779,9 +762,9 @@ AddEventHandler("animation:repair", function(pVehicle)
     Sync.SetVehicleDoorShut(pVehicle, 4, 1, 1)
 end)
 
-AddEventHandler("caue-inventory:itemUsed", function(item, info, inventory, slot, dbid)
+AddEventHandler("pw-inventory:itemUsed", function(item, info, inventory, slot, dbid)
     if item == "repairkit" then
-        TriggerEvent("caue-vehicles:repairKit", dbid)
+        TriggerEvent("pw-vehicles:repairKit", dbid)
     end
 end)
 
@@ -820,24 +803,23 @@ Citizen.CreateThread(function()
 	local rTick = 0
 
     while true do
-        if currentVehicle ~= 0 then
+		local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
+		
+		
+        if invehicle then
+			currentVehicle = GetVehiclePedIsIn(PlayerPedId())
             tick = tick + 1
 			rTick = rTick + 1
+			
 
-            if enteredVehicle then
-                enteredVehicle = false
-                -- tick = 13
-				-- rTick = 55
-            end
-
-            if tick >= 15 then
+            if tick >= 5 then
 				getDegredation()
 				updateVehicleHealth()
 				tick = 0
 			end
-
-			if rTick >= 60 then
-				TriggerEvent("caue-vehicles:randomDegredation", currentVehicle, 1, 3)
+			
+			if rTick >= 5 then
+				TriggerEvent("pw-vehicles:randomDegredation", currentVehicle, 1, 3)
 				rTick = 0
 			end
         else
@@ -853,8 +835,9 @@ Citizen.CreateThread(function()
         Citizen.Wait(500)
 
         if currentVehicle ~= 0 then
+			
             local vid = GetVehicleIdentifier(currentVehicle)
-            local plate = GetVehiclePlate(currentVehicle)
+            local plate = GetVehicleNumberPlateText(currentVehicle)
 
             if plate then
                 local newPos = GetEntityCoords(PlayerPedId())
@@ -867,7 +850,8 @@ Citizen.CreateThread(function()
                     oldPos = newPos
 
                     local update = GetEntitySpeed(currentVehicle) * 1.0 / 100
-                    TriggerServerEvent("caue-vehicles:updateVehicleMileage", plate, update)
+					print(update)
+                    TriggerServerEvent("pw-vehicles:updateVehicleMileage", plate, update)
                 end
             end
         else

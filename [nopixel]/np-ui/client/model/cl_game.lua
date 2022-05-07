@@ -10,12 +10,12 @@ function GetPlayer()
     return plyId
 end
 
-Citizen.CreateThread(function()
-    while not charSpawned do
-        DisplayRadar(0)
-        Citizen.Wait(0)
-    end
-end)
+-- Citizen.CreateThread(function()
+    -- while not charSpawned do
+        -- DisplayRadar(0)
+        -- Citizen.Wait(0)
+    -- end
+-- end)
 
 Citizen.CreateThread(function()
     loadPublicData()
@@ -114,30 +114,30 @@ function getWeatherIcon(pWeather)
     end
 end
 
-CreateThread(function()
-    SetPedMinGroundTimeForStungun(pedId, 5000)
-    SetEntityProofs(pedId, false, false, false, false, false, true, false, false)
-    SetPlayerHealthRechargeMultiplier(plyId, 0.0)
-    SetPlayerHealthRechargeLimit(plyId, 0.0)
-    SetPedConfigFlag(pedId, 184, true)
-    while true do
-        if GetPed() ~= PlayerPedId() then
-            pedId = PlayerPedId()
-            SetPedMinGroundTimeForStungun(pedId, 5000)
-            SetEntityProofs(pedId, false, false, false, false, false, true, false, false)
-            SetPedConfigFlag(pedId, 184, true)
-            SetPlayerHealthRechargeMultiplier(plyId, 0.0)
-            SetPlayerHealthRechargeLimit(plyId, 0.0)
-        end
-        if GetPlayer() ~= PlayerId() then
-            plyId = PlayerId()
-            SetPlayerHealthRechargeMultiplier(plyId, 0.0)
-            SetPlayerHealthRechargeLimit(plyId, 0.0)
-        end
-        SetRadarBigmapEnabled(false, false)
-        Wait(2000)
-    end
-end)
+-- CreateThread(function()
+    -- SetPedMinGroundTimeForStungun(pedId, 5000)
+    -- SetEntityProofs(pedId, false, false, false, false, false, true, false, false)
+    -- SetPlayerHealthRechargeMultiplier(plyId, 0.0)
+    -- SetPlayerHealthRechargeLimit(plyId, 0.0)
+    -- SetPedConfigFlag(pedId, 184, true)
+    -- while true do
+        -- if GetPed() ~= PlayerPedId() then
+            -- pedId = PlayerPedId()
+            -- SetPedMinGroundTimeForStungun(pedId, 5000)
+            -- SetEntityProofs(pedId, false, false, false, false, false, true, false, false)
+            -- SetPedConfigFlag(pedId, 184, true)
+            -- SetPlayerHealthRechargeMultiplier(plyId, 0.0)
+            -- SetPlayerHealthRechargeLimit(plyId, 0.0)
+        -- end
+        -- if GetPlayer() ~= PlayerId() then
+            -- plyId = PlayerId()
+            -- SetPlayerHealthRechargeMultiplier(plyId, 0.0)
+            -- SetPlayerHealthRechargeLimit(plyId, 0.0)
+        -- end
+        -- SetRadarBigmapEnabled(false, false)
+        -- Wait(2000)
+    -- end
+-- end)
 
 -- DISABLE BLIND FIRING
 Citizen.CreateThread(function()

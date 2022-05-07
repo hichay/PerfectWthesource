@@ -116,15 +116,15 @@ function passiveMode()
 end
 
 
-	exports["pw-keybinds"]:registerKeyMapping("", _L("keybinds-player", "Player"), _L("keybinds-actionbar", "Action Bar"), "+actionBar", "-actionBar", "TAB")
+	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Action Bar", "+actionBar", "-actionBar", "TAB")
 	RegisterCommand('+actionBar', actionBarDown, false)
 	RegisterCommand('-actionBar', actionBarUp, false)
 
-	exports["pw-keybinds"]:registerKeyMapping("", _L("keybinds-player", "Player"), _L("keybinds-wink", "Wink"), "+playerWink", "-playerWink")
+	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Wink", "+playerWink", "-playerWink")
 	RegisterCommand('+playerWink', playerWink, false)
 	RegisterCommand('-playerWink', function() end, false)
 
-	exports["pw-keybinds"]:registerKeyMapping("", _L("keybinds-player", "Player"), _L("keybinds-passive", "Passive Mode"), "+passiveMode", "-passiveMode")
+	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Passive Mode", "+passiveMode", "-passiveMode")
 	RegisterCommand('+passiveMode', passiveMode, false)
 	RegisterCommand('-passiveMode', function() end, false)
 

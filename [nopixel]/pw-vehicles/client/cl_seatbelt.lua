@@ -51,7 +51,7 @@ end
 function toggleHarness(pState)
     local defaultSteering = GetVehicleHandlingFloat(currentVehicle, "CHandlingData", "fSteeringLock")
     toggleTurning(currentVehicle, false, defaultSteering)
-    local harnessTimer = exports["caue-taskbar"]:taskBar(5000, (pState and "Putting on Harness" or "Taking off Harness"), true)
+    local harnessTimer = exports["pw-taskbar"]:taskBar(5000, (pState and "Putting on Harness" or "Taking off Harness"), true)
 
     if harnessTimer == 100 then
         wearingHarness = pState
@@ -108,7 +108,7 @@ AddEventHandler("vehicle:addHarness", function(type)
     local vid = GetVehicleIdentifier(vehicle)
     if not vid then return end
 
-    RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "harness", 100)
+    RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "harness", 100)
 end)
 
 AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, currentSeat, vehicleDisplayName)
@@ -180,7 +180,7 @@ AddEventHandler("baseevents:vehicleCrashed", function(pCurrentVehicle, pCurrentS
 
         local vid = GetVehicleIdentifier(currentVehicle)
         if vid then
-            RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "harness", newLevel)
+            RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "harness", newLevel)
         end
     elseif ejectLUL and not wasJump then
         EjectLUL(pCurrentVehicle, pVelocity)
@@ -211,7 +211,7 @@ AddEventHandler("baseevents:vehicleCrashed", function(pCurrentVehicle, pCurrentS
 
     if speedDamage < 5 or (type(engineDamage) ~= "number" and math.random(0, 1) ~= 1) then return end
 
-    TriggerEvent("caue-vehicles:randomDegredation", pCurrentVehicle, 15, 10)
+    TriggerEvent("pw-vehicles:randomDegredation", pCurrentVehicle, 15, 10)
 end)
 
 --[[
@@ -221,7 +221,7 @@ end)
 ]]
 
 Citizen.CreateThread(function()
-    exports["caue-keybinds"]:registerKeyMapping("", "Vehicle", "Seatbelt", "+toggleSeatbelt", "-toggleSeatbelt", "B")
+    exports["pw-keybinds"]:registerKeyMapping("", "Vehicle", "Seatbelt", "+toggleSeatbelt", "-toggleSeatbelt", "B")
     RegisterCommand("+toggleSeatbelt", toggleSeatbelt, false)
     RegisterCommand("-toggleSeatbelt", function() end, false)
 end)

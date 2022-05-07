@@ -13,7 +13,3 @@ client_scripts {
   "@PolyZone/EntityZone.lua",
   'client/cl_*.lua'
 }
-
-exports{
-  'AddBoxZone',
-}

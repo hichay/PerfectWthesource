@@ -4,11 +4,11 @@
 
 ]]
 
-RegisterNetEvent("caue-npcs:location:fetch")
-AddEventHandler("caue-npcs:location:fetch", function()
+RegisterNetEvent("pw-npcs:location:fetch")
+AddEventHandler("pw-npcs:location:fetch", function()
     local src = source
 
-    TriggerClientEvent("caue-npcs:set:ped", src, Generic.NPCS)
+    TriggerClientEvent("pw-npcs:set:ped", src, Generic.NPCS)
 end)
 
 --[[

@@ -133,7 +133,7 @@ end
 function payVehicle(vid, src)
     if not vid or not src then return false end
 
-    local cid = exports["caue-base"]:getChar(src, "id")
+    local cid = exports["pw-base"]:getChar(src, "id")
     if not cid then return false end
 
     local price = MySQL.scalar.await([[
@@ -145,8 +145,8 @@ function payVehicle(vid, src)
 
     if not price then return false end
 
-    local accountId = exports["caue-base"]:getChar(src, "bankid")
-    local bank = exports["caue-financials"]:getBalance(accountId)
+    local accountId = exports["pw-base"]:getChar(src, "bankid")
+    local bank = exports["pw-financials"]:getBalance(accountId)
     if bank < price then
         TriggerClientEvent("DoLongHudText", src, "You dont have $" .. price .. " in your bank account", 2)
         return false
@@ -155,7 +155,7 @@ function payVehicle(vid, src)
     local plate = MySQL.scalar.await([[SELECT plate FROM vehicles WHERE id = ?]],{vid})
 
     local comment = "Finance payment from vehicle " .. plate
-    local success, message = exports["caue-financials"]:transaction(accountId, 2, price, comment, cid, 6)
+    local success, message = exports["pw-financials"]:transaction(accountId, 2, price, comment, cid, 6)
     if not success then
         TriggerClientEvent("DoLongHudText", src, message)
         return false
@@ -180,7 +180,7 @@ function insertVehicle(src, model, type, price, financed, out, _cid)
     if src == 0 then
         cid = _cid
     else
-        cid = exports["caue-base"]:getChar(src, "id")
+        cid = exports["pw-base"]:getChar(src, "id")
     end
 
     if not cid then return false end
@@ -253,24 +253,24 @@ exports("insertVehicle", insertVehicle)
 
 ]]
 
-RPC.register("caue-vehicles:getVehicle", function(src, id)
+RPC.register("pw-vehicles:getVehicle", function(src, id)
     return getVehicle(id)
 end)
 
-RPC.register("caue-vehicles:updateVehicle", function(src, id, type, var, data)
+RPC.register("pw-vehicles:updateVehicle", function(src, id, type, var, data)
     return updateVehicle(id, type, var, data)
 end)
 
-RPC.register("caue-vehicles:selectVehicle", function(src, id, type, var)
+RPC.register("pw-vehicles:selectVehicle", function(src, id, type, var)
     return selectVehicle(id, type, var)
 end)
 
-RPC.register("caue-vehicles:GetVehicleMetadata", function(src, vid, data)
+RPC.register("pw-vehicles:GetVehicleMetadata", function(src, vid, data)
     return getVehicleMetadata(vid, data)
 end)
 
-RPC.register("caue-vehicles:ownedVehiclesModels", function(src)
-    local cid = exports["caue-base"]:getChar(src, "id")
+RPC.register("pw-vehicles:ownedVehiclesModels", function(src)
+    local cid = exports["pw-base"]:getChar(src, "id")
     if not cid then return end
 
     local _vehicles = MySQL.query.await([[

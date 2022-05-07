@@ -328,9 +328,9 @@ function CheckStatus()
 end
 
 RegisterNetEvent('pw-mechanicjob:RepairPart')
-AddEventHandler('pw-mechanicjob:RepairPart', function(data)
-  print(data.namethis)
-  local part = data.namethis	
+AddEventHandler('pw-mechanicjob:RepairPart', function(type)
+    print(data.namethis)
+    local part = data.namethis	
 
     local plate = GetVehicleNumberPlateText(Config.Plates[ClosestPlate].AttachedVehicle)
 	local veh = GetVehiclePedIsIn(PlayerPedId())
@@ -415,89 +415,7 @@ AddEventHandler('pw-mechanicjob:client:SetAttachedVehicle', function(veh, key)
     end
 end)
 
-Citizen.CreateThread(function()
-    while true do 
-        Citizen.Wait(1)
-        if (IsPedInAnyVehicle(PlayerPedId(), false)) then
-            local veh = GetVehiclePedIsIn(PlayerPedId(),false)
-            if ModdedVehicles[tostring(veh)] == nil and not IsThisModelABicycle(GetEntityModel(veh)) then
-                --[[local fSteeringLock = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fSteeringLock')
-                fSteeringLock = math.ceil((fSteeringLock * 0.6)) + 0.1
 
-                SetVehicleHandlingFloat(veh, 'CHandlingData', 'fSteeringLock', fSteeringLock)
-                SetVehicleHandlingField(veh, 'CHandlingData', 'fSteeringLock', fSteeringLock)]]--
-
-                local fInitialDriveMaxFlatVel = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveMaxFlatVel')
-
-                if IsThisModelABike(GetEntityModel(veh)) then
-                    local fTractionCurveMin = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fTractionCurveMin')
-
-                    fTractionCurveMin = fTractionCurveMin * 0.6
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fTractionCurveMin', fTractionCurveMin)
-                    SetVehicleHandlingField(veh, 'CHandlingData', 'fTractionCurveMin', fTractionCurveMin)   
-
-                    -- local fTractionCurveMax = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fTractionCurveMax')
-                    -- fTractionCurveMax = fTractionCurveMax * 0.6
-                    -- SetVehicleHandlingFloat(veh, 'CHandlingData', 'fTractionCurveMax', fTractionCurveMax)
-                    -- SetVehicleHandlingField(veh, 'CHandlingData', 'fTractionCurveMax', fTractionCurveMax)
-
-                    local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-                    fInitialDriveForce = fInitialDriveForce * 2.4
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce', fInitialDriveForce)
-
-                    local fBrakeForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fBrakeForce')
-                    fBrakeForce = fBrakeForce * 1.4
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fBrakeForce', fBrakeForce)
-                    
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fSuspensionReboundDamp', 5.000000)
-                    SetVehicleHandlingField(veh, 'CHandlingData', 'fSuspensionReboundDamp', 5.000000)
-
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fSuspensionCompDamp', 5.000000)
-                    SetVehicleHandlingField(veh, 'CHandlingData', 'fSuspensionCompDamp', 5.000000)
-
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fSuspensionForce', 22.000000)
-                    SetVehicleHandlingField(veh, 'CHandlingData', 'fSuspensionForce', 22.000000)
-
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fCollisionDamageMult', 2.500000)
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fEngineDamageMult', 0.120000)
-                else
-                    local fBrakeForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fBrakeForce')
-                    fBrakeForce = fBrakeForce * 0.5
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fBrakeForce', fBrakeForce)
-
-                    local fInitialDriveForce = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce')
-                    if fInitialDriveForce < 0.289 then
-                        fInitialDriveForce = fInitialDriveForce * 1.2
-                        SetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce', fInitialDriveForce)
-                    else
-                        fInitialDriveForce = fInitialDriveForce * 0.9
-                        SetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDriveForce', fInitialDriveForce)
-                    end
-                                
-                    local fInitialDragCoeff = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDragCoeff')
-                    fInitialDragCoeff = fInitialDragCoeff * 0.3
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fInitialDragCoeff', fInitialDragCoeff)
-
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fEngineDamageMult', 0.100000)
-                    SetVehicleHandlingFloat(veh, 'CHandlingData', 'fCollisionDamageMult', 2.900000)
-
-                end
-                SetVehicleHandlingFloat(veh, 'CHandlingData', 'fDeformationDamageMult', 1.000000)
-                SetVehicleHasBeenOwnedByPlayer(veh,true)
-                ModdedVehicles[tostring(veh)] = { 
-                    ["fInitialDriveMaxFlatVel"] = fInitialDriveMaxFlatVel, 
-                    ["fSteeringLock"] = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fSteeringLock'), 
-                    ["fTractionLossMult"] = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fTractionLossMult'), 
-                    ["fLowSpeedTractionLossMult"] = GetVehicleHandlingFloat(veh, 'CHandlingData', 'fLowSpeedTractionLossMult') 
-                }
-            else
-                Citizen.Wait(1000)
-            end
-        else
-            Citizen.Wait(2000)
-        end
-    end
-end)
 local effectTimer = 0
 Citizen.CreateThread(function()
     while true do 

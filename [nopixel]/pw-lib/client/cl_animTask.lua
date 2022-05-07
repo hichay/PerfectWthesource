@@ -5,7 +5,7 @@ local function TaskBar(pLength, pName, pRunCheck, pHidden)
 
     Citizen.CreateThread(function ()
         if pName then
-            exports["caue-taskbar"]:taskBar(pLength, pName, pRunCheck, true, nil, false, function (result)
+            exports["pw-taskbar"]:taskBar(pLength, pName, pRunCheck, true, nil, false, function (result)
                 p:resolve(result)
             end)
         else
@@ -82,5 +82,5 @@ end
 
 function AnimationTask:abort()
     if not (self.active) then return end
-    exports["caue-taskbar"]:taskCancel()
+    exports["pw-taskbar"]:taskCancel()
 end

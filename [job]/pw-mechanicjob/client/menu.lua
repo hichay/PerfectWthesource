@@ -1,99 +1,99 @@
+RegisterCommand("kiemtra", function(source, args, rawCommand)
+	TriggerEvent('pw-mechanicjob:MainMenu')
+end, false)
+RegisterCommand("wow", function(source, args, rawCommand)
+  local data = {
+    {
+        title = "Thông tin xe",
+        description = "wow" ,
+    },
+  }
+exports["np-ui"]:showContextMenu(data)
+end, false)
 RegisterNetEvent('pw-mechanicjob:MainMenu', function()
-    TriggerEvent('pw-context:sendMenu', {
+
+    local vehicle = nil
+
+    local target = exports["np-interact"]:GetCurrentEntity()
+    if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
+        vehicle = target
+    end
+
+    if not vehicle then return end
+
+    local plate = GetVehicleNumberPlateText(vehicle)
+	  local class = exports["pw-vehicles"]:GetVehicleClass(vehicle)
+    local mileage = RPC.execute("pw-vehicles:getMileage", plate)
+    local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+    degHealth["body"] = round(GetVehicleBodyHealth(vehicle) / 10)
+    degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
+
+    local data = {
         {
-            id = 1,
-            header = "Hoàn tất sửa chữa",
-            txt = "",
-            params = {
-                event = "pw-mechanicjob:DetachVehicle",
-            }
+            title = "Thông tin xe",
+            description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
         },
         {
-            id = 2,
-            header = "Kiểm tra tổng thể",
-            txt = "kiểm tra các bộ phận của xe",
-            params = {
-                event = "pw-mechanicjob:Partsmenu",
-            }
+          icon = "check",
+            title = "Kiểm tra xe",
+            children = {
+                {
+                    title = "Axle Tree",
+                    description = "Current State: " .. degHealth.axle .. "% | Parts Required: " .. 0,
+                    action = "",
+                    --[[ children = { 
+                      { icon = "wrench", description = Config.RepairCostAmount["axle"][class].label.." : ".. Config.RepairCostAmount["axle"][class].costs ,title = "Sửa chữa bộ phận này", action = "caue-vehicles:repairVehicle", key = {name = "axle"} },
+                    }, ]]
+                },
+                {
+                    title = "Body",
+                    description = "Current State: " .. degHealth.body .. "% | Parts Required: " .. 0,
+                    --[[ children = { 
+                      { icon = "wrench", description = Config.RepairCostAmount["body_damage"][class].label.." : ".. Config.RepairCostAmount["body_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "caue-vehicles:repairVehicle", key = {name = "body"} },
+                    }, ]]
+                },
+                {
+                    title = "Brake Discs",
+                    description = "Current State: " .. degHealth.brake .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Clutch",
+                    description = "Current State: " .. degHealth.clutch .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Eletronics",
+                    description = "Current State: " .. degHealth.electronics .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Engine Block",
+                    description = "Current State: " .. degHealth.engine .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Engine Radiator",
+                    description = "Current State: " .. degHealth.radiator .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Fuel Injectors",
+                    description = "Current State: " .. degHealth.injector .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Transmission",
+                    description = "Current State: " .. degHealth.transmission .. "% | Parts Required: " .. 0,
+                },
+                {
+                    title = "Tyres",
+                    description = "Current State: " .. degHealth.tire .. "% | Parts Required: " .. 0,
+                },
+            },
         },
-    })
+    }
+
+    exports["np-ui"]:showContextMenu(data)
 end)
 
 
 
-RegisterNetEvent('pw-mechanicjob:Partsmenu', function()
-    local plate = GetVehicleNumberPlateText(Config.Plates[ClosestPlate].AttachedVehicle)
-	if VehicleStatus[plate] ~= nil then
-		for k, v in pairs(Config.ValuesLabels) do
-			if math.ceil(VehicleStatus[plate][k]) ~= Config.MaxStatusValues[k] then
-				local percentage = math.ceil(VehicleStatus[plate][k])
-                if percentage > 100 then
-                    percentage = math.ceil(VehicleStatus[plate][k]) / 10
-                end
-				
-				TriggerEvent('pw-context:sendMenu', {
-					{
-						id = k,
-						header = ""..v ,
-						txt = percentage.."%",
-						params = {
-							event = "pw-mechanicjob:Partmenu",
-							 args = {
-								name = k
-							}
-						}
-					},
 
-				})
-			else
-				local percentage = math.ceil(Config.MaxStatusValues[k])
-				if percentage > 100 then
-					percentage = math.ceil(Config.MaxStatusValues[k]) / 10
-				end
-				
-				TriggerEvent('pw-context:sendMenu', {
-					{
-						id = k,
-						header = ""..v ,
-						txt = percentage.."%",
-						params = {
-							event = "NoDamage",
-							 args = {
-								name = k
-							}
-						}
-					},
-
-				})
-			
-			end
-		end	
-	else
-		for k, v in pairs(Config.ValuesLabels) do
-            local percentage = math.ceil(Config.MaxStatusValues[k])
-            if percentage > 100 then
-                percentage = math.ceil(Config.MaxStatusValues[k]) / 10
-            end
-			
-			TriggerEvent('pw-context:sendMenu', {
-					{
-						id = k,
-						header = ""..v ,
-						txt = "%"..percentage,
-						params = {
-							event = "NoDamage",
-							 args = {
-								name = k
-							}
-						}
-					},
-
-				})
-			
-		end	
-
-	end	
-end)
 
 RegisterNetEvent('pw-mechanicjob:Partmenu', function(part)
 	local name = part.name
@@ -138,26 +138,7 @@ RegisterNetEvent('pw-mechanicjob:Partmenu', function(part)
 	})		
 end)
 
-RegisterNetEvent('pw-mechanicjob:VehicleList', function()
-	for k, v in pairs(Config.Vehicles) do
-        --Menu.addButton(v, "SpawnListVehicle", k) 
-	
-		TriggerEvent('pw-context:sendMenu', {
-			{
-				id = k,
-				header = ""..v,
-				txt = "",
-				params = {
-					event = "pw-mechanicjob:SpawnListVehicle",
-					args = {
-					model = k
-					}
-				}
-			},
 
-		})
-	end
-end)
 
 -- function GardrobeMenu()
     -- local elements = {}

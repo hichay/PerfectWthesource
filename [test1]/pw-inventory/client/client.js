@@ -466,7 +466,7 @@ on('inventory-open-request', () => {
 	/* let rayhandle = StartShapeTestRay(startPosition[0],startPosition[1],startPosition[2], endPosition[0],endPosition[1],endPosition[2], 10, player, 0) */
 	/* let vehicleInfo = GetShapeTestResult(rayhandle)
 	let vehicleFound = vehicleInfo[4] */
-	const currentTarget = exports['bt-target'].GetCurrentEntity()
+	const currentTarget = exports['pw-interact'].GetCurrentEntity()
 	let vehicleFound = IsModelAVehicle(GetEntityModel(currentTarget)) ? currentTarget : 0
 	let jailDst = GetDistanceBetweenCoords(startPosition[0],startPosition[1],startPosition[2],1700.2,2536.8,45.5)
 

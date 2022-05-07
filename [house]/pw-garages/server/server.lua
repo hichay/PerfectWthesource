@@ -223,7 +223,7 @@ AddEventHandler('pw-garages:server:setVehicleOwned', function(props, stats, mode
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `stats`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
+    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `degradation`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
 end)
 
 RegisterServerEvent('pw-garages:server:updateProps')

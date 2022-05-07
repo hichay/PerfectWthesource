@@ -141,7 +141,7 @@ AddEventHandler("vehicle:addNos", function(type)
     local vid = GetVehicleIdentifier(vehicle)
     if not vid then return end
 
-    RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "nitrous", 100)
+    RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "nitrous", 100)
 end)
 
 RegisterNetEvent("nitro:__update")
@@ -187,7 +187,7 @@ AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, pCurrentS
     if not VehicleHasNitro(currentVehicle) then
         local vid = GetVehicleIdentifier(currentVehicle)
         if vid then
-            local _nitrous = RPC.execute("caue-vehicles:GetVehicleMetadata", vid, "nitrous")
+            local _nitrous = RPC.execute("pw-vehicles:GetVehicleMetadata", vid, "nitrous")
             SetNitroLevel(currentVehicle, _nitrous)
         end
     end
@@ -206,7 +206,7 @@ AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat
     if VehicleHasNitro(pCurrentVehicle) then
         local vid = GetVehicleIdentifier(pCurrentVehicle)
         if vid then
-            RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "nitrous", GetNitroLevel(pCurrentVehicle))
+            RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "nitrous", GetNitroLevel(pCurrentVehicle))
         end
     end
 
@@ -230,7 +230,7 @@ end)
 ]]
 
 Citizen.CreateThread(function()
-    exports["caue-keybinds"]:registerKeyMapping("", "Vehicle", "Nitrous", "+toggleNitrous", "-toggleNitrous", "")
+    exports["pw-keybinds"]:registerKeyMapping("", "Vehicle", "Nitrous", "+toggleNitrous", "-toggleNitrous", "")
     RegisterCommand("+toggleNitrous", startNitrous, false)
     RegisterCommand("-toggleNitrous", function() end, false)
 	RegisterCommand("+toggleNitrous1", yoo, false)

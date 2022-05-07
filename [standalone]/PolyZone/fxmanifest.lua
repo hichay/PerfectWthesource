@@ -7,7 +7,6 @@ version '2.5.0'
 
 client_scripts {
   'client.lua',
-  'cl_main.lua',  
   'BoxZone.lua',
   'EntityZone.lua',
   'CircleZone.lua',
@@ -18,8 +17,4 @@ client_scripts {
 server_scripts {
   'creation_sv.lua',
   'server.lua'
-}
-
-exports{
-  'AddBoxZone',
 }

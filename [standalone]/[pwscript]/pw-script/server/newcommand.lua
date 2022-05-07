@@ -17,11 +17,11 @@ RegisterCommand('duatien', function(source, args, rawCommand)
 end)
 
 RegisterServerEvent('pw-scripts:server:Duatien')
-AddEventHandler('pw-scripts:server:Duatien', function(playerId,ammount)
+AddEventHandler('pw-scripts:server:Duatien', function(amount,playerId)
 	local _source = source
 	local sourceXPlayer = ESX.GetPlayerFromId(_source)
 
-	local Target = ESX.GetPlayerFromIdCard(playerId)
+	local Target = ESX.GetPlayerFromId(playerId)
 	if (Target == nil or Target == -1 )then
 		TriggerEvent("ESX:Notify",source,"Không tồn tại người này","error")
 	else

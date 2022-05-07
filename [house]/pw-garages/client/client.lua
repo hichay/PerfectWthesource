@@ -84,7 +84,7 @@ Citizen.CreateThread(function()
             local playerPed = PlayerPedId()
 
             if PWGarages.Config ~= nil and loggedIn == true then
-                for key, value in pairs(PWGarages.Config) do
+                --[[ for key, value in pairs(PWGarages.Config) do
                     if key == 'garages' or key == 'impounds' then
                         for name, data in pairs(value) do
                             if data['ped'] ~= nil then
@@ -244,7 +244,7 @@ Citizen.CreateThread(function()
                             end
                         end
                     end 
-                end
+                end ]]
             end
         end
 

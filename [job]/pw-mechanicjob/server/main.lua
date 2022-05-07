@@ -57,22 +57,22 @@ AddEventHandler("vehiclemod:server:setupVehicleStatus", function(plate, engineHe
     end
 end)
 
-RegisterServerEvent('pw-mechanicjob:server:UpdateDrivingDistance')
+--[[ RegisterServerEvent('pw-mechanicjob:server:UpdateDrivingDistance')
 AddEventHandler('pw-mechanicjob:server:UpdateDrivingDistance', function(amount, plate)
     VehicleDrivingDistance[plate] = amount
 
     TriggerClientEvent('pw-mechanicjob:client:UpdateDrivingDistance', -1, VehicleDrivingDistance[plate], plate)
 
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
         if result[1] ~= nil then
-            exports['ghmattimysql']:execute("UPDATE `owned_vehicles` SET `drivingdistance` = '"..amount.."' WHERE `plate` = '"..plate.."'")
+            MySQL.query("UPDATE `owned_vehicles` SET `drivingdistance` = '"..amount.."' WHERE `plate` = '"..plate.."'")
         end
     end)
-end)
+end) ]]
 
 ESX.RegisterServerCallback('pw-mechanicjob:server:IsVehicleOwned', function(source, cb, plate)
     local retval = false
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
         if result[1] ~= nil then
             retval = true
         end
@@ -134,13 +134,13 @@ AddEventHandler("vehiclemod:server:saveStatus", function(plate)
 	-- end
 	
     if VehicleStatus[plate] ~= nil then
-        exports['ghmattimysql']:execute('UPDATE owned_vehicles SET stats = @stats WHERE plate = @plate', {['@stats'] = json.encode(VehicleStatus[plate]), ['@plate'] = plate})
+        MySQL.query('UPDATE owned_vehicles SET stats = @stats WHERE plate = @plate', {['@stats'] = json.encode(VehicleStatus[plate]), ['@plate'] = plate})
     end
 end)
 
 function IsVehicleOwned(plate)
     local retval = false
-    exports['ghmattimysql']:execute("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
         if result[1] ~= nil then
             retval = true
         end
@@ -150,7 +150,7 @@ end
 
 function GetVehicleStatus(plate)
     local retval = nil
-    exports['ghmattimysql']:execute("SELECT `status` FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
+    MySQL.query("SELECT `status` FROM `owned_vehicles` WHERE `plate` = '"..plate.."'", function(result)
         if result[1] ~= nil then
             retval = result[1].status ~= nil and json.decode(result[1].status) or nil
         end
