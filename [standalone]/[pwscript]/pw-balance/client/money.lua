@@ -46,13 +46,12 @@ AddEventHandler("hud:client:OnMoneyChange", function(type, amount, isMinus)
 	if isMinus then 
 		SendNUIMessage({
 			type = 'cashe', 
-			casheData = {addedamount = '-' .. amount, amount = cashAmount},
+			casheData = {addedamount = '- ' .. amount, amount = cashAmount},
 			
 		})
 	else
-		print(amount)
 		SendNUIMessage({
-			casheData = {addedamount = '+' .. amount, amount = cashAmount},
+			casheData = {addedamount = '+ ' .. amount, amount = cashAmount},
 			
 			
 		})
