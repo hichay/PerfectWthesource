@@ -30,7 +30,7 @@ local vehiclesMileage = {
 
 function getDegradation(plate)
 	local xPlayer = ESX.GetPlayerFromId(source)
-    local result = MySQL.scalar.await("SELECT degradation FROM `owned_vehicles` WHERE `plate` = '"..plate.."'")
+    local result = MySQL.scalar.await("SELECT stats FROM `owned_vehicles` WHERE `plate` = '"..plate.."'")
 	return result
 	
 end
@@ -57,7 +57,7 @@ AddEventHandler("pw-vehicles:updateVehicleDegradation", function(plate, degradat
     local src = source
 	local xPlayer = ESX.GetPlayerFromId(source)
     --if xPlayer then
-		MySQL.query("UPDATE `owned_vehicles` SET `degradation` = '"..json.encode(degradations).."' WHERE `plate` = '"..plate.."'")
+		MySQL.query("UPDATE `owned_vehicles` SET `stats` = '"..json.encode(degradations).."' WHERE `plate` = '"..plate.."'")
     --end
 end)
 

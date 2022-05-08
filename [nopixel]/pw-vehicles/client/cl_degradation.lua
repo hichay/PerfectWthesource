@@ -20,20 +20,22 @@ function ShowFloatingHelpNotification(msg, coords)
     EndTextCommandDisplayHelp(2, false, false, -1)
 end
 
-function updateVehicleHealth()
-	local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
-	local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
-	if currentVehicle == 0 or IsEntityDead(currentVehicle) then return end
+-- function updateVehicleHealth()
+	-- local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
+	-- local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
+	-- if currentVehicle == 0 or IsEntityDead(currentVehicle) then return end
+	
+    -- local plate = GetVehicleNumberPlateText(currentVehicle)
+	-- local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+    -- local body = math.ceil(GetVehicleBodyHealth(currentVehicle))
+    -- local engine = math.ceil(GetVehicleEngineHealth(currentVehicle))
 
-    local plate = GetVehicleNumberPlateText(currentVehicle)
+    -- TriggerServerEvent("pw-vehicles:updateVehicleHealth", plate, body, engine)
+	
+	
+-- end
 
-    local body = math.ceil(GetVehicleBodyHealth(currentVehicle))
-    local engine = math.ceil(GetVehicleEngineHealth(currentVehicle))
-
-    TriggerServerEvent("pw-vehicles:updateVehicleHealth", plate, body, engine)
-end
-
-exports('updateVehicleHealth', updateVehicleHealth)
+-- exports('updateVehicleHealth', updateVehicleHealth)
 
 function getDegredation()
 	local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
@@ -386,6 +388,10 @@ AddEventHandler("pw-vehicles:randomDegredation", function(vehicle, upperLimit, s
 				["electronics"] = elec,
 				["injector"] = fi,
 				["tire"] = tire,
+				["engine_damage"] = GetVehicleEngineHealth(vehicle), 
+				["body_damage"] = GetVehicleBodyHealth(vehicle), 
+				["fuel"] = math.floor(GetVehicleFuelLevel(vehicle)), 
+				["dirty"] = math.floor(GetVehicleDirtLevel(vehicle)),
 			}
 			
 
@@ -514,13 +520,13 @@ AddEventHandler("pw-vehicles:repairVehicle", function(type)
                 SetVehicleTyreFixed(vehicle, i)
             end
 
-            updateVehicleHealth()
+            --updateVehicleHealth()
         elseif type == "engine" then
             SetVehicleEngineHealth(vehicle, 1000.0)
             SetVehicleFixed(vehicle)
 			SetVehiclePetrolTankHealth(vehicle, 4000.0)
 
-            updateVehicleHealth()
+            --updateVehicleHealth()
         else
             if type == "tire" then
                 for i = 0, 4 do
@@ -601,7 +607,7 @@ AddEventHandler("pw-vehicles:repairKitbennys", function(pItemDBID)
     for i = 0, 5 do
         SetVehicleTyreFixed(vehicle, i)
     end
-    updateVehicleHealth()
+    --updateVehicleHealth()
     ClearPedTasks(PlayerPedId())
 
     fixingvehicle = false
@@ -816,7 +822,7 @@ Citizen.CreateThread(function()
 
             if tick >= 5 then
 				getDegredation()
-				updateVehicleHealth()
+				--updateVehicleHealth()
 				tick = 0
 			end
 			

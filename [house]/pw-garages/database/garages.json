@@ -430,7 +430,7 @@
         "enable": true,
         "created": false,
         "heading": 91.665,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "interactions": {
         "to_interact": "~r~E~w~ To interact",
@@ -1137,7 +1137,7 @@
         "enable": true,
         "created": false,
         "heading": 74.27914,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "interactions": {
         "to_interact": "~r~E~w~ To interact",
@@ -1637,7 +1637,7 @@
         "enable": true,
         "created": false,
         "heading": 344.4342346191406,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "interactions": {
         "to_interact": "~r~E~w~ To interact",
@@ -1904,7 +1904,7 @@
         "enable": true,
         "created": false,
         "heading": 60.0430908203125,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "slots": [
         [
@@ -2121,7 +2121,7 @@
         "enable": true,
         "created": false,
         "heading": 79.387306,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "interactions": {
         "to_interact": "~r~E~w~ To interact",
@@ -3107,7 +3107,7 @@
         "enable": true,
         "created": false,
         "heading": 80.13,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "interactions": {
         "to_interact": "~r~E~w~ To interact",
@@ -3421,7 +3421,7 @@
         "enable": true,
         "created": false,
         "heading": 217.55093,
-        "type": -567724045
+        "type": "csb_trafficwarden"
       },
       "blip": {
         "coords": {

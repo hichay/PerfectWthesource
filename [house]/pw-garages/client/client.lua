@@ -56,8 +56,13 @@ end)
 
 
 RegisterNetEvent("pw-garages:client:TriggerNUi")
-AddEventHandler("pw-garages:client:TriggerNUi", function(onVehicle, name, data, key)
-    PWGarages.Functions.TriggerNUI(onVehicle, name, data, key)
+AddEventHandler("pw-garages:client:TriggerNUi", function(data)
+    if IsPedInAnyVehicle(PlayerPedId(), false) then
+        
+        PWGarages.Functions.TriggerNUI(true, data[2], data[3], data[4])
+    else
+        PWGarages.Functions.TriggerNUI(false, data[2], data[3], data[4])
+    end
 end)
 
 -- main thread
@@ -82,62 +87,60 @@ Citizen.CreateThread(function()
         
         if PWGarages.Config ~= nil then
             local playerPed = PlayerPedId()
-
+            
             if PWGarages.Config ~= nil and loggedIn == true then
-                --[[ for key, value in pairs(PWGarages.Config) do
+                for key, value in pairs(PWGarages.Config) do
                     if key == 'garages' or key == 'impounds' then
                         for name, data in pairs(value) do
                             if data['ped'] ~= nil then
                                 local dst = #(GetEntityCoords(playerPed) - vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z))
+                                local datanpc = {
+                                    id = "npc_garage_"..name,
+                                    position = {coords = vector3(vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z - 1.0)), heading = data['ped']['heading']},
+                                    pedType = 4,
+                                    model = data['ped']['type'],
+                                    networked = false,
+                                    distance = 25.0,
+                                    settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+                                    flags = { ["isNPC"] = true, },
+                                    blip = { color = 10, sprite = 10, scale = 0.8, text = 'thuwr', short = true },
+                                }
+                                local npc = exports["pw-npcs"]:RegisterNPC(datanpc, "npc_name_"..name)
+
+                                local Interact = {
+                                  datait = {
+                                    {
+                                      id = 'npc_interact_'..name,
+                                      label = 'Mở garage',
+                                      icon = 'hand-holding',
+                                      event = 'pw-garages:client:TriggerNUi',
+                                      parameters = {false,name,data,key},
+                                    },
+                                  },
+                                  options = {
+                                    distance = { radius = 3.0 },
+                                    npcIds = { 'npc_garage_'..name },
+                                    --[[ isEnabled = function(pEntity, pContext)
+                                      return isOnDeliveryTask()
+                                    end, ]]
+                                  },
+                                }
+                                
+                                exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.datait, Interact.options)
                                 if data['ped']['enable'] == true then
                                     -- ped
-                                    if dst < 250.0 and data['ped']['created'] == false then
+                                    
+
+                                    if dst < 100.0 and data['ped']['created'] == false then
                                         data['ped']['created'] = true
-                                        --Citizen.CreateThread(function() -- create ped
-                                            local pedModel = data['ped']['type']
-                                        
-                                            RequestModel(pedModel)
-                                            while not HasModelLoaded(pedModel) do
-                                                RequestModel(pedModel)
-                                                Wait(100)
-                                            end
-                                        
-                                            local createdPed = CreatePed(5, pedModel, data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z - 1.0, data['ped']['heading'], false, false)
-                                            ClearPedTasks(createdPed)
-                                            ClearPedSecondaryTask(createdPed)
-                                            TaskSetBlockingOfNonTemporaryEvents(createdPed, true)
-                                            SetPedFleeAttributes(createdPed, 0, 0)
-                                            SetPedCombatAttributes(createdPed, 17, 1)
-                                        
-                                            SetPedSeeingRange(createdPed, 0.0)
-                                            SetPedHearingRange(createdPed, 0.0)
-                                            SetPedAlertness(createdPed, 0)
-                                            SetPedKeepTask(createdPed, true)
-                                        
-                                            createdPeds[name] = createdPed
-                                        
-                                            Wait(1000) -- for better freeze (not in air)
-                                            FreezeEntityPosition(createdPed, true)
-                                            SetEntityInvincible(createdPed, true)
-                                        --end)
-                                    elseif dst > 250.0 and data['ped']['created'] == true then
+                                        exports["pw-npcs"]:EnableNPC(npc)
+                                    elseif dst > 100.0 and data['ped']['created'] == true then
                                         data['ped']['created'] = false
-                                        --Citizen.CreateThread(function() -- delete ped
-                                            if DoesEntityExist(createdPeds[name]) then 
-                                                local ped = createdPeds[name]
-                                                SetPedKeepTask(ped, false)
-                                                TaskSetBlockingOfNonTemporaryEvents(ped, false)
-                                                ClearPedTasks(ped)
-                                                TaskWanderStandard(ped, 10.0, 10)
-                                                SetPedAsNoLongerNeeded(ped)
-                                                DeleteEntity(ped)
-                                                createdPeds[name] = nil
-                                            end
-                                        --end)
+                                        exports["pw-npcs"]:DisableNPC(npc)
                                     end            
                                 
                                     -- text
-                                    if data['ped']['created'] == true then              
+                                    --[[ if data['ped']['created'] == true then              
                                         if not IsPedInAnyVehicle(playerPed, false) then
                                             if dst < 3.0 then
                                                 PWGarages.Functions.DrawText3D({x = data['ped']['coords'].x, y = data['ped']['coords'].y, z = data['ped']['coords'].z + 0.9}, PWGarages.Config['settings']['interactions']['to_interact'])
@@ -171,8 +174,8 @@ Citizen.CreateThread(function()
                                                 --PWGarages.Functions.DrawText3D({x = data['ped']['coords'].x, y = data['ped']['coords'].y, z = data['ped']['coords'].z + 0.9}, PWGarages.Config['settings']['interactions']['interact'])
                                             end
                                         end
-                                    end
-                                else
+                                    end ]]
+                                --[[ else
                                     -- text
                                     if not IsPedInAnyVehicle(playerPed, false) then
                                         if dst < 3.0 then
@@ -201,7 +204,7 @@ Citizen.CreateThread(function()
                                         elseif dst < 7.0 then
                                             PWGarages.Functions.DrawText3D(data['ped']['coords'], PWGarages.Config['settings']['interactions']['interact'])
                                         end
-                                    end
+                                    end ]]
                                 end
                             
                                 SetAllVehicleGeneratorsActiveInArea(vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) - 100.0, vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) + 100.0, false, false)
@@ -244,7 +247,7 @@ Citizen.CreateThread(function()
                             end
                         end
                     end 
-                end ]]
+                end
             end
         end
 
@@ -254,50 +257,10 @@ Citizen.CreateThread(function()
                 table.remove(ownedVehicles, key)
             end
         end
-        Wait(0)
+        Wait(1500)
     end
 end)
 
-
-RegisterNetEvent('pw-garages:client:triggermenu')
-AddEventHandler('pw-garages:client:triggermenu', function()  
-
-    if PWGarages.Config ~= nil then
-        local playerPed = PlayerPedId()
-
-        if PWGarages.Config ~= nil and loggedIn == true then
-            for key, value in pairs(PWGarages.Config) do
-                if key == 'garages' or key == 'impounds' then
-                    for name, data in pairs(value) do
-                        if data['ped'] ~= nil then
-                            local dst = #(GetEntityCoords(playerPed) - vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z))
-                                                 -- text
-                                if data['ped']['created'] == true then              
-                                    if not IsPedInAnyVehicle(playerPed, false) then
-                                        if dst < 3.0 then
-                                                --PWGarages.Functions.TriggerNUI(false, name, data, key)
-                                                TriggerEvent('pw:dialog:open',{
-                                                    {text = "Mở garage", event = "pw-garages:client:TriggerNUi", server = false , args1 = false , args2 = name, args3 = data, args4 = key},
-                                                    {text = "Không có chi", event = "pw:close:dialog", server = false, }    
-                                                },'Bảo vệ Garage', 'Anh/Chị cần hỗ trợ gì?' )
-                                        end
-                                    else
-                                        if dst < 5.0 then                                         
-                                            --PWGarages.Functions.TriggerNUI(true, name, data, key)
-                                            TriggerEvent('pw:dialog:open',{
-                                                {text = "Mở garage", event = "pw-garages:client:TriggerNUi", server = false , args1 = true , args2 = name, args3 = data, args4 = key},
-                                                {text = "Không có chi", event = "pw:close:dialog", server = false, }    
-                                            },'Bảo vệ Garage', 'Anh/Chị cần hỗ trợ gì?' )
-                                        end
-                                    end
-                                end
-                        end
-                    end 
-                end
-            end
-        end
-    end
-end)
 
 RegisterNetEvent('pw-garages:client:createParkingVehicle')
 AddEventHandler('pw-garages:client:createParkingVehicle', function(all, slotz)   

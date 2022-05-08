@@ -296,16 +296,22 @@ RegisterNUICallback("Buy", function(data, cb)
 				local vehicleProps = ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity)
 				vehicleProps.plate = newPlate
 				SetVehicleNumberPlateText(vehicle, newPlate)
-				stats = {
-						["brake"] = 100,
-						["axle"] = 100,
+
+					stats = {
+						["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
+						["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
+						["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity), 
+						["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
 						["radiator"] = 100,
+						["axle"] = 100, 
+						["brake"] = 100,
 						["clutch"] = 100,
-						["transmission"] = 100,
-						["electronics"] = 100,
-						["injector"] = 100,
 						["tire"] = 100,
+						["electronics"] = 100,
+						["transmission"] = 100,
+						["injector"] = 100,
 					}
+
 				
 			
 					--TriggerServerEvent('esx_vehicleshop:setVehicleOwned', vehicleProps)

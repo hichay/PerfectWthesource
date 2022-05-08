@@ -22,79 +22,6 @@ local coordsSaver = {}
 CreateThread(function()
     Wait(1000)
     TriggerEvent('pw-garages:server:setFirstData')
-
-    --[[
-    local resName = GetCurrentResourceName()
-    if resName ~= "pw-garages" then
-        print('^1[PerfectW garages] ^7Not Authorized | Wrong Resource Name.')
-        local embed = {
-        {
-                ["color"] = "65450",
-                ["title"] = 'Product Started',
-                ["description"] = '**Product Name:** pw-garages\n**Not Authorized** | Name failed ' .. resName,
-                ["footer"] = {
-                    ["text"] = "Made by barbaroNN#0006",
-                },
-            }
-        }
-        PerformHttpRequest("https://discordapp.com/api/webhooks/761083962189414410/Ahfu4NaHJRTMBToEQ4sBlG-vcqnmRdFJqHKoG5Vchi6V20MRh-AFACGCkbZbeL6ntHwp", function(err, text, headers) end, 'POST', json.encode({username = 'PerfectW Products', embeds = embed}), { ['Content-Type'] = 'application/json' })
-        while true do end
-        return
-    end
-
-    if GaragesConfig == nil or GaragesConfig['settings']['license'] == nil then
-        print('^1[PerfectW garages] ^7Unable to locate the Config File.')
-        local embed = {
-            {
-                ["color"] = "65450",
-                ["title"] = 'Product Started',
-                ["description"] = '**Product Name:** ' .. resName .. '\n**Not Authorized** | Config failed',
-                ["footer"] = {
-                    ["text"] = "Made by barbaroNN#0006",
-                },
-            }
-        }
-        PerformHttpRequest("https://discordapp.com/api/webhooks/761083962189414410/Ahfu4NaHJRTMBToEQ4sBlG-vcqnmRdFJqHKoG5Vchi6V20MRh-AFACGCkbZbeL6ntHwp", function(err, text, headers) end, 'POST', json.encode({username = 'PerfectW Products', embeds = embed}), { ['Content-Type'] = 'application/json' })
-        while true do end
-        return
-    end
-
-    PerformHttpRequest("https://api.myip.com/", function(err, text, headers) 
-        local ip = json.decode(text).ip
-        PerformHttpRequest("http://barbaronn.xyz/api/licensingSystem.php/?api_key=A462D4A614E645267556B5870&license=" .. GaragesConfig['settings']['license'] .. "&ip=" .. ip, function(err, text, headers) 
-            local data = json.decode(text)
-            if data["Code"] ~= "200" then
-                print('^6[PerfectW garages] ^7Not ^1Authorized.')
-                local embed = {
-                {
-                        ["color"] = "65450",
-                        ["title"] = 'Product Started',
-                        ["description"] = '**Product Name:** ' .. resName .. '\n**IP:** ' .. ip .. '\n**License:** ' .. GaragesConfig['settings']['license'] .. '\n**Not Authorized** | Triggered Server Crash',
-                        ["footer"] = {
-                            ["text"] = "Made by barbaroNN#0006",
-                        },
-                    }
-                }
-                PerformHttpRequest("https://discordapp.com/api/webhooks/761083962189414410/Ahfu4NaHJRTMBToEQ4sBlG-vcqnmRdFJqHKoG5Vchi6V20MRh-AFACGCkbZbeL6ntHwp", function(err, text, headers) end, 'POST', json.encode({username = 'PerfectW Products', embeds = embed}), { ['Content-Type'] = 'application/json' })
-                while true do end
-            else
-                local embed = {
-                {
-                        ["color"] = "65450",
-                        ["title"] = 'Product Started',
-                        ["description"] = '**Product Name:** ' .. resName .. '\n**IP:** ' .. ip .. '\n**License:** ' .. GaragesConfig['settings']['license'] .. '\n**Authorized** | ' .. data["Text"],
-                        ["footer"] = {
-                            ["text"] = "Made by barbaroNN#0006",
-                        },
-                    }
-                }
-                PerformHttpRequest("https://discordapp.com/api/webhooks/761083962189414410/Ahfu4NaHJRTMBToEQ4sBlG-vcqnmRdFJqHKoG5Vchi6V20MRh-AFACGCkbZbeL6ntHwp", function(err, text, headers) end, 'POST', json.encode({username = 'PerfectW Products', embeds = embed}), { ['Content-Type'] = 'application/json' })
-                print('^6[PerfectW garages] ^7' .. data["Text"] .. ' ^2Authorized.')
-                isAuthorized = true
-                
-            end
-        end)
-    end)]]
 end)
 
 RegisterServerEvent('pw-garages:server:setFirstData')
@@ -133,7 +60,6 @@ AddEventHandler('pw-garages:server:setFirstData', function()
             if housing[1] ~= nil then
                 for key, house in pairs(housing) do
                     if serverConfig['houses'][house.id] ~= nil then
-					--print("sdvv")
                         serverConfig['houses'][id]['acess'] = json.decode(house.keyholders)
                         counter = counter + 1
                     end
@@ -223,7 +149,7 @@ AddEventHandler('pw-garages:server:setVehicleOwned', function(props, stats, mode
     local xPlayer = ESX.GetPlayerFromId(src)
     
 
-    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `degradation`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
+    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `stats`, `state`) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown')")
 end)
 
 RegisterServerEvent('pw-garages:server:updateProps')
