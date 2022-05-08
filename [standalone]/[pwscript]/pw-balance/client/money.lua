@@ -12,13 +12,19 @@ end)
 local cashAmount = 0 
 RegisterNetEvent("hud:client:ShowMoney")
 AddEventHandler("hud:client:ShowMoney", function(type)
-    TriggerEvent("hud:client:SetMoney")
-    SendNUIMessage({
-        action = "show",
-        cash = cashAmount,
-        bank = bankAmount,
-        type = type,
-    })
+    for i=1, #playerData.accounts, 1 do
+		if playerData.accounts[i].name == 'money' then
+			cashAmount = playerData.accounts[i].money
+			break
+		end
+	end
+	
+	SendNUIMessage({
+		type = 'cash', 
+		casheData = {amount = cashAmount},
+		
+	})
+	
 end)
 
 RegisterNetEvent("hud:client:OnMoneyChange")
@@ -37,22 +43,18 @@ AddEventHandler("hud:client:OnMoneyChange", function(type, amount, isMinus)
 		end
 	end
 	
-
-	 	
-    if RLHud.Money.ShowConstant then
-        SendNUIMessage({
-            action = "open",
-            cash = cashAmount,
-            bank = bankAmount,
-        })
-    else
-        SendNUIMessage({
-            action = "update",
-            cash = cashAmount,
-            bank = bankAmount,
-            amount = amount,
-            minus = isMinus,
-            type = type,
-        })
-    end
+	if isMinus then 
+		SendNUIMessage({
+			type = 'cashe', 
+			casheData = {addedamount = '-' .. amount, amount = cashAmount},
+			
+		})
+	else
+		print(amount)
+		SendNUIMessage({
+			casheData = {addedamount = '+' .. amount, amount = cashAmount},
+			
+			
+		})
+	end
 end)
