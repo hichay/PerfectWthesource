@@ -273,11 +273,11 @@ function loadESXPlayer(identifier, playerId, isNew)
 	end
 
 	-- Skin
-	if result.skin and result.skin ~= '' then
-		userData.skin = json.decode(result.skin)
-	else
-		if userData.sex == 'f' then userData.skin = {sex=1} else userData.skin = {sex=0} end
-	end
+	-- if result.skin and result.skin ~= '' then
+		-- userData.skin = json.decode(result.skin)
+	-- else
+		-- if userData.sex == 'f' then userData.skin = {sex=1} else userData.skin = {sex=0} end
+	-- end
 
 	-- Identity
 	if result.firstname and result.firstname ~= '' then

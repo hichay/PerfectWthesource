@@ -34,11 +34,11 @@ AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
 			TriggerServerEvent('esx:onPlayerSpawn')
 			TriggerEvent('esx:onPlayerSpawn')
 			TriggerEvent('esx:restoreLoadout')
-			if isNew then
-				TriggerEvent('skinchanger:loadDefaultModel', skin.sex == 0)
-			elseif skin then
-				TriggerEvent('skinchanger:loadSkin', skin)
-			end
+			-- if isNew then
+				-- TriggerEvent('skinchanger:loadDefaultModel', skin.sex == 0)
+			-- elseif skin then
+				-- TriggerEvent('skinchanger:loadSkin', skin)
+			-- end
 
 			TriggerEvent('esx:loadingScreenOff')
 			ShutdownLoadingScreen()

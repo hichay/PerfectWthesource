@@ -55,5 +55,4 @@ files {
 
 dependencies {
 	'es_extended',
-	'esx_skin'
 }

@@ -81,9 +81,6 @@ AddEventHandler('esx:playerLoaded', function()
         end
     end)
 
-    ESX.TriggerServerCallback('pw-mechanicjob:server:GetDrivingDistances', function(retval)
-        DrivingDistance = retval
-    end)
 end)
 
 RegisterNetEvent('esx:setJob')

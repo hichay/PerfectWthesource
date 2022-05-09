@@ -2,8 +2,10 @@ fx_version 'adamant'
 game 'gta5'
 
 server_scripts {
+	"@oxmysql/lib/MySQL.lua",
+	"@pw-lib/server/sv_rpc.lua",
 	"config.lua",
-	"server/money.lua",
+	"server/sv_*.lua",
 }
 
 client_scripts {
@@ -29,4 +31,4 @@ files {
 	'html/css/*.ttf',
 	'html/css/*.woff',
 	'html/css/*.woff2',
-}
+}	

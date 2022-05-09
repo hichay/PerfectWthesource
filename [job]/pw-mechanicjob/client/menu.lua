@@ -112,7 +112,6 @@ end)
 RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
 	cb({ data = {}, meta = { ok = true, message = '' } })
   local type = data.key.name
-  print(type)
   local target = exports["pw-interact"]:GetCurrentEntity()
   if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
       vehicle = target

@@ -1,4 +1,5 @@
 ESX = nil
+
 local playersHealing, deadPlayers = {}, {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
