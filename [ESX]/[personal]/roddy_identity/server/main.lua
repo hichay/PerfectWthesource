@@ -1,7 +1,7 @@
 local playerIdentity = {}
 local alreadyRegistered = {}
 local multichar = ESX.GetConfig().Multichar
--- Leaked By: Leaking Hub | J. Snow | leakinghub.com
+
 if Config.UseDeferrals then
 	AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
 		deferrals.defer()

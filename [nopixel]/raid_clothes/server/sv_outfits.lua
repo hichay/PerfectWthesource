@@ -1,15 +1,16 @@
 RegisterServerEvent("raid_clothes:list_outfits")
 AddEventHandler("raid_clothes:list_outfits",function()
+
     local src = source
-    local user = ESX.GetPlayerFromId(src)
-    local steamid = user.identifier
+    local xPlayer = ESX.GetPlayerFromId(src)
+    local steamid = xPlayer.getIdentifier()
     local slot = slot
     local name = name
 
     if not steamid then return end
 
-    MySQL.Async.fetchAll("SELECT slot, name FROM character_outfits WHERE steamid = @steamid", {['steamid'] = steamid}, function(skincheck)
-    	TriggerClientEvent("raid_clothes:listOutfits",src, skincheck)
+    MySQL.query("SELECT slot, name FROM character_outfits WHERE steamid = @steamid", {['steamid'] = steamid}, function(skincheck)
+    	TriggerClientEvent("raid_clothes:ListOutfits",src, skincheck)
 	end)
 end)
 
@@ -20,11 +21,11 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
     local src = source
 
     local user = ESX.GetPlayerFromId(src)
-    local characterId = user.identifier
+    local characterId = user.getIdentifier()
 
     if not characterId then return end
 
-    MySQL.Async.fetchAll("SELECT slot FROM character_outfits WHERE steamid = @steamid and slot = @slot", {
+    MySQL.query("SELECT slot FROM character_outfits WHERE steamid = @steamid and slot = @slot", {
         ['steamid'] = characterId,
         ['slot'] = slot
     }, function(result)
@@ -42,7 +43,7 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
             }
 
             local set = "model = @model,name = @name,drawables = @drawables,props = @props,drawtextures = @drawtextures,proptextures = @proptextures,hairColor = @hairColor"
-            MySQL.Async.execute("UPDATE character_outfits SET "..set.." WHERE steamid = @steamid and slot = @slot",values)
+            MySQL.query("UPDATE character_outfits SET "..set.." WHERE steamid = @steamid and slot = @slot",values)
         else
             local cols = "steamid, model, name, slot, drawables, props, drawtextures, proptextures, hairColor"
             local vals = "@steamid, @model, @name, @slot, @drawables, @props, @drawtextures, @proptextures, @hairColor"
@@ -59,7 +60,7 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
                 ["hairColor"] = json.encode(data.hairColor)
             }
 
-            MySQL.Async.execute("INSERT INTO character_outfits ("..cols..") VALUES ("..vals..")", values, function()
+            MySQL.query("INSERT INTO character_outfits ("..cols..") VALUES ("..vals..")", values, function()
                 TriggerClientEvent('DoLongHudText', src,  name .. " isimli kıyafetiniz artık " .. slot.. ". slotta bulunuyor.", 1)
             end)
         end
@@ -72,12 +73,12 @@ AddEventHandler("raid_clothes:remove_outfit",function(slot)
 
     local src = source
     local user = ESX.GetPlayerFromId(src)
-    local steamid = user.identifier
+    local steamid = user.getIdentifier()
     local slot = slot
 
     if not steamid then return end
 
-    MySQL.Async.execute( "DELETE FROM character_outfits WHERE steamid = @steamid AND slot = @slot", { ['steamid'] = steamid,  ["slot"] = slot } )
+    MySQL.query( "DELETE FROM character_outfits WHERE steamid = @steamid AND slot = @slot", { ['steamid'] = steamid,  ["slot"] = slot } )
     TriggerClientEvent('DoLongHudText', src, "" .. slot .. ". slottaki kıyafet silindi.", 1)
 end)
 
@@ -87,11 +88,11 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
     local src = source
 
     local user = ESX.GetPlayerFromId(src)
-    local characterId = user.identifier
+    local characterId = user.getIdentifier()
 
     if not characterId then return end
 
-    MySQL.Async.fetchAll("SELECT * FROM character_outfits WHERE steamid = @steamid and slot = @slot", {
+    MySQL.query("SELECT * FROM character_outfits WHERE steamid = @steamid and slot = @slot", {
         ['steamid'] = characterId,
         ['slot'] = slot
     }, function(result)
@@ -122,7 +123,7 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
             }
 
             local set = "model = @model, drawables = @drawables, props = @props,drawtextures = @drawtextures,proptextures = @proptextures"
-            MySQL.Async.execute("UPDATE users SET "..set.." WHERE identifier = @identifier",values)
+            MySQL.query("UPDATE users SET "..set.." WHERE identifier = @identifier",values)
         else
             TriggerClientEvent('DoLongHudText', src, "Bu slotta kıyafetiniz yok. Slot:" .. slot, 1)
             return

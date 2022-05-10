@@ -960,11 +960,33 @@ end)
 
 local showBarberShopBlips = false
 local showTattooShopBlips = false
+local showClothingShopBlips = false
 
 RegisterNetEvent('raid_clothes:saveCharacterClothes')
 AddEventHandler('raid_clothes:saveCharacterClothes', function()
     local data = GetCurrentPed()
     TriggerServerEvent("raid_clothes:insert_character_current", data)
+end)
+
+RegisterNetEvent('hairDresser:ToggleClothing')
+AddEventHandler('hairDresser:ToggleClothing', function()
+    showClothingShopBlips = not showClothingShopBlips
+   for _, item in pairs(clothingshop) do
+        if not showClothingShopBlips then
+            if item.blip ~= nil then
+                RemoveBlip(item.blip)
+            end
+        else
+            item.blip = AddBlipForCoord(item[1], item[2], item[2])
+            SetBlipSprite(item.blip, 73)
+            SetBlipColour(item.blip, 4)
+            SetBlipScale(item.blip, 0.7)
+            SetBlipAsShortRange(item.blip, true)
+            BeginTextCommandSetBlipName("CUSTOM_TEXT")
+            AddTextComponentString("Cửa hàng quần áo")
+            EndTextCommandSetBlipName(item.blip)
+        end
+    end
 end)
 
 RegisterNetEvent('hairDresser:ToggleHair')
@@ -979,8 +1001,9 @@ AddEventHandler('hairDresser:ToggleHair', function()
             item.blip = AddBlipForCoord(item[1], item[2], item[2])
             SetBlipSprite(item.blip, 71)
             SetBlipColour(item.blip, 1)
+            SetBlipScale(item.blip, 0.7)
             SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("STRING")
+            BeginTextCommandSetBlipName("CUSTOM_TEXT")
             AddTextComponentString("Barber Shop")
             EndTextCommandSetBlipName(item.blip)
         end
@@ -999,9 +1022,10 @@ AddEventHandler('tattoo:ToggleTattoo', function()
             item.blip = AddBlipForCoord(item[1], item[2], item[2])
             SetBlipSprite(item.blip, 75)
             SetBlipColour(item.blip, 1)
+            SetBlipScale(item.blip, 0.7)
             SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Tattoo Shop")
+            BeginTextCommandSetBlipName("CUSTOM_TEXT")
+            AddTextComponentString("Cửa hàng xăm")
             EndTextCommandSetBlipName(item.blip)
         end
     end
@@ -1010,6 +1034,11 @@ end)
 function addBlips()
     showBarberShopBlips = true
     TriggerEvent('hairDresser:ToggleHair')
+    showTattooShopBlips = true
+    TriggerEvent('hairDresser:ToggleTattoo')
+    showTattooShopBlips = true
+    TriggerEvent('hairDresser:ToggleClothing')
+    
 end
 
 AddEventHandler("np-base:initialSpawnModelLoaded", function()
@@ -1034,6 +1063,11 @@ end)
 	-- TriggerServerEvent("clothing:checkIfNew")
 -- end, false)
 
+
+
+RegisterCommand("outfit", function(source, args, rawCommand)
+    TriggerServerEvent("raid_clothes:list_outfits")
+end, false)
 
 RegisterNetEvent("raid_clothes:inService")
 AddEventHandler("raid_clothes:inService", function(service)
@@ -1298,8 +1332,37 @@ RegisterUICallback("np-ui:raid_clothes:deleteOutfit", function(data, cb)
     TriggerEvent('hotel:outfit', { true, data.key[1] }, 2, data.key[2])
 end)
 
+RegisterNetEvent('hotel:outfit')
+AddEventHandler('hotel:outfit', function(args,sentType, pIgnoreDistance)
+    
+    TriggerEvent("attachedItems:block",true)
+    Wait(50)
+    if sentType == 1 then
+        local id = args[2]
+        table.remove(args, 1)
+        table.remove(args, 1)
+        strng = ""
+        for i = 1, #args do
+            strng = strng .. " " .. args[i]
+        end
+        TriggerEvent("raid_clothes:outfits", sentType, id, strng)
+    elseif sentType == 2 then
+        local id = args[2]
+        TriggerEvent("raid_clothes:outfits", sentType, id)
+    elseif sentType == 3 then
+        local id = args[2]
+        TriggerEvent('item:deleteClothesDna')
+        TriggerEvent('InteractSound_CL:PlayOnOne','Clothes1', 0.6)
+        TriggerEvent("raid_clothes:outfits", sentType, id)
+    else
+        TriggerServerEvent("raid_clothes:list_outfits", pIgnoreDistance)
+    end
+    
+end)
+
 RegisterNetEvent('raid_clothes:ListOutfits')
 AddEventHandler('raid_clothes:ListOutfits', function(skincheck, pIgnoreDistance)
+    print('call')
     local menuData = {}
     local takenSlots = {}
     for i = 1, #skincheck do
@@ -1334,6 +1397,16 @@ AddEventHandler('raid_clothes:ListOutfits', function(skincheck, pIgnoreDistance)
         exports['np-ui']:showContextMenu(menuData)
     else
         TriggerEvent("DoLongHudText", "No saved outfits", 2)
+        local datamen = {}
+         datamen = {
+            title = "Lưu bộ này",
+            description = '',
+            key = 1,
+            action = "np-ui:raid_clothes:addOutfitPrompt"
+        }
+
+        exports['np-ui']:showContextMenu(datamen)
+        
     end
 end)
 
@@ -1357,7 +1430,7 @@ Citizen.CreateThread(function()
 
     local build = GetGameBuildNumber()
 
-    local offsets = RPC.execute('np-clothes:getBuildOffsets', build)
+    --local offsets = RPC.execute('np-clothes:getBuildOffsets', build)
 
     SendNUIMessage({ type = "build", offsets = offsets })
 

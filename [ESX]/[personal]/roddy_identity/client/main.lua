@@ -48,8 +48,14 @@ if not Config.UseDeferrals then
 	RegisterNUICallback('register', function(data, cb)
 		ESX.TriggerServerCallback('esx_identity:registerIdentity', function(callback)
 			if callback then
+				print(data.sex)
 				ESX.ShowNotification(_U('thank_you_for_registering'))
 				EnableGui(false)
+				if data.sex = 0 then
+					SetSkin(`mp_f_freemode_01`, true)
+				else
+					SetSkin(`mp_m_freemode_01`, true)
+				end
 				TriggerEvent('raid_clothes:openBarber',false)
 				if not ESX.GetConfig().Multichar then TriggerEvent('esx_skin:playerRegistered') end
 			else
@@ -85,4 +91,40 @@ if not Config.UseDeferrals then
 			end
 		end
 	end)
+end
+
+function SetSkin(model, setDefault)
+    -- TODO: If not isCop and model not in copModellist, do below.
+    -- Model is a hash, GetHashKey(modelName)
+    SetEntityInvincible(PlayerPedId(), true)
+    if IsModelInCdimage(model) and IsModelValid(model) then
+        RequestModel(model)
+        while (not HasModelLoaded(model)) do
+            Citizen.Wait(0)
+        end
+        SetPlayerModel(PlayerId(), model)
+        SetModelAsNoLongerNeeded(model)
+        player = PlayerPedId()
+        FreezePedCameraRotation(player, true)
+        SetPedMaxHealth(PlayerPedId(), 200)
+        SetPedDefaultComponentVariation(player)
+        if inSpawn then
+            SetEntityHealth(player, GetEntityMaxHealth(player))
+        end
+        if setDefault and model ~= nil and not isCustomSkin(model) and (model == `mp_f_freemode_01` or model == `mp_m_freemode_01`) then
+            SetPedHeadBlendData(player, 0, 0, 0, 15, 0, 0, 0, 1.0, 0, false)
+            SetPedComponentVariation(player, 11, 0, 1, 0)
+            SetPedComponentVariation(player, 8, 0, 1, 0)
+            SetPedComponentVariation(player, 6, 1, 2, 0)
+            SetPedHeadOverlayColor(player, 1, 1, 0, 0)
+            SetPedHeadOverlayColor(player, 2, 1, 0, 0)
+            SetPedHeadOverlayColor(player, 4, 2, 0, 0)
+            SetPedHeadOverlayColor(player, 5, 2, 0, 0)
+            SetPedHeadOverlayColor(player, 8, 2, 0, 0)
+            SetPedHeadOverlayColor(player, 10, 1, 0, 0)
+            SetPedHeadOverlay(player, 1, 0, 0.0)
+            SetPedHairColor(player, 1, 1)
+        end
+    end
+    SetEntityInvincible(PlayerPedId(), false)
 end

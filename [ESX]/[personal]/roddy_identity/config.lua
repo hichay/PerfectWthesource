@@ -8,7 +8,7 @@ Config.EnableCommands   = false
 
 Config.UseDeferrals     = false -- EXPERIMENTAL Character Registration Method.
 -- Leaked By: Leaking Hub | J. Snow | leakinghub.com
--- These values are for the second input validation in server/main.lua
+
 Config.MaxNameLength    = 20
 Config.MinHeight        = 140
 Config.MaxHeight        = 200

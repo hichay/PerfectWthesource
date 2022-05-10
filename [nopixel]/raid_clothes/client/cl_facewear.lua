@@ -1,8 +1,4 @@
---[[
 
-    Variables
-
-]]
 
 local removing = false
 local antispam = 0
@@ -23,11 +19,6 @@ local items = {
     "earrings",
 }
 
---[[
-
-    Functions
-
-]]
 
 function GetSkinSex(pEntity)
     for i, v in ipairs(frm_skins) do
@@ -371,11 +362,6 @@ function toggleFaceWear(pType, pRemove, pInfo, pSteal)
     removing = false
 end
 
---[[
-
-    Events
-
-]]
 
 AddEventHandler("pw-inventory:itemUsed", function(item, info)
     if has_value(items, item) == -1 then return end
@@ -657,11 +643,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     exports["pw-context"]:showContext(context)
 end)
 
---[[
 
-    Threads
-
-]]
 
 Citizen.CreateThread(function()
     local group = { 1 }
