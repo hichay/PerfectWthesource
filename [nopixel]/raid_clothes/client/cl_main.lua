@@ -1397,8 +1397,8 @@ AddEventHandler('raid_clothes:ListOutfits', function(skincheck, pIgnoreDistance)
         exports['np-ui']:showContextMenu(menuData)
     else
         TriggerEvent("DoLongHudText", "No saved outfits", 2)
-        local datamen = {}
-         datamen = {
+		local datamen = {}
+         datamen[#datamen + 1] = {
             title = "Lưu bộ này",
             description = '',
             key = 1,
@@ -1413,6 +1413,24 @@ end)
 -- LoadPed(data) Sets clothing based on the data structure given, the same structure that GetCurrentPed() returns
 -- GetCurrentPed() Gives you the data structure of the currently worn clothes
 
+RegisterCommand("ontest", function(source, args, rawCommand)
+	
+local datamenu = {}
+for i = 1 , 3 do
+		local slot = tonumber(i)
+		datamenu[#datamenu + 1] = {
+			
+			title = "Lưu bộ này",
+			description = '',
+			key = 1,
+			action = "np-ui:raid_clothes:addOutfitPrompt"
+				
+			
+		}
+	end
+    exports["np-ui"]:showContextMenu(datamenu)
+	end, false)
+	
 function SetCustomNuiFocus(hasKeyboard, hasMouse)
   HasNuiFocus = hasKeyboard or hasMouse
   SetNuiFocus(hasKeyboard, hasMouse)

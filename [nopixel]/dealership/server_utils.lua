@@ -16,10 +16,10 @@ end
 
 function getPlayerName(user_id)
 	if user_id then
-		local sql = "SELECT name FROM `characters_metadata` WHERE citizenid = @user_id";
+		local sql = "SELECT firstname , lastname FROM `users` WHERE identifier = @user_id";
 		local query = MySQL.query.await(sql,{['@user_id'] = user_id});
 		if query and query[1] and query[1].name then
-			return query[1].name
+			return query[1].firstname ..' '.. query[1].firstname
 		end
 	end
 	return false
@@ -37,14 +37,14 @@ end
 
 function deleteSoldVehicle(user_id,plate)
 	local sql = "DELETE FROM `owned_vehicles` WHERE owner = @user_id AND plate = @plate";
-	MySQL.Sync.execute(sql, {['@user_id'] = user_id, ['@plate'] = plate});
+	MySQL.query(sql, {['@user_id'] = user_id, ['@plate'] = plate});
 end
 
 function insertVehicleOnGarage(source,vehicleProps,vehicle_model)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local GarageData = "Legion Parking"
     local VehicleMeta = {Fuel = 100.0, Body = 1000.0, Engine = 1000.0}
-	MySQL.Async.execute('INSERT INTO owned_vehicles (citizenid, plate, vehicle, mods, state, metadata, garage) VALUES (@citizenid, @plate, @vehicle, @mods, @state, @metadata, @garage)',
+	MySQL.query('INSERT INTO owned_vehicles (citizenid, plate, vehicle, mods, state, metadata, garage) VALUES (@citizenid, @plate, @vehicle, @mods, @state, @metadata, @garage)',
 	{
 		['@citizenid']   = xPlayer.PlayerData.citizenid,
 		['@plate']   = vehicleProps.plate,
@@ -68,7 +68,7 @@ function dontAskMeWhatIsThis(user_id)
 		RIGHT JOIN `dealership_requests` R ON R.plate = O.plate
 		WHERE O.citizenid = @user_id OR R.user_id = @user_id AND R.request_type = 0
 	]];
-	return MySQL.Sync.fetchAll(sql,{['@user_id'] = user_id});
+	return MySQL.query(sql,{['@user_id'] = user_id});
 end
 
 function GeneratePlate()

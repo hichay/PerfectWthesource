@@ -457,6 +457,7 @@ window.addEventListener("message", function(event) {
 						<div class="card-buttons">
 							<button onclick="importVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['import']}</button>
 							<button onclick="exportVehicle('${key}')" class="add-stock-car">${Lang[lang]['export']}</button>
+							<button onclick="setDisplayVeh('${key}')" class="add-stock-car">'nút này là nút mới'</button>
 						</div>
 					</div>
 				</div>
@@ -934,6 +935,10 @@ function importVehicle(vehicle) {
 	$(".modal-stock-overlay").addClass("active");
 	$(".modal-stock-overlay").data('vehicle',vehicle);
 	$(".modal-stock-overlay").data('isexport',0);
+}
+
+function setDisplayVeh(vehicle) {
+	$.post('http://dealership/setDisplayVeh', JSON.stringify({vehicle}));
 }
 
 function exportVehicle(vehicle) {

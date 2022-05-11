@@ -817,12 +817,12 @@ AddEventHandler('pw-garages:server:dev:saveCoords', function(name, index)
                 h = v[2],
             }, true}
 
-            serverConfig['garages'][name]['slots'][k] = {{
+            serverConfig['garages'][name]['slots'][k] = {
                 x = v[1].x,
                 y = v[1].y,
                 z = v[1].z,
                 h = v[2],
-            }, true}
+            }
         end
 
         garages[name]['slotsbackup'] = garages[name]['slots']

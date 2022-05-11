@@ -52,6 +52,7 @@ Citizen.CreateThread(function()
 					end
 				end
 			end
+			print(k)
 		end
 		Citizen.Wait(timer)
 	end
@@ -193,6 +194,7 @@ RegisterNUICallback('importVehicle', function(data, cb)
 		end)
 	end
 end)
+
 
 RegisterNUICallback('setPrice', function(data, cb)
 	if cooldown == nil then
@@ -867,3 +869,41 @@ function print_table(node)
 		print(node)
 	end
 end
+
+---Display showroom
+RegisterNUICallback('setDisplayVeh', function(data, cb)
+
+	local datamenu = {}
+	for k,v in pairs(Config.dealership_locations[empresaAtual]['sell_blip_coords']) do
+		
+		datamenu[#datamenu + 1] = {
+			title = "Slot trưng bày số "..k,
+			description = "",
+			action = "lc_dealership:saveDisplayLocation",
+			key = {k,empresaAtual,v.preview,data.vehicle},
+			children = { 
+				
+			},
+		}
+	end
+    exports["np-ui"]:showContextMenu(datamenu)
+			
+end)
+
+RegisterUICallback('lc_dealership:saveDisplayLocation', function (data, cb)
+	cb({ data = {}, meta = { ok = true, message = '' } })
+	TriggerServerEvent("lc_server:SaveDisplayLocation",data.key[1],data.key[2],data.key[3],data.key[4])
+	TriggerServerEvent('lc_dealership:getSpawnedVehicles', data.key[2], data.key[3], data.key[4])
+end)
+
+RegisterNetEvent('pw-dealership:client:syncConfig')
+AddEventHandler('pw-dealership:client:syncConfig', function(t, data)
+    if t == 1 then
+		print(empresaAtual)
+		print('nay')
+
+        TriggerEvent("table",data)
+    
+    end
+
+end)

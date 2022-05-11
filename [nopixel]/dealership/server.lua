@@ -1153,14 +1153,14 @@ function openUI(source, key, reset, isCustomer)
 				query.dealership_requests = MySQL.Sync.fetchAll(sql,{['@dealership_id'] = key});
 
 				-- Get the online players
-				local xPlayers = ESX.GetPlayerFromIds()
+				local xPlayers = ESX.GetPlayers()
 				query.players  = {}
 				for i=1, #xPlayers, 1 do
 					local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
 					table.insert(query.players, {
 						source     = xPlayers[i],
 						identifier = xPlayer.getIdentifier(),
-						name       = xPlayer.PlayerData.name
+						name       = xPlayer.getName()
 					})
 				end
 

@@ -4,11 +4,13 @@ game 'gta5'
 ui_page('nui/og.html')
 
 client_script{
+    "@pw-lib/client/cl_ui.lua",
     "lang/*.lua",
 
     'utils.lua',
     'client.lua',
-    'config.lua'
+    'config.lua',
+    'menu.lua',
 }
 
 server_script {
@@ -16,6 +18,7 @@ server_script {
     "lang/*.lua",
 
     'config.lua',
+    'sv_show.lua',
 	'server.lua',
 	'server_utils.lua',
 }
