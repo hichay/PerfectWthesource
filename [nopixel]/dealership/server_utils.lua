@@ -61,12 +61,12 @@ function dontAskMeWhatIsThis(user_id)
 		SELECT O.owner, O.vehicle, O.plate, R.price, R.id, R.status
 		FROM `owned_vehicles` O
 		LEFT JOIN `dealership_requests` R ON R.plate = O.plate
-		WHERE O.citizenid = @user_id OR R.user_id = @user_id AND R.request_type = 0
+		WHERE O.owner = @user_id OR R.user_id = @user_id AND R.request_type = 0
 			UNION
 		SELECT O.owner, R.vehicle, R.plate, R.price, R.id, R.status
 		FROM `owned_vehicles` O
 		RIGHT JOIN `dealership_requests` R ON R.plate = O.plate
-		WHERE O.citizenid = @user_id OR R.user_id = @user_id AND R.request_type = 0
+		WHERE O.owner = @user_id OR R.user_id = @user_id AND R.request_type = 0
 	]];
 	return MySQL.query(sql,{['@user_id'] = user_id});
 end
