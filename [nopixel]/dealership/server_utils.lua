@@ -58,13 +58,13 @@ end
 
 function dontAskMeWhatIsThis(user_id)
 	local sql = [[
-		SELECT O.citizenid, O.mods, O.plate, R.price, R.id, R.status
-		FROM `characters_vehicles` O
+		SELECT O.owner, O.vehicle, O.plate, R.price, R.id, R.status
+		FROM `owned_vehicles` O
 		LEFT JOIN `dealership_requests` R ON R.plate = O.plate
 		WHERE O.citizenid = @user_id OR R.user_id = @user_id AND R.request_type = 0
 			UNION
-		SELECT O.citizenid, R.vehicle, R.plate, R.price, R.id, R.status
-		FROM `characters_vehicles` O
+		SELECT O.owner, R.vehicle, R.plate, R.price, R.id, R.status
+		FROM `owned_vehicles` O
 		RIGHT JOIN `dealership_requests` R ON R.plate = O.plate
 		WHERE O.citizenid = @user_id OR R.user_id = @user_id AND R.request_type = 0
 	]];

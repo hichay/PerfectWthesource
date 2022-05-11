@@ -6,7 +6,7 @@ function GetOSSep()
 	end
 end
 local serverConfig = {}
-serverConfig['showroom'] = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
+serverConfig = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
 --[[ RegisterCommand("testshit", function(source, args, rawCommand)
     
     local slot = 'slot_10'
@@ -47,12 +47,10 @@ AddEventHandler('lc_server:SaveDisplayLocation', function(slot, name, position, 
     local src = source
     local dispos = position
     local newdisplay = {}
-    local carslot = 'slot_'..slot
- 
-    if serverConfig['showroom'][name] == nil then
-        print('add lần đầu và thêm slot')
+
+    if serverConfig[name] == nil then
         newdisplay = { 
-            [carslot] = {       
+            [slot] = {       
                 position = vector4(dispos[1],dispos[2],dispos[3],dispos[4]),   
                 model = vehicle   
             }      
@@ -60,25 +58,26 @@ AddEventHandler('lc_server:SaveDisplayLocation', function(slot, name, position, 
         local display = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
         display[name] = newdisplay
         SaveResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json', json.encode(display), -1)
-        serverConfig['showroom'][name] = newdisplay
+        serverConfig[name] = newdisplay
+        serverConfig = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
+        TriggerClientEvent('pw-dealership:client:syncConfig', source, 1, serverConfig)
+        
     else
-        print('thay đổi giá trị')
         newdisplay = {        
             position = vector4(dispos[1],dispos[2],dispos[3],dispos[4]),   
             model = vehicle         
         }
         local display = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
-        display[name][carslot] = newdisplay
+        display[name][slot] = newdisplay
         SaveResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json', json.encode(display), -1)
-        serverConfig['showroom'][name] = newdisplay
+        serverConfig[name] = newdisplay
+        serverConfig = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
+        TriggerClientEvent('pw-dealership:client:syncConfig', -1, 1, serverConfig)
+        
     end
     
 end)
 
-CreateThread(function()
-    Wait(1000)
-    TriggerEvent('pw-dealership:server:setFirstData')
-end)
 
 
 RegisterServerEvent('pw-dealership:server:setFirstData')

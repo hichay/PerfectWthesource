@@ -1055,12 +1055,32 @@ local spawned_vehicles = {}
 RegisterServerEvent("lc_dealership:setSpawnedVehicles")
 AddEventHandler("lc_dealership:setSpawnedVehicles",function(key,loc,vehicle)
 	if not spawned_vehicles[key] then spawned_vehicles[key] = {} end
+
 	spawned_vehicles[key][loc] = vehicle
+	--TriggerClientEvent("table",source,spawned_vehicles)
 end)
+RPC.register('ExportSpawnList',function(src)
+	return spawned_vehicles
+end)
+
 RegisterServerEvent("lc_dealership:getSpawnedVehicles")
 AddEventHandler("lc_dealership:getSpawnedVehicles",function(key,loc,vehicle)
 	if not spawned_vehicles[key] then spawned_vehicles[key] = {} end
 	TriggerClientEvent("lc_dealership:getSpawnedVehicles",source,key,loc,spawned_vehicles[key][loc],vehicle)
+end)
+
+-- Saves all vehicles spawneddisplay over dealership
+
+RegisterServerEvent("lc_dealership:getSpawnedDisplayVehicles")
+AddEventHandler("lc_dealership:getSpawnedDisplayVehicles",function(key,loc,vehicle,slotveh)
+	--
+	
+
+	
+	if not spawned_vehicles[key] then spawned_vehicles[key] = {} end
+	--TriggerClientEvent('table',-1,spawned_vehicles[key][loc])
+	--spawned_vehicles[key][slotveh] = vehicle
+	TriggerClientEvent("lc_dealership:getSpawnedDisplayVehicles", source, key, loc, spawned_vehicles[key][slotveh], vehicle, slotveh)
 end)
 
 RegisterServerEvent("lc_dealership:vehicleLock")
