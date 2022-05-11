@@ -12,18 +12,34 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
+local ServerDataDisplay = {}
 local truck,truck_blip,trailer,trailer_blip
 local empresaAtual = nil
 local blipAtual = nil
 
+RegisterNetEvent('pw-dealership:client:syncConfig')
+AddEventHandler('pw-dealership:client:syncConfig', function(t, data)
+    if t == 1 then	
+		ServerDataDisplay = data
+    end
+
+end)
+
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function()
+	TriggerServerEvent('pw-dealership:server:setFirstData')
+end)
+
 Citizen.CreateThread(function()
 	local timer = 1
+	local spawnveh = false
 	while true do
 		timer = 2000
 		for k,v in pairs(Config.dealership_locations) do
 			local x,y,z = table.unpack(v.coord)
 			local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
+			
 			if not menuactive and distance <= 20.0 then
 				timer = 4
 				DrawMarker_blip(x,y,z)
@@ -34,12 +50,13 @@ Citizen.CreateThread(function()
 						TriggerServerEvent("lc_dealership:getData",empresaAtual)
 					end
 				end
+
 			end
 
 			for kk,mark in pairs(v.sell_blip_coords) do
 				local x,y,z = table.unpack(mark.dealer)
 				local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
-				if not menuactive and distance <= 20.0 then
+				if not menuactive and distance <= 10.0 then
 					timer = 4
 					DrawMarker_blip(x,y,z)
 					if distance <= 1.0 then
@@ -50,11 +67,43 @@ Citizen.CreateThread(function()
 							TriggerServerEvent("lc_dealership:openDealership",empresaAtual) 
 						end
 					end
-				end
+				end				
 			end
-			print(k)
+			
 		end
 		Citizen.Wait(timer)
+	end
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		for k,v in pairs(Config.dealership_locations) do
+			local x,y,z = table.unpack(v.coord)
+			local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
+			if distance <= 30 and not spawnveh then 
+				Wait(1000)
+				local slotveh = 'slot_'
+				for i=1, #v.sell_blip_coords do
+					if not spawnveh then 
+						slotveh = 'slot_'..i
+						TriggerServerEvent('lc_dealership:getSpawnedDisplayVehicles', k, ServerDataDisplay[k][slotveh].position, ServerDataDisplay[k][slotveh].model,slotveh)
+					end
+				
+				end
+				spawnveh = true
+					
+			elseif distance > 30 and spawnveh == true then 
+				local Spawnlist = RPC.execute('ExportSpawnList')
+				if Spawnlist[k] ~= nil then
+					for i=1, #v.sell_blip_coords do
+						slotveh = 'slot_'..i
+						DeleteEntity(NetToVeh(Spawnlist[k][slotveh]))
+					end
+					spawnveh = false
+				end	
+			end
+		end
+		Citizen.Wait(100)
 	end
 end)
 
@@ -586,6 +635,25 @@ AddEventHandler('lc_dealership:getSpawnedVehicles', function(key,k,veh,vehicle)
 	end)
 end)
 
+RegisterNetEvent('lc_dealership:getSpawnedDisplayVehicles')
+AddEventHandler('lc_dealership:getSpawnedDisplayVehicles', function(key,k,veh,vehicle,slotveh)
+
+	if veh ~= nil then
+		DeleteEntity(NetToVeh(veh))
+	end
+	Wait(100)
+	SpawnVehicle(vehicle, { x = k.x, y = k.y, z = k.z }, k.h, function(vehspawn)
+		FreezeEntityPosition(vehspawn,true)
+		local vehicleNetId = VehToNet(vehspawn)
+		SetNetworkIdCanMigrate(vehicleNetId, true)
+		SetNetworkIdExistsOnAllMachines(vehicleNetId, true)
+		NetworkRegisterEntityAsNetworked(VehToNet(vehspawn))
+		TriggerServerEvent('lc_dealership:setSpawnedVehicles', key, slotveh, vehicleNetId)
+
+		--TriggerEvent('lc_dealership:createVehicleThread', key, k, veh, vehicle)
+	end)
+end)
+
 RegisterNetEvent('lc_dealership:createVehicleThread')
 AddEventHandler('lc_dealership:createVehicleThread', function(key, k, veh, vehicle)
 	local ped = PlayerPedId()
@@ -892,18 +960,14 @@ end)
 
 RegisterUICallback('lc_dealership:saveDisplayLocation', function (data, cb)
 	cb({ data = {}, meta = { ok = true, message = '' } })
-	TriggerServerEvent("lc_server:SaveDisplayLocation",data.key[1],data.key[2],data.key[3],data.key[4])
-	TriggerServerEvent('lc_dealership:getSpawnedVehicles', data.key[2], data.key[3], data.key[4])
+	local slot = 'slot_'..data.key[1]
+	local postion = {
+		x = data.key[3][1],
+		y = data.key[3][2],
+		z = data.key[3][3],
+		w = data.key[3][4]
+	}
+	TriggerServerEvent("lc_server:SaveDisplayLocation",slot, data.key[2],data.key[3],data.key[4])
+	TriggerServerEvent('lc_dealership:getSpawnedDisplayVehicles', data.key[2], postion, data.key[4], slot)
 end)
 
-RegisterNetEvent('pw-dealership:client:syncConfig')
-AddEventHandler('pw-dealership:client:syncConfig', function(t, data)
-    if t == 1 then
-		print(empresaAtual)
-		print('nay')
-
-        TriggerEvent("table",data)
-    
-    end
-
-end)

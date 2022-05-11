@@ -5,6 +5,7 @@ ui_page('nui/og.html')
 
 client_script{
     "@pw-lib/client/cl_ui.lua",
+    '@pw-lib/client/cl_rpc.lua',
     "lang/*.lua",
 
     'utils.lua',
@@ -15,6 +16,7 @@ client_script{
 
 server_script {
     "@oxmysql/lib/MySQL.lua",
+    '@pw-lib/server/sv_rpc.lua',
     "lang/*.lua",
 
     'config.lua',
