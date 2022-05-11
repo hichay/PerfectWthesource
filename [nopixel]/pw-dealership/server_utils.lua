@@ -18,8 +18,19 @@ function getPlayerName(user_id)
 	if user_id then
 		local sql = "SELECT firstname , lastname FROM `users` WHERE identifier = @user_id";
 		local query = MySQL.query.await(sql,{['@user_id'] = user_id});
-		if query and query[1] and query[1].name then
-			return query[1].firstname ..' '.. query[1].firstname
+		if query and query[1] then
+			return query[1].firstname ..' '.. query[1].lastname
+		end
+	end
+	return false
+end
+
+function getPleyrIdNumber(user_id)
+	if user_id then
+		local sql = "SELECT id FROM `users` WHERE identifier = @user_id";
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id});
+		if query and query[1] then
+			return query[1].id
 		end
 	end
 	return false
@@ -42,17 +53,14 @@ end
 
 function insertVehicleOnGarage(source,vehicleProps,vehicle_model)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local GarageData = "Legion Parking"
-    local VehicleMeta = {Fuel = 100.0, Body = 1000.0, Engine = 1000.0}
-	MySQL.query('INSERT INTO owned_vehicles (citizenid, plate, vehicle, mods, state, metadata, garage) VALUES (@citizenid, @plate, @vehicle, @mods, @state, @metadata, @garage)',
+	MySQL.query('INSERT INTO owned_vehicles (owner, plate, model, vehicle, state, stats) VALUES (@owner, @plate, @model, @vehicle, @state, @stats)',
 	{
-		['@citizenid']   = xPlayer.PlayerData.citizenid,
+		['@owner']   = xPlayer.getIdentifier(),
 		['@plate']   = vehicleProps.plate,
-		['@vehicle']   = vehicle_model,
-		['@state']   = 'out',
-		['@metadata']   = '{"Engine":1000.0,"Body":1000.0,"Fuel":100.0}',
-		['@garage']   = 'Legion Parking',
-		['@mods'] = json.encode(vehicleProps)
+		['@model']   = vehicle_model,
+		['@state']   = 'unknown',
+		['@stats']   = '{"injector":100,"engine_damage":1000.0,"transmission":100,"fuel":100.0,"body_damage":1000.0,"clutch":100,"radiator":100,"tire":100,"dirty":0.0,"electronics":100,"brake":100,"axle":100}',
+		['@vehicle'] = json.encode(vehicleProps)
 	})
 end
 
@@ -71,7 +79,7 @@ function dontAskMeWhatIsThis(user_id)
 	return MySQL.query(sql,{['@user_id'] = user_id});
 end
 
-function GeneratePlate()
+--[[ function GeneratePlate()
     local plateFormat = Config.PlateFormat or 'nnn lll'
     local generatedPlate = ''
     math.randomseed(os.time())
@@ -96,6 +104,19 @@ function GeneratePlate()
 			generatedPlate = generatedPlate ..  string.upper(currentChar)
 		end
 	end
+    local isDuplicate = MySQL.query.await('SELECT COUNT(1) FROM owned_vehicles WHERE plate = @plate', {
+		['@plate'] = generatedPlate
+    })
+    if isDuplicate == 1 then
+		generatedPlate = GeneratePlate()
+    end
+    return generatedPlate
+end ]]
+
+function GeneratePlate()
+    local plateFormat = Config.PlateFormat or 'nnn lll'
+    local generatedPlate = ''
+	generatedPlate = 'BIENSO'..math.random(10,99)
     local isDuplicate = MySQL.query.await('SELECT COUNT(1) FROM owned_vehicles WHERE plate = @plate', {
 		['@plate'] = generatedPlate
     })

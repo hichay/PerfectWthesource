@@ -51,7 +51,7 @@ AddEventHandler('lc_server:SaveDisplayLocation', function(slot, name, position, 
     if serverConfig[name] == nil then
         newdisplay = { 
             [slot] = {       
-                position = vector4(dispos[1],dispos[2],dispos[3],dispos[4]),   
+                position = position,   
                 model = vehicle   
             }      
         }
@@ -64,7 +64,7 @@ AddEventHandler('lc_server:SaveDisplayLocation', function(slot, name, position, 
         
     else
         newdisplay = {        
-            position = vector4(dispos[1],dispos[2],dispos[3],dispos[4]),   
+            position = position,   
             model = vehicle         
         }
         local display = json.decode(LoadResourceFile(GetCurrentResourceName(), 'database' .. GetOSSep() .. 'displayloc.json'))
@@ -78,6 +78,10 @@ AddEventHandler('lc_server:SaveDisplayLocation', function(slot, name, position, 
     
 end)
 
+CreateThread(function()
+    Wait(1000)
+    TriggerEvent('pw-dealership:server:setFirstData')
+end)
 
 
 RegisterServerEvent('pw-dealership:server:setFirstData')

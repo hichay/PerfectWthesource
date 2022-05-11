@@ -2075,7 +2075,7 @@ Config.dealership_types = {
    },
 	['Bikes_dealer'] = {
 	 	['stock_capacity'] = 300,
-		 ['max_employees'] = 5,
+		['max_employees'] = 5,
 		['vehicles'] = {
 	 		['sanchez'] = {
 				['name'] = "Sanchez Livery",

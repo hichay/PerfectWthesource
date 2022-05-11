@@ -62,8 +62,8 @@ Lang['en'] = {
     ['vehicle_unlocked'] = "Phương tiện <b>mở khóa</b> thành công.",
 
     ['balance_vehicle_export'] = "Xuất xe: %s",
-    ['balance_vehicle_import'] = "Nhập khẩu xe: %s",
-    ['balance_vehicle_bought'] = "Xe đã mua: %s",
+    ['balance_vehicle_import'] = "Xe đã nhập: %s",
+    ['balance_vehicle_bought'] = "Xe đã bán ra: %s",
     ['balance_used_vehicle_bought'] = "Xe cũ đã mua: %s",
     ['balance_request_started'] = "[1] Yêu cầu nhập khẩu phương tiện: %s",
     ['balance_request_finished'] = "[2] Yêu cầu nhập khẩu phương tiện: %s",

@@ -112,7 +112,7 @@ AddEventHandler('lc_dealership:open', function(dados,update,isCustomer,isEmploye
 	FreezeEntityPosition(PlayerPedId(),true)
 	if isCustomer then
 		local data = {}
-		for k,v in pairs(dados.owned_vehicles) do
+		--[[ for k,v in pairs(dados.owned_vehicles) do
 			if not v.vehicle then
 				local vehName = getVehicleFromVehList(v.model)
 				if vehName == nil then vehName = string.lower(GetDisplayNameFromVehicleModel(v.model)) end
@@ -120,11 +120,11 @@ AddEventHandler('lc_dealership:open', function(dados,update,isCustomer,isEmploye
 			else
 				table.insert(data, {plate=v.plate, price = v.price, id = v.id, status = v.status, vehicle = v.vehicle})
 			end
-		end
+		end ]]
 		dados.owned_vehicles = {}
 		dados.owned_vehicles = data
 	end
-
+	
 	-- Open NUI
 	SendNUIMessage({ 
 		showmenu = true,
@@ -177,6 +177,7 @@ AddEventHandler('lc_dealership:spawnVehicle', function(vehicle_model,plate)
 		vehicleProps.plate = plate
 		SetVehicleNumberPlateText(vehicle, plate)
 		--exports['pepe-vehiclekeys']:SetVehicleKey(GetVehicleNumberPlateText(vehicle), true)
+		TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(vehicle).plate)	
         --exports['pepe-fuel']:SetFuelLevel(vehicle, GetVehicleNumberPlateText(vehicle), 100.0, false)
 		TriggerServerEvent('lc_dealership:setVehicleOwned', vehicleProps, vehicle_model)
 	end)
@@ -665,8 +666,9 @@ AddEventHandler('lc_dealership:createVehicleThread', function(key, k, veh, vehic
 		if GetPedInVehicleSeat(veh, -1) == ped then
 			timer = 5
 			DrawText3D(xp,yp,zp+0.6, Lang[Config.lang]['preview_vehicle'], 0.40)
-			exports['pepe-vehiclekeys']:SetVehicleKey(GetVehicleNumberPlateText(veh), true)
-        exports['pepe-fuel']:SetFuelLevel(veh, GetVehicleNumberPlateText(veh), 100.0, false)
+			--exports['pepe-vehiclekeys']:SetVehicleKey(GetVehicleNumberPlateText(veh), true)
+			TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)	
+        	--exports['pepe-fuel']:SetFuelLevel(veh, GetVehicleNumberPlateText(veh), 100.0, false)
 			if IsControlJustPressed(0,Config.hotkeys.testDrive) then
 				local test_drive = Config.dealership_locations[key].test_drive
 				if test_drive.teleport then
@@ -681,7 +683,8 @@ AddEventHandler('lc_dealership:createVehicleThread', function(key, k, veh, vehic
 				FreezeEntityPosition(veh,false)
 				
 				local rtime = test_drive.test_drive_time
-				TriggerEvent("lc_dealership:Notify","sucesso",Lang[Config.lang]['test_drive_started']:format(rtime))
+				
+				TriggerEvent("DoLongHudText",Lang[Config.lang]['test_drive_started']:format(rtime),2)
 				while rtime > 0 do
 					if GetPedInVehicleSeat(veh, -1) ~= ped then
 						DoScreenFadeOut(500)
@@ -748,10 +751,10 @@ AddEventHandler('lc_dealership:vehicleClientLock', function()
 		TriggerEvent("vrp_sound:source",'lock',0.5)
 		if lock == 1 then
 			SetVehicleDoorsLocked(v,2)
-			TriggerEvent("lc_dealership:Notify","importante",Lang[Config.lang]['vehicle_locked'],8000)
+			TriggerEvent("DoLongHudText",Lang[Config.lang]['vehicle_locked'],2)
 		else
 			SetVehicleDoorsLocked(v,1)
-			TriggerEvent("lc_dealership:Notify","importante",Lang[Config.lang]['vehicle_unlocked'],8000)
+			TriggerEvent("DoLongHudText",Lang[Config.lang]['vehicle_unlocked'],1)
 		end
 		SetVehicleLights(v,2)
 		Wait(200)
@@ -965,9 +968,9 @@ RegisterUICallback('lc_dealership:saveDisplayLocation', function (data, cb)
 		x = data.key[3][1],
 		y = data.key[3][2],
 		z = data.key[3][3],
-		w = data.key[3][4]
+		h = data.key[3][4]
 	}
-	TriggerServerEvent("lc_server:SaveDisplayLocation",slot, data.key[2],data.key[3],data.key[4])
+	TriggerServerEvent("lc_server:SaveDisplayLocation",slot, data.key[2],postion,data.key[4])
 	TriggerServerEvent('lc_dealership:getSpawnedDisplayVehicles', data.key[2], postion, data.key[4], slot)
 end)
 

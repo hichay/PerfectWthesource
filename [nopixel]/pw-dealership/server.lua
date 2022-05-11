@@ -135,8 +135,8 @@ AddEventHandler("lc_dealership:getData",function(key)
 					if query and query[1] then
 						openUI(source,key,false) -- Open UI as employee
 					else
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['already_has_owner'])
-						TriggerClientEvent("Framework:Notify", source, "Cửa hàng xe này đã có chủ.", "error", 5000)
+						
+						TriggerClientEvent("DoLongHudText",source, "Cửa hàng xe này đã có chủ.",2)
 
 					end
 				end
@@ -145,8 +145,7 @@ AddEventHandler("lc_dealership:getData",function(key)
 				local query = MySQL.Sync.fetchAll(sql, {['@user_id'] = user_id});
 				-- Check if he can buy this dealership
 				if query and query[1] and #query >= Config.max_dealerships_per_player then
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['already_has_business'])
-					TriggerClientEvent("Framework:Notify", source, "Bạn đã có một cửa hàng khác rồi !", "error", 5000)
+					TriggerClientEvent("DoLongHudText",source, "Bạn đã có một cửa hàng khác rồi !",2)
 
 				else
 					TriggerClientEvent("lc_dealership:openRequest",source, Config.dealership_locations[key].buy_price) -- Open the interface buy request
@@ -167,13 +166,13 @@ AddEventHandler("lc_dealership:buyDealership",function(key)
 		if tryPayment(source,price,Config.Framework.account_dealership) then
 			local sql = "INSERT INTO `dealership_owner` (user_id,dealership_id,name,stock,stock_sold,stock_prices,timer) VALUES (@user_id,@dealership_id,@name,@stock,@stock_sold,@stock_prices,@timer);";
 			MySQL.Sync.execute(sql, {['@dealership_id'] = key, ['@user_id'] = user_id, ['@name'] = getPlayerName(user_id), ['@stock'] = json.encode({}), ['@stock_sold'] = json.encode({}), ['@stock_prices'] = json.encode({}), ['@timer'] = os.time()});
-			--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['businnes_bougth'])
-			TriggerClientEvent("Framework:Notify", source, "Đã mua thành công", "success", 5000)
+
+			TriggerClientEvent("ESX:Notify", source, "Đã mua thành công", "success", 5000)
+			
 
 			SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_bought']:format(key,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 		else
-			--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
-			TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
 		end
 	end
@@ -190,13 +189,11 @@ AddEventHandler("lc_dealership:sellDealership",function(key)
 			giveMoney(source,Config.dealership_locations[key].sell_price,Config.Framework.account_dealership)
 			local sql = "DELETE FROM `dealership_owner` WHERE dealership_id = @dealership_id;DELETE FROM `dealership_requests` WHERE dealership_id = @dealership_id;DELETE FROM `dealership_hired_players` WHERE dealership_id = @dealership_id;DELETE FROM `dealership_balance` WHERE dealership_id = @dealership_id;";
 			MySQL.Sync.execute(sql, {['@dealership_id'] = key});
-			--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['dealer_sold'])
-			TriggerClientEvent("Framework:Notify", source, "Đã bán cửa hàng thành công", "success", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Đã bán cửa hàng thành công", "success", 5000)
 
 			SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_close']:format(key,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 		else
-			--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['no_own_dealer'])
-			TriggerClientEvent("Framework:Notify", source, "Bạn không phải chủ cửa hàng", "error", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Bạn không phải chủ cửa hàng", "error", 5000)
 
 		end
 	end
@@ -241,22 +238,19 @@ AddEventHandler("lc_dealership:importVehicle",function(key,vehicle,amount)
 							started_import[source] = true
 							TriggerClientEvent("lc_dealership:startContract",source,vehicle,amount,false)
 						else
-							--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
-							TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
 						end
 					else
-						---TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['max_stock_vehicle'])
-						TriggerClientEvent("Framework:Notify", source, "Bạn đã đạt đến số lượng tối đa của chiếc xe này trong kho của mình", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Bạn đã đạt đến số lượng tối đa của chiếc xe này trong kho của mình", "error", 5000)
 
 					end
 				else
-					TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['max_amount']:format(max_amount))
+					TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['max_amount']:format(max_amount),2)
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Hàng của đại lý đã đầy", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Hàng của đại lý đã đầy", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['stock_full'])
 			end
 		end
 	end
@@ -311,12 +305,11 @@ AddEventHandler("lc_dealership:exportVehicle",function(key,vehicle,amount)
 					started_export[source] = true
 					TriggerClientEvent("lc_dealership:startContract",source,vehicle,amount,true)
 				else
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_stock'])
-					TriggerClientEvent("Framework:Notify", source, "Không đủ hàng cho chiếc xe này", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Không đủ hàng cho chiếc xe này", "error", 5000)
 
 				end
-			else
-				TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['max_amount']:format(max_amount))
+			else				
+				TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['max_amount']:format(max_amount),2)
 			end
 		end
 	end
@@ -375,17 +368,14 @@ AddEventHandler("lc_dealership:setPrice",function(key,vehicle,price)
 					arr_stock[vehicle] = price
 					local sql = "UPDATE `dealership_owner` SET stock_prices = @stock_prices WHERE dealership_id = @dealership_id";
 					MySQL.Sync.execute(sql, {['@dealership_id'] = key, ['@stock_prices'] = json.encode(arr_stock)});
-					--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['stock_price_changed'])
-					TriggerClientEvent("Framework:Notify", source, "Đã thay đổi giá bán", "success", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Đã thay đổi giá bán", "success", 5000)
 
 				else
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['must_be_owner'])
-					TriggerClientEvent("Framework:Notify", source, "Bạn phải là chủ sở hữu để làm điều đó", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Bạn phải là chủ sở hữu để làm điều đó", "error", 5000)
 	
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Giá trị không hợp lệ", "error", 5000)
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['invalid_value'])
+				TriggerClientEvent("ESX:Notify", source, "Giá trị không hợp lệ", "error", 5000)
 			end
 		end
 	end
@@ -471,18 +461,17 @@ AddEventHandler("lc_dealership:buyVehicle",function(key,vehicle)
 
 					paid_vehicle[source] = true
 					TriggerClientEvent("lc_dealership:spawnVehicle",source,vehicle,GeneratePlate())
-					TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['bought_vehicle']:format(veh_name))
+					
+					TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['bought_vehicle']:format(veh_name),1)
 					insertBalanceHistory(key,user_id,Lang[Config.lang]['balance_vehicle_bought']:format(veh_name),price,0,1)
 					SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_vehicle_bought']:format(key,vehicle,price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 				else
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
-					TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Cửa hàng không có đủ hàng chiếc xe này", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Cửa hàng không có đủ hàng chiếc xe này", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_stock'])
 			end
 		end
 	end
@@ -510,19 +499,18 @@ AddEventHandler("lc_dealership:sellVehicle",function(key,vehicle,plate,price)
 		if price > 0 then
 			local sql = "INSERT INTO `dealership_requests` (`dealership_id`, `user_id`, `vehicle`, `request_type`, `plate`, `name`, `price`) VALUES (@dealership_id, @user_id, @vehicle, @request_type, @plate, @name, @price);";
 			MySQL.Sync.execute(sql, {['@dealership_id'] = key, ['@user_id'] = user_id, ['@vehicle'] = vehicle, ['@request_type'] = 0, ['@plate'] = plate, ['@name'] = getPlayerName(user_id), ['@price'] = price});
-			TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['sell_request_created']:format(price))
+
+			TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['sell_request_created']:format(price), 1)
 			local tPlayer = ESX.GetPlayerFromIdByCitizenId(owner_id)
 			if tPlayer then
-				TriggerClientEvent("Framework:Notify", source, "Yêu cầu bán đã được tạo", "success", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Yêu cầu bán đã được tạo", "success", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",tPlayer.PlayerData.source,"sucesso",Lang[Config.lang]['sell_request_created_owner'])
 			end
 			openUI(source,key,true,true)
 			SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_sell_used_vehicle_request']:format(key,vehicle,plate,price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 		else
-			TriggerClientEvent("Framework:Notify", source, "Giá trị không hợp lệ", "error", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Giá trị không hợp lệ", "error", 5000)
 
-			--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['invalid_value'])
 		end
 	else
 		if Config.sell_vehicles.sell_without_owner then
@@ -530,19 +518,17 @@ AddEventHandler("lc_dealership:sellVehicle",function(key,vehicle,plate,price)
 			if hasVehicle(user_id,vehicle) then
 				deleteSoldVehicle(user_id,plate)
 				giveMoney(source,sell_price,Config.Framework.account_customers)
-				TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['sold_vehicle']:format(sell_price))
+				TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['sold_vehicle']:format(sell_price), 1)
 				openUI(source,key,true,true)
 				SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_sell_used_vehicle_without_owner']:format(key,vehicle,plate,sell_price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 			else
 				TriggerClientEvent("lc_dealership:closeUI",source)
-				TriggerClientEvent("Framework:Notify", source, "Bạn không sở hữu chiếc xe này", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn không sở hữu chiếc xe này", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['not_own_this_vehicle_2'])
 			end
 		else
-			TriggerClientEvent("Framework:Notify", source, "Cửa hàng này không có chủ sỡ hữu", "error", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Cửa hàng này không có chủ sỡ hữu", "error", 5000)
 
-			--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['no_owner'])
 		end
 	end
 end)
@@ -560,14 +546,12 @@ AddEventHandler("lc_dealership:cancelSellVehicle",function(key,id)
 	if query and query[1] and query[1].request_type == 0 and (query[1].status == 0 or query[1].status == 3) then
 		local sql = "DELETE FROM `dealership_requests` WHERE id = @id";
 		MySQL.Sync.execute(sql, {['@id'] = id});
-		TriggerClientEvent("Framework:Notify", source, "Yêu cầu của bạn đã bị hủy", "success", 5000)
+		TriggerClientEvent("ESX:Notify", source, "Yêu cầu của bạn đã bị hủy", "success", 5000)
 
-		--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['buy_request_cancelled'])
 		openUI(source,key,true,true)
 	else
-		TriggerClientEvent("Framework:Notify", source, "Bạn không thể hủy yêu cầu này", "error", 5000)
+		TriggerClientEvent("ESX:Notify", source, "Bạn không thể hủy yêu cầu này", "error", 5000)
 
-		--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_cancel_request'])
 	end
 end)
 
@@ -586,14 +570,12 @@ AddEventHandler("lc_dealership:finishSellVehicle",function(key,id)
 		MySQL.Sync.execute(sql, {['@id'] = id});
 
 		giveMoney(source,query[1].price,Config.Framework.account_customers)
-		TriggerClientEvent("Framework:Notify", source, "Đã bán xe", "success", 5000)
-		--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['sold_vehicle'])
+		TriggerClientEvent("ESX:Notify", source, "Đã bán xe", "success", 5000)
 		openUI(source,key,true,true)
 		SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_sell_used_vehicle_finish']:format(key,query[1].vehicle,query[1].plate,query[1].price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 	else
-		TriggerClientEvent("Framework:Notify", source, "Bạn không thể hủy yêu cầu này", "error", 5000)
+		TriggerClientEvent("ESX:Notify", source, "Bạn không thể hủy yêu cầu này", "error", 5000)
 
-		--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_cancel_request'])
 	end
 end)
 
@@ -622,26 +604,20 @@ AddEventHandler("lc_dealership:hirePlayer",function(key,user)
 							MySQL.Sync.execute(sql, {['@user_id'] = user, ['@dealership_id'] = key, ['@name'] = name, ['@timer'] = os.time()});
 							openUI(source,key,true)
 							
-							TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['hired_user']:format(name))
+							TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['hired_user']:format(name), 1)
 						else
-							TriggerClientEvent("Framework:Notify", source, "Đã tuyển dụng nhân viên", "success", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Đã tuyển dụng nhân viên", "success", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['user_employed'])
 						end
 					else
-						TriggerClientEvent("Framework:Notify", source, "Không tìm thấy người chơi", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Không tìm thấy người chơi", "error", 5000)
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['user_not_found'])
 					end
 				else
-					TriggerClientEvent("Framework:Notify", source, "Đã đạt số lượng nhân viên tối đa", "error", 5000)
-
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['max_employees'])
+					TriggerClientEvent("ESX:Notify", source, "Đã đạt số lượng nhân viên tối đa", "error", 5000)
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
-
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['must_be_owner'])
+				TriggerClientEvent("ESX:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
 			end
 		end
 	end
@@ -658,14 +634,12 @@ AddEventHandler("lc_dealership:firePlayer",function(key,user)
 			if isOwner(key,user_id) then
 				local sql = "DELETE FROM `dealership_hired_players` WHERE user_id = @user_id AND dealership_id = @dealership_id";
 				MySQL.Sync.execute(sql, {['@user_id'] = user, ['@dealership_id'] = key});
-				TriggerClientEvent("Framework:Notify", source, "Đã đuổi việc nhân viên", "success", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Đã đuổi việc nhân viên", "success", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['fired_user'])
 				openUI(source,key,true)
 			else
-				TriggerClientEvent("Framework:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['must_be_owner'])
 			end
 		end
 	end
@@ -688,31 +662,25 @@ AddEventHandler("lc_dealership:giveComission",function(key,user,amount)
 						if tryGetDealershipMoney(key,amount) then
 							giveMoney(tPlayer.PlayerData.source,amount,Config.Framework.account_dealership)
 							openUI(source,key,true)
-							TriggerClientEvent("Framework:Notify", tPlayer.PlayerData.source, "Bạn đã nhận được hoa hồng, hãy kiểm tra tài khoản của bạn", "success", 5000)
+							TriggerClientEvent("ESX:Notify", tPlayer.PlayerData.source, "Bạn đã nhận được hoa hồng, hãy kiểm tra tài khoản của bạn", "success", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",tPlayer.PlayerData.source,"sucesso",Lang[Config.lang]['comission_received'])
-							TriggerClientEvent("Framework:Notify", source, "Đã gửi tiền cho nhân viên", "success", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Đã gửi tiền cho nhân viên", "success", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['comission_sent'])
 						else
-							TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
 						end
 					else
-						TriggerClientEvent("Framework:Notify", source, "Không tìm thấy người chơi", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Không tìm thấy người chơi", "error", 5000)
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_find_user'])
 					end
 				else
-					TriggerClientEvent("Framework:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Bạn không phải là chủ của cửa hàng này", "error", 5000)
 
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['must_be_owner'])
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Giá trị không hợp lệ", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Giá trị không hợp lệ", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['invalid_value'])
 			end
 		end
 	end
@@ -765,31 +733,26 @@ AddEventHandler("lc_dealership:requestVehicle",function(key,vehicle,price)
 						local sql = "INSERT INTO `dealership_requests` (`user_id`, `dealership_id`, `vehicle`, `plate`, `request_type`, `name`, `price`, `status`) VALUES (@user_id, @dealership_id, @vehicle, @plate, @request_type, @name, @price, @status);";
 						MySQL.Sync.execute(sql, {['@dealership_id'] = key, ['@user_id'] = user_id, ['@vehicle'] = vehicle, ['@plate'] = '', ['@request_type'] = 1, ['@name'] = getPlayerName(user_id), ['@price'] = price, ['@status'] = 0});
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['request_created'])
-						TriggerClientEvent("Framework:Notify", source, "Đã tạo yêu cầu thành công", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Đã tạo yêu cầu thành công", "error", 5000)
 
 
 						openUI(source,key,true,true)
 						SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_buy_vehicle_request']:format(key,vehicle,price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 					else
-						TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
 					end
 				else
-					TriggerClientEvent("Framework:Notify", source, "Giá trị không hợp lệ", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Giá trị không hợp lệ", "error", 5000)
 
-					--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['invalid_value'])
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Bạn đã tạo yêu cầu rồi!", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn đã tạo yêu cầu rồi!", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['already_requested'])
 			end
 		else
-			TriggerClientEvent("Framework:Notify", source, "Cửa hàng này không có chủ!", "error", 5000)
+			TriggerClientEvent("ESX:Notify", source, "Cửa hàng này không có chủ!", "error", 5000)
 
-			--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['no_owner'])
 		end
 	end
 end)
@@ -811,15 +774,13 @@ AddEventHandler("lc_dealership:cancelRequest",function(key,id)
 				MySQL.Sync.execute(sql, {['@id'] = id});
 
 				giveMoney(source,query[1].price,Config.Framework.account_customers)
-				TriggerClientEvent("Framework:Notify", source, "Đã hủy yêu cầu!", "success", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Đã hủy yêu cầu!", "success", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['request_cancelled'])
 
 				openUI(source,key,true,true)
 			else
-				TriggerClientEvent("Framework:Notify", source, "Không thể hủy yêu cầu này!", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Không thể hủy yêu cầu này!", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_cancel_request'])
 			end
 		end
 	end
@@ -842,11 +803,10 @@ AddEventHandler("lc_dealership:finishRequest",function(key,id)
 				paid_vehicle[source] = true
 				TriggerClientEvent("lc_dealership:spawnVehicle",source,query[1].vehicle,GeneratePlate())
 				local veh_name = Config.dealership_types[Config.dealership_locations[key].type].vehicles[query[1].vehicle].name
-				TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['bought_vehicle']:format(veh_name))
+				TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['bought_vehicle']:format(veh_name), 1)
 				SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_buy_vehicle_finish']:format(key,query[1].vehicle,query[1].price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 			else
-				TriggerClientEvent("Framework:Notify", source, "Không thể chấp nhận yêu cầu này!", "error", 5000)
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_accept_request'])
+				TriggerClientEvent("ESX:Notify", source, "Không thể chấp nhận yêu cầu này!", "error", 5000)
 			end
 		end
 	end
@@ -875,9 +835,8 @@ AddEventHandler("lc_dealership:acceptRequest",function(key,id)
 						started_import_request[source] = true
 						TriggerClientEvent("lc_dealership:startContract",source,query[1].vehicle,1,false,id)
 					else
-						TriggerClientEvent("Framework:Notify", source, "Không đủ tiền!", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Không đủ tiền!", "error", 5000)
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
 					end
 				else -- Owner buy the vehicle
 					-- Check if vehicle is owned by the same person
@@ -902,27 +861,23 @@ AddEventHandler("lc_dealership:acceptRequest",function(key,id)
 							-- Insert in balance
 							local veh_name = Config.dealership_types[Config.dealership_locations[key].type].vehicles[query[1].vehicle].name
 							insertBalanceHistory(key,user_id,Lang[Config.lang]['balance_used_vehicle_bought']:format(veh_name),query[1].price,1,0)
-							TriggerClientEvent("Framework:Notify", source, "Bạn đã mua chiếc xe này!", "success", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Bạn đã mua chiếc xe này!", "success", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['o_bought_vehicle'])
 						else
-							TriggerClientEvent("Framework:Notify", source, "Không đủ tiền!", "error", 5000)
+							TriggerClientEvent("ESX:Notify", source, "Không đủ tiền!", "error", 5000)
 
-							--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
 						end
 					else
 						-- Change the status to cancelled
 						local sql = "UPDATE `dealership_requests` SET status = 3 WHERE id = @id";
 						MySQL.Sync.execute(sql, {['@id'] = id});
-						TriggerClientEvent("Framework:Notify", source, "Bạn không sở hữu chiếc xe này!", "error", 5000)
+						TriggerClientEvent("ESX:Notify", source, "Bạn không sở hữu chiếc xe này!", "error", 5000)
 
-						--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['not_own_this_vehicle'])
 					end
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Không thể chấp nhận yêu cầu này!", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Không thể chấp nhận yêu cầu này!", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_accept_request'])
 			end
 		end
 	end
@@ -947,9 +902,8 @@ AddEventHandler("lc_dealership:finishImportRequestVehicle",function(key,vehicle,
 
 		local veh_name = Config.dealership_types[Config.dealership_locations[key].type].vehicles[query[1].vehicle].name
 		insertBalanceHistory(key,user_id,Lang[Config.lang]['balance_request_finished']:format(veh_name),query[1].price,0,1)
-		TriggerClientEvent("Framework:Notify", source, "Bạn đã hoàn thành yêu cầu này!", "success", 5000)
+		TriggerClientEvent("ESX:Notify", source, "Bạn đã hoàn thành yêu cầu này!", "success", 5000)
 
-		--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['request_finished'])
 	end
 end)
 
@@ -977,13 +931,11 @@ AddEventHandler("lc_dealership:declineRequest",function(key,id)
 			if query[1].status == 0 then
 				local sql = "UPDATE `dealership_requests` SET status = 3 WHERE id = @id";
 				MySQL.Sync.execute(sql, {['@id'] = id});
-				TriggerClientEvent("Framework:Notify", source, "Bạn đã từ chối yêu cầu", "success", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn đã từ chối yêu cầu", "success", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['request_declined'])
 			else
-				TriggerClientEvent("Framework:Notify", source, "Bạn không thể từ chối yêu cầu này", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn không thể từ chối yêu cầu này", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['cant_decline_request'])
 			end
 		end
 	end
@@ -1001,20 +953,18 @@ AddEventHandler("lc_dealership:depositMoney",function(key,amount)
 				amount = math.floor(amount)
 				if tryPayment(source,amount,Config.Framework.account_dealership) then
 					giveDealershipMoney(key,amount)
-					TriggerClientEvent("Framework:Notify", source, "Đã rút tiền thành công", "success", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Đã rút tiền thành công", "success", 5000)
 
-					--TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['money_deposited'])
 					-- insertBalanceHistory(key,user_id,Lang[Config.lang]['money_deposited'],amount,0,0)
 					openUI(source,key,true)
 				else
-					TriggerClientEvent("Framework:Notify", source, "Không đủ tiền", "error", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
-					TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['insufficient_funds'])
+					TriggerClientEvent("DoLongHudText",source,Lang[Config.lang]['insufficient_funds'],2)
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Không đúng giá trị", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Không đúng giá trị", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['invalid_value'])
 			end
 		end
 	end
@@ -1035,16 +985,16 @@ AddEventHandler("lc_dealership:withdrawMoney",function(key)
 					local sql = "UPDATE `dealership_owner` SET money = 0 WHERE dealership_id = @dealership_id";
 					MySQL.Sync.execute(sql, {['@dealership_id'] = key});
 					giveMoney(source,amount,Config.Framework.account_dealership)
-					TriggerClientEvent("Framework:Notify", source, "Đã gửi tiền thành công", "success", 5000)
+					TriggerClientEvent("ESX:Notify", source, "Đã gửi tiền thành công", "success", 5000)
 
-					TriggerClientEvent("lc_dealership:Notify",source,"sucesso",Lang[Config.lang]['money_withdrawn'])
+					
+					TriggerClientEvent("DoLongHudText",source,Lang[Config.lang]['money_withdrawn'],1)
 					-- insertBalanceHistory(key,user_id,Lang[Config.lang]['money_withdrawn'],amount,1,0)
 					openUI(source,key,true)
 				end
 			else
-				TriggerClientEvent("Framework:Notify", source, "Bạn không phải là chủ", "error", 5000)
+				TriggerClientEvent("ESX:Notify", source, "Bạn không phải là chủ", "error", 5000)
 
-				--TriggerClientEvent("lc_dealership:Notify",source,"negado",Lang[Config.lang]['must_be_owner'])
 			end
 		end
 	end
@@ -1127,9 +1077,11 @@ function tryGetDealershipMoney(dealership_id,amount)
 end
 
 function insertBalanceHistory(dealership_id,user_id,description,amount,type,isbuy)
+	print(description)
 	local name = getPlayerName(user_id)
+	local IdNumber = getPleyrIdNumber(user_id)
 	local sql = "INSERT INTO `dealership_balance` (dealership_id,user_id,description,name,amount,type,isbuy,date) VALUES (@dealership_id,@user_id,@description,@name,@amount,@type,@isbuy,@date)";
-	MySQL.Sync.execute(sql, {['@dealership_id'] = dealership_id, ['@user_id'] = user_id, ['@description'] = description, ['@name'] = name, ['@amount'] = amount, ['@type'] = type, ['@isbuy'] = isbuy, ['@date'] = os.time()});
+	MySQL.query(sql, {['@dealership_id'] = dealership_id, ['@user_id'] = IdNumber, ['@description'] = description, ['@name'] = name, ['@amount'] = amount, ['@type'] = type, ['@isbuy'] = isbuy, ['@date'] = os.time()});
 end
 
 -- Main function: this function get the data from the tables and config and send it to the JS. 
@@ -1145,7 +1097,7 @@ function openUI(source, key, reset, isCustomer)
 	if user_id then
 		-- Get the dealership data
 		local sql = "SELECT * FROM `dealership_owner` WHERE dealership_id = @dealership_id";
-		query.dealership_owner = MySQL.Sync.fetchAll(sql,{['@dealership_id'] = key})[1];
+		query.dealership_owner = MySQL.query.await(sql,{['@dealership_id'] = key})[1];
 		
 		if isCustomer and query.dealership_owner == nil then
 			-- If there is no owner and is a customer
@@ -1197,7 +1149,7 @@ function openUI(source, key, reset, isCustomer)
 			-- Get the customer owned vehicles to display on store list to sell
 			local vehicles = dontAskMeWhatIsThis(user_id)
 
-			query.owned_vehicles  = {}
+			--[[ query.owned_vehicles  = {}
 			for k,v in pairs(vehicles) do
 				if not v.id then -- Not in requests table
 					local vehicleProps = json.decode(v.mods)	
@@ -1206,7 +1158,7 @@ function openUI(source, key, reset, isCustomer)
 				else
 					table.insert(query.owned_vehicles, {vehicle = v.mods, plate = v.plate, price = v.price, id = v.id, status = v.status})
 				end
-			end
+			end ]]
 			
 			local sql = "SELECT * FROM `dealership_requests` WHERE dealership_id = @dealership_id AND request_type = 1";
 			query.dealership_requests = MySQL.Sync.fetchAll(sql,{['@dealership_id'] = key});

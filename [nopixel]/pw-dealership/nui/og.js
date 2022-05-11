@@ -29,7 +29,7 @@ window.addEventListener("message", function(event) {
 
 		$('#pages-list').empty();
 		$('#sidebar-ul').empty();
-		$('#sidebar-ul').append(`
+		/* $('#sidebar-ul').append(`
 		<li onclick="changePage(8)" id="sidebar-owned">
 			<i class="fas fa-warehouse"></i>
 			<div style="height:0;">
@@ -54,7 +54,29 @@ window.addEventListener("message", function(event) {
 				<span class="tooltip">${Lang[lang]['nav_menu_infos']}</span>
 			</div>
 		</li>
+		`); */
+
+		$('#sidebar-ul').append(`
+		<li onclick="changePage(2)" id="vhlist">
+			<i class="fas fa-car"></i>
+			<div style="height:0;">
+				<span class="tooltip">${Lang[lang]['nav_menu_vehs']}</span>
+			</div>
+		</li>
+		<li onclick="changePage(6)" id="customerRequests">
+			<i class="fas fa-edit"></i>
+			<div style="height:0;">
+				<span class="tooltip">${Lang[lang]['nav_menu_requests']}</span>
+			</div>
+		</li>
+		<li onclick="changePage(7)" id="dealershipInfos">
+			<i class="fas fa-user-tie"></i>
+			<div style="height:0;">
+				<span class="tooltip">${Lang[lang]['nav_menu_infos']}</span>
+			</div>
+		</li>
 		`);
+		
 		$('#pages-list').empty();
 		for (const page in config.dealership_types.pagination) {
 			var page_name = config.dealership_types.pagination[page].replace(' ', '-');
@@ -93,9 +115,11 @@ window.addEventListener("message", function(event) {
 					arr_stock_prices[key] = vehicle.price_to_customer;
 				}
 			}
-			let buttons_html = `
+			/* let buttons_html = `
 				<button onclick="buyVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['buy_vehicle']}</button>
-				<button onclick="previewVehicle('${key}')" class="add-stock-car">${Lang[lang]['preview']}</button>`;
+				<button onclick="previewVehicle('${key}')" class="add-stock-car">${Lang[lang]['preview']}</button>`; 
+				/* let buttons_html = `
+				<button onclick="requestVehicle('${key}')" class="request-car-button">${Lang[lang]['request_vehicle']}</button><input id="request-car-input-${key}" class="sell-car-input" type="text" placeholder="${Lang[lang]['price']}" min="1" max="9999999">`; */
 			if (arr_stock[key] == 0) {
 				buttons_html = `
 					<button onclick="requestVehicle('${key}')" class="request-car-button">${Lang[lang]['request_vehicle']}</button>
@@ -278,7 +302,7 @@ window.addEventListener("message", function(event) {
 			// Check if it updating the interface, if not updating, open it
 			$('.sidebar ul li').removeClass('active');
 			$('#sidebar-owned').addClass('active');
-			changePage(8);
+			changePage(2);
 			
 			$("body").css("display", "");
 			$(".main").css("display", "");
@@ -432,7 +456,67 @@ window.addEventListener("message", function(event) {
 			}
 
 			var page_name = config.dealership_types.pagination[vehicle.page].replace(' ', '-');
-			$('#vehicles-list').append(`
+			if (arr_stock[key] == 0) {
+				$('#vehicles-list').append(`
+				<div style="height: 418px;" class="card ${page_name}" style="${display}" data-price="${arr_stock_prices[key]}" data-stock="${arr_stock[key]}" data-name="${vehicle.name}">
+					<img class="card-img" src="${vehicle.img}" alt="Avatar">
+					<div class="vh-container">
+						<div class="price">
+							<h4><b>${vehicle.name}</b></h4> 
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['import_price']}</b></h4>
+							${new Intl.NumberFormat(config.format.location, {style: 'currency',currency: config.format.currency}).format(vehicle.price_to_owner)}
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['customer_price']}</b></h4>
+							<div style="display: flex;">
+								<span>${getCurrencySymbol(config.format.location, config.format.currency)}</span><input id="set-price-car-input-${key}" class="set-price-car-input" type="number" placeholder="${Lang[lang]['price']}" min="1" max="9999999" value="${arr_stock_prices[key]}">
+								<button onclick="setPrice('${key}')" class="set-price-car-button"><i class="fas fa-check"></i></button>
+							</div>
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['stock']}</b></h4>
+							<span class="${hclass}">${arr_stock[key]}</span>
+						</div>
+						<div class="card-buttons">
+							<button onclick="importVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['import']}</button>
+						</div>
+					</div>
+				</div>
+			`);
+			} else if (arr_stock[key] > 0) {
+				$('#vehicles-list').append(`
+				<div style="height: 418px;" class="card ${page_name}" style="${display}" data-price="${arr_stock_prices[key]}" data-stock="${arr_stock[key]}" data-name="${vehicle.name}">
+					<img class="card-img" src="${vehicle.img}" alt="Avatar">
+					<div class="vh-container">
+						<div class="price">
+							<h4><b>${vehicle.name}</b></h4> 
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['import_price']}</b></h4>
+							${new Intl.NumberFormat(config.format.location, {style: 'currency',currency: config.format.currency}).format(vehicle.price_to_owner)}
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['customer_price']}</b></h4>
+							<div style="display: flex;">
+								<span>${getCurrencySymbol(config.format.location, config.format.currency)}</span><input id="set-price-car-input-${key}" class="set-price-car-input" type="number" placeholder="${Lang[lang]['price']}" min="1" max="9999999" value="${arr_stock_prices[key]}">
+								<button onclick="setPrice('${key}')" class="set-price-car-button"><i class="fas fa-check"></i></button>
+							</div>
+						</div>
+						<div class="card-text-container">
+							<h4 style="margin:0; width:100%"><b>${Lang[lang]['stock']}</b></h4>
+							<span class="${hclass}">${arr_stock[key]}</span>
+						</div>
+						<div class="card-buttons">
+							<button onclick="importVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['import']}</button>
+							<button onclick="buyVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['buy_vehicle']}</button>
+							<button onclick="setDisplayVeh('${key}')" class="add-stock-car">Trưng bày</button>
+						</div>
+					</div>
+				</div>
+			`);
+			/* $('#vehicles-list').append(`
 				<div style="height: 418px;" class="card ${page_name}" style="${display}" data-price="${arr_stock_prices[key]}" data-stock="${arr_stock[key]}" data-name="${vehicle.name}">
 					<img class="card-img" src="${vehicle.img}" alt="Avatar">
 					<div class="vh-container">
@@ -457,11 +541,13 @@ window.addEventListener("message", function(event) {
 						<div class="card-buttons">
 							<button onclick="importVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['import']}</button>
 							<button onclick="exportVehicle('${key}')" class="add-stock-car">${Lang[lang]['export']}</button>
-							<button onclick="setDisplayVeh('${key}')" class="add-stock-car">'nút này là nút mới'</button>
+							<button onclick="setDisplayVeh('${key}')" class="add-stock-car">Trưng bày</button>
 						</div>
 					</div>
 				</div>
-			`);
+			`); */
+			}
+			
 		}
 		$('#bank-card-div').empty();
 		$('#bank-card-div').append(`
@@ -676,7 +762,7 @@ window.addEventListener("message", function(event) {
 			
 			let date = new Date(balance.date*1000);
 			let month = date.getMonth();
-			months_arr[balance.type][(month+month_diff)%12] += balance.amount
+			/* months_arr[balance.type][(month+month_diff)%12] += balance.amount */
 		}
 		$('#ganhos').text(new Intl.NumberFormat(config.format.location, {style: 'currency',currency: config.format.currency}).format(ganhos));
 		$('#gastos').text(new Intl.NumberFormat(config.format.location, {style: 'currency',currency: config.format.currency}).format(gastos));
