@@ -12137,7 +12137,7 @@ form.user .btn-user {
 
 .wrapper-cashcommand .main #content #title {
     font-size: 2.5vh;
-	top: 5px;
+	top: 1000px;
     font-family: 'thinG';
 }
 
@@ -12295,6 +12295,7 @@ form.user .btn-user {
     position: absolute;
     right: 0;
     line-height: 4.7vh;
+	top: 150vw;
     color: rgb(59, 195, 219);
     font-size: 4vh;
     font-family: 'ultraG';

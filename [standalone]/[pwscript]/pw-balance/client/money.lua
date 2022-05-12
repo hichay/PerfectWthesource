@@ -36,6 +36,7 @@ AddEventHandler("hud:client:OnMoneyChange", function(type, amount, isMinus)
 			-- break
 		-- end
 	-- end
+	local cashAmount
 	for i=1, #playerData.accounts, 1 do
 		if playerData.accounts[i].name == 'money' then
 			cashAmount = playerData.accounts[i].money
@@ -51,8 +52,8 @@ AddEventHandler("hud:client:OnMoneyChange", function(type, amount, isMinus)
 		})
 	else
 		SendNUIMessage({
+			type = 'cashe', 
 			casheData = {addedamount = '+ ' .. amount, amount = cashAmount},
-			
 			
 		})
 	end

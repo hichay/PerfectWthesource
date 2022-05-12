@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
 local Interact = {
 	data = {
 	  {
-		id = 'idinteract',
+		id = 'give_moneyinter',
 		label = 'label',
 		icon = 'hand-holding',
 		event = 'pw-scripts:client:Duatien',

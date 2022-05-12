@@ -168,7 +168,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/panto.png',	-- Thay hình = tên gọi xe trước .png
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974187454062014514/panto.png',	-- Thay hình = tên gọi xe trước .png
 				['page'] = 4						-- Set on which page this vehicle will appear
 			},	
 			['blade'] = {							-- Tên gọi xe

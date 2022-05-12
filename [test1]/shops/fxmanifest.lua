@@ -1,12 +1,9 @@
 fx_version 'bodacious'
 games { 'rdr3', 'gta5' }
 
-author 'whitewingz'
-description 'One City Shops'
-version '1.0.0'
 
-client_script{'client.lua',
-	'gui.lua',
+client_script{
+	'cl_*.lua',
+	
 }
 
-server_script 'server.lua'
