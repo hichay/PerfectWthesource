@@ -31,6 +31,7 @@ client_scripts {
 	"@pw-lib/client/cl_rpc.js",
     "@pw-lib/client/cl_rpc.lua",
 	'client/client.js',
+	'client/cl_vehicleweights.js',
 	'client/cl_*.lua',
 	"@PolyZone/client.lua"
 	

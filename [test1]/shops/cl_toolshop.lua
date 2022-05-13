@@ -1,10 +1,10 @@
 
 toolshop = {
-
 	{44.83, -1748.53, 29.54},
 	{2749.23, 3472.33, 55.67}
 
 }
+
 Citizen.CreateThread(function()
 	exports["pw-polyzone"]:AddBoxZone("tool_shop", vector3(44.83, -1748.53, 29.54), 1.8, 2.4, {
 		  heading=315,

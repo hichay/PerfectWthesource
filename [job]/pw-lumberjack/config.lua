@@ -9,7 +9,7 @@ Config = {
     Items = {'wood_cut','wood_cut','wood_cut','wood_cut','wood_cut'},
     Sell = vector3(1210.0, -1318.51, 35.23),
     Process = vector3(-584.66, 5285.63, 70.26),
-    NPC = vector3(-559.7275, 5282.7309, 73.050994),
+    NPC = vector3(-559.7275, 5282.7309, 72.050994),
     Objects = {
         ['pickaxe'] = 'w_me_hatchet',
     },

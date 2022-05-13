@@ -117,9 +117,9 @@ window.addEventListener("message", function(event) {
 			}
 			/* let buttons_html = `
 				<button onclick="buyVehicle('${key}')" class="add-stock-car" style="border-right-width: 0px;">${Lang[lang]['buy_vehicle']}</button>
-				<button onclick="previewVehicle('${key}')" class="add-stock-car">${Lang[lang]['preview']}</button>`; 
-				/* let buttons_html = `
-				<button onclick="requestVehicle('${key}')" class="request-car-button">${Lang[lang]['request_vehicle']}</button><input id="request-car-input-${key}" class="sell-car-input" type="text" placeholder="${Lang[lang]['price']}" min="1" max="9999999">`; */
+				<button onclick="previewVehicle('${key}')" class="add-stock-car">${Lang[lang]['preview']}</button>`; */
+				let buttons_html = `
+				<button onclick="requestVehicle('${key}')" class="request-car-button">${Lang[lang]['request_vehicle']}</button><input id="request-car-input-${key}" class="sell-car-input" type="text" placeholder="${Lang[lang]['price']}" min="1" max="9999999">`; 
 			if (arr_stock[key] == 0) {
 				buttons_html = `
 					<button onclick="requestVehicle('${key}')" class="request-car-button">${Lang[lang]['request_vehicle']}</button>
@@ -926,7 +926,7 @@ $(".confirm-modal-stock").click(function() {
 		let vehicle = $(".modal-stock-overlay").data('vehicle')
 		let isexport = $(".modal-stock-overlay").data('isexport')
 		$(".modal-stock-overlay").data('vehicle',null)
-		$.post('http://dealership/importVehicle', JSON.stringify({vehicle,isexport,valStockCars}));
+		$.post('http://pw-dealership/importVehicle', JSON.stringify({vehicle,isexport,valStockCars}));
 	}
 })
 $(".cancel-modal-stock").click(function() {
@@ -1010,11 +1010,11 @@ function filterVehicles(page) {
 }
 
 function buyDealership() {
-	$.post('http://dealership/buyDealership', JSON.stringify({}));
+	$.post('http://pw-dealership/buyDealership', JSON.stringify({}));
 }
 
 function sellDealership() {
-	$.post('http://dealership/sellDealership', JSON.stringify({}));
+	$.post('http://pw-dealership/sellDealership', JSON.stringify({}));
 }
 
 function importVehicle(vehicle) {
@@ -1024,7 +1024,7 @@ function importVehicle(vehicle) {
 }
 
 function setDisplayVeh(vehicle) {
-	$.post('http://dealership/setDisplayVeh', JSON.stringify({vehicle}));
+	$.post('http://pw-dealership/setDisplayVeh', JSON.stringify({vehicle}));
 }
 
 function exportVehicle(vehicle) {
@@ -1034,17 +1034,17 @@ function exportVehicle(vehicle) {
 }
 
 function buyVehicle(vehicle) {
-	$.post('http://dealership/buyVehicle', JSON.stringify({vehicle}));
+	$.post('http://pw-dealership/buyVehicle', JSON.stringify({vehicle}));
 }
 
 function depositMoney(){
 	let amount = document.getElementById('input-deposit-money').value;
 	document.getElementById('input-deposit-money').value = null;
-	$.post('http://dealership/depositMoney', JSON.stringify({amount}));
+	$.post('http://pw-dealership/depositMoney', JSON.stringify({amount}));
 }
 
 function withdrawMoney(){
-	$.post('http://dealership/withdrawMoney', JSON.stringify({}));
+	$.post('http://pw-dealership/withdrawMoney', JSON.stringify({}));
 }
 
 function changeVehiclePage(page) {
@@ -1106,78 +1106,78 @@ function changeVehiclePage(page) {
 function hirePlayer() {
 	let user = document.getElementById('input-hire-player').value;
 	document.getElementById('input-hire-player').value = null;
-	$.post('http://dealership/hirePlayer', JSON.stringify({user}));
+	$.post('http://pw-dealership/hirePlayer', JSON.stringify({user}));
 }
 
 function firePlayer(user) {
-	$.post('http://dealership/firePlayer', JSON.stringify({user}));
+	$.post('http://pw-dealership/firePlayer', JSON.stringify({user}));
 }
 
 function giveComission(user) {
 	let amount = document.getElementById('input-give-comission').value;
 	document.getElementById('input-give-comission').value = null;
-	$.post('http://dealership/giveComission', JSON.stringify({user,amount}));
+	$.post('http://pw-dealership/giveComission', JSON.stringify({user,amount}));
 }
 
 function closeUI(){
-	$.post('http://dealership/close', JSON.stringify({}));
+	$.post('http://pw-dealership/close', JSON.stringify({}));
 }
 
 function sellVehicle(vehicle,plate) {
 	let price = document.getElementById('sell-car-input-'+plate).value;
 	document.getElementById('sell-car-input-'+plate).value = null;
-	$.post('http://dealership/sellVehicle', JSON.stringify({vehicle,plate,price}));
+	$.post('http://pw-dealership/sellVehicle', JSON.stringify({vehicle,plate,price}));
 }
 
 function cancelSellVehicle(id) {
-	$.post('http://dealership/cancelSellVehicle', JSON.stringify({id}));
+	$.post('http://pw-dealership/cancelSellVehicle', JSON.stringify({id}));
 }
 
 function finishSellVehicle(id) {
-	$.post('http://dealership/finishSellVehicle', JSON.stringify({id}));
+	$.post('http://pw-dealership/finishSellVehicle', JSON.stringify({id}));
 }
 
 function previewVehicle(vehicle) {
-	$.post('http://dealership/previewVehicle', JSON.stringify({vehicle}));
+	$.post('http://pw-dealership/previewVehicle', JSON.stringify({vehicle}));
 }
 
 function changeProfile(user_id) {
 	let profile_img = document.getElementById('employee-card__input_profile').value;
 	let banner_img = document.getElementById('employee-card__input_banner').value;
-	$.post('http://dealership/changeProfile', JSON.stringify({user_id,banner_img,profile_img}));
+	$.post('http://pw-dealership/changeProfile', JSON.stringify({user_id,banner_img,profile_img}));
 }
 
 function changeProfileOwner(user_id) {
 	let profile_img = document.getElementById('employee-card__input_profile').value;
 	let banner_img = document.getElementById('employee-card__input_banner').value;
-	$.post('http://dealership/changeProfileOwner', JSON.stringify({user_id,banner_img,profile_img}));
+	$.post('http://pw-dealership/changeProfileOwner', JSON.stringify({user_id,banner_img,profile_img}));
 }
 
 function requestVehicle(vehicle) {
 	let price = document.getElementById('request-car-input-'+vehicle).value;
 	document.getElementById('request-car-input-'+vehicle).value = null;
-	$.post('http://dealership/requestVehicle', JSON.stringify({vehicle,price}));
+	$.post('http://pw-dealership/requestVehicle', JSON.stringify({vehicle,price}));
 }
 
 function cancelRequest(id) {
-	$.post('http://dealership/cancelRequest', JSON.stringify({id}));
+	$.post('http://pw-dealership/cancelRequest', JSON.stringify({id}));
 }
 
 function acceptRequest(id) {
-	$.post('http://dealership/acceptRequest', JSON.stringify({id}));
+	$.post('http://pw-dealership/acceptRequest', JSON.stringify({id}));
 }
 
 function declineRequest(id) {
-	$.post('http://dealership/declineRequest', JSON.stringify({id}));
+	$.post('http://pw-dealership/declineRequest', JSON.stringify({id}));
 }
 
 function finishRequest(id) {
-	$.post('http://dealership/finishRequest', JSON.stringify({id}));
+	$.post('http://pw-dealership/finishRequest', JSON.stringify({id}));
 }
 
 function setPrice(vehicle) {
 	let price = document.getElementById('set-price-car-input-'+vehicle).value;
-	$.post('http://dealership/setPrice', JSON.stringify({vehicle,price}));
+	$.post('http://pw-dealership/setPrice', JSON.stringify({vehicle,price}));
 }
 
 if (!String.prototype.format) {

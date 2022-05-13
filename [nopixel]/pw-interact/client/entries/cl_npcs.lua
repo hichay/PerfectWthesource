@@ -1,26 +1,5 @@
 local Entries = {}
 --Perfect World
-Entries[#Entries + 1] = {
-    type = 'flag',
-    group = { 'isPlayerModel' },
-    data = {
-        {
-            id = "sellvehicle_contract",
-            label = "Hợp đồng bán xe",
-            icon = "file-contract",
-            event = "pw-contractveh:OpenContractInfo",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 2.5 },
-		isEnabled = function()
-			local haveContract = exports['pw-inventory']:hasEnoughOfItem('water', 1, false, true, {
-            })
-            return haveContract
-		end
-    }
-}
 
 Entries[#Entries + 1] = {
     type = 'flag',

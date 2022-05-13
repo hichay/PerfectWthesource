@@ -166,7 +166,7 @@ local function shotRecently()
 	end)
 end
 
-AddEventHandler('np-actionbar:hotreload', function()
+AddEventHandler('pw-actionbar:hotreload', function()
     ammoTable = RPC.execute("weapons:getAmmo")
 end)
 
@@ -200,9 +200,9 @@ Citizen.CreateThread( function()
 				end
 			end
 			if weapon == "-37975472" then
-		        TriggerEvent("np-weapons:threwSmokeGrenade")
+		        TriggerEvent("pw-weapons:threwSmokeGrenade")
 		        if lastEquippedItemToRemove then
-		          if exports["np-inventory"]:hasEnoughOfItem(lastEquippedItemToRemove,1,false) then
+		          if exports["pw-inventory"]:hasEnoughOfItem(lastEquippedItemToRemove,1,false) then
 		            TriggerEvent("inventory:removeItem", lastEquippedItemToRemove, 1)
 		            Citizen.Wait(3000)
 		          end
@@ -286,7 +286,7 @@ local cannotPullWeaponInAnimation = false
 RegisterNetEvent('equipWeaponID')
 AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID,itemToRemove)
 	--GiveAmmoNow()
-	if not exports["np-propattach"]:canPullWeaponHoldingEntity() then return end
+	if not exports["pw-propattach"]:canPullWeaponHoldingEntity() then return end
 	
 	if cannotPullWeaponInAnimation  then return end
 
@@ -947,6 +947,6 @@ exports('EnableStressReliefWhenShooting', function(pState)
 	enableStressReliefWhenShooting = pState
 end)
 
-RegisterNetEvent("np-weapons:hitPlayerWithCash", function(pTarget)
-  TriggerServerEvent("np-weapons:processGiveCashAmount", pTarget, lastEquippedInfo.amount, lastEquippedInfo.id)
+RegisterNetEvent("pw-weapons:hitPlayerWithCash", function(pTarget)
+  TriggerServerEvent("pw-weapons:processGiveCashAmount", pTarget, lastEquippedInfo.amount, lastEquippedInfo.id)
 end)

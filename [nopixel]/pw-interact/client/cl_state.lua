@@ -393,6 +393,7 @@ AddEventHandler("pw-polyzone:enter", function(zone, data)
     if zone == "pw-jobs:impound:dropOff" then IsImpoundDropOff = true end
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = true, polyData = data } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = true, polyData = data } end
+	if zone == "bennys_custom" then polyChecks.BennySCustom = { isInside = true, polyData = data } end
     if zone == "bennys" then
         local plyPed = PlayerPedId()
 
@@ -413,6 +414,7 @@ end)
 AddEventHandler("pw-polyzone:exit", function(zone)
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = false, polyData = nil } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = false, polyData = nil } end
+	if zone == "bennys_custom" then polyChecks.BennySCustom = { isInside = false, polyData = data } end
     if zone == "bennys" then polyChecks.bennys = { isInside = false, polyData = nil } end
     if zone == "townhall_court_gavel" then polyChecks.townhallCourtGavel = { isInside = false, polyData = nil } end
     if zone == "prison" then polyChecks.prison = { isInside = false, polyData = nil } end

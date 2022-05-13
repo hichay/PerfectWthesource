@@ -117,7 +117,7 @@ AddEventHandler("AttachWeapons", function()
 					AttachEntityToEntity(am[#am], ped, bone, w[i]["z"]-0.4, -0.135, -0.15, w[i]["rx"], w[i]["ry"], w[i]["rz"], 0, 1, 0, 1, 0, 1)
 				end
 			elseif w[i]["type"] == 4 and not sheathed then
-				TriggerEvent("np-inventory:attachmentsToggle", true, w[i]["id"])
+				TriggerEvent("pw-inventory:attachmentsToggle", true, w[i]["id"])
 				sheathed = true
 				local bone = GetPedBoneIndex(ped, 24817)
 				am[#am+1] = CreateObject(mdl, 1.0 ,1.0 ,1.0, 1, 1, 0)
@@ -145,7 +145,7 @@ function loadmodel(mdl)
 end
 
 function DeleteAttached()
-	TriggerEvent("np-inventory:attachmentsToggle", false)
+	TriggerEvent("pw-inventory:attachmentsToggle", false)
 	for i = 1, #ag do
 		DeleteEntity(ag[i])
 	end

@@ -138,7 +138,7 @@ AddEventHandler("vehicle:addNos", function(type)
 	print('a')
     Sync.DecorSetInt(vehicle, "Vehicle-Nitrous", 100)
 
-    local vid = GetVehicleIdentifier(vehicle)
+    local vid = GetVehicleNumberPlateText(vehicle)
     if not vid then return end
 
     RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "nitrous", 100)
@@ -185,7 +185,7 @@ AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, pCurrentS
     currentSeat = pCurrentSeat
 
     if not VehicleHasNitro(currentVehicle) then
-        local vid = GetVehicleIdentifier(currentVehicle)
+        local vid = GetVehicleNumberPlateText(currentVehicle)
         if vid then
             local _nitrous = RPC.execute("pw-vehicles:GetVehicleMetadata", vid, "nitrous")
             SetNitroLevel(currentVehicle, _nitrous)
@@ -204,7 +204,7 @@ AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat
     end
 
     if VehicleHasNitro(pCurrentVehicle) then
-        local vid = GetVehicleIdentifier(pCurrentVehicle)
+        local vid = GetVehicleNumberPlateText(pCurrentVehicle)
         if vid then
             RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "nitrous", GetNitroLevel(pCurrentVehicle))
         end

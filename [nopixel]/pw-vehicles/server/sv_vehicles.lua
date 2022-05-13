@@ -43,8 +43,8 @@ function updateVehicle(id, type, var, data)
         table = "vehicles_garage"
         _id = "vid"
     elseif type == "metadata" then
-        table = "vehicles_metadata"
-        _id = "vid"
+        table = "owned_vehicles"
+        _id = "plate"
     elseif type == "payments" then
         table = "vehicles_payments"
         _id = "vid"
@@ -122,8 +122,8 @@ end
 function getVehicleMetadata(vid, data)
     local result = MySQL.scalar.await([[
         SELECT ??
-        FROM vehicles_metadata
-        WHERE vid = ?
+        FROM owned_vehicles
+        WHERE plate = ?
     ]],
     { data, vid })
 

@@ -55,6 +55,39 @@ Citizen.CreateThread(function()
    
     local createdPeds = {}
     local pedcreated = false
+    local data = {
+        id = "lumber_jack",
+        position = {coords = Config.NPC, heading = 158.20},
+        pedType = 4,
+        model = "mp_m_counterfeit_01",
+        networked = false,
+        distance = 25.0,
+        settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+        flags = { ["isNPC"] = true, },
+    }
+    local npc = exports["pw-npcs"]:RegisterNPC(data, "lumb_jacknpc")
+
+    local Interact = {
+      data = {
+        {
+          id = 'lumb_interact',
+          label = 'Bắt đầu/Kết thúc công việc',
+          icon = 'hand-holding',
+          event = 'pw-lumberjack:client:kichhoat',
+          parameters = {},
+        },
+      },
+      options = {
+        distance = { radius = 2.5 },
+        npcIds = { 'lumber_jack' },
+        --[[ isEnabled = function(pEntity, pContext)
+          return isOnDeliveryTask()
+        end, ]]
+      },
+    }
+    
+    exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
+
     while true do
         Citizen.Wait(15)
         local pos = GetEntityCoords(PlayerPedId())
@@ -62,44 +95,13 @@ Citizen.CreateThread(function()
         local closeTo = 0
         local xp ,yp ,zp
 
-        if #(pos - Config.NPC) <= 50 and pedcreated == false then 
+        if #(pos - Config.NPC) <= 50 and not pedcreated then 
             
             pedcreated = true
-            local pedModel = "mp_m_counterfeit_01"
-            RequestModel(pedModel)
-            while not HasModelLoaded(pedModel) do
-                RequestModel(pedModel)
-                Wait(100)
-            end
-        
-            local createdPed1 = CreatePed(5, pedModel, Config.NPC - 1.0, 158.19, false, false)
-            ClearPedTasks(createdPed1)
-            ClearPedSecondaryTask(createdPed1)
-            TaskSetBlockingOfNonTemporaryEvents(createdPed1, true)
-            SetPedFleeAttributes(createdPed1, 0, 0)
-            SetPedCombatAttributes(createdPed1, 17, 1)
-        
-            SetPedSeeingRange(createdPed1, 0.0)
-            SetPedHearingRange(createdPed1, 0.0)
-            SetPedAlertness(createdPed1, 0)
-            SetPedKeepTask(createdPed1, true)
-            Wait(1000) -- for better freeze (not in air)
-            FreezeEntityPosition(createdPed1, true)
-            SetEntityInvincible(createdPed1, true)
-            
-            createdPeds[1] = createdPed1
-        elseif #(pos - Config.NPC) > 50 and pedcreated == true then
+            exports["pw-npcs"]:EnableNPC(npc)
+        elseif #(pos - Config.NPC) > 50 and pedcreated then
             pedcreated = false
-            if DoesEntityExist(createdPeds[1]) then 
-                local ped = createdPeds[1]
-                SetPedKeepTask(ped, false)
-                TaskSetBlockingOfNonTemporaryEvents(ped, false)
-                ClearPedTasks(ped)
-                TaskWanderStandard(ped, 10.0, 10)
-                SetPedAsNoLongerNeeded(ped)
-                DeleteEntity(ped)
-                createdPeds[1] = nil
-            end
+            exports["pw-npcs"]:DisableNPC(npc)
         end
 
         for k, v in pairs(Config.WoodPosition) do

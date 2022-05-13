@@ -11,24 +11,21 @@ Citizen.CreateThread(function()
 	end
 
 	ESX.PlayerData = ESX.GetPlayerData()
+    addBlips()
 end)
 
 local MenuData = {
     mini_market = {
-        text = "To buy clothes",
-        displayName = "Clothing Store"
+        text = "Để mở cửa hàng"
     },
     weapon_shop = {
-        text = "Fix your ugly mug",
-        displayName = "Barber Shop"
+        text = "Để mở cửa hàng"
     },
 	hunting_shop = {
-        text = "Fix your ugly mug",
-        displayName = "Barber Shop"
+        text = "Để mở cửa hàng"
     },
 	tool_shop = {
-        text = "Fix your ugly mug",
-        displayName = "Barber Shop"
+        text = "Để mở cửa hàng"
     }
 }
 
@@ -122,15 +119,15 @@ AddEventHandler('blips:ToggleMinimarket', function()
     end
 end)
 
-AddEventHandler("np-polyzone:enter", function(zone, data)
+AddEventHandler("pw-polyzone:enter", function(zone, data)
     local currentZone = MenuData[zone]
     if currentZone then
-        exports["np-ui"]:showInteraction(("[M] %s"):format(currentZone.text))
+        exports["np-ui"]:showInteraction(("[E] %s"):format(currentZone.text))
         listenForKeypress(zone)
     end
 end)
 
-AddEventHandler("np-polyzone:exit", function(zone)
+AddEventHandler("pw-polyzone:exit", function(zone)
     local currentZone = MenuData[zone]
     if currentZone then
         listening = false
@@ -143,7 +140,7 @@ local function listenForKeypress(zoneName)
     Citizen.CreateThread(function()
 
         while listening do
-            if IsControlJustReleased(0, 244) then
+            if IsControlJustReleased(0, 38) then
                 if zoneName == "mini_market" then
                     TriggerEvent("server-inventory-open", "2", "Shop");	
 				elseif zoneName == "weapon_shop" then
@@ -170,10 +167,6 @@ function addBlips()
     TriggerEvent('blips:ToggleMinimarket')
 
     TriggerEvent('blips:ToggleHuntingStore')
-
     TriggerEvent('blips:ToggleToolShop')
     
 end
-Citizen.CreateThread(function()
-    addBlips()
-end)

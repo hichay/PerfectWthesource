@@ -1,0 +1,35 @@
+<html>
+    <head>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" type="text/css" href="https://darkrpth.com/dist/fontawesome/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/font-awesome-animation@1.1.1/css/font-awesome-animation.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emoji-toolkit/6.6.0/js/joypixels.min.js"></script>
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script src="jquery.faketextbox.js" type="text/javascript"></script>
+		<script src="chat.js" type="text/javascript"></script>
+		<link href="chat.css" rel="stylesheet" type="text/css" />
+		
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Kodchasan&display=swap');
+			*{
+				font-family: 'Kodchasan', sans-serif;
+			}
+		</style>
+    </head>
+    <body>
+        <div id="chat">
+            <div id="chatBuffer"><ul></ul></div>
+            <div id="chatInputHas" class="w3-animate-left">
+				<i class="far fa-comment-alt faa-ring animated" style="color: DodgerBlue;"></i> <i class="fas fa-spinner faa-spin animated uploading"></i>
+				<div id="chatInput"></div>
+				<div class="hint faa-float animated" >
+					กด <kbd class="fab fa-windows windows" style="font-weight: 1;"></kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> เพื่อถ่ายภาพ
+					<br>
+					กด <kbd>Ctrl</kbd>+<kbd>V</kbd> เพื่อวางภาพ
+				</div>
+				<div id="warpPreview" ></div>
+            </div>
+        </div>
+    </body>
+</html>

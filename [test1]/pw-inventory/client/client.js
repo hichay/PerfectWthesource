@@ -150,6 +150,7 @@ on('inventory-client-identifier', _0x3d372a => {
 RegisterNetEvent('esx:playerLoaded');
 on('esx:playerLoaded', async (plydata) => {
     cid = plydata.identifier
+	console.log(cid)
     emitNet('server-request-update', plydata.identifier);
     SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await itemListWithTax() }));
     //Send updated settings

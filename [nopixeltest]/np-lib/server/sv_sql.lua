@@ -1,3 +1,0 @@
----------- CREATE IT YOURSELF PUSSY ----------
-
---WE PAID 300$ FOR THIS BIC

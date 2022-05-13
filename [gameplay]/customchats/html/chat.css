@@ -1,0 +1,226 @@
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(250,80,121); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(250,80,121,0.8);
+}
+
+body
+{
+    background-color: transparent;
+	overflow: hidden;
+}
+
+ul {
+    margin: 0.3vw;
+    padding: 0.3vw;
+    list-style-type: none;
+}
+
+li {
+	word-wrap: break-word;
+	margin-bottom:10px;
+	max-width: 18vw;
+}
+
+.message{
+	margin-top:7px;
+}
+
+.messageblock{
+	overflow: hidden;
+	padding: 2px;
+}
+
+#chat {
+    position: relative;
+    top: 0.5vw;
+    left: 1vw;
+    padding: 0.366vw;
+    width: 95%;
+    font-size: 0.85vw;
+    background-color: transparent;
+    color: #fff;
+    overflow: hidden;
+}
+
+input.fake {
+    position: absolute;
+    top: -523.56vw;
+    left: -523.56vw;
+}
+
+#chatInputHas {
+    display: none;
+	text-shadow: 1px 2px 4px rgb(0 0 0 / 60%);
+}
+
+#chatInputHas strong {
+    display: inline-block;
+    vertical-align: bottom;
+    height: 1.518vw;
+    line-height: 1.361vw;
+}
+
+#chatInput {
+    background-color: transparent;
+    border: none;
+    outline: none !important;
+    padding: 0.157vw;
+    display: contents;
+    vertical-align: middle;
+	margin-bottom: 0.25em;
+    margin: 0vw;
+    color: #fff;
+    font: inherit;
+    white-space: pre;
+    overflow: hidden;
+}
+
+#chatInput * > div:first-child {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.204vw;
+    line-height: 1.047vw;
+}
+
+#chatInput .caret {
+    color: #64b5f6;
+}
+
+#chatBuffer {
+	width: 20vw;
+    height: 40%;
+    overflow: hidden;
+	padding-top:2%;
+	text-shadow: 1px 2px 4px rgb(0 0 0 / 60%);
+	-webkit-mask-image: linear-gradient(to bottom, transparent 1%, black 10%);
+}
+
+.color-1{color: #ff4444;}
+.color-2{color: #99cc00;}
+.color-3{color: #ffbb33;}
+.color-4{color: #0099cc;}
+.color-5{color: #33b5e5;}
+.color-6{color: #aa66cc;}
+.color-7{color: #DDDDDD;}
+.color-8{color: #cc0000;}
+.color-9{color: #cc0068;}
+
+#preview {
+    align-items: center;
+	position: relative;
+    justify-content: center;
+	overflow: hidden;
+	max-width:24%;
+	max-height:30vh;
+	margin-bottom: 0.2vw;
+	margin-right: 0.2vw;
+	left:1.2vw;
+	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 36%), 0 2px 10px 0 rgb(0 0 0 / 32%) !important;
+	border-radius: .25rem;
+}
+
+kbd, .windows {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    color: #333;
+    display: inline-block;
+    font-size: 0.6vw;
+    font-weight: 1000;
+    line-height: 0.6vw;
+    margin: 0 0.1em;
+    padding: 0.1em 0.6em;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.uploading {
+	display: none;
+}
+
+.hint {
+	opacity: 0.7;
+	align-items: center;
+	position: relative;
+    justify-content: center;
+	overflow: hidden;
+	left:1.1vw;
+}
+
+.avatar {
+	width:2.2vw;
+	height:2.2vw;
+	border-radius: 100%;
+	vertical-align: middle;
+	margin-bottom: 0.25em;
+	box-shadow: 1px 2px 4px rgb(0 0 0 / 60%);
+}
+
+.chatImage {
+	display: block;
+	max-width:100%;
+	max-height:30vh;
+	display:block;
+	margin-top:0.3vw;
+	margin-bottom:0.3vw;
+	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 36%), 0 2px 10px 0 rgb(0 0 0 / 32%) !important;
+	border-radius: .25rem;
+}
+
+.awesome {
+	width: 100%;
+	padding: 0.3vw;
+	margin: 0;
+	border-radius: .25rem;
+	text-shadow: none;
+	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 36%), 0 2px 10px 0 rgb(0 0 0 / 32%) !important;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.awesome img{
+	margin:0vw;
+	box-shadow: none!important;
+	border-radius: 16px;
+}
+
+.avatar-awesome {
+	width:0.9vw;
+	height:0.9vw;
+	border-radius: 100%;
+}
+
+.float-right {
+	text-shadow: 1px 2px 4px rgb(0 0 0 / 60%);
+	float: right !important;
+}
+
+.joypixels{
+	width:1.3rem;
+	height:1.3rem;
+	vertical-align: middle;
+	margin-bottom: 0.25em!important;
+	filter: drop-shadow(1px 2px 4px rgb(0 0 0 / 60%));
+}
+
+.awesome .joypixels{
+	margin-bottom: 0.1em!important;
+	filter: none;
+}
+

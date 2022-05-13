@@ -102,7 +102,7 @@ function PutInTrunk(veh)
             trunkZ =  1.4 - (d2.z -  1.4)
         end
 
-        exports["pw-base"]:setVar("trunk", true)
+        --exports["pw-base"]:setVar("trunk", true)
         exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isInTrunk", true)
 
         local testdic = "mp_common_miss"
@@ -144,13 +144,13 @@ function PutInTrunk(veh)
             end
 
             if IsControlJustReleased(0, 23) then
-                exports["pw-base"]:setVar("trunk", false)
+                --exports["pw-base"]:setVar("trunk", false)
                 exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isInTrunk", false)
                 break
             end
 
 			if GetVehicleEngineHealth(veh) < 100.0 or not DoesEntityExist(veh) then
-		        exports["pw-base"]:setVar("trunk", false)
+		        --exports["pw-base"]:setVar("trunk", false)
                 exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isInTrunk", false)
 		        Sync.SetVehicleDoorOpen(trunkveh, 5, 1, 1)
 		        trunkveh = 0

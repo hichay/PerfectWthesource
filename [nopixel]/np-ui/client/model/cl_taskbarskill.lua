@@ -100,7 +100,7 @@ function taskBarSkillCheck(difficulty, skillGapSent, cb, reverse, usePrev)
   local timer = GetGameTimer()
   tbsListening = true
   local minigameResult = 0
-  exports['np-actionbar']:disableActionBar(true)
+  exports['pw-actionbar']:disableActionBar(true)
   while tbsListening do
     local delta = GetGameTimer() - timer
     timer = GetGameTimer()
@@ -172,7 +172,7 @@ function taskBarSkillCheck(difficulty, skillGapSent, cb, reverse, usePrev)
   prevSkillCheck = usePrev and skillTick or nil
   SetTimeout(500, function()
     if not tbsListening then
-      exports['np-actionbar']:disableActionBar(false)
+      exports['pw-actionbar']:disableActionBar(false)
       SetStreamedTextureDictAsNoLongerNeeded('np_sprites')
     end
   end)
