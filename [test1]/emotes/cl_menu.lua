@@ -1,9 +1,3 @@
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-end)
 local function spairs(t, order)
     local keys = {}
     for k in pairs(t) do keys[#keys+1] = k end
@@ -24,21 +18,21 @@ local function spairs(t, order)
 end
 
 local Keys = {
-    [289] = "F2", [170] = "F3", [166] = "F5", [167] = "F6", [168] = "F7" ,[56] = "F9", [57] = "F10" , [165] = "5", [159] = "6", [161] = "7", [162] = "8", [163] = "9"
+    [289] = "F2", [170] = "F3", [166] = "F5", [167] = "F6", [168] = "F7" ,[56] = "F9", [57] = "F10" 
 }
 
 local p_anims = {}
 local favorites = {}
 local currentKeys = {
-    {["key"] = {165},["anim"] = ""},
-    {["key"] = {161},["anim"] = ""},
+    {["key"] = {289},["anim"] = ""},
+    {["key"] = {170},["anim"] = ""},
     {["key"] = {166},["anim"] = ""},
     {["key"] = {167},["anim"] = ""},
     {["key"] = {168},["anim"] = ""},
     {["key"] = {56},["anim"] = ""},
     {["key"] = {57},["anim"] = ""},
 
-    {["key"] = {165,21},["anim"] = ""},
+    {["key"] = {289,21},["anim"] = ""},
     {["key"] = {170,21},["anim"] = ""},
     {["key"] = {166,21},["anim"] = ""},
     {["key"] = {167,21},["anim"] = ""},
@@ -70,41 +64,70 @@ local dogEmote = {
 
 }
 
-WarMenu.CreateMenu("emotes", "Emotes")
-WarMenu.SetSubTitle("emotes", "Emote List")
+local i18nMap2 = {
+    "Emotes",
+    "Emote List",
+    "Favorites",
+    "Press",
+    "to remove a favorite",
+    "Cancel Emote",
+}
+Citizen.CreateThread(function()
+    Wait(math.random(15000, 45000))
+    for _, v in pairs(i18nMap2) do
+        TriggerEvent("i18n:translate", v, "emotes:menu")
+        Wait(500)
+    end
+end)
+Citizen.CreateThread(function()
+    while not exports["np-i18n"]:IsReady() do
+        Wait(100)
+    end
+    WarMenu.CreateMenu("emotes", exports["np-i18n"]:GetStringSwap("Emotes", i18nMap2))
+    WarMenu.SetSubTitle("emotes", exports["np-i18n"]:GetStringSwap("Emote List", i18nMap2))
 
-WarMenu.SetMenuWidth("emotes", 0.5)
-WarMenu.SetMenuX("emotes", 0.71)
-WarMenu.SetMenuY("emotes", 0.017)
-WarMenu.SetMenuMaxOptionCountOnScreen("emotes", 15)
-WarMenu.SetTitleColor("emotes", 135, 206, 250, 255)
-WarMenu.SetTitleBackgroundColor("emotes", 0 , 0, 0, 150)
-WarMenu.SetMenuBackgroundColor("emotes", 0, 0, 0, 100)
-WarMenu.SetMenuSubTextColor("emotes", 255, 255, 255, 255)
+    WarMenu.SetMenuWidth("emotes", 0.5)
+    WarMenu.SetMenuX("emotes", 0.71)
+    WarMenu.SetMenuY("emotes", 0.017)
+    WarMenu.SetMenuMaxOptionCountOnScreen("emotes", 15)
+    WarMenu.SetTitleColor("emotes", 135, 206, 250, 255)
+    WarMenu.SetTitleBackgroundColor("emotes", 0 , 0, 0, 150)
+    WarMenu.SetMenuBackgroundColor("emotes", 0, 0, 0, 100)
+    WarMenu.SetMenuSubTextColor("emotes", 255, 255, 255, 255)
 
-
-WarMenu.CreateSubMenu("favorites", "emotes", "Ưa thích (Nhấn F để xóa khỏi ưa thích)")
-WarMenu.SetMenuWidth("favorites", 0.5)
-WarMenu.SetMenuMaxOptionCountOnScreen("favorites", 30)
-WarMenu.SetTitleColor("favorites", 135, 206, 250, 255)
-WarMenu.SetTitleBackgroundColor("favorites", 0 , 0, 0, 150)
-WarMenu.SetMenuBackgroundColor("favorites", 0, 0, 0, 100)
-WarMenu.SetMenuSubTextColor("favorites", 255, 255, 255, 255)
+    local fav = "Favorites (Press F to remove a favorite)"
+    local favT = exports["np-i18n"]:GetStringSwap(fav, i18nMap2)
+    WarMenu.CreateSubMenu("favorites", "emotes", favT)
+    WarMenu.SetMenuWidth("favorites", 0.5)
+    WarMenu.SetMenuMaxOptionCountOnScreen("favorites", 30)
+    WarMenu.SetTitleColor("favorites", 135, 206, 250, 255)
+    WarMenu.SetTitleBackgroundColor("favorites", 0 , 0, 0, 150)
+    WarMenu.SetMenuBackgroundColor("favorites", 0, 0, 0, 100)
+    WarMenu.SetMenuSubTextColor("favorites", 255, 255, 255, 255)
+end)
 
 local selected_page = 1
 
 local function DrawMenu()
-    if WarMenu.Button("Trang:", selected_page.."/"..#p_anims, {r = 135, g = 206, b = 250, a = 150}) then ClearPedTasks(PlayerPedId()) playing_emote = false end
-    if WarMenu.Button("Ưa thích", "Nhấn F để thêm emote vào ưa thích", {r = 135, g = 206, b = 250, a = 150}) then WarMenu.OpenMenu("favorites") end
+    if WarMenu.Button("Page:", selected_page.."/"..#p_anims, {r = 135, g = 206, b = 250, a = 150}) then
+        ClearPedTasks(PlayerPedId())
+        playing_emote = false
+    end
+    if WarMenu.Button("Favorites", "Press F to favorite an emote", {r = 135, g = 206, b = 250, a = 150}) then
+        WarMenu.OpenMenu("favorites")
+    end
     local key = ""
     for i,v in ipairs(currentKeys) do
         if v.key[2] ~= nil and "Cancel Emote" == v.anim then
-             key = "Shift+"..Keys[v.key[1]]
+            key = "Shift+"..Keys[v.key[1]]
         elseif v.key[1] ~= nil and "Cancel Emote" == v.anim then
-           key = Keys[v.key[1]]
+            key = Keys[v.key[1]]
         end
     end 
-    if WarMenu.Button("Hủy hành động",key, {r = 135, g = 206, b = 250, a = 150}) then ClearPedTasks(PlayerPedId()) playing_emote = false end
+    if WarMenu.Button("Cancel Emote",key, {r = 135, g = 206, b = 250, a = 150}) then
+        ClearPedTasks(PlayerPedId())
+        playing_emote = false
+    end
 
     for k,v in spairs(p_anims[selected_page], function(t, a, b) return string.lower(tostring(a)) < string.lower(tostring(b)) end) do
     local msg = ""
@@ -120,7 +143,9 @@ local function DrawMenu()
 end
 
 local function DrawFavorites()
-    if WarMenu.Button("Cancel Emote", nil, {r = 135, g = 206, b = 250, a = 150}) then ClearPedTasks(PlayerPedId()) playing_emote = false end
+    if WarMenu.Button("Cancel Emote", nil, {r = 135, g = 206, b = 250, a = 150}) then
+        ClearPedTasks(PlayerPedId()) playing_emote = false
+    end
     if WarMenu.MenuButton("Back", "emotes", {r = 135, g = 206, b = 250, a = 150}) then end
 
     for k,v in spairs(favorites, function(t, a, b) return string.lower(tostring(t[a])) < string.lower(tostring(t[b])) end) do
@@ -139,6 +164,17 @@ function addKey(anim,keys)
             if v.key[1] == keys[1] and v.key[2] == nil then
                 v.anim = anim
             end
+        end
+    end
+    TriggerServerEvent("police:setEmoteData",currentKeys)
+end
+
+function removeKey(anim)
+    if anim == "Page:" or anim == "Favorites" or anim == "Back" then return end
+    for i,v in ipairs(currentKeys) do
+        if v.anim == anim then
+            v.anim = ""
+            v.key[2] = nil
         end
     end
     TriggerServerEvent("police:setEmoteData",currentKeys)
@@ -175,7 +211,7 @@ function DrawText3Ds(x,y,z, text)
     local px,py,pz=table.unpack(GetGameplayCamCoords())
     
     SetTextScale(0.35, 0.35)
-    SetTextFont(ESX.FontId)
+    SetTextFont(4)
     SetTextProportional(1)
     SetTextColour(255, 255, 255, 215)
     SetTextEntry("STRING")
@@ -184,6 +220,29 @@ function DrawText3Ds(x,y,z, text)
     DrawText(_x,_y)
 
 end
+
+local i18nMap = {
+    "Enter",
+    "Plays Emote",
+    "Arrows",
+    "Navigate Pages",
+    "Backspace",
+    "Exits",
+    "Saves Emote",
+    "Shift",
+    "with F keys saves also",
+    "Doesn't Save",
+    "You can also type",
+    "emotename",
+    "in chat to perform them",
+}
+Citizen.CreateThread(function()
+    Wait(math.random(15000, 45000))
+    for _, v in pairs(i18nMap) do
+        TriggerEvent("i18n:translate", v, "emotes:menu")
+        Wait(500)
+    end
+end)
 
 Citizen.CreateThread(function()
     local c = 0
@@ -206,18 +265,31 @@ Citizen.CreateThread(function()
     until not key
 
     while true do
-        Citizen.Wait(1)
+        Citizen.Wait(0)
         if WarMenu.IsMenuOpened("emotes") then
             DrawMenu()
 
             WarMenu.Display()
             local plyCoords = GetEntityCoords(PlayerPedId())
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.4,"~g~Enter~s~ để sử dụng emote")
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.3,"~g~Arrows~s~ điều hướng")
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.2,"~g~Backspace~s~ thoát")
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.1,"~g~F2-F10~s~ Lưu phím tắt")
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"],"~g~Shift~s~ và F có thể dùng để lưu vào ưa thích.")
-            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]-0.1,"Có thể bấm ~g~/e tên emo~s~ vào khung chat để dùng nhanh")
+            local txt = ""
+            txt = "~g~Enter~s~ Plays Emote"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.4,txt)
+            txt = "~g~Arrows~s~ Navigate Pages"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.3,txt)
+            txt = "~g~Backspace~s~ Exits"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.2,txt)
+            txt = "~g~F2-F10~s~ Saves Emote"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.1,txt)
+            txt = "~g~Shift~s~ with F keys saves also. (~g~F8~s~ Doesn't Save)"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"],txt)
+            txt = "You can also type ~g~/e emotename~s~ in chat to perform them"
+            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
+            DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]-0.1,txt)
             if IsControlJustReleased(0, 174) then
                 selected_page = selected_page > 1 and selected_page - 1 or #p_anims
             elseif IsControlJustReleased(0, 175) then
@@ -234,6 +306,9 @@ Citizen.CreateThread(function()
                 if curButton then
                     addFavorite(curButton.text)
                 end
+            elseif IsControlJustPressed(0, 178) then
+                local curButton = WarMenu.GetCurrentButton()
+                removeKey(curButton.text)
             end
 
             for i,v in ipairs(currentKeys) do
@@ -272,15 +347,12 @@ end)
 
 RegisterNetEvent("emotes:OpenMenu")
 AddEventHandler("emotes:OpenMenu", function()
-    TriggerServerEvent("police:getAnimData")
-    TriggerServerEvent("police:getEmoteData")
     WarMenu.OpenMenu("emotes")
 end)
 
 RegisterNetEvent("emote:setEmotesFromDB");
 AddEventHandler("emote:setEmotesFromDB", function(emotesResult)
-    if emotesResult == nil or emotesResult[1] == nil then return print("emotes gg") end
-    print(json.encode(emotesResult))
+    if emotesResult == nil or emotesResult[1] == nil then return end
     currentKeys = emotesResult
 end)
 
@@ -290,38 +362,42 @@ AddEventHandler("np-admin:currentDevmode", function(devmode)
 end)
 
 Citizen.CreateThread(function()
+    local function _animation(pAnimation, pKey)
+        if pAnimation == "Cancel Emote" then
+            ClearPedTasks(PlayerPedId()) playing_emote = false
+        else
+            local isCuffed = exports["isPed"]:isPed("handcuffed")
+            if not isCuffed then
+                if GetEntityModel(PlayerPedId()) == GetHashKey("a_c_chop") then
+                    TriggerEvent("animation:PlayAnimation", dogEmote[pKey])
+                else
+                    TriggerEvent("animation:PlayAnimation", pAnimation)
+                end
+            end
+        end
+    end
     while true do
         Citizen.Wait(1)
         if not dToggle then
-            local model = GetEntityModel(PlayerPedId())
-
             for i,v in ipairs(currentKeys) do
                 if v.key[2] ~= nil then
                     if IsControlPressed(0,21) and IsControlJustReleased(0, v.key[1]) then
-                        if v.anim == "Cancel Emote" then
-                            ClearPedTasks(PlayerPedId()) playing_emote = false
-                        else
-                            if model == GetHashKey("a_c_chop") then
-                                TriggerEvent("animation:PlayAnimation", dogEmote[v.key[1]+21])
-                            else
-                                TriggerEvent("animation:PlayAnimation", v.anim)
-                            end
-                        end
+                        _animation(v.anim, v.key[1]+21)
                     end
                 else
                     if not IsControlPressed(0,21) and IsControlJustReleased(0, v.key[1]) then
-                        if v.anim == "Cancel Emote" then
-                            ClearPedTasks(PlayerPedId()) playing_emote = false
-                        else
-                            if model == GetHashKey("a_c_chop") then
-                                TriggerEvent("animation:PlayAnimation", dogEmote[v.key[1]])
-                            else
-                                TriggerEvent("animation:PlayAnimation", v.anim)
-                            end
-                        end
+                        _animation(v.anim, v.key[1])
                     end
                 end
             end
         end
     end
 end)
+
+RegisterCommand("emotes:unbindall", function()
+    for i,v in ipairs(currentKeys) do
+            v.anim = ""
+            v.key[2] = nil
+    end
+    TriggerServerEvent("police:setEmoteData",currentKeys)
+end, false)
