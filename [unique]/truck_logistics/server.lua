@@ -257,25 +257,28 @@ Citizen.CreateThread(function()
 						INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
 					WHERE t.driver <> 0 AND t.driver IS NOT NULL]];
 		local data = MySQL.query.await(sql, {});
-		for k,v in pairs(data) do
-			local source = ESX.GetPlayerFromIdentifier(tonumber(v.user_id))
+		local xPlayer = ESX.GetPlayerFromId(source)
+		if xPlayer ~= nil then
+			for k,v in pairs(data) do
+				local source = ESX.GetPlayerFromIdentifier(tonumber(v.user_id))
 
-			if tryGetTruckerMoney(v.user_id,v.price + v.price_per_km) then
-				local amount = math.random(Config.trabalhos.valor_inicial_min,Config.trabalhos.valor_inicial_max)
-				amount = amount + (v.product_type+v.distance+v.fragile+v.valuable+v.fast)*(amount*(Config.trabalhos.porcentagem_bonus_habilidades/100))
-				giveTruckerMoney(v.user_id,amount)
-			else
-				local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
-				MySQL.query(sql, {['@driver_id'] = v.driver_id});
-				local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-				MySQL.query(sql, {['@driver_id'] = v.driver_id});
-				if source then
-					TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
+				if tryGetTruckerMoney(v.user_id,v.price + v.price_per_km) then
+					local amount = math.random(Config.trabalhos.valor_inicial_min,Config.trabalhos.valor_inicial_max)
+					amount = amount + (v.product_type+v.distance+v.fragile+v.valuable+v.fast)*(amount*(Config.trabalhos.porcentagem_bonus_habilidades/100))
+					giveTruckerMoney(v.user_id,amount)
+				else
+					local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
+					MySQL.query(sql, {['@driver_id'] = v.driver_id});
+					local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
+					MySQL.query(sql, {['@driver_id'] = v.driver_id});
+					if source then
+						TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
+					end
 				end
-			end
 
-			if source then
-				openUI(source, true)
+				if source then
+					openUI(source, true)
+				end
 			end
 		end
 		Citizen.Wait(Config.trabalhos.cooldown*1000*60)
@@ -339,6 +342,7 @@ AddEventHandler("truck_logistics:startContract",function(data)
 		if query and query[1] then
 			local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
 			query_users = MySQL.query.await(sql,{['@user_id'] = user_id});
+			TriggerClientEvent('table',-1,query)
 			if query_users and query_users[1] then
 				if tonumber(query_users[1].product_type) >= tonumber(query[1].cargo_type) then
 					if tonumber(query_users[1].fragile) >= tonumber(query[1].fragile) then
@@ -390,6 +394,14 @@ AddEventHandler("truck_logistics:spawnTruck",function(truck_id)
 	end
 end)
 
+RegisterServerEvent("truck_logistics:deactiveTruck")
+AddEventHandler("truck_logistics:deactiveTruck",function(truck_id)
+	local source = source
+	local sql = "UPDATE `trucker_trucks` SET driver = @driver WHERE truck_id = @truck_id";
+	MySQL.query(sql, {['@truck_id'] = truck_id, ['@driver'] = NULL});
+	openUI(source,true)
+end)
+
 RegisterServerEvent("truck_logistics:upgradeSkill")
 AddEventHandler("truck_logistics:upgradeSkill",function(data)
 	local source = source
@@ -397,9 +409,9 @@ AddEventHandler("truck_logistics:upgradeSkill",function(data)
 	if user_id then
 		local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
 		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
-		if query.skill_points >= (data.value - query[data.id]) then
+		if query.skill_points >= data.value then
 			local sql = "UPDATE `trucker_users` SET "..data.id.." = @value, skill_points = @skill_points WHERE user_id = @user_id";
-			MySQL.query(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - (data.value - query[data.id]))});
+			MySQL.query(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - data.value)});
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['upgraded_skill'],'success')
 			openUI(source,true)
 		else

@@ -129,10 +129,14 @@ function StoreNearbyVehicle(playerCoords)
 
 			-- Make sure the vehicle we're saving is empty, or else it wont be deleted
 			if GetVehicleNumberOfPassengers(v) == 0 and IsVehicleSeatFree(v, -1) then
-				table.insert(vehiclePlates, {
+				-- table.insert(vehiclePlates, {
+					-- vehicle = v,
+					-- plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
+				-- })
+				vehiclePlates[#vehiclePlates + 1] = {
 					vehicle = v,
 					plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
-				})
+				}
 			end
 		end
 	else
@@ -282,7 +286,8 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 		WaitForVehicleToLoad(data.current.model)
 
 		ESX.Game.SpawnLocalVehicle(data.current.model, shopCoords, 0.0, function(vehicle)
-			table.insert(spawnedVehicles, vehicle)
+			--table.insert(spawnedVehicles, vehicle)
+			spawnedVehicles[#spawnedVehicles + 1] = vehicle
 			TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 			FreezeEntityPosition(vehicle, true)
 			SetModelAsNoLongerNeeded(data.current.model)

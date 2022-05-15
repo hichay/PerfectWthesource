@@ -1,4 +1,4 @@
 global.exports('getGemData', (str) => {
-  const count = Number(str.split(' ')[0]);
+  const count = Number(str);
   return { count };
 });

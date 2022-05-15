@@ -6,17 +6,17 @@ local Throttles = {}
 
 local bollards = {
     mrpd_bollards_01 = {
-        doorId = 1001,
+        doorId = 314,
         inside = false
     },
     mrpd_bollards_02 = {
-        doorId = 1002,
+        doorId = 315,
         inside = false
     },
 }
 
-RegisterNetEvent('np-doors:initial-lock-state')
-AddEventHandler('np-doors:initial-lock-state', function(pDoors)
+RegisterNetEvent('pw-doors:initial-lock-state')
+AddEventHandler('pw-doors:initial-lock-state', function(pDoors)
     for k, door in pairs(pDoors) do
       doors[k] = door
     end
@@ -40,6 +40,112 @@ AddEventHandler('np-doors:initial-lock-state', function(pDoors)
         end
     end
 end)
+
+-- RegisterNetEvent("pw-doors:initial-lock-state")
+-- AddEventHandler("pw-doors:initial-lock-state", function(pDoors)
+    -- doors = pDoors
+
+    -- setSecuredAccesses(doors, "door")
+
+    -- for doorId, door in pairs(doors) do
+        -- if door.active and not IsDoorRegisteredWithSystem(doorId) then
+            -- AddDoorToSystem(doorId, door.model, door.coords, false, false, false)
+            -- if door.automatic then
+                -- if door.automatic.distance then
+                    -- DoorSystemSetAutomaticDistance(doorId, door.automatic.distance, 0, 1)
+                -- end
+                -- if door.automatic.rate then
+                    -- DoorSystemSetAutomaticRate(doorId, door.automatic.rate, 0, 1)
+                -- end
+            -- end
+            -- DoorSystemSetDoorState(doorId, door.lock, 0, 1)
+        -- end
+    -- end
+-- end)
+
+function changeLockState(pDoorId, pDoorLockState, pDoorForceUnlock)
+    doors[pDoorId].lock = pDoorLockState
+    doors[pDoorId].forceUnlocked = pDoorForceUnlock
+    DoorSystemSetAutomaticRate(pDoorId, 1.0, 0, 0)
+    DoorSystemSetDoorState(pDoorId, pDoorLockState, 0, 1)
+    if pDoorId == currentDoorId then
+        currentDoorLockState = pDoorLockState
+    end
+end
+
+RegisterNetEvent('pw-doors:change-lock-state')
+AddEventHandler('pw-doors:change-lock-state', function(pDoorId, pDoorLockState, pDoorForceUnlock)
+    if doors and doors[pDoorId] then
+        changeLockState(pDoorId, pDoorLockState, pDoorForceUnlock)
+        if doors[pDoorId].connected then
+            changeLockState(doors[pDoorId].connected, pDoorLockState, pDoorForceUnlock)
+        end
+    end
+end)
+
+local function listenForKeypress()
+    listening = true
+    Citizen.CreateThread(function()
+
+        local newDoorId, newLockState = currentDoorId
+
+        currentDoorLockState = (DoorSystemGetDoorState(currentDoorId) ~= 0 and true or false)
+
+        local hasAccess = hasSecuredAccess(currentDoorId, 'door')
+        local isHidden = doors[currentDoorId] and doors[currentDoorId].hidden or false
+		print(currentDoorLockState)
+        if not hasAccess and currentDoorLockState and not isHidden then
+            exports["np-ui"]:showInteraction('Locked', 'error')
+        end
+
+        while listening do
+
+            local idle = 0
+
+            if currentDoorId ~= newDoorId then
+                currentDoorLockState = (DoorSystemGetDoorState(currentDoorId) ~= 0 and true or false)
+                newDoorId = currentDoorId
+            end
+
+            if currentDoorLockState ~= newLockState then
+                if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
+                    newLockState = currentDoorLockState
+                    if hasAccess and not isHidden then
+                        exports["np-ui"]:showInteraction(("[E] %s"):format(newLockState and 'Locked' or 'Unlocked'), newLockState and 'error' or 'success')
+                    else
+                    end
+                else
+                    idle = 100
+                end
+            end
+
+            if currentDoorId ~= nil and IsControlJustReleased(0, 38) and #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
+                    hasAccess = hasSecuredAccess(currentDoorId, 'door')
+                    if hasAccess then
+                        loadAnimDict("anim@heists@keycard@")
+                        TaskPlayAnim(PlayerPedId(), "anim@heists@keycard@", "exit", 8.0, 1.0, -1, 48, 0, 0, 0, 0)
+                        TriggerServerEvent("pw-doors:change-lock-state", currentDoorId, not currentDoorLockState)
+                    end
+            end
+
+            Wait(idle)
+        end
+
+        exports["np-ui"]:hideInteraction((not hasAccess or newLockState) and 'error' or 'success')
+    end)
+end
+
+function AllowsKeyFob(pDoorId)
+    if not doors[pDoorId] then return false end
+
+    return doors[pDoorId]['keyFob'] == true
+end
+
+function AllowsDetCord(pDoorId)
+    if not doors[pDoorId] then return false end
+
+    return doors[pDoorId]["ignoreDetCord"] ~= true
+end
 
 function GetTargetDoorId(pEntity)
     local activeDoors = DoorSystemGetActive()
@@ -69,6 +175,42 @@ AddEventHandler("pw:target:changed", function(pEntity, pEntityType, pEntityCoord
 
     if printEntityDetails then
         print(pEntity, pEntityType, pEntityCoords, GetEntityModel(pEntity), GetEntityCoords(pEntity))
+        local model = GetEntityModel(pEntity)
+        local coords = GetEntityCoords(pEntity)
+        local function getCoords()
+            local function fmt(s)
+                return tonumber(string.format("%.2f", s))
+            end
+            return "vector3(" .. fmt(coords.x) .. "," .. fmt(coords.y) .. "," .. fmt(coords.z) .. ")"
+        end
+        local function getSceneRef()
+            local opts = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+            local str = ""
+            for i = 0, 5 do
+              str = str .. opts[math.random(#opts)]
+            end
+            return str
+          end
+        lastDoorData =
+[[
+  {
+    info = "",
+    active = true,
+    id = getDoorId(),
+    coords = ]] .. getCoords() .. [[,
+    model = ]] .. model .. [[,
+    lock = true,
+    desc = "",
+    access = {
+        job = {},
+        business = {},
+    },
+    forceUnlocked = false,
+    hidden = false,
+    keyFob = false,
+    sceneRef = "]] .. getSceneRef() .. [[",
+  },
+]]
     end
 
     local doorId = GetTargetDoorId(pEntity)
@@ -76,7 +218,7 @@ AddEventHandler("pw:target:changed", function(pEntity, pEntityType, pEntityCoord
     if printEntityDetails then
         print(doorId)
     end
-
+	
     if (doorId) then
         currentDoorId = doorId
         currentDoorCoords = pEntityCoords
@@ -101,7 +243,6 @@ end)
 
 AddEventHandler("pw-doors:doorKeyFob", function()
     local doorId, isBollard = -1, false
-
     if currentZone ~= nil and bollards[currentZone].inside then
         doorId = bollards[currentZone].doorId
         isBollard = true
@@ -127,7 +268,7 @@ AddEventHandler("pw-doors:doorKeyFob", function()
     if not doorId then
         return TriggerEvent("DoLongHudText","Door not found.",2)
     end
-
+	print(hasSecuredAccess(doorId, 'door'))
     if (not hasSecuredAccess(doorId, 'door') or not AllowsKeyFob(doorId)) then
         PlaySoundFromEntity(-1, "Keycard_Fail", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0);
         return TriggerEvent("DoLongHudText", "The key fob is not working for this door.",2)
@@ -153,6 +294,7 @@ Citizen.CreateThread(function()
         minZ=28.14,
         maxZ=32.14
     })
+   
 end)
 
 RegisterNetEvent("pw-doors:add")
@@ -189,62 +331,6 @@ end
 
 exports('GetNumberOfDoors', getNumDoors)
 
-function listenForKeypress()
-    listening = true
-    Citizen.CreateThread(function()
-
-        local newDoorId, newLockState = currentDoorId
-
-        currentDoorLockState = (DoorSystemGetDoorState(currentDoorId) ~= 0 and true or false)
-
-        local hasAccess = hasSecuredAccess(currentDoorId, "door")
-
-        local isHidden = doors[currentDoorId] and doors[currentDoorId].hidden or false
-
-        if not hasAccess and currentDoorLockState and not isHidden then
-            exports["np-ui"]:showInteraction('Cửa khóa', 'error')
-        end
-
-        while listening do
-            local idle = 0
-
-            if currentDoorId ~= newDoorId then
-                currentDoorLockState = (DoorSystemGetDoorState(currentDoorId) ~= 0 and true or false)
-                newDoorId = currentDoorId
-            end
-
-            if currentDoorLockState ~= newLockState then
-                if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.5 then
-                    newLockState = currentDoorLockState
-                    if hasAccess and not isHidden then
-                        exports["np-ui"]:showInteraction(("[E] %s"):format(newLockState and 'Mở cửa' or 'Khóa cửa'), newLockState and 'error' or 'success')
-                    else
-                    end
-                else
-                    idle = 100
-                end
-            end
-
-            if currentDoorId ~= nil and hasAccess and IsControlJustReleased(0, 38) and #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
-                loadAnimDict("anim@heists@keycard@")
-                TaskPlayAnim(PlayerPedId(), "anim@heists@keycard@", "exit", 8.0, 1.0, -1, 48, 0, 0, 0, 0)
-                TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "keydoors", 0.4)
-                TriggerServerEvent("pw-doors:change-lock-state", currentDoorId, not currentDoorLockState)
-            end
-
-            Wait(idle)
-        end
-
-        exports["np-ui"]:hideInteraction((not hasAccess or newLockState) and 'error' or 'success')
-    end)
-end
-
-function AllowsKeyFob(pDoorId)
-    if not doors[pDoorId] then return false end
-
-    return doors[pDoorId]["keyFob"] == true
-end
-
 function Throttled(name, time)
     if not Throttles[name] then
         Throttles[name] = true
@@ -256,40 +342,6 @@ function Throttled(name, time)
 end
 
 
-RegisterNetEvent("pw-doors:initial-lock-state")
-AddEventHandler("pw-doors:initial-lock-state", function(pDoors)
-    doors = pDoors
-
-    setSecuredAccesses(doors, "door")
-
-    for doorId, door in pairs(doors) do
-        if door.active and not IsDoorRegisteredWithSystem(doorId) then
-            AddDoorToSystem(doorId, door.model, door.coords, false, false, false)
-            if door.automatic then
-                if door.automatic.distance then
-                    DoorSystemSetAutomaticDistance(doorId, door.automatic.distance, 0, 1)
-                end
-                if door.automatic.rate then
-                    DoorSystemSetAutomaticRate(doorId, door.automatic.rate, 0, 1)
-                end
-            end
-            DoorSystemSetDoorState(doorId, door.lock, 0, 1)
-        end
-    end
-end)
-
-RegisterNetEvent("pw-doors:change-lock-state")
-AddEventHandler("pw-doors:change-lock-state", function(pDoorId, pDoorLockState, pDoorForceUnlock)
-    if doors and doors[pDoorId] then
-        doors[pDoorId].lock = pDoorLockState
-        doors[pDoorId].forceUnlocked = pDoorForceUnlock
-        DoorSystemSetAutomaticRate(pDoorId, 1.0, 0, 0)
-        DoorSystemSetDoorState(pDoorId, pDoorLockState, 0, 1)
-        if pDoorId == currentDoorId then
-            currentDoorLockState = pDoorLockState
-        end
-    end
-end)
 
 
 
@@ -309,21 +361,7 @@ end, false)
 RegisterCommand("-useKeyFob", function() end, false)
 
 
---[[
-
-    Debug
-
-]]
-
--- local printEntityDetails = false
-
--- RegisterCommand("doors:print-entity", function()
---     printEntityDetails = not printEntityDetails
--- end)
-
-
-
--- -- GetUserInput function inspired by vMenu (https://github.com/TomGrobbe/vMenu/blob/master/vMenu/CommonFunctions.cs)
+-- GetUserInput function inspired by vMenu (https://github.com/TomGrobbe/vMenu/blob/master/vMenu/CommonFunctions.cs)
 -- function GetUserInput(windowTitle, defaultText, maxInputLength)
 --     -- Create the window title string.
 --     local resourceName = string.upper(GetCurrentResourceName())
@@ -332,7 +370,7 @@ RegisterCommand("-useKeyFob", function() end, false)
 --       windowTitle = "Enter:"
 --     end
 --     AddTextEntry(textEntry, windowTitle)
-
+  
 --     -- Display the input box.
 --     DisplayOnscreenKeyboard(1, textEntry, "", defaultText or "", "", "", "", maxInputLength or 30)
 --     Wait(0)
@@ -349,11 +387,10 @@ RegisterCommand("-useKeyFob", function() end, false)
 --         Wait(0)
 --       end
 --     end
--- end
+--   end
 
 -- local doorIndex = 0
 -- local doorsCache = {}
-
 -- RegisterCommand("door-next", function()
 --     doorIndex = doorIndex + 1
 --     local door = doors[doorIndex]
@@ -373,7 +410,6 @@ RegisterCommand("-useKeyFob", function() end, false)
 --     Wait(0)
 --     doorsCache[doorIndex]["access"]["business"][#doorsCache[doorIndex]["access"]["business"] + 1] = GetUserInput("Business")
 -- end)
-
 -- -- RegisterCommand("door-desc", function(s, args)
 -- --     doorsCache[doorIndex]["desc"] = args[1]
 -- -- end)
@@ -383,11 +419,25 @@ RegisterCommand("-useKeyFob", function() end, false)
 -- -- RegisterCommand("door-job", function(s, args)
 -- --     doorsCache[doorIndex]["access"]["job"][#doorsCache[doorIndex]["access"]["job"] + 1] = args[1]
 -- -- end)
-
 -- RegisterCommand("door-print", function()
 --     print(json.encode(doorsCache, { indent = true }))
 -- end)
-
 -- RegisterCommand("doors-save", function()
---     TriggerServerEvent("pw-doors:save-config", doorsCache)
+--     TriggerServerEvent("np-doors:save-config", doorsCache)
 -- end)
+
+function GetDoorPlayerFacing(pDistance)
+    if pDistance == nil then
+        pDistance = 1
+    end
+
+    local playerPed = PlayerPedId()
+    local position = GetEntityCoords(playerPed, false)
+    local endPosition = position + GetEntityForwardVector(playerPed) * pDistance
+    local raycast = StartShapeTestSweptSphere(position.x, position.y, position.z, endPosition.x, endPosition.y, endPosition.z, 0.2, 16, playerPed, 4)
+    local retval, hit, endCoords, surfaceNormal, entity = GetShapeTestResult(raycast)
+    local targetDoor = GetTargetDoorId(entity)
+    return targetDoor
+end
+
+exports("GetDoorPlayerFacing", GetDoorPlayerFacing)

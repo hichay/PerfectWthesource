@@ -166,7 +166,7 @@ $(function () {
         CloseMenu(true, 'bank')
     })
     $('#save-dev').on('click', function() {
-        if (currentRank !== 'dev') {
+        if (currentRank !== 'admin') {
             return;
         }
         CloseMenu(false, 'dev')
@@ -311,7 +311,7 @@ $(function () {
                     let gender = "male";
                     if($('#skin_female').val() >= 1 && $('#skin_male').val() == 0)
                         gender = "female";
-                    if(currentRank !== 'dev' && ele.is(inputs.eq(0)) && (whitelisted[gender][clothingName] || hiddenItems[gender][clothingName])) {
+                    if(currentRank !== 'admin' && ele.is(inputs.eq(0)) && (whitelisted[gender][clothingName] || hiddenItems[gender][clothingName])) {
                         while (isNotValid) {
                             if
                             (

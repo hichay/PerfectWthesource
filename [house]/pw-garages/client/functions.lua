@@ -87,7 +87,8 @@ PWGarages.Functions = {
         local freeSlots = {}
         for key, slot in pairs(slots) do
             if slot[2] == true then
-                table.insert(freeSlots, key)
+                --table.insert(freeSlots, key)
+				freeSlots[#freeSlots + 1] = key
             end
         end
         return freeSlots
@@ -120,7 +121,8 @@ PWGarages.Functions = {
                         AddTextComponentString('Garage để xe '..garagetype)
                         EndTextCommandSetBlipName(blip)
                     
-                        table.insert(createdBlips, blip)
+                        --table.insert(createdBlips, blip)
+						createdBlips[#createdBlips + 1] = blip
                     end
                 end
             elseif key == 'impounds' then 
@@ -137,7 +139,8 @@ PWGarages.Functions = {
                         AddTextComponentString('Garage chuộc xe')
                         EndTextCommandSetBlipName(blip)
                     
-                        table.insert(createdBlips, blip)
+                        --table.insert(createdBlips, blip)
+						createdBlips[#createdBlips + 1] = blip
                     end
                 end
             elseif key == 'houses' then
@@ -154,7 +157,8 @@ PWGarages.Functions = {
                         AddTextComponentString("Garage nhà: "..name)
                         EndTextCommandSetBlipName(blip)
                     
-                        table.insert(createdBlips, blip)
+                        --table.insert(createdBlips, blip)
+						createdBlips[#createdBlips + 1] = blip
                     end
                 end
             end
@@ -216,10 +220,12 @@ PWGarages.Functions = {
             if #(GetEntityCoords(v) - GetEntityCoords(playerPed)) < 10.0 then
                 if plates == true then
 					local data = ESX.Game.GetVehicleProperties(v)
-                    table.insert(nearbyPlates, data.plate)
+                    --table.insert(nearbyPlates, data.plate)
+					nearbyPlates[#nearbyPlates + 1] = data.plate
                 else
                     local data = ESX.Game.GetVehicleProperties(v)
-					table.insert(nearbyPlates, {v, data.plate})
+					--table.insert(nearbyPlates, {v, data.plate})
+					nearbyPlates[#nearbyPlates +1] = {v, data.plate}
                     
                 end
             end
@@ -236,7 +242,8 @@ PWGarages.Functions = {
             local distance = GetDistanceBetweenCoords(vehicleCoords, coords.x, coords.y, coords.z, true)
     
             if distance <= area then
-                table.insert(vehiclesInArea, vehicles[i])
+                --table.insert(vehiclesInArea, vehicles[i])
+				vehiclesInArea[#vehiclesInArea + 1 ] = vehicles[i]
             end
         end
         
@@ -290,7 +297,8 @@ PWGarages.Functions = {
         local counter = {}
         for k, v in pairs(slots) do
             if v[2] == true then
-                table.insert(counter, k)
+                --table.insert(counter, k)
+				counter[#counter + 1] = k
             end
         end
         return counter

@@ -201,33 +201,33 @@ ESX.UI.HUD.SetDisplay = function(opacity)
 	})
 end
 
-ESX.UI.HUD.RegisterElement = function(name, index, priority, html, data)
-	local found = false
+-- ESX.UI.HUD.RegisterElement = function(name, index, priority, html, data)
+	-- local found = false
 
-	for i=1, #ESX.UI.HUD.RegisteredElements, 1 do
-		if ESX.UI.HUD.RegisteredElements[i] == name then
-			found = true
-			break
-		end
-	end
+	-- for i=1, #ESX.UI.HUD.RegisteredElements, 1 do
+		-- if ESX.UI.HUD.RegisteredElements[i] == name then
+			-- found = true
+			-- break
+		-- end
+	-- end
 
-	if found then
-		return
-	end
+	-- if found then
+		-- return
+	-- end
 
-	table.insert(ESX.UI.HUD.RegisteredElements, name)
+	-- table.insert(ESX.UI.HUD.RegisteredElements, name)
 
-	SendNUIMessage({
-		action    = 'insertHUDElement',
-		name      = name,
-		index     = index,
-		priority  = priority,
-		html      = html,
-		data      = data
-	})
+	-- SendNUIMessage({
+		-- action    = 'insertHUDElement',
+		-- name      = name,
+		-- index     = index,
+		-- priority  = priority,
+		-- html      = html,
+		-- data      = data
+	-- })
 
-	ESX.UI.HUD.UpdateElement(name, data)
-end
+	-- ESX.UI.HUD.UpdateElement(name, data)
+-- end
 
 ESX.UI.HUD.RemoveElement = function(name)
 	for i=1, #ESX.UI.HUD.RegisteredElements, 1 do

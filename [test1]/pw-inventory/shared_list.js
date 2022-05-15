@@ -20,6 +20,18 @@ itemList['728397530'] = {
   weapon: true,
 };
 
+itemList['detcord'] = {
+  fullyDegrades: true,
+  decayrate: 0.001385,
+  displayname: 'Det. Cord',
+  price: 50,
+  weight: 50,
+  nonStack: true,
+  model: '',
+  image: 'np_detcord.png',
+  information: 'Government (PD/EMS/DOC) Issued Equipment',
+};
+
 itemList['agenericmechanicpart'] = {
   decayrate: 1.0,
   displayname: 'Mechanical Part (A)',
@@ -1929,7 +1941,27 @@ itemList["chloroform"] 	= {fullyDegrades: false,  decayrate: 0.0, displayname: "
 itemList["ibuprofen"]	= {fullyDegrades: false, decayrate: 0.0, displayname: "Ibuprofen", price: 150, weight: 0, nonStack: false, model:  "", image: "np_ibuprofen.png", information: "Cures all. Right?" , deg: false}
 itemList["drugx"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Drug X", price: 1, weight: 0, nonStack: false, model:  "", image: "np_drug-x.png", information: "Now in testing by Humane Labs", deg: false }
 
-
+itemList['cgchain'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Chang Gang Chain',
+  craft: [[
+    { itemid: 'goldbar', amount: 2 },
+    { itemid: 'aluminium', amount: 100 },
+    { itemid: 'copper', amount: 100 },
+  ], [
+    { itemid: 'goldbar', amount: 2 },
+    { itemid: 'refinedaluminium', amount: 32 },
+    { itemid: 'refinedcopper', amount: 32 },
+  ]],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_cg_chain.png',
+  information: 'Represent!',
+  cgChainCraft: true,
+};
 
 // food
 

@@ -144,7 +144,7 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 
 					for k2,component in ipairs(v.components) do
 						if component ~= 'clip_default' then
-							table.insert(components, component)
+							components[#components + 1] = component
 						end
 					end
 
@@ -361,13 +361,20 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 		if not self.hasWeapon(weaponName) then
 			local weaponLabel = ESX.GetWeaponLabel(weaponName)
 
-			table.insert(self.loadout, {
+			-- table.insert(self.loadout, {
+				-- name = weaponName,
+				-- ammo = ammo,
+				-- label = weaponLabel,
+				-- components = {},
+				-- tintIndex = 0
+			-- })
+			self.loadout[#self.loadout + 1] = {
 				name = weaponName,
 				ammo = ammo,
 				label = weaponLabel,
 				components = {},
-				tintIndex = 0
-			})
+				tintIndex = 0 
+			}
 
 			self.triggerEvent('esx:addWeapon', weaponName, ammo)
 			self.triggerEvent('esx:addInventoryItem', weaponLabel, false, true)
@@ -382,7 +389,7 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 
 			if component then
 				if not self.hasWeaponComponent(weaponName, weaponComponent) then
-					table.insert(self.loadout[loadoutNum].components, weaponComponent)
+					self.loadout[loadoutNum].components[#self.loadout[loadoutNum].components + 1] = weaponComponent
 					self.triggerEvent('esx:addWeaponComponent', weaponName, weaponComponent)
 					self.triggerEvent('esx:addInventoryItem', component.label, false, true)
 				end

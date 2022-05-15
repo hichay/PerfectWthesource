@@ -41,18 +41,12 @@ function clearAccessCache()
     end
 end
 
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-	clearAccessCache()
-	CurrentJob = job.name
-	Citizen.Wait(5000)
-	
-end)
 
-RegisterNetEvent("np-jobmanager:playerBecameJob")
-AddEventHandler("np-jobmanager:playerBecameJob", function(job, name, notify)
+RegisterNetEvent("esx:setJob")
+AddEventHandler("esx:setJob", function(job)
+	CurrentJob = job.name
     if isCop and job ~= "police" then isCop = false end
-    if isMedic and job ~= "ems" then isMedic = false end
+    if isMedic and job ~= "ambulance" then isMedic = false end
     if isDoctor and job ~= "doctor" then isDoctor = false end
     if isDoc and job ~= "doc" then isDoc = false end
     if isTher and job ~= "therapist" then isTher = false end
@@ -60,7 +54,7 @@ AddEventHandler("np-jobmanager:playerBecameJob", function(job, name, notify)
     if isDeputyMayor and job ~= "deputy_mayor" then isDeputyMayor = false end
 
     if job == "police" then isCop = true end
-    if job == "ems" then isMedic = true end
+    if job == "ambulance" then isMedic = true end
     if job == "doctor" then isDoctor = true end
     if job == "therapist" then isTher = true end
     if job == "doc" then isDoc = true end
@@ -77,10 +71,10 @@ end)
 
 
 function isPD(job)
-    return isCop or isDoc or isJudge or job == "district attorney"
+    return isCop or isDoc or isJudge or job == "police"
 end
 function isDR()
-    return isMedic or isDoctor or isTher
+    return isMedic or isDoctor or isTher or job == "ambulance"
 end
 
 function isGOV(job)
@@ -134,7 +128,17 @@ function hasSecuredAccess(pId, pType)
         for _ in pairs(secured.access.business) do businessCount = businessCount + 1 end
     end
     --local hasMrpdKey = RPC.execute("np-doors:charHasMrpdKeys", characterId)
-    if (secured.access.job and secured.access.job[CurrentJob] or false) then
+    if      (secured.access.job and secured.access.job[CurrentJob] or false)
+        or  (secured.access.job["PD"] ~= nil and isPD(job))
+        or  (secured.access.job["DR"] ~= nil and isDR())
+        or  (secured.access.job["GOV"] ~= nil and isGOV(job))
+        or  (secured.access.job["Public"] ~= nil)
+        or  (secured.access.cid ~= nil and secured.access.cid[characterId] ~= nil)
+        or  (secured.access.job["PD"] ~= nil and hasMrpdKey)
+        or  (secured.access.job["mayor"] ~= nil and isMayor)
+        or  (secured.access.job["deputy_mayor"] ~= nil and isDeputyMayor)
+        or  (policeHasKeys and job == "police" and (jobCount > 0 or businessCount > 0))
+    then
         accessCheckCache[pType][pId] = true
         return true
     end

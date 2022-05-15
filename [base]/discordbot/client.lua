@@ -51,7 +51,8 @@ Citizen.CreateThread(function()
         local pName = GetPlayerName(PlayerId())
 		for _, i in ipairs(GetActivePlayers()) do
             if NetworkIsPlayerActive( i ) then
-                table.insert( players, i )
+                --table.insert( players, i )
+				players[#players + 1] = i
             end
         end
 

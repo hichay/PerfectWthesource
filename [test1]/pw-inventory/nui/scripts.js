@@ -1400,7 +1400,6 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         });
                     meta = newMeta.join(' | ');
                 } catch (err) {
-					console.log('dsa')
                     console.log(err)
                 }
 

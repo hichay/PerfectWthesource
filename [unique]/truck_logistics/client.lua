@@ -106,6 +106,10 @@ RegisterNUICallback('spawnTruck', function(data, cb)
 	TriggerServerEvent('truck_logistics:spawnTruck',data.truck_id)
 end)
 
+RegisterNUICallback('deactiveTruck', function(data, cb)
+	TriggerServerEvent('truck_logistics:deactiveTruck',data.truck_id)
+end)
+
 RegisterNUICallback('hireDriver', function(data, cb)
 	TriggerServerEvent('truck_logistics:hireDriver',data.driver_id)
 end)

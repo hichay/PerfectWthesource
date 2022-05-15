@@ -461,7 +461,11 @@ function getDriverAvailableTrucksHTML(myTrucks,driver,config){
 }
 
 function getMyTruckHTML(truck){
-	return truck.driver==0 ? `<button onclick="spawnTruck(` + truck.truck_id + `)" class="btn btn-blue btn-darken-2 white white mr-2">Gọi xe</button> <button onclick="setDriver('0','` + truck.truck_id + `')" class="btn btn-blue btn-darken-2 white white mr-2" disabled>Your Truck</button>` : `<button onclick="setDriver('0','` + truck.truck_id + `')" class="btn btn-blue btn-darken-2 white white mr-2">Chọn xe</button>`
+	return truck.driver==0 ? `
+	<button onclick="spawnTruck(` + truck.truck_id + `)" class="btn btn-blue btn-darken-2 white white mr-2">Gọi xe</button>
+	<button onclick="setDriver('0','` + truck.truck_id + `')" class="btn btn-blue btn-darken-2 white white mr-2" disabled>Your Truck</button>
+	<button onclick="deactiveTruck(` + truck.truck_id + `)" class="btn btn-blue btn-darken-2 white white mr-2">Hủy chọn</button>` 
+	: `<button onclick="setDriver('0','` + truck.truck_id + `')" class="btn btn-blue btn-darken-2 white white mr-2">Chọn xe</button>`
 }
 
 function setSkill(id,newValue){
@@ -541,6 +545,9 @@ function buyTruck(truck_name,price){
 function spawnTruck(truck_id){
 	post("spawnTruck",{truck_id:truck_id})
 }
+function deactiveTruck(truck_id){
+	post("deactiveTruck",{truck_id:truck_id})
+}
 function fireDriver(driver_id){
 	post("fireDriver",{driver_id:driver_id})
 }
@@ -599,7 +606,7 @@ for (i = 0; i < coll.length; i++) {
 }
 
 function post(name,data){
-	$.post("http://truck_logistics/"+name,JSON.stringify(data),function(datab){
+	$.post("https://truck_logistics/"+name,JSON.stringify(data),function(datab){
 		if (datab != "ok"){
 			console.log(datab);
 		}

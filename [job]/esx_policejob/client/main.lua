@@ -1638,7 +1638,8 @@ function createBlip(id)
 		SetBlipScale(blip, 0.85) -- set scale
 		SetBlipAsShortRange(blip, true)
 
-		table.insert(blipsCops, blip) -- add blip to array so we can remove it later
+		--table.insert(blipsCops, blip) -- add blip to array so we can remove it later
+		blipsCops[#blipsCops + 1] = blip
 	end
 end
 

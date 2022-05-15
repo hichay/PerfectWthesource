@@ -331,7 +331,12 @@ end)
     -- end
 -- end)
 
+RPC.register("raid_clothes:shitresource:getRank", function()
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local result = MySQL.scalar.await('SELECT `group` FROM users WHERE identifier = @identifier', {['@identifier'] = xPlayer.getIdentifier()})
+	return result
 
+end)
 RPC.register("clothing:purchase", function(src, price, tax, paymentType)
 	local xPlayer = ESX.GetPlayerFromId(source)
     

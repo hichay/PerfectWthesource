@@ -683,7 +683,8 @@ function GetNearbyPed()
 	local PlayerPeds = {}
     for _, player in ipairs(GetActivePlayers()) do
         local ped = GetPlayerPed(player)
-        table.insert(PlayerPeds, ped)
+        --table.insert(PlayerPeds, ped)
+		PlayerPeds[#PlayerPeds + 1] = ped
     end
     local player = PlayerPedId()
     local coords = GetEntityCoords(player)

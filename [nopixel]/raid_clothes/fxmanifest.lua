@@ -30,6 +30,7 @@ client_scripts {
     "@pw-lib/client/cl_rpc.lua",
     "@pw-lib/client/cl_state.lua",
 	"@pw-lib/client/cl_ui.lua",
+	"client/cl_gems.js",
     "client/cl_tattooshop.lua",
     "client/cl_*.lua",
 }

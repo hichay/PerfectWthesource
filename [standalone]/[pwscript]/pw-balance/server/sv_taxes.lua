@@ -22,6 +22,7 @@ function priceWithTax(price, tax)
         ["porcentage"] = porcentage,
         ["tax"] = tax,
         ["total"] = total,
+		["text"] = total,
     }
 
     return data

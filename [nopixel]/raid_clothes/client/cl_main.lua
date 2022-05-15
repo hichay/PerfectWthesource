@@ -676,10 +676,9 @@ function EnableGUI(enable, menu, pPriceText, pPrice,disableDestroyCams)
     -- tell things to block/enable props til we close this piece of poops.
     TriggerEvent("attachedItems:block",enable)
 
-    -- if not currentRank then
-        -- currentRank = RPC.execute("raid_clothes:shitresource:getRank")
-    -- end
-
+    if not currentRank then
+        currentRank = RPC.execute("raid_clothes:shitresource:getRank")
+    end
     enabled = enable
     SetCustomNuiFocus(enable, enable)
     SendNUIMessage({
@@ -943,11 +942,11 @@ function SaveDev(save, close, newFadeStyle)
     end
 
     TriggerEvent("inmenu", false)
-    TriggerEvent("ressurection:relationships:norevive")
-    TriggerEvent("gangs:setDefaultRelations")
+    --TriggerEvent("ressurection:relationships:norevive")
+    --TriggerEvent("gangs:setDefaultRelations")
     TriggerEvent("facewear:update")
-    TriggerEvent('np-weapons:getAmmo')
-    CustomCamera('torso',true)
+    --TriggerEvent('np-weapons:getAmmo')
+    --CustomCamera('torso',true)
     --TriggerEvent("e-blips:updateAfterPedChange",exports["isPed"]:isPed("myjob"))
     startingMenu = false
 end
@@ -1362,7 +1361,6 @@ end)
 
 RegisterNetEvent('raid_clothes:ListOutfits')
 AddEventHandler('raid_clothes:ListOutfits', function(skincheck, pIgnoreDistance)
-    print('call')
     local menuData = {}
     local takenSlots = {}
     for i = 1, #skincheck do
@@ -1482,10 +1480,11 @@ local function listenForKeypress(zoneName, zoneData, isFree)
                         Citizen.Wait(0)
                     end
                 end
-				print('abc')
+				TriggerEvent('table',priceWithTax)
                 currentPrice = isFree and 0 or priceWithTax.total
                 currentPriceWithoutTax = zoneData.basePrice
                 priceWithTax.text = isFree and 0 or priceWithTax.text
+				
                 OpenMenu(zoneName, priceWithTax.text, currentPrice)
 
                 exports["np-ui"]:hideInteraction()
@@ -1521,7 +1520,6 @@ RegisterNetEvent('raid_clothes:openBarber', function(pShouldCost)
         currentPriceWithoutTax = MenuData.barber_shop.basePrice
         priceWithTax.text = priceWithTax.text
         OpenMenu("barber_shop", priceWithTax.text, currentPrice)
-		print('what')
         startingMenu = pStartingMenu
     else
         OpenMenu("barber_shop", '', 0)
@@ -1582,7 +1580,7 @@ local chainModels = {
 local storedpItem = false
 local storedpInfo = false
 
-AddEventHandler("np-inventory:itemUsed", function(pItem, pInfo)
+AddEventHandler("pw-inventory:itemUsed", function(pItem, pInfo)
   storedpItem = pItem
   storedpInfo = pInfo
   local model = chainModels[pItem]
@@ -1594,14 +1592,13 @@ AddEventHandler("np-inventory:itemUsed", function(pItem, pInfo)
   Wait(2600)
   if not hasCgChainOn then
     hasCgChainOn = true
-    -- SetPedComponentVariation(PlayerPedId(), 7, chainValue, 0, 0)
-    TriggerEvent("np-props:attachProp", model, 10706, -0.02, 0.02, -0.06, -366.0, 19.0, -163.0, true, true)
+    --SetPedComponentVariation(PlayerPedId(), 7, chainValue, 0, 0)
+    TriggerEvent("pw-props:attachProp", model, 10706, -0.02, 0.02, -0.06, -366.0, 19.0, -163.0, true, true)
     Citizen.CreateThread(function()
       while hasCgChainOn do
-        Citizen.Wait(math.random(10000, 120000))
         if info.diamond then
           local gemInfo = exports['raid_clothes']:getGemData(info.diamond)
-          TriggerServerEvent("np-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "diamonds", gemInfo.count, 100)
+          TriggerServerEvent("pw-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "diamonds", gemInfo.count, 100)
         end
         Citizen.Wait(math.random(10000, 60000))
       end
@@ -1611,7 +1608,7 @@ AddEventHandler("np-inventory:itemUsed", function(pItem, pInfo)
         Citizen.Wait(math.random(10000, 120000))
         if info.ruby then
           local gemInfo = exports['raid_clothes']:getGemData(info.ruby)
-          TriggerServerEvent("np-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "ruby", gemInfo.count, 100)
+          TriggerServerEvent("pw-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "ruby", gemInfo.count, 100)
         end
       end
     end)
@@ -1620,14 +1617,14 @@ AddEventHandler("np-inventory:itemUsed", function(pItem, pInfo)
         Citizen.Wait(math.random(10000, 120000))
         if info.tanzanite then
           local gemInfo = exports['raid_clothes']:getGemData(info.tanzanite)
-          TriggerServerEvent("np-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "tanzanite", gemInfo.count, 100, 0.25)
+          TriggerServerEvent("pw-fx:chain:blingDiamonds", GetEntityCoords(PlayerPedId()), "tanzanite", gemInfo.count, 100, 0.25)
         end
       end
     end)
   else
     hasCgChainOn = false
     -- SetPedComponentVariation(PlayerPedId(), 7, -1, 0, 0)
-    TriggerEvent("np-props:removeProp")
+    TriggerEvent("pw-props:removeProp")
   end
   equippingChain = false
 end)

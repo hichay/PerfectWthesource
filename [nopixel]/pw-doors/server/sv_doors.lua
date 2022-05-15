@@ -4,23 +4,23 @@
 
 ]]
 
-RegisterNetEvent("pw-base:sessionStarted")
-AddEventHandler("pw-base:sessionStarted", function()
-    local src = source
+-- RegisterNetEvent("pw-base:sessionStarted")
+-- AddEventHandler("pw-base:sessionStarted", function()
+    -- local src = source
 
-    TriggerClientEvent("pw-doors:initial-lock-state", -1, DOORS)
-end)
+    -- TriggerClientEvent("pw-doors:initial-lock-state", -1, DOOR_CONFIG)
+-- end)
 
 RegisterNetEvent("pw-doors:change-lock-state")
 AddEventHandler("pw-doors:change-lock-state", function(pDoorId, pDoorLockState, pDoorForceUnlock)
     local src = source
 
-    DOORS[pDoorId]["lock"] = pDoorLockState
+    DOOR_CONFIG[pDoorId]["lock"] = pDoorLockState
     TriggerClientEvent("pw-doors:change-lock-state", -1, pDoorId, pDoorLockState, pDoorForceUnlock)
 
-    if DOORS[pDoorId]["double"] then
-        DOORS[DOORS[pDoorId]["double"]]["lock"] = pDoorLockState
-        TriggerClientEvent("pw-doors:change-lock-state", -1, DOORS[pDoorId]["double"], pDoorLockState, pDoorForceUnlock)
+    if DOOR_CONFIG[pDoorId]["connected"] then
+        DOOR_CONFIG[DOOR_CONFIG[pDoorId]["connected"]]["lock"] = pDoorLockState
+        TriggerClientEvent("pw-doors:change-lock-state", -1, DOOR_CONFIG[pDoorId]["connected"], pDoorLockState, pDoorForceUnlock)
     end
 end)
 

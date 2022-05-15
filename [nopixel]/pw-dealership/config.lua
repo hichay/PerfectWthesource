@@ -168,7 +168,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974187454062014514/panto.png',	-- Thay hình = tên gọi xe trước .png
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974667436911648828/panto.png',	-- Thay hình = tên gọi xe trước .png
 				['page'] = 4						-- Set on which page this vehicle will appear
 			},	
 			['blade'] = {							-- Tên gọi xe
@@ -178,7 +178,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/blade.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974667992006787152/blade.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['buccaneer'] = {							-- Tên gọi xe
@@ -188,7 +188,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/buccaneer.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974668424972234783/buccaneer.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['buccaneer2'] = {							-- Tên gọi xe
@@ -198,7 +198,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/buccaneer2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974668849926516806/buccaneer2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['chino'] = {							-- Tên gọi xe
@@ -208,7 +208,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/chino.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974669027899236362/chino.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['chino2'] = {							-- Tên gọi xe
@@ -218,7 +218,7 @@ Config.dealership_types = {
 				['price_to_export'] = 25000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/chino2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974669176415342652/chino2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['coquette3'] = {							-- Tên gọi xe
@@ -228,7 +228,7 @@ Config.dealership_types = {
 				['price_to_export'] = 25000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/coquette3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974669384989671464/coquette3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['dominator'] = {							-- Tên gọi xe
@@ -238,7 +238,7 @@ Config.dealership_types = {
 				['price_to_export'] = 25000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/dominator.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974669727689498664/dominator.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['dukes'] = {							-- Tên gọi xe
@@ -248,7 +248,7 @@ Config.dealership_types = {
 				['price_to_export'] = 1000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/dukes.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974669915657216030/dukes.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['gauntlet'] = {							-- Tên gọi xe
@@ -258,7 +258,7 @@ Config.dealership_types = {
 				['price_to_export'] = 25000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/gauntlet.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974670127050129438/gauntlet.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['hotknife'] = {							-- Tên gọi xe
@@ -268,7 +268,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/hotknife.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974670320248184892/Hotknife.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['faction'] = {							-- Tên gọi xe
@@ -278,7 +278,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/faction.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974670542516924417/faction.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['faction2'] = {							-- Tên gọi xe
@@ -288,7 +288,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/faction2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974670685077127168/faction2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['nightshade'] = {							-- Tên gọi xe
@@ -298,7 +298,7 @@ Config.dealership_types = {
 				['price_to_export'] = 60000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/nightshade.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974670897396977684/nightshade.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['phoenix'] = {							-- Tên gọi xe
@@ -308,7 +308,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/phoenix.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974671093178703953/phoenix.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['picador'] = {							-- Tên gọi xe
@@ -318,7 +318,7 @@ Config.dealership_types = {
 				['price_to_export'] = 800,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/picador.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974671242105876480/picador.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['sabregt'] = {							-- Tên gọi xe
@@ -328,7 +328,7 @@ Config.dealership_types = {
 				['price_to_export'] = 10000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/sabregt.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974671429792583710/sabregt.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['slamvan3'] = {							-- Tên gọi xe
@@ -338,7 +338,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/slamvan3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974671684483301446/slamvan3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['tampa'] = {							-- Tên gọi xe
@@ -348,7 +348,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/tampa.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974671989346287626/tampa.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['tampa2'] = {							-- Tên gọi xe
@@ -358,7 +358,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/tampa2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974672192237342790/tampa2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['virgo'] = {							-- Tên gọi xe
@@ -368,7 +368,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/virgo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974672395585601636/virgo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['vigero'] = {							-- Tên gọi xe
@@ -378,7 +378,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/vigero.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974672944666128485/Vigero.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['voodoo'] = {							-- Tên gọi xe
@@ -388,7 +388,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/voodoo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974673167329153084/voodoo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6						-- Set on which page this vehicle will appear
 			},			
 			['blista'] = {							-- Tên gọi xe
@@ -398,7 +398,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/blista.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974673440458039356/blista.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4						-- Set on which page this vehicle will appear
 			},			
 			['brioso'] = {							-- Tên gọi xe
@@ -408,7 +408,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/brioso.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974673704401387592/brioso.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4					-- Set on which page this vehicle will appear
 			},			
 			['issi2'] = {							-- Tên gọi xe
@@ -418,7 +418,7 @@ Config.dealership_types = {
 				['price_to_export'] = 3000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/issi2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974673926431068200/issi2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4						-- Set on which page this vehicle will appear
 			},			
 			['prairie'] = {							-- Tên gọi xe
@@ -428,7 +428,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/prairie.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974674167620309033/prairie.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4						-- Set on which page this vehicle will appear
 			},			
 					
@@ -439,7 +439,7 @@ Config.dealership_types = {
 				['price_to_export'] = 7000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/asea.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974674330984284200/asea.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['cognoscenti'] = {							-- Tên gọi xe
@@ -449,7 +449,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/cognoscenti.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974674550178586674/cognoscenti.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['emperor'] = {							-- Tên gọi xe
@@ -459,7 +459,7 @@ Config.dealership_types = {
 				['price_to_export'] = 7000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/emperor.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974674739819864104/emperor.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['fugitive'] = {							-- Tên gọi xe
@@ -469,7 +469,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/fugitive.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974675083576635432/fugitive.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['glendale'] = {							-- Tên gọi xe
@@ -479,7 +479,7 @@ Config.dealership_types = {
 				['price_to_export'] = 4000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/glendale.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974675280209784882/glendale.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['intruder'] = {							-- Tên gọi xe
@@ -489,7 +489,7 @@ Config.dealership_types = {
 				['price_to_export'] = 9000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/intruder.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974675590420508702/intruder.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['premier'] = {							-- Tên gọi xe
@@ -499,7 +499,7 @@ Config.dealership_types = {
 				['price_to_export'] = 7000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/premier.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974675824286511124/premier.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['primo2'] = {							-- Tên gọi xe
@@ -509,7 +509,7 @@ Config.dealership_types = {
 				['price_to_export'] = 7000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/primo2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676024891703386/primo2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['regina'] = {							-- Tên gọi xe
@@ -519,7 +519,7 @@ Config.dealership_types = {
 				['price_to_export'] = 7000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/regina.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676180500353104/regina.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['schafter2'] = {							-- Tên gọi xe
@@ -529,7 +529,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/schafter2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676358724747294/schafter2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['tailgater'] = {							-- Tên gọi xe
@@ -539,7 +539,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/tailgater.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676614514368542/tailgater.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['washington'] = {							-- Tên gọi xe
@@ -549,7 +549,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/washington.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676774791282789/washington.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3						-- Set on which page this vehicle will appear
 			},			
 			['baller2'] = {							-- Tên gọi xe
@@ -559,7 +559,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/baller2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974676967557304370/baller2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['cavalcade2'] = {							-- Tên gọi xe
@@ -569,7 +569,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/cavalcade2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974677166371532850/cavalcade2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['dubsta2'] = {							-- Tên gọi xe
@@ -579,7 +579,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/dubsta2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974677359829610536/dubsta2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['fq2'] = {							-- Tên gọi xe
@@ -589,7 +589,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/fq2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974677582622625802/fq2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['granger'] = {							-- Tên gọi xe
@@ -599,7 +599,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/granger.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974677735148486676/granger.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['gresley'] = {							-- Tên gọi xe
@@ -609,7 +609,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/gresley.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974677960672026677/gresley.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['huntley'] = {							-- Tên gọi xe
@@ -619,7 +619,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/huntley.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678098756923473/huntley.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['landstalker'] = {							-- Tên gọi xe
@@ -629,7 +629,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/landstalker.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678341506433104/landstalker.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['patriot'] = {							-- Tên gọi xe
@@ -639,7 +639,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/patriot.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678502123143198/patriot.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['radi'] = {							-- Tên gọi xe
@@ -649,7 +649,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/radi.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678637792088124/radi.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['rocoto'] = {							-- Tên gọi xe
@@ -659,7 +659,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rocoto.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678919624130610/rocoto.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['seminole'] = {							-- Tên gọi xe
@@ -669,7 +669,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/seminole.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974679074620465182/seminole.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},			
 			['xls'] = {							-- Tên gọi xe
@@ -679,7 +679,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/xls.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974679195735191593/Xls.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2						-- Set on which page this vehicle will appear
 			},		
 			['btype'] = {							-- Tên gọi xe
@@ -689,7 +689,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/btype.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974679728785084416/btype.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['btype3'] = {							-- Tên gọi xe
@@ -699,7 +699,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/btype3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974679850948366396/btype3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['btype2'] = {							-- Tên gọi xe
@@ -709,7 +709,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/btype2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974679939985080370/btype2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['casco'] = {							-- Tên gọi xe
@@ -719,7 +719,7 @@ Config.dealership_types = {
 				['price_to_export'] = 70000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/casco.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974680092062146580/casco.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['coquette2'] = {							-- Tên gọi xe
@@ -729,7 +729,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/coquette2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974680238879547483/coquette2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['monroe'] = {							-- Tên gọi xe
@@ -739,7 +739,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/monroe.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974680552609304576/monroe.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['pigalle'] = {							-- Tên gọi xe
@@ -749,7 +749,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/pigalle.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974680731546701904/pigalle.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['stingergt'] = {							-- Tên gọi xe
@@ -759,7 +759,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/stingergt.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974680912577048616/stingergt.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['feltzer3'] = {							-- Tên gọi xe
@@ -769,7 +769,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/feltzer3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974681054847840276/feltzer3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['ztype'] = {							-- Tên gọi xe
@@ -779,7 +779,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/ztype.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974681215208685568/ztype.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['cogcabrio'] = {							-- Tên gọi xe
@@ -789,7 +789,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/cogcabrio.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974681494717075476/cogcabrio.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['exemplar'] = {							-- Tên gọi xe
@@ -799,7 +799,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/exemplar.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974681706927894568/exemplar.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['f620'] = {							-- Tên gọi xe
@@ -809,7 +809,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/f620.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974682302514864159/f620.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['felon'] = {							-- Tên gọi xe
@@ -819,19 +819,9 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/felon.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974682552822558720/felon.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
-			},				
-			['cogcabrio'] = {							-- Tên gọi xe
-				['name'] = "Cognoscenti Cabrio",					-- Tên xe
-				['price_to_customer'] = 45500,		-- Giá khách hàng mua xe
-				['price_to_owner'] = 30000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
-				['price_to_export'] = 8000,			-- Giá phân hủy xe 
-				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
-				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/cogcabrio.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
-				['page'] = 5						-- Set on which page this vehicle will appear
-			},				
+			},		
 			['felon2'] = {							-- Tên gọi xe
 				['name'] = "Felon GT",					-- Tên xe
 				['price_to_customer'] = 37000,		-- Giá khách hàng mua xe
@@ -839,7 +829,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/felon2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974683227006582885/felon2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['jackal'] = {							-- Tên gọi xe
@@ -849,7 +839,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/jackal.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974683482926231552/jackal.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['oracle2'] = {							-- Tên gọi xe
@@ -859,7 +849,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/oracle2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974683659359645716/oracle2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['sentinel'] = {							-- Tên gọi xe
@@ -869,7 +859,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/sentinel.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974683822786482226/sentinel.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['sentinel2'] = {							-- Tên gọi xe
@@ -879,7 +869,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/sentinel2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974683943318192228/sentinel2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['windsor'] = {							-- Tên gọi xe
@@ -889,7 +879,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/windsor.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974684356289380413/windsor.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['windsor2'] = {							-- Tên gọi xe
@@ -899,7 +889,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/windsor2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974684478096179270/windsor2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['zion'] = {							-- Tên gọi xe
@@ -909,7 +899,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/zion.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974684630789795970/zion.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['zion2'] = {							-- Tên gọi xe
@@ -919,7 +909,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/zion2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974684755016712192/zion2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['futo'] = {							-- Tên gọi xe
@@ -929,7 +919,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/futo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974684888227778560/futo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 5						-- Set on which page this vehicle will appear
 			},				
 			['mamba'] = {							-- Tên gọi xe
@@ -939,7 +929,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/mamba.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974685025226358865/mamba.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			
@@ -950,7 +940,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/tractor2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974685863604785202/tractor2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2					-- Set on which page this vehicle will appear
 			},				
 			['clique'] = {							-- Tên gọi xe
@@ -960,7 +950,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/clique.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974685968709869588/clique.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['gt500'] = {							-- Tên gọi xe
@@ -970,7 +960,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/gt500.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686076025340014/gt500.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1					-- Set on which page this vehicle will appear
 			},				
 			['rapidgt3'] = {							-- Tên gọi xe
@@ -980,7 +970,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rapidgt3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686257617719446/rapidgt3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1					-- Set on which page this vehicle will appear
 			},				
 			['hustler'] = {							-- Tên gọi xe
@@ -990,7 +980,7 @@ Config.dealership_types = {
 				['price_to_export'] = 20000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/hustler.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686404237983794/hustler.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['yosemite'] = {							-- Tên gọi xe
@@ -1000,7 +990,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/yosemite.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686675403931658/yosemite.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['z190'] = {							-- Tên gọi xe
@@ -1010,7 +1000,7 @@ Config.dealership_types = {
 				['price_to_export'] = 20000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/z190.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686850604236830/z190.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1					-- Set on which page this vehicle will appear
 			},				
 			['blista2'] = {							-- Tên gọi xe
@@ -1020,7 +1010,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/blista2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974686962432765982/blista2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4					-- Set on which page this vehicle will appear
 			},				
 			['issi3'] = {							-- Tên gọi xe
@@ -1030,7 +1020,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/issi3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974687063934918696/issi3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4					-- Set on which page this vehicle will appear
 			},				
 			['dilettante'] = {							-- Tên gọi xe
@@ -1040,7 +1030,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/dilettante.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974687361973755914/dilettante.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4					-- Set on which page this vehicle will appear
 			},				
 			['rhapsody'] = {							-- Tên gọi xe
@@ -1050,7 +1040,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rhapsody.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974687528470872064/rhapsody.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 4					-- Set on which page this vehicle will appear
 			},				
 			['stalion'] = {							-- Tên gọi xe
@@ -1060,7 +1050,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/stalion.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974687662772465734/stalion.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['infernus2'] = {							-- Tên gọi xe
@@ -1070,7 +1060,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/infernus2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974687916267806860/infernus2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1					-- Set on which page this vehicle will appear
 			},				
 			['torero'] = {							-- Tên gọi xe
@@ -1080,7 +1070,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/torero.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974688165401079828/torero.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1					-- Set on which page this vehicle will appear
 			},				
 			['dominator3'] = {							-- Tên gọi xe
@@ -1090,7 +1080,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/dominator3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974688289703493662/dominator3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['surge'] = {							-- Tên gọi xe
@@ -1100,7 +1090,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/surge.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974688440778121226/surge.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 3					-- Set on which page this vehicle will appear
 			},				
 			['ellie'] = {							-- Tên gọi xe
@@ -1110,7 +1100,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/ellie.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974688582805651486/ellie.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 6					-- Set on which page this vehicle will appear
 			},				
 			['bjxl'] = {							-- Tên gọi xe
@@ -1120,7 +1110,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/bjxl.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974688859667447808/bjxl.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 2					-- Set on which page this vehicle will appear
 			},				
 					
@@ -1155,17 +1145,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/ninef.png',
-	 			['page'] = 1
-	 		},
-			 ['g63amg6x6'] = {
-				['name'] = "G63 6X6",
-	 			['price_to_customer'] = 2000000,
-	 			['price_to_owner'] = 1800000 ,
-				['price_to_export'] = 1500000,
-	 			['amount_to_owner'] = 1,
-				['max_stock'] = 10,
-	 			['img'] = 'images/cars/g63amg6x6.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974689948181614682/ninef.png',
 	 			['page'] = 1
 	 		},
 			['ninef2'] = {
@@ -1175,7 +1155,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/ninef2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974690102762668112/ninef2.png',
 	 			['page'] = 1
 	 		},
 					
@@ -1186,7 +1166,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/ruston.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974690502387585057/ruston.png',
 	 			['page'] = 1
 	 		},
 			 ['tezeract'] = {
@@ -1196,7 +1176,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/tezeract.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974690916113743882/tezeract.png',
 	 			['page'] = 1
 	 		},
 			 ['entity2'] = {
@@ -1206,7 +1186,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/entity2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974691125363367996/entity2.png',
 	 			['page'] = 1
 	 		},
 			 ['nero'] = {
@@ -1216,7 +1196,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/nero.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974691404553011282/nero.png',
 	 			['page'] = 1
 	 		},
 			 ['comet3'] = {
@@ -1226,7 +1206,7 @@ Config.dealership_types = {
 				['price_to_export'] = 70000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/comet3.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974691666000773200/comet3.png',
 	 			['page'] = 1
 	 		},
 			 ['comet4'] = {
@@ -1236,7 +1216,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/comet4.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974691831222788106/comet4.png',
 	 			['page'] = 1
 	 		},
 			 ['taipan'] = {
@@ -1246,7 +1226,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/taipan.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974692127223205939/taipan.png',
 	 			['page'] = 1
 	 		},
 			 ['tyrant'] = {
@@ -1256,7 +1236,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/tyrant.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974692278037786634/tyrant.png',
 	 			['page'] = 1
 	 		},
 			 ['osiris'] = {
@@ -1266,7 +1246,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/osiris.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974692711695269978/osiris.png',
 	 			['page'] = 1
 	 		},
 			 ['flashgt'] = {
@@ -1276,7 +1256,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/flashgt.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974692863206129684/flashgt.png',
 	 			['page'] = 1
 	 		},
 			 ['specter2'] = {
@@ -1286,7 +1266,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/specter2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974693221584232458/specter2.png',
 	 			['page'] = 1
 	 		},
 			 ['sc1'] = {
@@ -1296,7 +1276,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sc1.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974693446566682654/sc1.png',
 	 			['page'] = 1
 	 		},
 			['streiter'] = {
@@ -1306,7 +1286,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/streiter.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974693630893776976/streiter.png',
 	 			['page'] = 1
 	 		},
 			 ['specter'] = {
@@ -1316,7 +1296,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/specter.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974693866399731752/specter.png',
 	 			['page'] = 1
 	 		},
 			 ['penetrator'] = {
@@ -1326,7 +1306,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/penetrator.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694014051811409/penetrator.png',
 	 			['page'] = 1
 	 		},
 			['tempesta'] = {
@@ -1336,7 +1316,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/tempesta.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694181077409842/tempesta.png',
 	 			['page'] = 1
 	 		},
 			 ['vagner'] = {
@@ -1346,7 +1326,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/vagner.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694346962116688/vagner.png',
 	 			['page'] = 1
 	 		},
 			 ['italigtb'] = {
@@ -1356,7 +1336,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/italigtb.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694586347831326/italigtb.png',
 	 			['page'] = 1
 	 		},
 			 ['xa21'] = {
@@ -1366,7 +1346,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/xa21.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694696968400916/xa21.png',
 	 			['page'] = 1
 	 		},
 			 ['jester3'] = {
@@ -1376,7 +1356,7 @@ Config.dealership_types = {
 				['price_to_export'] = 40000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/jester3.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694834449317968/jester3.png',
 	 			['page'] = 1
 	 		},
 			 ['elegy'] = {
@@ -1386,7 +1366,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/elegy.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974694971053588530/elegy.png',
 	 			['page'] = 1
 	 		},
 			['cheetah2'] = {
@@ -1396,7 +1376,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/cheetah2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695149412171866/cheetah2.png',
 	 			['page'] = 1
 	 		},
 			 ['gp1'] = {
@@ -1406,7 +1386,7 @@ Config.dealership_types = {
 				['price_to_export'] = 50000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/gp1.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695273181876264/gp1.png',
 	 			['page'] = 1
 	 		},
 			['pariah'] = {
@@ -1416,7 +1396,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/pariah.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695500668366868/pariah.png',
 	 			['page'] = 1
 	 		},
 			['visione'] = {
@@ -1426,7 +1406,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/visione.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695629391540255/visione.png',
 	 			['page'] = 1
 	 		},
 			['neon'] = {
@@ -1436,7 +1416,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/neon.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695747129856010/neon.png',
 	 			['page'] = 1
 	 		},
 			 ['autarch'] = {
@@ -1446,7 +1426,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/autarch.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696009789743124/autarch.png',
 	 			['page'] = 1
 	 		},
 			['raiden'] = {
@@ -1456,7 +1436,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/raiden.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696136982007818/raiden.png',
 	 			['page'] = 1
 	 		},
 			 ['cyclone'] = {
@@ -1466,7 +1446,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/cyclone.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696419753590844/cyclone.png',
 	 			['page'] = 1
 	 		},
 			 ['comet5'] = {
@@ -1476,7 +1456,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/comet5.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696546505474048/comet5.png',
 	 			['page'] = 1
 	 		},
 			
@@ -1488,7 +1468,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/alpha.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696687815761980/alpha.png',
 	 			['page'] = 1
 	 		},
 			 ['banshee'] = {
@@ -1498,7 +1478,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/banshee.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974696844275875920/banshee.png',
 	 			['page'] = 1
 	 		},
 			 ['bestiagts'] = {
@@ -1508,7 +1488,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/bestiagts.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697128003788810/bestiagts.png',
 	 			['page'] = 1
 	 		},
 			 ['buffalo'] = {
@@ -1518,7 +1498,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/buffalo.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697295318757466/buffalo.png',
 	 			['page'] = 1
 	 		},
 			 ['buffalo2'] = {
@@ -1528,7 +1508,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/buffalo2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697413149347860/buffalo2.png',
 	 			['page'] = 1
 	 		},
 			 ['carbonizzare'] = {
@@ -1538,7 +1518,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/carbonizzare.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697573354971186/carbonizzare.png',
 	 			['page'] = 1
 	 		},
 			 ['comet2'] = {
@@ -1548,7 +1528,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/comet2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697718146551808/comet2.png',
 	 			['page'] = 1
 	 		},
 			 ['coquette'] = {
@@ -1558,7 +1538,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/coquette.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974697970249367582/Coquette.png',
 	 			['page'] = 1
 	 		},
 			 ['elegy2'] = {
@@ -1568,7 +1548,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/elegy2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974698132225011742/elegy2.png',
 	 			['page'] = 1
 	 		},
 			 ['feltzer2'] = {
@@ -1578,7 +1558,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/feltzer2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974698325397897217/feltzer2.png',
 	 			['page'] = 1
 	 		},
 			 ['furoregt'] = {
@@ -1588,7 +1568,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/furoregt.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974698603098538084/furoregt.png',
 	 			['page'] = 1
 	 		},
 			 ['fusilade'] = {
@@ -1598,7 +1578,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/fusilade.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974698888218955776/fusilade.png',
 	 			['page'] = 1
 	 		},
 			 ['jester'] = {
@@ -1608,7 +1588,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/jester.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974699068192354334/jester.png',
 	 			['page'] = 1
 	 		},
 			['khamelion'] = {
@@ -1618,7 +1598,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/khamelion.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974699210995822592/khamelion.png',
 	 			['page'] = 1
 	 		},
 			['kuruma'] = {
@@ -1628,7 +1608,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/kuruma.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974699430592794714/kuruma.png',
 	 			['page'] = 1
 	 		},
 			 ['lynx'] = {
@@ -1638,7 +1618,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/lynx.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974699584108507236/lynx.png',
 	 			['page'] = 1
 	 		},
 			['massacro'] = {
@@ -1648,7 +1628,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/massacro.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974699849813491712/massacro.png',
 	 			['page'] = 1
 	 		},
 			 ['rapidgt'] = {
@@ -1658,7 +1638,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/rapidgt.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974700058194886686/rapidgt.png',
 	 			['page'] = 1
 	 		},
 			 ['rapidgt2'] = {
@@ -1668,7 +1648,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/rapidgt2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974700188432220160/rapidgt2.png',
 	 			['page'] = 1
 	 		},
 			 ['schafter3'] = {
@@ -1678,7 +1658,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/schafter3.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974700997983240222/schafter3.png',
 	 			['page'] = 1
 	 		},
 			 ['seven70'] = {
@@ -1688,7 +1668,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/seven70.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974701130426777610/seven70.png',
 	 			['page'] = 1
 	 		},
 			 ['sultan'] = {
@@ -1698,7 +1678,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sultan.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974701289520910366/sultan.png',
 	 			['page'] = 1
 	 		},
 			 ['surano'] = {
@@ -1708,7 +1688,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/surano.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974701473332068482/surano.png',
 	 			['page'] = 1
 	 		},
 			 ['verlierer2'] = {
@@ -1718,7 +1698,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/verlierer2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702019384311818/verlierer2.png',
 	 			['page'] = 1
 	 		},
 			 ['adder'] = {
@@ -1728,7 +1708,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/adder.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702144823377990/adder.png',
 	 			['page'] = 1
 	 		},
 			['banshee2'] = {
@@ -1738,7 +1718,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/banshee2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702266110062592/banshee2.png',
 	 			['page'] = 1
 	 		},
 			['bullet'] = {
@@ -1748,7 +1728,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/bullet.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702382845943838/bullet.png',
 	 			['page'] = 1
 	 		},
 			['cheetah'] = {
@@ -1758,7 +1738,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/cheetah.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702580309573632/cheetah.png',
 	 			['page'] = 1
 	 		},
 			 ['entityxf'] = {
@@ -1768,7 +1748,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/entityxf.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702719526907945/entityxf.png',
 	 			['page'] = 1
 	 		}, 
 			 ['fmj'] = {
@@ -1778,7 +1758,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/fmj.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974702857024602173/fmj.png',
 	 			['page'] = 1
 	 		}, 
 			 ['cheburek'] = {
@@ -1788,7 +1768,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/cheburek.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974703365890129960/cheburek.png',
 	 			['page'] = 1
 	 		}, 
 			 ['infernus'] = {
@@ -1798,7 +1778,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/infernus.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974703762444800070/infernus.png',
 	 			['page'] = 1
 	 		}, 
 			 ['pfister811'] = {
@@ -1808,7 +1788,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/pfister811.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974703550317854780/pfister811.png',
 	 			['page'] = 1
 	 		}, 
 			 ['reaper'] = {
@@ -1818,7 +1798,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/reaper.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974703946570539088/reaper.png',
 	 			['page'] = 1
 	 		}, 
 			 ['t20'] = {
@@ -1828,7 +1808,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/t20.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974704195326328882/t20.png',
 	 			['page'] = 1
 	 		}, 
 			 ['turismor'] = {
@@ -1838,7 +1818,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/turismor.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974704568757813258/turismor.png',
 	 			['page'] = 1
 	 		}, 
 			 ['vacca'] = {
@@ -1848,7 +1828,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/vacca.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974704711364128778/vacca.png',
 	 			['page'] = 1
 	 		},  
 			 ['voltic'] = {
@@ -1858,7 +1838,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/voltic.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974704861763473418/voltic.png',
 	 			['page'] = 1
 	 		},  
 			 ['prototipo'] = {
@@ -1868,7 +1848,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/prototipo.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974704983989686392/prototipo.png',
 	 			['page'] = 1
 	 		},  
 			 ['zentorno'] = {
@@ -1878,7 +1858,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/zentorno.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974705179352002580/Zentorno.png',
 	 			['page'] = 1
 	 		},  
 			
@@ -1889,7 +1869,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sultanrs.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974705299426512986/sultanrs.png',
 	 			['page'] = 1
 	 		},  
 	 	},
@@ -1915,7 +1895,7 @@ Config.dealership_types = {
 			   ['price_to_export'] = 80000,
 				['amount_to_owner'] = 1,
 			   ['max_stock'] = 10,
-				['img'] = 'images/cars/caracara2.png',
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974705752377819216/caracara2.png',
 				['page'] = 0
 			},
 			['rumpo2'] = {							-- Tên gọi xe
@@ -1925,7 +1905,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rumpo2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974706060755611708/rumpo2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},				
 			['rumpo3'] = {							-- Tên gọi xe
@@ -1935,7 +1915,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rumpo3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974706255224512562/rumpo3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 1						-- Set on which page this vehicle will appear
 			},	
 			['bison'] = {							-- Tên gọi xe
@@ -1945,7 +1925,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/bison.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974706453824831529/bison.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
 			},			
 			['bobcatxl'] = {							-- Tên gọi xe
@@ -1955,19 +1935,9 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/bobcatxl.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974706848018100535/bobcatxl.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
-			},			
-			['bobcatxl2'] = {							-- Tên gọi xe
-				['name'] = "Bobcat Xl Closed",					-- Tên xe
-				['price_to_customer'] = 23000,		-- Giá khách hàng mua xe
-				['price_to_owner'] = 15000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
-				['price_to_export'] = 8000,			-- Giá phân hủy xe 
-				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
-				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/bobcatxl2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
-				['page'] = 0						-- Set on which page this vehicle will appear
-			},			
+			},					
 			['burrito3'] = {							-- Tên gọi xe
 				['name'] = "Burrito",					-- Tên xe
 				['price_to_customer'] = 38500,		-- Giá khách hàng mua xe
@@ -1975,7 +1945,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/burrito3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974707863815606332/burrito3.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
 			},			
 			['gburrito2'] = {							-- Tên gọi xe
@@ -1985,7 +1955,7 @@ Config.dealership_types = {
 				['price_to_export'] = 40000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/gburrito2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708025342459944/gburrito2.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
 			},			
 			['moonbeam'] = {							-- Tên gọi xe
@@ -1995,7 +1965,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/moonbeam.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708166514327582/moonbeam.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
 			},			
 			['rumpo'] = {							-- Tên gọi xe
@@ -2005,7 +1975,7 @@ Config.dealership_types = {
 				['price_to_export'] = 8000,			-- Giá phân hủy xe 
 				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
 				['max_stock'] = 150,					-- Số lượng trữ trong kho 
-				['img'] = 'images/cars/rumpo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708384551026789/rumpo.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
 				['page'] = 0						-- Set on which page this vehicle will appear
 			},				
 			['dubsta3'] = {
@@ -2015,7 +1985,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 				 ['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-				 ['img'] = 'images/cars/dubsta3.png',
+				 ['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708516688379954/dubsta3.png',
 				 ['page'] = 0
 			 },
 			 ['brutus'] = {
@@ -2025,7 +1995,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 				 ['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-				 ['img'] = 'images/cars/brutus.png',
+				 ['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708685001617458/brutus.png',
 				 ['page'] = 0
 			 },
 			 ['riata'] = {
@@ -2035,7 +2005,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 				 ['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-				 ['img'] = 'images/cars/riata.png',
+				 ['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708816455278652/riata.png',
 				 ['page'] = 0
 			 },
 			 ['sandking'] = {
@@ -2045,7 +2015,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 				 ['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-				 ['img'] = 'images/cars/sandking.png',
+				 ['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974708952786935868/sandking.png',
 				 ['page'] = 0
 			 },
 			 ['sandking2'] = {
@@ -2055,7 +2025,7 @@ Config.dealership_types = {
 				['price_to_export'] = 80000,
 				 ['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-				 ['img'] = 'images/cars/sandking2.png',
+				 ['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709084735570001/sandking2.png',
 				 ['page'] = 0
 			 },
 		   
@@ -2084,7 +2054,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sanchez.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709334976110622/sanchez.png',
 	 			['page'] = 0
 	 		},
 			['bmx'] = {
@@ -2094,7 +2064,7 @@ Config.dealership_types = {
 				['price_to_export'] = 500,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/bmx.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709472150847568/bmx.png?width=784&height=468',
 	 			['page'] = 0
 	 		},
 			['tribike2'] = {
@@ -2104,7 +2074,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/tribike2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709595446607882/tribike2.png',
 	 			['page'] = 0
 	 		},
 			['fixter'] = {
@@ -2114,7 +2084,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/fixter.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709744411504740/fixter.png?width=886&height=468',
 	 			['page'] = 0
 	 		},
 			 ['tribike3'] = {
@@ -2124,17 +2094,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/tribike3.png',
-	 			['page'] = 0
-	 		},
-			['vario150'] = {
-				['name'] = "Vario",
-	 			['price_to_customer'] = 50000,
-	 			['price_to_owner'] = 30000,
-				['price_to_export'] = 5000,
-	 			['amount_to_owner'] = 1,
-				['max_stock'] = 10,
-	 			['img'] = 'images/cars/vario150.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974709887563079680/tribike3.png.png',
 	 			['page'] = 0
 	 		},
 			 ['sanchez2'] = {
@@ -2144,7 +2104,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sanchez2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710145252728852/sanchez2.png',
 	 			['page'] = 0
 	 		},
 			 ['avarus'] = {
@@ -2154,7 +2114,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/avarus.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710266598137956/avarus.png',
 	 			['page'] = 0
 	 		},
 			 ['bagger'] = {
@@ -2164,7 +2124,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/bagger.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710424379490304/bagger.png',
 	 			['page'] = 0
 	 		},
 			 ['sovereign'] = {
@@ -2174,7 +2134,7 @@ Config.dealership_types = {
 				['price_to_export'] = 10000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sovereign.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710697063755857/sovereign.png',
 	 			['page'] = 0
 	 		},
 			 ['bati'] = {
@@ -2184,7 +2144,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/bati.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710846427107338/bati.png',
 	 			['page'] = 0
 	 		},
 			 ['carbonrs'] = {
@@ -2194,7 +2154,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/carbonrs.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710955269296208/carbonrs.png',
 	 			['page'] = 0
 	 		},
 			['chimera'] = {
@@ -2204,7 +2164,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/chimera.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974711088149061672/chimera.png',
 	 			['page'] = 0
 	 		},
 			['daemon'] = {
@@ -2214,7 +2174,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/daemon.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974711406605787176/daemon.png',
 	 			['page'] = 0
 	 		},
 			['defiler'] = {
@@ -2224,7 +2184,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/defiler.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974711560616411157/defiler.png',
 	 			['page'] = 0
 	 		},
 			['esskey'] = {
@@ -2234,7 +2194,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/panto.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974711683866042378/esskey.png',
 	 			['page'] = 0
 	 		},
 			['faggio'] = {
@@ -2244,7 +2204,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/faggio.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974711954260238397/faggio.png',
 	 			['page'] = 0
 	 		},
 			 ['hakuchou'] = {
@@ -2254,7 +2214,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/hakuchou.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974712113425694790/hakuchou.png',
 	 			['page'] = 0
 	 		},
 			 ['hakuchou2'] = {
@@ -2264,7 +2224,7 @@ Config.dealership_types = {
 				['price_to_export'] = 20000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/hakuchou2.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974712312395092028/hakuchou2.png',
 	 			['page'] = 0
 	 		},
 			 ['cliffhanger'] = {
@@ -2274,7 +2234,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/cliffhanger.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974712606038310932/cliffhanger.png',
 	 			['page'] = 0
 	 		},
 			['hexer'] = {
@@ -2284,7 +2244,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/hexer.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974713064039518299/hexer.png',
 	 			['page'] = 0
 	 		},
 			 ['nightblade'] = {
@@ -2294,7 +2254,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/nightblade.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974713327127265340/nightblade.png',
 	 			['page'] = 0
 	 		},
 			 ['pcj'] = {
@@ -2304,7 +2264,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/pcj.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974713516051279892/pcj.png',
 	 			['page'] = 0
 	 		},
 			 ['ruffian'] = {
@@ -2314,7 +2274,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/ruffian.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974713682351235093/ruffian.png',
 	 			['page'] = 0
 	 		},
 			 ['sanctus'] = {
@@ -2324,7 +2284,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/sanctus.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974714169364455474/sanctus.png',
 	 			['page'] = 0
 	 		},
 			 ['thrust'] = {
@@ -2334,7 +2294,7 @@ Config.dealership_types = {
 				['price_to_export'] = 5000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/thrust.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974714708701622332/thrust.png',
 	 			['page'] = 0
 	 		},
 			 ['faggio3'] = {
@@ -2344,7 +2304,7 @@ Config.dealership_types = {
 				['price_to_export'] = 3000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/faggio3.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974714855879753738/faggio3.png',
 	 			['page'] = 0
 	 		},
 			 ['nemesis'] = {
@@ -2354,7 +2314,7 @@ Config.dealership_types = {
 				['price_to_export'] = 2000,
 	 			['amount_to_owner'] = 1,
 				['max_stock'] = 10,
-	 			['img'] = 'images/cars/nemesis.png',
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974715001334009856/nemesis.png',
 	 			['page'] = 0
 	 		},
 	 	},
