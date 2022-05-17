@@ -44,7 +44,7 @@ RegisterNUICallback("np-ui:hudSetPreferences", function(data, cb)
             changeHud = idx,
           }
           local s = tostring(idx)
-          exports["np-keybinds"]:registerKeyMapping("", "HUD", "Enable " .. s, "+hud_enable_" .. s, "-hud_enable_" .. s)
+          exports["pw-keybinds"]:registerKeyMapping("", "HUD", "Enable " .. s, "+hud_enable_" .. s, "-hud_enable_" .. s)
           RegisterCommand('+hud_enable_' .. s, function()
             exports["np-ui"]:sendAppEvent("preferences", eventOptions)
           end, false)

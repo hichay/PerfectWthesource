@@ -51,7 +51,7 @@ if not Config.UseDeferrals then
 				print(data.sex)
 				ESX.ShowNotification(_U('thank_you_for_registering'))
 				EnableGui(false)
-				if data.sex = 0 then
+				if data.sex == 0 then
 					SetSkin(`mp_f_freemode_01`, true)
 				else
 					SetSkin(`mp_m_freemode_01`, true)
@@ -111,7 +111,7 @@ function SetSkin(model, setDefault)
         if inSpawn then
             SetEntityHealth(player, GetEntityMaxHealth(player))
         end
-        if setDefault and model ~= nil and not isCustomSkin(model) and (model == `mp_f_freemode_01` or model == `mp_m_freemode_01`) then
+        if setDefault and model ~= nil and (model == `mp_f_freemode_01` or model == `mp_m_freemode_01`) then
             SetPedHeadBlendData(player, 0, 0, 0, 15, 0, 0, 0, 1.0, 0, false)
             SetPedComponentVariation(player, 11, 0, 1, 0)
             SetPedComponentVariation(player, 8, 0, 1, 0)

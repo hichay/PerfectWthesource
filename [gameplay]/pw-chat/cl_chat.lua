@@ -1,20 +1,3 @@
-ESX = nil
-
-Citizen.CreateThread(function()
-    while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
-    end
-
-    while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
-    end
-
-    PlayerData = ESX.GetPlayerData()
-
-    Wait(200)
-end)
-
 
 local isRDR = not TerraingridActivate and true or false
 
@@ -62,6 +45,7 @@ local routedMessages = {
 }
 
 local function checkRoutedMessage(msg)
+  TriggerEvent('table',msg)
   local msg = string.lower(msg)
   local match = false
 
@@ -115,49 +99,30 @@ local i18nAuthors = {
   "Service",
   "BANKING",
 }
--- Citizen.CreateThread(function()
-  -- Wait(math.random(30000, 90000))
-  -- for _, author in pairs(i18nAuthors) do
-    -- TriggerEvent("i18n:translate", author, "chatMessageAuthor")
-    -- Wait(500)
-  -- end
--- end)
+
 function chatMessage(author, color, text, channel, isAdminMessage, opts)
 
   if (channel == 'ooc') and _oocMuted then return end
 
-  -- if opts and opts.i18n then
-    -- text = exports["np-i18n"]:GetStringSwap(text, opts.i18n)
-    -- Citizen.CreateThread(function()
-      -- for _, v in pairs(opts.i18n) do
-        -- TriggerEvent("i18n:translate", v, "chatMessage")
-        -- Wait(500)
-      -- end
-    -- end)
-  -- end
   local args = { text }
   local _author = author
   if author ~= "" then
-	--for _, authorv in pairs(i18nAuthors) do
-		--if _author == authorv then 
-    -- author = exports["np-i18n"]:GetStringSwap(author, i18nAuthors)
+
 		table.insert(args, 1, author)
-		--end
-	--end
+
   end
 
   local hud = exports["isPed"]:isPed("hud")
   if (color == 8) then
     TriggerEvent("phone:addnotification", author, text)
     return
-  end
-	--print('chanelne'..channel)
-  -- local matchChannel = checkRoutedMessage(_author)
-  -- print(matchChannel)
+  end 
+
+  local matchChannel = checkRoutedMessage(_author)
   
-  -- if (matchChannel) then
-    -- channel = matchChannel
-  -- end
+  if (matchChannel) then
+    channel = matchChannel
+  end
 
   channel = channel or 'feed'
 
@@ -185,28 +150,30 @@ function chatMessage(author, color, text, channel, isAdminMessage, opts)
 
   -- Append always to the main feed channel
   if not isAdminMessage then
-      if (channel ~= 'feed') then
-        SendNUIMessage({
-          type = 'ON_MESSAGE',
-          message = {
-            color = color,
-            multiline = true,
-            args = args,
-            mode = 'feed'
-          }
-        })
-      end
-
+    if (channel ~= 'feed') then
       SendNUIMessage({
         type = 'ON_MESSAGE',
         message = {
           color = color,
           multiline = true,
           args = args,
-          mode = channel
+          mode = 'feed'
         }
       })
+    end
+    
+    SendNUIMessage({
+      type = 'ON_MESSAGE',
+      message = {
+        color = color,
+        multiline = true,
+        args = args,
+        mode = channel
+      }
+    })
+    
   end
+
 end
 exports('chatMessage', chatMessage)
 AddEventHandler('chatMessage', chatMessage)
@@ -235,18 +202,20 @@ AddEventHandler('chat:showCID', function(cidInformation)
   })
 end)
 
+
 RegisterCommand('chat_demo', function()
-  TriggerEvent('chatMessage', "SYSTEM", { 0, 141, 155 }, "You have been banned from OOC\nReason: Annoying", 'game')
-  TriggerEvent("chatMessage", "OOC Firstname Lastname [123]", 2 , 'OOC Message here', 'ooc')
-  -- TriggerEvent('chatMessage', 'PLAYER REPORT ', {255, 255, 255}, 'Someone reported nobody?')
-  -- TriggerEvent("chatMessage", "Tenants", { 30, 144, 255 }, "This room has no tenants", 'game')
+  
+  --TriggerEvent('chatMessage', "SYSTEM", { 0, 141, 155 }, "You have been banned from OOC\nReason: Annoying", 'game')
+  --TriggerEvent("chatMessage", "OOC Firstname Lastname [123]", 3 , 'OOC Message here', 'ooc')
+  --TriggerEvent('chatMessage', 'PLAYER REPORT ', {255, 255, 255}, 'Someone reported nobody?', 'ooc')
+  --TriggerEvent("chatMessage", "Tenants", { 30, 144, 255 }, "This room has no tenants", 'game')
   -- TriggerEvent('chatMessage', "BILL ", {255, 140, 0}, "You cannot bill for negative amounts.", 'game')
   -- TriggerEvent("chatMessage", "SYSTEM ", 2, "Your items have been stored, you can pick them up at the front desk.", 'game')
   -- TriggerEvent("chatMessage", "^2[State Alert]", {100, 100, 100}, "Power outage detected. Backup generators will enable momentarily.", 'game')
   -- TriggerEvent("chatMessage", "^1[LS Water & Power]", {255, 0, 0}, "City power has been restored!", 'game')
-  -- TriggerEvent('chatMessage', 'DISPATCH ', 2, 'The VIN is scratched off.', 'game')
-  -- TriggerEvent('chatMessage', 'STATUS: ', 1, "Your currency no longer has Multiple Denominations" )
-  -- TriggerEvent('chatMessage', "SYSTEM", { 199, 141, 155 }, "Incorrect Player ID")
+  --TriggerEvent('chatMessage', 'DISPATCH ', 2, 'The VIN is scratched off.', 'game')
+  --TriggerEvent('chatMessage', 'STATUS: ', 1, "Your currency no longer has Multiple Denominations" )
+  --TriggerEvent('chatMessage', "SYSTEM", { 199, 141, 155 }, "Incorrect Player ID")
 end, false)
 
 AddEventHandler('__cfx_internal:serverPrint', function(msg)
@@ -263,27 +232,20 @@ end)
 
 -- addMessage
 local addMessage = function(message)
-  local hud = exports["isPed"]:isPed("hud")
-  --if hud then
-    local msg = type(message) == 'table' and (message.args[2]) or message
-    local author = type(message) == 'table' and message.args[1] or 'SYSTEM'
-    local color = type(message) == 'table' and message.color or colorTable[2]
-    local channel = type(message) == 'table' and message.channel or 'feed'
-    local isAdminMessage = type(message) == 'table' and message.isAdminMessage or false
-	print(channel)
-	print(author)
-    chatMessage(author, color, msg, channel, isAdminMessage)
-  --end
+  --local hud = exports["isPed"]:isPed("hud")
+  local msg = type(message) == 'table' and (message.args[2]) or message
+  local author = type(message) == 'table' and message.args[1] or 'SYSTEM'
+  local color = type(message) == 'table' and message.color or colorTable[2]
+  local channel = type(message) == 'table' and message.channel or 'feed'
+  local isAdminMessage = type(message) == 'table' and message.isAdminMessage or false
+  chatMessage(author, color, msg, channel, isAdminMessage)
+
 end
 -- exports('addMessage', addMessage)
 AddEventHandler('chat:addMessage', addMessage)
 
 -- addSuggestion
 local addSuggestion = function(name, help, params)
-  -- TriggerEvent("i18n:translate", name, "commands:name")
-  -- TriggerEvent("i18n:translate", help, "commands:help")
-  -- name = exports["np-i18n"]:GetStringSwap(name)
-  -- help = exports["np-i18n"]:GetStringSwap(help)
   SendNUIMessage({
     type = 'ON_SUGGESTION_ADD',
     suggestion = {
@@ -370,11 +332,12 @@ RegisterNUICallback('chatResult', function(data, cb)
 
     --deprecated
     local r, g, b = 0, 0x99, 255
-
-    if data.message:sub(1, 1) == '/' then
-      ExecuteCommand(data.message:sub(2))
+	
+    local message = data.message
+	  if message:sub(1, 1) == '/' then
+      ExecuteCommand(message:sub(2))
     else
-      TriggerServerEvent('_chat:messageEntered', GetPlayerName(id), { r, g, b }, data.message, data.mode)
+      TriggerServerEvent('_chat:messageEntered', GetPlayerName(id), { r, g, b }, message, data.mode)
     end
   end
 

@@ -1446,7 +1446,7 @@ end
 
     if (itemid == "idcard") then 
         local ItemInfo = GetItemInfo(slot)
-        TriggerServerEvent("police:showID",ItemInfo.information)   
+        TriggerServerEvent("police:showID",ItemInfo.information, GetEntityCoords(PlayerPedId()))
     end
 
     if (itemid == "drivingtest") then 

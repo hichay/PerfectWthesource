@@ -1429,9 +1429,10 @@ end)
 
 -- Handler Events
 
-RegisterNetEvent('esx:playerLoaded', function()
-	Wait(10000)
+AddEventHandler('playerSpawned', function()
+	Wait(500)
     LoadPhone()
+	print('load the fucking phoe')
 	
 end)
 
@@ -1502,7 +1503,7 @@ RegisterNetEvent('qb-phone:client:UpdateTweets', function(src, Tweets, NewTweetD
                 action = "PhoneNotification",
                 PhoneNotify = {
                     title = "New Tweet (@"..NewTweetData.firstName.." "..NewTweetData.lastName..")",
-                    text = "A new tweet as been posted.",
+                    text = NewTweetData.message,
                     icon = "fab fa-twitter",
                     color = "#1DA1F2",
                 },
@@ -2106,12 +2107,7 @@ RegisterNetEvent("qb-phone:client:CustomNotification", function(title, text, ico
     })
 end)
 
--- Threads
 
-CreateThread(function()
-    Wait(500)
-    LoadPhone()
-end)
 
 RegisterCommand("loadphone", function(source, args, rawCommand)
 	LoadPhone()

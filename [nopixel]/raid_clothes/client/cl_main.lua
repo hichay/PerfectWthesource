@@ -1052,8 +1052,10 @@ end)
 
 -- end)
 
-AddEventHandler('playerSpawned', function(spawn)
-    isDead = false
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function()
+	isDead = false
     TriggerServerEvent("clothing:checkIfNew")
 end)
 
@@ -1411,24 +1413,7 @@ end)
 -- LoadPed(data) Sets clothing based on the data structure given, the same structure that GetCurrentPed() returns
 -- GetCurrentPed() Gives you the data structure of the currently worn clothes
 
-RegisterCommand("ontest", function(source, args, rawCommand)
-	
-local datamenu = {}
-for i = 1 , 3 do
-		local slot = tonumber(i)
-		datamenu[#datamenu + 1] = {
-			
-			title = "Lưu bộ này",
-			description = '',
-			key = 1,
-			action = "np-ui:raid_clothes:addOutfitPrompt"
-				
-			
-		}
-	end
-    exports["np-ui"]:showContextMenu(datamenu)
-	end, false)
-	
+
 function SetCustomNuiFocus(hasKeyboard, hasMouse)
   HasNuiFocus = hasKeyboard or hasMouse
   SetNuiFocus(hasKeyboard, hasMouse)
@@ -1645,11 +1630,11 @@ AddEventHandler('attachedItems:block', function(status)
         hasCgChainOn = false
         hasSquidMaskOn = false
         -- its possible to stack both chain and hat on, so this is triggered twice.. might be worth rewriting this pile of shit prop system so it can handle multiple items on/off seperately too
-        TriggerEvent("np-props:removeProp")
-        TriggerEvent("np-props:removeProp")
+        TriggerEvent("pw-props:removeProp")
+        TriggerEvent("pw-props:removeProp")
     elseif (hadattachitem) and not status then
         hadattachitem = false
-        TriggerEvent("np-inventory:itemUsed",storedpItem, storedpInfo)
+        TriggerEvent("pw-inventory:itemUsed",storedpItem, storedpInfo)
     end
 end)
 
@@ -1668,10 +1653,10 @@ AddEventHandler("np-inventory:itemUsed", function(pItem, pInfo)
   if not hasSquidMaskOn then
     hasSquidMaskOn = true
     -- SetPedComponentVariation(PlayerPedId(), 7, chainValue, 0, 0)
-    TriggerEvent("np-props:attachProp", model.model, 31086, model.x, model.y, model.z, -13.0, -86.0, -165.0, true, true)
+    TriggerEvent("pw-props:attachProp", model.model, 31086, model.x, model.y, model.z, -13.0, -86.0, -165.0, true, true)
   else
     hasSquidMaskOn = false
-    TriggerEvent("np-props:removeProp")
+    TriggerEvent("pw-props:removeProp")
   end
   equippingMask = false
 end)

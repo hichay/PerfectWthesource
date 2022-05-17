@@ -1,5 +1,6 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 RegisterServerEvent('chat:init')
 RegisterServerEvent('chat:addTemplate')
 RegisterServerEvent('chat:addMessage')
@@ -8,7 +9,8 @@ RegisterServerEvent('chat:removeSuggestion')
 RegisterServerEvent('_chat:messageEntered')
 RegisterServerEvent('chat:clear')
 RegisterServerEvent('__cfx_internal:commandFallback')
-
+local MutedPlayers = {}
+local ChattedPlayers = {}
 -- this is a built-in event, but somehow needs to be registered
 RegisterNetEvent('playerJoining')
 
@@ -36,7 +38,44 @@ exports('registerMessageHook', function(hook)
     hookIdx = hookIdx + 1
 end)
 
-local modes = {}
+local modes = {
+    {
+        name = 'game',
+        displayName = 'Game',
+        color = '#ffff',
+        hidden = true,
+        isGlobal = false,
+        isChannel = true,
+    },
+    {
+        name = 'ooc',
+        displayName = 'OOC',
+        color = '#ffff',
+        hidden = false,
+        isGlobal = false,
+        isChannel = true,
+    },
+--[[ {
+name = 'hidden',
+displayName = 'Hidden',
+color = '#ffff',
+hidden = true,
+isGlobal = false,
+isChannel = false,
+},
+{
+name = 'dispatch',
+displayName = 'Dispatch',
+color = '#ffff',
+hidden = true,
+isGlobal = false,
+isChannel = false,
+}, ]]
+
+
+
+}
+
 
 local function getMatchingPlayers(seObject)
     local players = GetPlayers()
@@ -111,17 +150,18 @@ local function unregisterHooks(resource)
 end
 
 local function routeMessage(source, author, message, mode, fromConsole)
-	local xPlayer = ESX.GetPlayerFromId(source)
+
+    local xPlayer = ESX.GetPlayerFromId(source)
     if source >= 1 then
         --author = GetPlayerName(source)
-		author = xPlayer.getName()
+        author = xPlayer.getName()
     end
-	print(mode)
+
     local outMessage = {
         color = { 255, 255, 255 },
         multiline = true,
         args = { message },
-        mode = mode
+        channel = mode
     }
 
     if author ~= "" then
@@ -188,15 +228,24 @@ local function routeMessage(source, author, message, mode, fromConsole)
         return
     end
 
-    --TriggerEvent('chatMessage', source, #outMessage.args > 1 and outMessage.args[1] or '', outMessage.args[#outMessage.args])
+    TriggerEvent('chatMessage', source, #outMessage.args > 1 and outMessage.args[1] or '', outMessage.args[#outMessage.args])
 
     if not WasEventCanceled() then
         if type(routingTarget) ~= 'table' then
-		print(routingTarget)
-            TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+            if mode == 'ooc' then
+                local idnumber = xPlayer.getIdCard()
+                if ChattedPlayers[idnumber] then
+                    if os.time() < ChattedPlayers[idnumber] then
+
+                        TriggerClientEvent('chatMessage', source, "SYSTEM" , 4, ("^0 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
+                        return
+                    end
+                end
+                ChattedPlayers[idnumber] = os.time() + math.floor(100)
+                TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+            end
         else
             for _, id in ipairs(routingTarget) do
-				print('day')
                 TriggerClientEvent('chat:addMessage', id, outMessage)
             end
         end
@@ -207,13 +256,13 @@ local function routeMessage(source, author, message, mode, fromConsole)
     end
 end
 
+
 AddEventHandler('_chat:messageEntered', function(author, color, message, mode)
     if not message or not author then
         return
     end
 
     local source = source
-	print(mode)
     routeMessage(source, author, message, mode)
 end)
 
@@ -231,16 +280,18 @@ AddEventHandler('playerJoining', function()
     if GetConvarInt('chat_showJoins', 1) == 0 then
         return
     end
-
-    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) .. ' joined.')
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local name = xPlayer.getName()
+    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name .. ' vừa connect.', { 158, 71, 158 } )
 end)
 
 AddEventHandler('playerDropped', function(reason)
     if GetConvarInt('chat_showQuits', 1) == 0 then
         return
     end
-
-    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local name = xPlayer.getName()
+    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name ..' vừa thoát (' .. reason .. ')', { 158, 71, 158 })
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)
@@ -270,7 +321,6 @@ end
 AddEventHandler('chat:init', function()
     local source = source
     refreshCommands(source)
-
     for _, modeData in pairs(modes) do
         local clObj = {
             name = modeData.name,
@@ -297,3 +347,70 @@ end)
 AddEventHandler('onResourceStop', function(resName)
     unregisterHooks(resName)
 end)
+
+RegisterCommand("mute", function(source, args, rawCommand)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer.getGroup() == 'mod' or xPlayer.getGroup() == "admin" then
+        local target = tonumber(args[1])
+        local tPlayer = ESX.GetPlayerFromIdCard(target)
+        local time = tonumber(args[2])
+        local reason = ''
+
+        for i=3, #args, 1 do
+            if i > 1 then
+                reason = reason .. ' '
+                reason = reason .. args[i]
+            end
+        end
+
+        if tPlayer then
+            ChattedPlayers[tPlayer.getIdCard()] = os.time() + time
+            TriggerClientEvent('chatMessage', -1,("^1SYSTEM :^0 ^3%s^0 [%s] đã bị mute OOC trong ^1%s giây\nLý do: %s - [%s]"):format(tPlayer.name, tPlayer.getIdCard(target) ,math.floor(time), reason, xPlayer.getName()), {77, 36, 92})
+        else
+            xPlayer.showNotification("Sai lệnh. /mute [id] [thời-gian-tính theo giây] [lý do]")
+        end
+    end
+end)
+
+RegisterCommand("unmute", function(source, args, rawCommand)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer.getGroup() == 'mod' or xPlayer.getGroup() == "admin" then
+        local target = tonumber(args[1])
+        local tPlayer = ESX.GetPlayerFromIdCard(target)
+        if tPlayer then
+            ChattedPlayers[tPlayer.getIdCard()] = 0
+            TriggerClientEvent('chatMessage', -1, ("^1SYSTEM :^0 ^3%s^0 [%s] Đã được Unmute OOC\nNgười unmute: %s"):format(tPlayer.name, tPlayer.getIdCard(target) ,xPlayer.getName()), {77, 36, 92})
+        else
+            xPlayer.showNotification("Sai lệnh. /unmute [id]")
+        end
+    end
+end)
+
+RegisterCommand('ooc', function(source, args, rawCommand)
+    if source == 0 then
+        print('chat: cant use in rcon!')
+        return
+    end
+
+    args = table.concat(args, ' ')
+    if string.sub(args, 1, string.len('/')) ~= '/' then
+        CancelEvent()
+        local xPlayer = ESX.GetPlayerFromId(source)
+        local name = xPlayer.getName()
+        local idnumber = xPlayer.getIdCard()
+
+        if ChattedPlayers[idnumber] then
+            if os.time() < ChattedPlayers[idnumber]then
+                TriggerClientEvent('chatMessage', source, "SYSTEM" , 4, ("^4 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
+                return
+            end
+        end
+
+        TriggerClientEvent('chatMessage', -1, "OOC | "..name.." ["..idnumber.."]" , {163, 62, 48}, args, 'ooc')
+        ChattedPlayers[idnumber] = os.time() + math.floor(100)
+
+    end
+
+end, false)
+
+

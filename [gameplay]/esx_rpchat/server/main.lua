@@ -83,7 +83,7 @@ RegisterCommand('ooc', function(source, args, rawCommand)
 			-- else
 				
 				TriggerClientEvent('chat:addMessage', -1, { 
-					template = '<div style="padding: 0.3vw; display: inline-block;  background-color: rgba(153, 51, 0, 0.5); border-radius: 1vw;"><i class="icon"></i> {0} : {1}</div>',
+					template = 'tweet',
 					args = {  " Cư Dân | ^2" .. name, args }, color = { 255, 255, 255 } 
 				})
 			--end
