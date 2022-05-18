@@ -2,14 +2,18 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 local defaultDegradation = {
-    ["brake"] = 100,
-    ["axle"] = 100,
-    ["radiator"] = 100,
-    ["clutch"] = 100,
     ["transmission"] = 100,
     ["electronics"] = 100,
-    ["injector"] = 100,
+    ["brake"] = 100,
+    ["dirty"] = 0,
+    ["body_damage"] = 1000,
+    ["engine_damage"] = 1000,
+    ["fuel"] = 100,
     ["tire"] = 100,
+	["injector"] = 100,
+	["clutch"] = 100,
+	["axle"] = 100,
+	["radiator"] = 100,
 }
 
 local vehiclesHealth = {
@@ -43,6 +47,10 @@ function getMileage(plate)
 	return result
 end
 
+RegisterNetEvent("pw-vehicles:bennysResetDegradation")
+AddEventHandler("pw-vehicles:bennysResetDegradation", function(pPlate)
+    TriggerEvent("pw-vehicles:updateVehicleDegradation", pPlate, defaultDegradation)
+end)
 
 RegisterNetEvent("pw-vehicles:updateVehicleHealth")
 AddEventHandler("pw-vehicles:updateVehicleHealth", function(plate, body, engine)
@@ -85,10 +93,6 @@ AddEventHandler("pw-vehicles:adminRepair", function(target)
     TriggerEvent("pw-vehicles:updateVehicleDegradation", plate, defaultDegradation)
 end)
 
-RegisterNetEvent("pw-vehicles:bennysResetDegradation")
-AddEventHandler("pw-vehicles:bennysResetDegradation", function(pVid, pPlate)
-    TriggerEvent("pw-vehicles:updateVehicleDegradation", vid, pPlate, defaultDegradation)
-end)
 
 RegisterNetEvent("pw-vehicles:updateVehicleMileage")
 AddEventHandler("pw-vehicles:updateVehicleMileage", function(plate, mileage)
@@ -112,4 +116,20 @@ end)
 
 RPC.register("pw-vehicles:getMileage", function(src, plate)
     return getMileage(plate)
+end)
+
+function isOwned(plate)
+    local xPlayer = ESX.GetPlayerFromId(source)
+	
+	local result = MySQL.scalar.await("SELECT plate FROM `owned_vehicles` WHERE `plate` = '"..plate.."'")
+
+	if result ~= nil then 
+		return true 
+	else
+		return false
+	end
+end
+
+RPC.register('pw-vehicles:isOwned',function(src, plate)
+	return isOwned(plate)
 end)

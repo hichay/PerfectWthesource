@@ -40,10 +40,11 @@ end
 function getDegredation()
     local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
     local currentVehicle = GetVehiclePedIsIn(PlayerPedId())
-    ESX.TriggerServerCallback("pw-garages:server:isVehicleOwned",function(owned)
+    --ESX.TriggerServerCallback("pw-garages:server:isVehicleOwned",function(owned)
         --if currentVehicle == 0 or has_value(blockedClasses, GetVehicleClass(currentVehicle)) then return end
         local plate = GetVehicleNumberPlateText(currentVehicle)
         local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+		local owned = RPC.execute('pw-vehicles:isOwned',plate)
         --TriggerEvent("table",json.decode(degHealth))
 
         if owned then
@@ -223,7 +224,7 @@ function getDegredation()
                 end
             end
         end
-    end,plate)
+    --end,plate)
 end
 
 
@@ -390,8 +391,8 @@ AddEventHandler("pw-vehicles:randomDegredation", function(vehicle, upperLimit, s
                     ["electronics"] = elec,
                     ["injector"] = fi,
                     ["tire"] = tire,
-                    ["engine_damage"] = GetVehicleEngineHealth(vehicle),
-                    ["body_damage"] = GetVehicleBodyHealth(vehicle),
+                    ["engine_damage"] = math.floor(GetVehicleEngineHealth(vehicle)),
+                    ["body_damage"] = math.floor(GetVehicleBodyHealth(vehicle)),
                     ["fuel"] = math.floor(GetVehicleFuelLevel(vehicle)),
                     ["dirty"] = math.floor(GetVehicleDirtLevel(vehicle)),
                 }
@@ -778,6 +779,38 @@ AddEventHandler("pw-inventory:itemUsed", function(item, info, inventory, slot, d
     end
 end)
 
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(500)
+
+        if IsPedInAnyVehicle(PlayerPedId(),false) then
+
+            local veh = GetVehiclePedIsIn(PlayerPedId(),false)
+            local plate = GetVehicleNumberPlateText(veh)
+            --ESX.TriggerServerCallback('pw-garages:server:isVehicleOwned', function(owned)
+				local owned = RPC.execute('pw-vehicles:isOwned',plate)
+                if plate and owned then
+                    local newPos = GetEntityCoords(PlayerPedId())
+
+                    if oldPos == nil then
+                        oldPos = newPos
+                    end
+
+                    if #(newPos - oldPos) > 100.0 then
+                        oldPos = newPos
+
+                        local update = GetEntitySpeed(veh) * 1.0 / 100
+                        TriggerServerEvent("pw-vehicles:updateVehicleMileage", plate, update)
+                    end
+                end
+            --end,plate)
+        else
+            Citizen.Wait(1000)
+        end
+    end
+end)
+
 Citizen.CreateThread(function()
     local tick = 0
     local rTick = 0
@@ -805,35 +838,5 @@ Citizen.CreateThread(function()
         end
 
         Citizen.Wait(1000)
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(500)
-
-        if IsPedInAnyVehicle(PlayerPedId(),false) then
-
-            local veh = GetVehiclePedIsIn(PlayerPedId(),false)
-            local plate = GetVehicleNumberPlateText(veh)
-            ESX.TriggerServerCallback('pw-garages:server:isVehicleOwned', function(owned)
-                if plate and owned then
-                    local newPos = GetEntityCoords(PlayerPedId())
-
-                    if oldPos == nil then
-                        oldPos = newPos
-                    end
-
-                    if #(newPos - oldPos) > 10.0 then
-                        oldPos = newPos
-
-                        local update = GetEntitySpeed(veh) * 1.0 / 100
-                        TriggerServerEvent("pw-vehicles:updateVehicleMileage", plate, update)
-                    end
-                end
-            end,plate)
-        else
-            Citizen.Wait(1000)
-        end
     end
 end)

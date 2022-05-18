@@ -89,11 +89,13 @@ function OpenVehicleSpawnerMenu(type, station, part, partNum)
 
 								if foundSpawn then
 									menu2.close()
-
+							
 									ESX.Game.SpawnVehicle(data2.current.model, spawnPoint.coords, spawnPoint.heading, function(vehicle)
 										local vehicleProps = allVehicleProps[data2.current.plate]
-										SetVehicleMod(vehicle,16,4)
+										--TriggerEvent('table',vehicleProps)
+										
 										ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
+										SetVehicleMod(vehicle,48,vehicleProps.modLivery)
 										TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(vehicle).plate)	
 
 										TriggerServerEvent('esx_policejob:setJobVehicleState', data2.current.plate, false)
@@ -236,20 +238,20 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 				props.plate    = newPlate
 				
 				stats = {
-						["engine_damage"] = GetVehicleEngineHealth(vehicle), 
-						["body_damage"] = GetVehicleBodyHealth(vehicle), 
-						["fuel"] = GetVehicleFuelLevel(vehicle), 
-						["dirty"] = GetVehicleDirtLevel(vehicle),
+						["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
+						["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
+						["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity), 
+						["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
 						["radiator"] = 100,
-						["axle"] = GetVehicleSteeringScale(vehicle), 
-						["brakes"] = 100,
+						["axle"] = 100, 
+						["brake"] = 100,
 						["clutch"] = 100,
 						["tire"] = 100,
-						["electronic"] = 100,
+						["electronics"] = 100,
 						["transmission"] = 100,
-						["fuelinjector"] = 100,
+						["injector"] = 100,
 					}
-
+				
 				ESX.TriggerServerCallback('esx_policejob:buyJobVehicle', function (bought)
 					if bought then
 						ESX.ShowNotification(_U('vehicleshop_bought', data.current.name, ESX.Math.GroupDigits(data.current.price)))

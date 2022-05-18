@@ -364,8 +364,8 @@ ESX.RegisterServerCallback('pw-garages:server:isVehicleOwned', function(source, 
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
     
-    print(plate)
-    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.getIdentifier() .. "' AND `plate` = '" .. plate .. "'", function(result)
+    local plateveh = tostring(plate)
+    MySQL.query("SELECT * FROM `owned_vehicles` WHERE `owner` = '" .. xPlayer.identifier .. "' AND `plate` = '" .. plateveh .. "'", function(result)
         if result[1] ~= nil then
             cb(true)
         else
