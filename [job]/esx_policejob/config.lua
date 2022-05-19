@@ -344,7 +344,7 @@ Config.AuthorizedVehicles = {
 			-- { model = 'police', label = 'Police Cruiser', price = 1 },
 			-- { model = 'police2', label = 'Police Bike', price = 1 },
 			-- { model = 'police3', label = 'Police Bike', price = 1 },
-			{ model = 'policeb', label = 'Police Bike 2', price = 100 },
+			{ model = 'npolvette', label = 'Police Bike 2', price = 100 },
 			{ model = 'v14charger', label = 'Police Cruise 3', price = 200 },
 			{ model = 'v16explorer', label = 'Police SUV', price = 200 },
 			{ model = 'police', label = 'Police Cruise', price = 100 }

@@ -13,7 +13,8 @@ server_scripts {
 }
 
 client_scripts {
-	"@pw-sync/client/cl_lib.lua",
+	"@pw-lib/client/cl_ui.lua",
+	"@np-sync/client/lib.lua",
     "@pw-lib/client/cl_rpc.lua",
     "client/nitrous/*",
     "client/*",

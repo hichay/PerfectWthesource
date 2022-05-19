@@ -372,6 +372,19 @@ ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, c
 	end)
 end)
 
+RPC.register('CheckPlayerDead',function(src)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier
+	}, function(isDead)
+		if isDead then
+			return true
+		else
+			return false
+		end
+	end)
+end)
+
 
 ESX.RegisterServerCallback('esx_ambulancejob:GetListDeadPlayers', function(source, cb, name)
     local src = source

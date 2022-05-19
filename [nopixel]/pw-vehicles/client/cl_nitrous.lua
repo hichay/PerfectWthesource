@@ -135,7 +135,6 @@ exports("GetNitroLevel", GetNitroLevel)
 AddEventHandler("vehicle:addNos", function(type)
     local vehicle = GetVehiclePedIsUsing(PlayerPedId())
     if not vehicle or not DoesEntityExist(vehicle) then return end
-	print('a')
     Sync.DecorSetInt(vehicle, "Vehicle-Nitrous", 100)
 
     local vid = GetVehicleNumberPlateText(vehicle)
@@ -233,11 +232,9 @@ Citizen.CreateThread(function()
     exports["pw-keybinds"]:registerKeyMapping("", "Vehicle", "Nitrous", "+toggleNitrous", "-toggleNitrous", "")
     RegisterCommand("+toggleNitrous", startNitrous, false)
     RegisterCommand("-toggleNitrous", function() end, false)
-	RegisterCommand("+toggleNitrous1", yoo, false)
 end)
 
 
-
-function yoo()
+RegisterCommand("addnos", function(source, args, rawCommand)
     TriggerEvent("vehicle:addNos")
-end
+end, false)

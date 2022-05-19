@@ -15,21 +15,30 @@ local activeVehicles = {}
 
 ]]
 
-function getVehicle(id)
-    local vehicle = MySQL.query.await([[
-        SELECT v1.id, v1.cid, v1.plate, v1.model, v1.type, v2.fuel, v2.body_damage, v2.engine_damage, v2.modifications, v2.fakePlate, v2.harness, v3.state, v3.garage, v3.coords, v4.price AS payment_price, v4.left AS payment_left, DATEDIFF(FROM_UNIXTIME(UNIX_TIMESTAMP()), FROM_UNIXTIME(v4.last)) AS payment_last
-        FROM vehicles v1
-        INNER JOIN vehicles_metadata v2 ON v2.vid = v1.id
-        INNER JOIN vehicles_garage v3 ON v3.vid = v1.id
-        INNER JOIN vehicles_payments v4 ON v4.vid = v1.id
-        WHERE id = ?
-    ]],
-    { id })
+function getVehicle(plate)
+    print(plate)
+    local vehicles = MySQL.single.await('SELECT * FROM owned_vehicles WHERE plate = @plate', {
+		['@plate'] = plate
+	})
+    if not vehicles then return end
 
-    if not vehicle[1] then return end
-
-    return vehicle[1]
+    return vehicles
 end
+
+RPC.register("pw-vehicles:setJobVehicleState", function(src, plate, stored)
+
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	MySQL.query('UPDATE owned_vehicles SET `stored` = @stored WHERE plate = @plate', {
+		['@stored'] = stored,
+		['@plate'] = plate
+	}, function(rowsChanged)
+		if rowsChanged == 0 then
+			print(('esx_vehicleshop: %s exploited the garage!'):format(xPlayer.identifier))
+		end
+	end)
+
+end)
 
 function updateVehicle(id, type, var, data)
     if not id or not type or not var or not data then return false end
@@ -253,8 +262,8 @@ exports("insertVehicle", insertVehicle)
 
 ]]
 
-RPC.register("pw-vehicles:getVehicle", function(src, id)
-    return getVehicle(id)
+RPC.register("pw-vehicles:getVehicle", function(src, plate)
+    return getVehicle(plate)
 end)
 
 RPC.register("pw-vehicles:updateVehicle", function(src, id, type, var, data)

@@ -816,8 +816,8 @@ Citizen.CreateThread(function()
     local rTick = 0
 
     while true do
-        local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
-        if invehicle then
+        --local invehicle = IsPedInAnyVehicle(PlayerPedId(), true)
+         if currentVehicle ~= 0 then
             currentVehicle = GetVehiclePedIsIn(PlayerPedId())
             tick = tick + 1
             rTick = rTick + 1

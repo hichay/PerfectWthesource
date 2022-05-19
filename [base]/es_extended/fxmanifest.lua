@@ -24,8 +24,7 @@ shared_scripts {
 }
 
 server_scripts {
-	'@async/async.lua',
-	'@mysql-async/lib/MySQL.lua',
+	'@oxmysql/lib/MySQL.lua',
 
 	'server/common.lua',
 	'server/classes/player.lua',
@@ -89,7 +88,5 @@ server_exports {
 }
 
 dependencies {
-	'mysql-async',
-	'async',
 	'spawnmanager',
 }

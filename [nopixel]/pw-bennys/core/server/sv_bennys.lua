@@ -17,29 +17,29 @@ AddEventHandler("playerDropped", function()
     end
 end)
 
-RegisterNetEvent("caue-bennys:addToInUse")
-AddEventHandler("caue-bennys:addToInUse", function(currentBennys)
+RegisterNetEvent("pw-bennys:addToInUse")
+AddEventHandler("pw-bennys:addToInUse", function(currentBennys)
     local src = source
 
     inUseBennys[currentBennys] = src
 end)
 
-RegisterNetEvent("caue-bennys:removeFromInUse")
-AddEventHandler("caue-bennys:removeFromInUse", function(currentBennys)
+RegisterNetEvent("pw-bennys:removeFromInUse")
+AddEventHandler("pw-bennys:removeFromInUse", function(currentBennys)
     local src = source
 
     inUseBennys[currentBennys] = nil
 end)
 
-RegisterNetEvent("caue-bennys:updateRepairCost")
-AddEventHandler("caue-bennys:updateRepairCost", function(price)
+RegisterNetEvent("pw-bennys:updateRepairCost")
+AddEventHandler("pw-bennys:updateRepairCost", function(price)
     local src = source
 
     repairPrices[src] = price
 end)
 
-RegisterNetEvent("caue-bennys:attemptPurchase")
-AddEventHandler("caue-bennys:attemptPurchase", function(cheap, type, upgradeLevel)
+RegisterNetEvent("pw-bennys:attemptPurchase")
+AddEventHandler("pw-bennys:attemptPurchase", function(cheap, type, upgradeLevel)
 
     local xPlayer = ESX.GetPlayerFromId(source)
     local src = source
@@ -60,19 +60,20 @@ AddEventHandler("caue-bennys:attemptPurchase", function(cheap, type, upgradeLeve
     local cash = xPlayer.getAccount('money').money
 
     if price > cash then
-        TriggerClientEvent("caue-bennys:purchaseFailed", src)
+        TriggerClientEvent("pw-bennys:purchaseFailed", src)
     else
         xPlayer.removeAccountMoney('money', price)
-        TriggerClientEvent("caue-bennys:purchaseSuccessful", src)
+        TriggerClientEvent("pw-bennys:purchaseSuccessful", src)
         --[[ else
-            TriggerClientEvent("caue-bennys:purchaseFailed", src)
+            TriggerClientEvent("pw-bennys:purchaseFailed", src)
         end ]]
     end
 end)
 
 
-RegisterNetEvent("caue-bennys:updateVehicle")
-AddEventHandler("caue-bennys:updateVehicle", function(prop, plate)
+
+RegisterNetEvent("pw-bennys:updateVehicle")
+AddEventHandler("pw-bennys:updateVehicle", function(prop, plate)
     local src = source
     local result = MySQL.query.await('SELECT * FROM `owned_vehicles` WHERE UPPER(plate) = @plate', {
         ['@plate'] = plate:upper()
@@ -85,19 +86,12 @@ AddEventHandler("caue-bennys:updateVehicle", function(prop, plate)
     end
 end)
 
-RegisterNetEvent("caue-bennys:resetDegredation")
-AddEventHandler("caue-bennys:resetDegredation", function(pVid, pPlate)
-    local src = source
-
-    TriggerEvent("caue-vehicles:bennysResetDegradation", pVid, pPlate)
-end)
-
 --[[
 
     RPCs
 
 ]]
 
-RPC.register("caue-bennys:checkIfUsed", function(src, currentBennys)
+RPC.register("pw-bennys:checkIfUsed", function(src, currentBennys)
     return inUseBennys[currentBennys]
 end)

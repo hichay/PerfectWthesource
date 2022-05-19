@@ -1,8 +1,3 @@
---[[
-
-    Variables
-
-]]
 
 CurrentJob = "unemployed"
 
@@ -74,8 +69,7 @@ function GetPedContext(pEntity, pContext)
 end
 
 function isDisabled()
-    return exports["pw-base"]:getVar("dead") or
-        exports["pw-base"]:getVar("handcuffed")
+    return exports["esx_ambulancejob"]:GetPlayerDead()
 end
 
 function hasPhone()

@@ -41,6 +41,8 @@ function ESX.GetPlayerData()
 	return ESX.PlayerData
 end
 
+
+
 ESX.SetPlayerData = function(key, val)
 	local current = ESX.PlayerData[key]
 	ESX.PlayerData[key] = val

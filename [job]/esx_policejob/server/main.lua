@@ -463,6 +463,26 @@ ESX.RegisterServerCallback('esx_policejob:buyJobVehicle', function(source, cb, v
 		end
 	end
 end)
+RPC.register('pw-policejob:buyJobVehicle',function(src,price)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	--TriggerClientEvent('table',-1,data)
+	if xPlayer.getMoney() >= price then 
+		xPlayer.removeMoney(price)
+		return true
+	else
+		return false
+	end
+end)
+
+RegisterServerEvent('pw-policejob:server:setVehicleOwned')
+AddEventHandler('pw-policejob:server:setVehicleOwned', function(props, stats, model, job, garagejob)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
+    
+
+    MySQL.query("INSERT INTO `owned_vehicles` (`owner`, `plate`, `model`, `vehicle`, `stats`, `state`, `job`, `garagejob` ) VALUES ('" .. xPlayer.identifier .. "', '" .. props.plate .. "', '" .. model .. "', '" .. json.encode(props) .. "', '" .. json.encode(stats) .. "', 'unknown', '" .. job .. "','" .. garagejob .. "')")
+end)
+
 
 ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, cb, nearbyVehicles)
 	local xPlayer = ESX.GetPlayerFromId(source)

@@ -188,12 +188,9 @@ local function saveVehicle()
 
         -- TriggerEvent("player:receiveItem", "bennysorder", 1, false, changedStuff)
         TriggerEvent("np-jobs:bennys:order", veh, changedStuff)
-        print(json.encode(changedStuff))
         return
     end
-    --print(vehicleMods)
-    --TriggerEvent('table',vehicleMods)
-    TriggerServerEvent("caue-bennys:updateVehicle", vehicleMods, GetVehicleNumberPlateText(veh))
+    TriggerServerEvent("pw-bennys:updateVehicle", vehicleMods, GetVehicleNumberPlateText(veh))
 end
 
 function getVehicleMods(veh)
@@ -406,7 +403,7 @@ function AttemptPurchase(purchaseType, upgradeLevel)
     if upgradeLevel ~= nil then
         upgradeLevel = upgradeLevel + 2
     end
-    TriggerServerEvent("caue-bennys:attemptPurchase", cheap, purchaseType, upgradeLevel)
+    TriggerServerEvent("pw-bennys:attemptPurchase", cheap, purchaseType, upgradeLevel)
 
     attemptingPurchase = true
 
@@ -1212,7 +1209,7 @@ function ExitBennys()
     isPlyInBennys = false
     TriggerEvent('vehicle:leftBennys')
     TriggerEvent('inmenu', isPlyInBennys)
-    TriggerServerEvent("caue-bennys:removeFromInUse", currentBennys)
+    TriggerServerEvent("pw-bennys:removeFromInUse", currentBennys)
     exports["np-ui"]:showInteraction("[E] Bennys")
     listenForKeypress()
     currentBennys = nil
@@ -1367,14 +1364,14 @@ function checkVehicleExtras(model)
 end
 
 --#[Event Handlers]#--
-RegisterNetEvent("caue-bennys:purchaseSuccessful")
-AddEventHandler("caue-bennys:purchaseSuccessful", function()
+RegisterNetEvent("pw-bennys:purchaseSuccessful")
+AddEventHandler("pw-bennys:purchaseSuccessful", function()
     isPurchaseSuccessful = true
     attemptingPurchase = false
 end)
 
-RegisterNetEvent("caue-bennys:purchaseFailed")
-AddEventHandler("caue-bennys:purchaseFailed", function()
+RegisterNetEvent("pw-bennys:purchaseFailed")
+AddEventHandler("pw-bennys:purchaseFailed", function()
     isPurchaseSuccessful = false
     attemptingPurchase = false
 end)
@@ -1391,7 +1388,7 @@ AddEventHandler("bennys:enter", function()
 
     local bennys = getClosestBennys()
 
-    local isBennysInUse = RPC.execute("caue-bennys:checkIfUsed", currentBennys)
+    local isBennysInUse = RPC.execute("pw-bennys:checkIfUsed", currentBennys)
     if isBennysInUse ~= nil then
         TriggerEvent("DoLongHudText", "This Benny's is already in use", 2)
         return

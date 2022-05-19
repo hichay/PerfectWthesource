@@ -1,3 +1,5 @@
+
+
 RegisterNetEvent('esx_policejob:MainCameraMenu', function()
     TriggerEvent('pw-context:sendMenu', {
         {
