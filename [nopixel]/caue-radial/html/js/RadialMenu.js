@@ -31,8 +31,10 @@ function RadialMenu(params) {
     self.currentMenu = null;
     self.wheelBind = self.onMouseWheel.bind(self);
     self.keyDownBind =  self.onKeyDown.bind(self);
+    self.mouseDownBind = self.onMouseDown.bind(self);
     document.addEventListener('wheel', self.wheelBind);
     document.addEventListener('keydown', self.keyDownBind);
+    document.addEventListener('mousedown', self.mouseDownBind);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +102,10 @@ RadialMenu.prototype.showNestedMenu = function (item) {
     // wait DOM commands to apply and then set class to allow transition to take effect
     RadialMenu.nextTick(function () {
         self.getParentMenu().setAttribute('class', 'menu outer');
-        self.currentMenu.setAttribute('class', 'menu');
+        self.currentMenu.setAttribute('class', 'menu disable-pointer-events');
+        setTimeout(() => {
+            self.currentMenu.setAttribute('class', 'menu');
+        }, 75);
     });
 };
 
@@ -141,7 +146,9 @@ RadialMenu.prototype.handleCenterClick = function () {
     if (self.parentItems.length > 0) {
         self.returnToParentMenu();
     } else {
+		$.post(`https://caue-radial/closemenu`, JSON.stringify({ withNoFocus: false }));
         self.close();
+		
     }
 };
 
@@ -294,6 +301,19 @@ RadialMenu.prototype.onKeyDown = function (event) {
             case 'ArrowLeft':
             case 'ArrowDown':
                 self.selectDelta(-1);
+                event.preventDefault();
+                break;
+        }
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+RadialMenu.prototype.onMouseDown = function (event) {
+    var self = this;
+    if (self.currentMenu) {
+        switch (event.button) {
+            case 2:
+                self.handleCenterClick();
                 event.preventDefault();
                 break;
         }
@@ -578,6 +598,7 @@ RadialMenu.setClassAndWaitForTransition = function (node, newClass) {
 RadialMenu.prototype.destroy = function() {
     document.removeEventListener('wheel', this.wheelBind);
     document.removeEventListener('keydown', this.keyDownBind);
+    document.removeEventListener('mousedown', this.mouseDownBind);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

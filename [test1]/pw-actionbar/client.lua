@@ -78,7 +78,7 @@ local reDelayed = false
 function actionBarDown()
 	if focusTaken or reDelayed then return end
 	TriggerEvent("inventory-bar", true)
-    TriggerServerEvent("pw-financials:cash:get", GetPlayerServerId(PlayerId()))
+    --TriggerServerEvent("pw-financials:cash:get", GetPlayerServerId(PlayerId()))
 end
 
 function actionBarUp()
@@ -241,19 +241,19 @@ Citizen.CreateThread( function()
 
 		prevupdate = prevupdate - 1
 
-		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken then
+		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",1)
 		end
 
-		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken then
+		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",2)
 		end
 
-		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken then
+		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",3)
 		end
 
-		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken then
+		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",4)
 		end
 
@@ -938,6 +938,11 @@ end
 exports('disableActionBar', function(pState)
   isActionBarDisabled = pState
 end)
+
+-- RegisterNetEvent("disableActionBar", function(pState)
+-- print('dis')
+  -- isActionBarDisabled = pState
+-- end)
 
 exports('DisableGSR', function(pState)
 	disableGSR = pState

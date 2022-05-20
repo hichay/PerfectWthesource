@@ -70,11 +70,6 @@ Citizen.CreateThread(function()
 
 		BeginTextCommandSetBlipName('CUSTOM_TEXT')
 		AddTextComponentSubstringPlayerName(_U('blip_hospital'))
-		exports['blip_info']:SetBlipInfoTitle(blip, "<FONT FACE='Oswald'>Trụ sở cứu thương thành phố</FONT>", true)
-		exports['blip_info']:SetBlipInfoImage(blip, "world_blips", "hospital")
-		exports['blip_info']:AddBlipInfoName(blip, "<FONT FACE='Reaver-SemiBold'>Thuộc</FONT>", "<FONT FACE='Reaver-SemiBold'>Chính phủ</FONT>")
-		exports['blip_info']:AddBlipInfoHeader(blip, "") -- Empty header adds the header line
-		exports['blip_info']:AddBlipInfoText(blip, "<FONT FACE='Reaver-SemiBold'>Bệnh viện thành phố</FONT>")
 		EndTextCommandSetBlipName(blip)
 	end
 end)
@@ -139,10 +134,11 @@ function OnPlayerDeath()
 	isDead = true
 	ESX.UI.Menu.CloseAll()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', true)
-
+	exports["pw-lib"]:setVar("dead", true)
+    exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", true)
 	StartDeathTimer()
 	StartDistressSignal()
-
+	
 	StartScreenEffect('DeathFailOut', 0, false)
 end
 function GetPlayerDead()
@@ -298,18 +294,18 @@ function StartDeathTimer()
 			SetTextEntry('CUSTOM_TEXT')
 			AddTextComponentString(text)
 			DrawText(0.5, 0.8)
-		end
-
+		end	
 		-- bleedout timer
 		while bleedoutTimer > 0 and isDead do
 			Citizen.Wait(0)
 			text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
-
+			
 			if not Config.EarlyRespawnFine then
 				text = text .. _U('respawn_bleedout_prompt')
 
 				if IsControlPressed(0, 38) and timeHeld > 60 then
 					RemoveItemsAfterRPDeath()
+					
 					break
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
@@ -343,6 +339,8 @@ end
 
 function RemoveItemsAfterRPDeath()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', false)
+	exports["pw-lib"]:setVar("dead", false)
+    exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", false)
 
 	Citizen.CreateThread(function()
 		DoScreenFadeOut(800)
@@ -398,7 +396,8 @@ AddEventHandler('esx_ambulancejob:revive', function()
 	local playerPed = PlayerPedId()
 	local coords = GetEntityCoords(playerPed)
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', false)
-
+	exports["pw-lib"]:setVar("dead", false)
+	exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", false)
 	Citizen.CreateThread(function()
 		DoScreenFadeOut(800)
 
@@ -420,11 +419,13 @@ AddEventHandler('esx_ambulancejob:revive', function()
 
 		Citizen.Wait(200)
 		RespawnPed(playerPed, formattedCoords, 0.0)
+		
 
 		StopScreenEffect('DeathFailOut')
 		DoScreenFadeIn(800)
 	end)
 end)
+
 
 -- Load unloaded IPLs
 if Config.LoadIpl then

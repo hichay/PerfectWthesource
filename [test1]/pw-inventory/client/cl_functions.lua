@@ -2905,16 +2905,6 @@ AddEventHandler('animation:repair', function(veh)
     SetVehicleDoorShut(veh, 4, 1, 1)
 end)
 
--- CreateThread(function()
-    -- while true do
-        -- Wait(0)
-        -- BlockWeaponWheelThisFrame()
-        -- HideHudComponentThisFrame(19)
-        -- HideHudComponentThisFrame(20)
-        -- HideHudComponentThisFrame(17)
-        -- DisableControlAction(0, 37, true) --Disable Tab
-    -- end
--- end)
 
 RegisterNetEvent('esx:setmoneyinfo')
 AddEventHandler('esx:setmoneyinfo', function(money)

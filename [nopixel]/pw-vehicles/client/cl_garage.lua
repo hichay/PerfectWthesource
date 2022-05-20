@@ -74,15 +74,14 @@ AddEventHandler("caue-vehicles:garage", function()
     local garage = Garages[nearGarage["garage"]]
 
     if garage["jobGarage"] and garage["type"] ~= job then
-        TriggerEvent("DoLongHudText", "You can't use this garage", 2)
+        TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
         return
     end
 
     --[[ if garage["houseid"] and not exports["caue-housing"]:hasKey(garage["houseid"]) then
-        TriggerEvent("DoLongHudText", "You can't use this garage", 2)
+        TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
         return
     end ]]
-	print(nearGarage["garage"])
 
     local vehiclesGarage = RPC.execute("caue-vehicles:getGarage", nearGarage["garage"])
 
@@ -98,10 +97,11 @@ AddEventHandler("caue-vehicles:garage", function()
         data[#data + 1] = {
             
             title = GetLabelText(GetDisplayNameFromVehicleModel(v["model"])),
-            description = "Plate: " .. v["plate"],
+            description = "Biển: " .. v["plate"],
+            disabled = v.stored,
             children = { 
-                { title = "Take Out Vehicle", action = "caue-vehicles:retriveVehicle", key = v["plate"] },
-                { title = "Vehicle Status", description = "Động cơ: " .. status.engine_damage / 10 .. "% | Thân vỏ: " .. status.body_damage / 10 .. "% | Xăng: " .. status.fuel .. "%"},
+                { title = "Lấy xe ra", action = "caue-vehicles:retriveVehicle", key = v["plate"] },
+                { title = "Tình trạng", description = "Động cơ: " .. status.engine_damage / 10 .. "% | Thân vỏ: " .. status.body_damage / 10 .. "% | Xăng: " .. status.fuel .. "%"},
             
             }
                  
@@ -122,77 +122,32 @@ RegisterUICallback('caue-vehicles:retriveVehicle', function (data, cb)
         local x, y, z, w = table.unpack(nearGarage["coords"])
         --TriggerEvent("caue-vehicles:spawnVehicle", vehicle.model, nearGarage["coords"], vehicle.id, vehicle.plate, vehicle.fuel, vehicle.modifications, vehicle.fakePlate, vehicle.harness, vehicle.body_damage, vehicle.engine_damage)
         ESX.Game.SpawnVehicle(vehicle.model, vector3(x,y,z), w , function(veh)
-            local vehicleProps = vehicle.vehicle
+            local vehicleProps = json.decode(vehicle.vehicle)
             ESX.Game.SetVehicleProperties(veh, vehicleProps)
             SetVehicleMod(veh,48,vehicleProps.modLivery)
             TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)	
-
-            RPC.execute("pw-vehicles:setJobVehicleState", vehicle.plate, "0")
+            --SetVehicleNumberPlateText(veh,)
+            RPC.execute("pw-vehicles:setJobVehicleState", vehicle.plate, "1")
             TriggerEvent('DoLongHudText',"Xe đã được lấy ra khỏi garage",1)
         end)
     end
 end)
 
---[[ AddEventHandler("caue-vehicles:retriveVehicle", function(vehID)
-    local vehicle = RPC.execute("caue-vehicles:getVehicle", vehID)
-    if vehicle then
-        if not nearGarage["coords"] then return end
 
-        --TriggerEvent("caue-vehicles:spawnVehicle", vehicle.model, nearGarage["coords"], vehicle.id, vehicle.plate, vehicle.fuel, vehicle.modifications, vehicle.fakePlate, vehicle.harness, vehicle.body_damage, vehicle.engine_damage)
-        ESX.Game.SpawnVehicle(vehicle.model, spawnPoint.coords, spawnPoint.heading, function(veh)
-            local vehicleProps = allVehicleProps[data2.current.plate]
-            --TriggerEvent('table',vehicleProps)
-            
-            ESX.Game.SetVehicleProperties(veh, vehicle.vehicle)
-            SetVehicleMod(veh,48,vehicleProps.modLivery)
-            TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)	
+AddEventHandler("caue-vehicles:storeVehicle", function(params, pEntity)
 
-            RPC.execute("pw-vehicles:setJobVehicleState", vehicle.id, "0")
-            TriggerEvent('DoLongHudText',"Xe đã được lấy ra khỏi garage",1)
-        end)
-    end
-end) ]]
-
-AddEventHandler("caue-vehicles:storeVehicle", function(params)
-    --local vid = GetVehicleIdentifier(vehicle)
     local lastveh = GetVehiclePedIsIn(PlayerPedId(),true)
-    local plate = GetVehicleNumberPlateText(lasteveh)
-    if not vid then return end
+    local plate = GetVehicleNumberPlateText(pEntity)
 
-    local garage = nearGarage["garage"]
-    if garage == "" then return end
-
-    --local canStore = RPC.execute("caue-vehicles:canStoreVehicle", plate)
-    local vehicle = RPC.execute("caue-vehicles:getVehicle", plate)
+    local vehicle = RPC.execute("pw-vehicles:getVehicle", plate)
     if not vehicle then return end
 
     local garageData = Garages[nearGarage["garage"]]
 
-    --[[ if garageData["houseid"] then
-        if exports["caue-housing"]:hasKey(garageData["houseid"]) then
-            local cid = exports["caue-base"]:getChar("id")
-            local owner = RPC.execute("caue-vehicles:selectVehicle", vid, "vehicles", "cid")
-
-            if owner ~= cid then
-                TriggerEvent("DoLongHudText", "You cant't use this garage", 2)
-                return
-            end
-        else
-            TriggerEvent("DoLongHudText", "You can't use this garage", 2)
-            return
-        end
-    end ]]
-    RPC.execute("pw-vehicles:setJobVehicleState", plate, "1")
-    Sync.DeleteVehicle(lastveh)
-    Sync.DeleteEntity(lastveh)
-    --[[ local store1 = RPC.execute("caue-vehicles:updateVehicle", vid, "garage", "garage", garage)
-    if store1 then
-        local store2 = RPC.execute("caue-vehicles:updateVehicle", vid, "garage", "state", "In")
-        if store2 then
-            Sync.DeleteVehicle(vehicle)
-            Sync.DeleteEntity(vehicle)
-        end
-    end ]]
+    RPC.execute("pw-vehicles:setJobVehicleState", plate, "0")
+    Sync.DeleteVehicle(pEntity)
+    Sync.DeleteEntity(pEntity)
+    TriggerEvent('DoLongHudText',"Xe đã được cất vào garage",1)
 end)
 
 RegisterNetEvent("caue-vehicles:setGarage")

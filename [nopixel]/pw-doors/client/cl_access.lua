@@ -7,7 +7,7 @@ local isTher = false
 local isJudge = false
 local isMayor = false
 local isDeputyMayor = false
-
+ESX = nil
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)

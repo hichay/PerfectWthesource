@@ -17,6 +17,16 @@ local function spairs(t, order)
     end
 end
 
+RegisterCommand('e', function(source, args, raw) 
+    TriggerEvent('animation:PlayAnimation', args[1]) 
+end)
+RegisterCommand('emote', function(source, args, raw) 
+    TriggerEvent('animation:PlayAnimation', args[1]) 
+end)
+RegisterCommand('emotes', function()
+    TriggerEvent('emotes:OpenMenu')
+end)
+
 local Keys = {
     [289] = "F2", [170] = "F3", [166] = "F5", [167] = "F6", [168] = "F7" ,[56] = "F9", [57] = "F10" 
 }
@@ -72,19 +82,16 @@ local i18nMap2 = {
     "to remove a favorite",
     "Cancel Emote",
 }
+-- Citizen.CreateThread(function()
+    -- Wait(math.random(15000, 45000))
+    -- for _, v in pairs(i18nMap2) do
+        -- TriggerEvent("i18n:translate", v, "emotes:menu")
+        -- Wait(500)
+    -- end
+-- end)
 Citizen.CreateThread(function()
-    Wait(math.random(15000, 45000))
-    for _, v in pairs(i18nMap2) do
-        TriggerEvent("i18n:translate", v, "emotes:menu")
-        Wait(500)
-    end
-end)
-Citizen.CreateThread(function()
-    while not exports["np-i18n"]:IsReady() do
-        Wait(100)
-    end
-    WarMenu.CreateMenu("emotes", exports["np-i18n"]:GetStringSwap("Emotes", i18nMap2))
-    WarMenu.SetSubTitle("emotes", exports["np-i18n"]:GetStringSwap("Emote List", i18nMap2))
+    WarMenu.CreateMenu("emotes", "Emotes")
+    WarMenu.SetSubTitle("emotes", "Emote List")
 
     WarMenu.SetMenuWidth("emotes", 0.5)
     WarMenu.SetMenuX("emotes", 0.71)
@@ -96,8 +103,7 @@ Citizen.CreateThread(function()
     WarMenu.SetMenuSubTextColor("emotes", 255, 255, 255, 255)
 
     local fav = "Favorites (Press F to remove a favorite)"
-    local favT = exports["np-i18n"]:GetStringSwap(fav, i18nMap2)
-    WarMenu.CreateSubMenu("favorites", "emotes", favT)
+    WarMenu.CreateSubMenu("favorites", "emotes", fav)
     WarMenu.SetMenuWidth("favorites", 0.5)
     WarMenu.SetMenuMaxOptionCountOnScreen("favorites", 30)
     WarMenu.SetTitleColor("favorites", 135, 206, 250, 255)
@@ -236,13 +242,13 @@ local i18nMap = {
     "emotename",
     "in chat to perform them",
 }
-Citizen.CreateThread(function()
-    Wait(math.random(15000, 45000))
-    for _, v in pairs(i18nMap) do
-        TriggerEvent("i18n:translate", v, "emotes:menu")
-        Wait(500)
-    end
-end)
+-- Citizen.CreateThread(function()
+    -- Wait(math.random(15000, 45000))
+    -- for _, v in pairs(i18nMap) do
+        -- TriggerEvent("i18n:translate", v, "emotes:menu")
+        -- Wait(500)
+    -- end
+-- end)
 
 Citizen.CreateThread(function()
     local c = 0
@@ -273,22 +279,16 @@ Citizen.CreateThread(function()
             local plyCoords = GetEntityCoords(PlayerPedId())
             local txt = ""
             txt = "~g~Enter~s~ Plays Emote"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.4,txt)
             txt = "~g~Arrows~s~ Navigate Pages"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.3,txt)
             txt = "~g~Backspace~s~ Exits"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.2,txt)
             txt = "~g~F2-F10~s~ Saves Emote"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]+0.1,txt)
             txt = "~g~Shift~s~ with F keys saves also. (~g~F8~s~ Doesn't Save)"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"],txt)
             txt = "You can also type ~g~/e emotename~s~ in chat to perform them"
-            txt = exports["np-i18n"]:GetStringSwap(txt, i18nMap)
             DrawText3Ds(plyCoords["x"],plyCoords["y"],plyCoords["z"]-0.1,txt)
             if IsControlJustReleased(0, 174) then
                 selected_page = selected_page > 1 and selected_page - 1 or #p_anims

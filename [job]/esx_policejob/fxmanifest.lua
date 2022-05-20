@@ -15,17 +15,16 @@ server_scripts {
 	'locales/en.lua',
 	'config.lua',
 	'server/main.lua',
-	'server/another.lua'
+	'server/another.lua',
+	'server/sv_*.lua'
 }
 
 client_scripts {
 	'@es_extended/locale.lua',
 	"@pw-lib/client/cl_rpc.lua",
-    "@pw-lib/client/cl_lib.lua",
 	"@pw-lib/client/cl_ui.lua",
+	"@pw-sync/client/lib.lua",
 	'locales/en.lua',
-	'arres_ani.lua',
-	"shared/*",
 	'config.lua',
 	'client/main.lua',
 	'client/menu.lua',

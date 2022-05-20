@@ -35,16 +35,15 @@ AddEventHandler('qb-hud:toggleHud', function(toggleHud1)
 end)
 
 Citizen.CreateThread(function()
-    Citizen.Wait(500)
     while true do 
         if ESX ~= nil and isLoggedIn then
-            speed = GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1), false)) * 3.6
+            --[[ speed = GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1), false)) * 3.6
             local pos = GetEntityCoords(GetPlayerPed(-1))
             local time = CalculateTimeToDisplay()
             local street1, street2 = GetStreetNameAtCoord(pos.x, pos.y, pos.z, Citizen.ResultAsInteger(), Citizen.ResultAsInteger())
             local current_zone = GetLabelText(GetNameOfZone(pos.x, pos.y, pos.z))
-            --local fuel = exports['LegacyFuel']:GetFuel(GetVehiclePedIsIn(GetPlayerPed(-1)))
-            local engine = GetVehicleEngineHealth(GetVehiclePedIsIn(GetPlayerPed(-1)))
+            local fuel = exports['LegacyFuel']:GetFuel(GetVehiclePedIsIn(GetPlayerPed(-1)))
+            local engine = GetVehicleEngineHealth(GetVehiclePedIsIn(GetPlayerPed(-1))) ]]
             TriggerEvent('esx_status:getStatus', 'hunger', function(status)
 			hunger = status.getPercent()
 			end)
@@ -82,57 +81,25 @@ Citizen.CreateThread(function()
         else
             Citizen.Wait(1000)
         end
+        Citizen.Wait(500)
     end
 end)
 
 Citizen.CreateThread(function()
     while true do
-        if isLoggedIn then
-            if IsPedInAnyVehicle(GetPlayerPed(-1), false) then
-                speed = GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1), false)) * 3.6
-                if speed >= 150 then
-                    --TriggerServerEvent('qb-hud:Server:GainStress', math.random(1, 2))
-					TriggerEvent('esx_status:add','stress', math.random(1000,2000))
-                end
+
+        if IsPedInAnyVehicle(GetPlayerPed(-1), false) then
+            speed = GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1), false)) * 3.6
+            if speed >= 150 then
+                --TriggerServerEvent('qb-hud:Server:GainStress', math.random(1, 2))
+                TriggerEvent('esx_status:add','stress', math.random(1000,2000))
             end
-        end
+        end    
         Citizen.Wait(20000)
     end
 end)
 
 local radarActive = false
-Citizen.CreateThread(function() 
-    while true do
-        Citizen.Wait(1000)
-        if IsPedInAnyVehicle(PlayerPedId()) and isLoggedIn and QBHud.Show then
-            DisplayRadar(true)
-            SendNUIMessage({
-                action = "car",
-                show = true,
-            })
-            radarActive = true
-        else
-            DisplayRadar(true)
-            SendNUIMessage({
-                action = "car",
-                show = false,
-            })
-            seatbeltOn = false
-            cruiseOn = false
-
-            SendNUIMessage({
-                action = "seatbelt",
-                seatbelt = seatbeltOn,
-            })
-
-            SendNUIMessage({
-                action = "cruise",
-                cruise = cruiseOn,
-            })
-            radarActive = false
-        end
-    end
-end)
 
 RegisterNetEvent("hud:client:UpdateNeeds")
 AddEventHandler("hud:client:UpdateNeeds", function(newHunger, newThirst)

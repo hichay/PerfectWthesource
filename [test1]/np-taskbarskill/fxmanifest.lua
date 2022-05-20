@@ -1,17 +1,14 @@
-fx_version 'adamant'
-games { 'gta5' }
+fx_version "cerulean"
+games { "gta5" }
 
-ui_page 'index.html'
-
-files {
-  "index.html",
-  "js/scripts.js",
-  "js/jquery.js",
-  "css/style.css"
-}
-client_script {
-  "client.lua",
+shared_scripts {
+    "shared/*",
 }
 
-export "taskBar"
-export "closeGuiFail"
+server_scripts {
+    "server/*",
+}
+
+client_scripts {
+    "client/*",
+}

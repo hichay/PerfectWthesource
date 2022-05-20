@@ -68,7 +68,7 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "vehicle:giveKey"
     },
     isEnabled = function(pEntity, pContext)
-        return not isDisabled() and IsPedInAnyVehicle(PlayerPedId(), false) and exports["caue-vehicles"]:HasVehicleKey(GetVehiclePedIsIn(PlayerPedId(), false))
+        return not isDisabled() and IsPedInAnyVehicle(PlayerPedId(), false) and exports["pw-garages"]:HasVehicleKey(GetVehiclePedIsIn(PlayerPedId(), false))
     end
 }
 
@@ -250,7 +250,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "vehicle-vehicleList",
-        title = "Lista de veiculos",
+        title = "Mở Garage",
         icon = "#vehicle-vehicleList",
         event = "caue-vehicles:garage",
         parameters = { nearby = true, radius = 4.0 }
@@ -260,7 +260,7 @@ GeneralEntries[#GeneralEntries+1] = {
     end
 }
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "fishing-borrowBoat",
         title = "Borrow Fishing Boat",
@@ -271,7 +271,7 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function(pEntity, pContext)
         return not isDisabled() and not IsPedInAnyVehicle(PlayerPedId()) and (pEntity and pContext.flags["isBoatRenter"])
     end
-}
+} ]]
 
 local hasDrugs = function()
     return exports["pw-inventory"]:hasEnoughOfItem("joint", 1, false) or
@@ -305,7 +305,7 @@ end
 -- }
 
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "emotes:openmenu",
         title = "Emotes",
@@ -315,9 +315,9 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function(pEntity, pContext)
         return not exports["esx_ambulancejob"]:GetPlayerDead()
     end
-}
+} ]]
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "drivingInstructor:testToggle",
         title = "Driving Test",
@@ -327,9 +327,9 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function(pEntity, pContext)
         return not exports["esx_ambulancejob"]:GetPlayerDead() and isInstructorMode
     end
-}
+} ]]
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "drivingInstructor:submitTest",
         title = "Submit Test",
@@ -339,7 +339,7 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function(pEntity, pContext)
         return not exports["esx_ambulancejob"]:GetPlayerDead() and isInstructorMode
     end
-}
+} ]]
 
 --GeneralEntries[#GeneralEntries+1] = {
 --     data = {
@@ -379,7 +379,7 @@ GeneralEntries[#GeneralEntries+1] = {
     end
 }
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
       id = "mdw",
       title = "MDT",
@@ -389,9 +389,9 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function()
         return not exports["esx_ambulancejob"]:GetPlayerDead() and (ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance')
     end
-}
+} ]]
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "prepare-boat-mount",
         title = "Montar no trailer",
@@ -415,7 +415,7 @@ GeneralEntries[#GeneralEntries+1] = {
         local left, right = GetModelDimensions(model)
         return #(vector3(0, left.y, 0) - vector3(0, right.y, 0)) < 15
     end
-}
+} ]]
 
 local currentJob = nil
 local policeModels = {
@@ -430,7 +430,7 @@ local policeModels = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "open-rifle-rack",
-        title = "Suporte de Armas",
+        title = "Mở tủ chứa vũ khí",
         icon = "#vehicle-plate-remove",
         event = "vehicle:openRifleRack"
     },
@@ -445,15 +445,16 @@ GeneralEntries[#GeneralEntries+1] = {
 }
 
 AddEventHandler("vehicle:openRifleRack", function()
-    local finished = exports["caue-taskbar"]:taskBar(2500, "Destrancando")
+    local finished = exports["np-taskbar"]:taskBar(2500, "Mở kho")
     if finished ~= 100 then return end
     local veh = GetVehiclePedIsIn(PlayerPedId())
     if veh == 0 then return end
-    local vehId = exports["caue-vehicles"]:GetVehicleIdentifier(veh)
-    TriggerEvent("server-inventory-open", "1", "rifle-rack-" .. vehId)
+    local veh = GetVehiclePedIsIn(PlayerPedId())
+    local plate = GetVehicleNumberPlateText(veh)
+    TriggerEvent("server-inventory-open", "1", "rifle-rack-" .. plate)
 end)
 
-GeneralEntries[#GeneralEntries+1] = {
+--[[ GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "open-documents",
         title = "Documentos",
@@ -463,4 +464,4 @@ GeneralEntries[#GeneralEntries+1] = {
     isEnabled = function()
         return not exports["esx_ambulancejob"]:GetPlayerDead()
     end
-}
+} ]]

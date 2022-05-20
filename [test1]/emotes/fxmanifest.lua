@@ -3,12 +3,16 @@ games { 'gta5' }
 
 client_script "@warmenu/warmenu.lua"
 
-client_script "client.lua"
-client_script "cl_menu.lua"
-client_script "sitchair.lua"
-client_script "finger-point.lua"
-client_script "safecracking.lua"
-client_script "binoculars.lua"
+
+client_scripts {
+	"@pw-sync/client/lib.lua",
+    "@pw-lib/client/cl_flags.lua",
+	"client.lua",
+	"cl_menu.lua",
+	"sitchair.lua",
+	"safecracking.lua",
+	
+}
 
 dependencies {
 	'es_extended'

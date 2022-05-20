@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
 	CurrentJob = ESX.GetPlayerData().job.name
 end)
 
-MenuTypes, MenuEntries, MenuItems = {"general", "peds", "vehicles", "objects", "news", "k9", "judge"}, {}, {}
+MenuTypes, MenuEntries, MenuItems = {"general", "peds", "vehicles", "objects", "k9", "judge"}, {}, {}
 local closedFromAction = false
 
 for _, menuType in ipairs(MenuTypes) do
@@ -55,7 +55,6 @@ function IsMenuWanted(pMenu, pEntity)
         (pMenu == "peds" and pEntity == 1) or
         (pMenu == "vehicles" and pEntity == 2) or
         (pMenu == "objects" and pEntity == 3) or
-        (pMenu =="news" and CurrentJob == "news") or
         (pMenu == "judge" and CurrentJob == "judge")
 end
 
@@ -192,7 +191,6 @@ Citizen.CreateThread(function()
         if IsControlPressed(1, keybindControls[keyBind]) and GetLastInputMethod(2) then
             if (not isCuffed and not recentlyCuffed) or ((isPolice or isMedic) and isDead) then
                 showMenu = true
-
                 PlayerCoords = GetEntityCoords(PlayerPedId())
 
                 local entity = exports["pw-interact"]:GetCurrentEntity()
@@ -201,7 +199,7 @@ Citizen.CreateThread(function()
 
                 SendNUIMessage({
                     state = "show",
-                    resourceName = GetCurrentResourceName(),
+                    resourceName = 'caue-radial',
                     data = entries,
                     entity = entity,
                     context = context,
@@ -210,7 +208,6 @@ Citizen.CreateThread(function()
 
                 SetCursorLocation(0.5, 0.5)
                 SetNuiFocus(true, true)
-
                 -- Play sound
                 PlaySoundFrontend(-1, "NAV", "HUD_AMMO_SHOP_SOUNDSET", 1)
             end

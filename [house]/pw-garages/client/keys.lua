@@ -188,6 +188,15 @@ AddEventHandler('vehiclekeys:client:GiveKeys', function()
     end, GetVehicleNumberPlateText(latestveh))
 end)
 
+function HasVehicleKey(vehicle)
+	local what = RPC.execute('HasVehicleKey',GetVehicleNumberPlateText(vehicle), vehicle)
+	if what ~= nil then 
+		return true 
+	else 
+		return false
+	end
+end
+
 function getVehicleInDirection(coordFrom, coordTo)
     local offset = 0
     local rayHandle

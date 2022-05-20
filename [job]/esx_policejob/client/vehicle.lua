@@ -1,364 +1,10 @@
 
-local spawnedVehicles = {}
-
-function OpenVehicleSpawnerMenu(type, station, part, partNum)
-	local playerCoords = GetEntityCoords(PlayerPedId())
-
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle', {
-		title    = _U('garage_title'),
-		align    = 'top-left',
-		elements = {
-			{label = _U('garage_storeditem'), action = 'garage'},
-			{label = _U('garage_storeitem'), action = 'store_garage'},
-			{label = _U('garage_buyitem'), action = 'buy_vehicle'}
-	}}, function(data, menu)
-		if data.current.action == 'buy_vehicle' then
-			local shopElements = {}
-			local shopCoords = Config.PoliceStations[station][part][partNum].InsideShop
-			local authorizedVehicles = Config.AuthorizedVehicles[type][ESX.PlayerData.job.grade_name]
-
-			if authorizedVehicles then
-				if #authorizedVehicles > 0 then
-					for k,vehicle in ipairs(authorizedVehicles) do
-						if IsModelInCdimage(vehicle.model) then
-						
-							
-							local vehicleLabel = vehicle.label
-							
-							table.insert(shopElements, {
-								label = ('%s - <span style="color:green;">%s</span>'):format(vehicleLabel, _U('shop_item', ESX.Math.GroupDigits(vehicle.price))),
-								name  = vehicleLabel,
-								model = vehicle.model,
-								price = vehicle.price,
-								props = vehicle.props,
-								type  = type
-							})
-						end
-					end
-
-					if #shopElements > 0 then
-						OpenShopMenu(shopElements, playerCoords, shopCoords)
-					else
-						ESX.ShowNotification(_U('garage_notauthorized'))
-					end
-				else
-					ESX.ShowNotification(_U('garage_notauthorized'))
-				end
-			else
-				ESX.ShowNotification(_U('garage_notauthorized'))
-			end
-		elseif data.current.action == 'garage' then
-			local garage = {}
-
-			ESX.TriggerServerCallback('pw-vehicleshop:retrieveJobVehicles', function(jobVehicles)
-				if #jobVehicles > 0 then
-					local allVehicleProps = {}
-
-					for k,v in ipairs(jobVehicles) do
-						local props = json.decode(v.vehicle)
-
-						if IsModelInCdimage(props.model) then
-							local vehicleName = GetLabelText(GetDisplayNameFromVehicleModel(props.model))
-							local label = ('%s - <span style="color:darkgoldenrod;">%s</span>: '):format(vehicleName, props.plate)
-
-							if v.stored then
-								label = label .. ('<span style="color:green;">%s</span>'):format(_U('garage_stored'))
-							else
-								label = label .. ('<span style="color:darkred;">%s</span>'):format(_U('garage_notstored'))
-							end
-
-							table.insert(garage, {
-								label = label,
-								stored = v.stored,
-								model = props.model,
-								plate = props.plate
-							})
-
-							allVehicleProps[props.plate] = props
-						end
-					end
-
-					if #garage > 0 then
-						ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_garage', {
-							title    = _U('garage_title'),
-							align    = 'top-left',
-							elements = garage
-						}, function(data2, menu2)
-							if data2.current.stored then
-								local foundSpawn, spawnPoint = GetAvailableVehicleSpawnPoint(station, part, partNum)
-
-								if foundSpawn then
-									menu2.close()
-							
-									ESX.Game.SpawnVehicle(data2.current.model, spawnPoint.coords, spawnPoint.heading, function(vehicle)
-										local vehicleProps = allVehicleProps[data2.current.plate]
-										--TriggerEvent('table',vehicleProps)
-										
-										ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
-										SetVehicleMod(vehicle,48,vehicleProps.modLivery)
-										TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(vehicle).plate)	
-
-										TriggerServerEvent('esx_policejob:setJobVehicleState', data2.current.plate, false)
-										ESX.ShowNotification(_U('garage_released'))
-									end)
-								end
-							else
-								ESX.ShowNotification(_U('garage_notavailable'))
-							end
-						end, function(data2, menu2)
-							menu2.close()
-						end)
-					else
-						ESX.ShowNotification(_U('garage_empty'))
-					end
-				else
-					ESX.ShowNotification(_U('garage_empty'))
-				end
-			end, type)
-		elseif data.current.action == 'store_garage' then
-			StoreNearbyVehicle(playerCoords)
-		end
-	end, function(data, menu)
-		menu.close()
-	end)
-end
-
-function StoreNearbyVehicle(playerCoords)
-	local vehicles, vehiclePlates = ESX.Game.GetVehiclesInArea(playerCoords, 30.0), {}
-
-	if #vehicles > 0 then
-		for k,v in ipairs(vehicles) do
-
-			-- Make sure the vehicle we're saving is empty, or else it wont be deleted
-			if GetVehicleNumberOfPassengers(v) == 0 and IsVehicleSeatFree(v, -1) then
-				-- table.insert(vehiclePlates, {
-					-- vehicle = v,
-					-- plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
-				-- })
-				vehiclePlates[#vehiclePlates + 1] = {
-					vehicle = v,
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
-				}
-			end
-		end
-	else
-		ESX.ShowNotification(_U('garage_store_nearby'))
-		return
-	end
-
-	ESX.TriggerServerCallback('esx_policejob:storeNearbyVehicle', function(storeSuccess, foundNum)
-		if storeSuccess then
-			local vehicleId = vehiclePlates[foundNum]
-			local attempts = 0
-			ESX.Game.DeleteVehicle(vehicleId.vehicle)
-			IsBusy = true
-
-			Citizen.CreateThread(function()
-				BeginTextCommandBusyspinnerOn('STRING')
-				AddTextComponentSubstringPlayerName(_U('garage_storing'))
-				EndTextCommandBusyspinnerOn(4)
-
-				while IsBusy do
-					Citizen.Wait(100)
-				end
-
-				BusyspinnerOff()
-			end)
-
-			-- Workaround for vehicle not deleting when other players are near it.
-			while DoesEntityExist(vehicleId.vehicle) do
-				Citizen.Wait(500)
-				attempts = attempts + 1
-
-				-- Give up
-				if attempts > 30 then
-					break
-				end
-
-				vehicles = ESX.Game.GetVehiclesInArea(playerCoords, 30.0)
-				TriggerServerEvent('vehiclemod:server:saveStatus', vehiclePlates)
-				if #vehicles > 0 then
-					for k,v in ipairs(vehicles) do
-						if ESX.Math.Trim(GetVehicleNumberPlateText(v)) == vehicleId.plate then
-							ESX.Game.DeleteVehicle(v)
-							break
-						end
-					end
-				end
-			end
-
-			IsBusy = false
-			ESX.ShowNotification(_U('garage_has_stored'))
-		else
-			ESX.ShowNotification(_U('garage_has_notstored'))
-		end
-	end, vehiclePlates)
-end
-
-function GetAvailableVehicleSpawnPoint(station, part, partNum)
-	local spawnPoints = Config.PoliceStations[station][part][partNum].SpawnPoints
-	local found, foundSpawnPoint = false, nil
-
-	for i=1, #spawnPoints, 1 do
-		if ESX.Game.IsSpawnPointClear(spawnPoints[i].coords, spawnPoints[i].radius) then
-			found, foundSpawnPoint = true, spawnPoints[i]
-			break
-		end
-	end
-
-	if found then
-		return true, foundSpawnPoint
-	else
-		ESX.ShowNotification(_U('vehicle_blocked'))
-		return false
-	end
-end
-
-function OpenShopMenu(elements, restoreCoords, shopCoords)
-	local playerPed = PlayerPedId()
-	isInShopMenu = true
-
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_shop', {
-		title    = _U('vehicleshop_title'),
-		align    = 'top-left',
-		elements = elements
-	}, function(data, menu)
-		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_shop_confirm', {
-			title    = _U('vehicleshop_confirm', data.current.name, data.current.price),
-			align    = 'top-left',
-			elements = {
-				{label = _U('confirm_no'), value = 'no'},
-				{label = _U('confirm_yes'), value = 'yes'}
-		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
-				local newPlate = exports['pw-vehicleshop']:GeneratePlate()
-				local vehicle  = GetVehiclePedIsIn(playerPed, false)
-				local model = data.current.model
-				local props    = ESX.Game.GetVehicleProperties(vehicle)
-				props.plate    = newPlate
-				
-				stats = {
-						["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
-						["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
-						["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity), 
-						["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
-						["radiator"] = 100,
-						["axle"] = 100, 
-						["brake"] = 100,
-						["clutch"] = 100,
-						["tire"] = 100,
-						["electronics"] = 100,
-						["transmission"] = 100,
-						["injector"] = 100,
-					}
-				
-				ESX.TriggerServerCallback('esx_policejob:buyJobVehicle', function (bought)
-					if bought then
-						ESX.ShowNotification(_U('vehicleshop_bought', data.current.name, ESX.Math.GroupDigits(data.current.price)))
-
-						isInShopMenu = false
-						ESX.UI.Menu.CloseAll()
-						DeleteSpawnedVehicles()
-						FreezeEntityPosition(playerPed, false)
-						SetEntityVisible(playerPed, true)
-
-						ESX.Game.Teleport(playerPed, restoreCoords)
-					else
-						ESX.ShowNotification(_U('vehicleshop_money'))
-						menu2.close()
-					end
-				end, props, stats, model, data.current.type)
-			else
-				menu2.close()
-			end
-		end, function(data2, menu2)
-			menu2.close()
-		end)
-	end, function(data, menu)
-		isInShopMenu = false
-		ESX.UI.Menu.CloseAll()
-
-		DeleteSpawnedVehicles()
-		FreezeEntityPosition(playerPed, false)
-		SetEntityVisible(playerPed, true)
-
-		ESX.Game.Teleport(playerPed, restoreCoords)
-	end, function(data, menu)
-		DeleteSpawnedVehicles()
-		WaitForVehicleToLoad(data.current.model)
-
-		ESX.Game.SpawnLocalVehicle(data.current.model, shopCoords, 0.0, function(vehicle)
-			--table.insert(spawnedVehicles, vehicle)
-			spawnedVehicles[#spawnedVehicles + 1] = vehicle
-			TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-			FreezeEntityPosition(vehicle, true)
-			SetModelAsNoLongerNeeded(data.current.model)
-
-			if data.current.props then
-				ESX.Game.SetVehicleProperties(vehicle, data.current.props)
-			end
-		end)
-	end)
-
-	WaitForVehicleToLoad(elements[1].model)
-	ESX.Game.SpawnLocalVehicle(elements[1].model, shopCoords, 0.0, function(vehicle)
-		table.insert(spawnedVehicles, vehicle)
-		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-		FreezeEntityPosition(vehicle, true)
-		SetModelAsNoLongerNeeded(elements[1].model)
-
-		if elements[1].props then
-			ESX.Game.SetVehicleProperties(vehicle, elements[1].props)
-		end
-	end)
-end
-
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
+    for k,v in ipairs(VehiclesConfig) do
 
-		if isInShopMenu then
-			DisableControlAction(0, 75, true)  -- Disable exit vehicle
-			DisableControlAction(27, 75, true) -- Disable exit vehicle
-		else
-			Citizen.Wait(500)
-		end
-	end
-end)
-
-function DeleteSpawnedVehicles()
-	while #spawnedVehicles > 0 do
-		local vehicle = spawnedVehicles[1]
-		ESX.Game.DeleteVehicle(vehicle)
-		table.remove(spawnedVehicles, 1)
-	end
-end
-
-function WaitForVehicleToLoad(modelHash)
-	modelHash = (type(modelHash) == 'number' and modelHash or GetHashKey(modelHash))
-
-	if not HasModelLoaded(modelHash) then
-		RequestModel(modelHash)
-
-		BeginTextCommandBusyspinnerOn('CUSTOM_TEXT')
-		AddTextComponentSubstringPlayerName(_U('vehicleshop_awaiting_model'))
-		EndTextCommandBusyspinnerOn(4)
-
-		while not HasModelLoaded(modelHash) do
-			Citizen.Wait(0)
-			DisableAllControlActions(0)
-		end
-
-		BusyspinnerOff()
-	end
-end
-
-Citizen.CreateThread(function()
-	for k,v in ipairs(VehiclesConfig) do 
-		
-		local npc = exports["pw-npcs"]:RegisterNPC(v["NPC"],"name_"..v["NPC"].id)
-		local group = { "isPoliceVehicleSeller" }
-		local data = {
+        local npc = exports["pw-npcs"]:RegisterNPC(v["NPC"],"name_"..v["NPC"].id)
+        local group = { "isPoliceVehicleSeller" }
+        local data = {
             {
                 id = "police_vehicles_" .. k,
                 label = v["Label"],
@@ -367,86 +13,86 @@ Citizen.CreateThread(function()
                 parameters = v,
             }
         }
-	
-		
-		local options = {
+
+
+        local options = {
             distance = { radius = 2.5 },
             isEnabled = function()
                 return ESX.GetPlayerData().job.name == v["Job"] and #(GetEntityCoords(PlayerPedId()) - v["Spawn"]["coords"]["xyz"]) < 300.0
             end
-        }	
-		exports["pw-interact"]:AddPeekEntryByFlag(group, data, options)
-	end
+        }
+        exports["pw-interact"]:AddPeekEntryByFlag(group, data, options)
+    end
 end)
 
 AddEventHandler("pw-police:showVehicles", function()
-	local datamen = {}
-	for k,v in ipairs(VehiclesConfig) do 
-	for _, vehicle in ipairs(v["Vehicles"]) do
-		vehicle.garage = v["Garage"]
-		vehicle.spawn = v["Spawn"]
-		datamen[#datamen + 1] = {
-		
-			title = vehicle.name,
-			description = "$" .. vehicle.price,
-			image = vehicle.image,
-			children = { 
-				{ icon = "check", description = '' ,title = "Mua xe", action = "pw-policejob:buyVeh", key = {vehicle = vehicle, spawn = v['Spawn']} },
-			},
-		}
-	end
-end
+    local datamen = {}
+    for k,v in ipairs(VehiclesConfig) do
+        for _, vehicle in ipairs(v["Vehicles"]) do
+            vehicle.garage = v["Garage"]
+            vehicle.spawn = v["Spawn"]
+            datamen[#datamen + 1] = {
 
-	exports["np-ui"]:showContextMenu(datamen)
+				title = vehicle.name,
+				description = "$" .. vehicle.price,
+				image = vehicle.image,
+				children = {
+					{ icon = "check", description = '' ,title = "Mua xe", action = "pw-policejob:buyVeh", key = {vehicle = vehicle, spawn = v['Spawn']} },
+				},
+			}
+        end
+    end
+
+    exports["np-ui"]:showContextMenu(datamen)
 end)
 
 
 RegisterUICallback('pw-policejob:buyVeh', function (data, cb)
-	cb({ data = {}, meta = { ok = true, message = '' } })
-	local vehicle = data.key.vehicle
-	local hash = GetHashKey(vehicle.model)
-	local success = RPC.execute('pw-policejob:buyJobVehicle',vehicle.price)
-	local newPlate = exports['pw-vehicleshop']:GeneratePlate()
-	if success then
-		if not HasModelLoaded(hash) then
-			RequestModel(hash)
-			while not HasModelLoaded(hash) do
-				Citizen.Wait(10)
-			end
-		end
-		
-		local lastSelectedVehicleEntity = CreateVehicle(hash, 442.23022, -978.9822, -107.6886, 23.429121, false, false) 
-		local vehicleProps = ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity)
-		vehicleProps.plate = newPlate
+    cb({ data = {}, meta = { ok = true, message = '' } })
+    local vehicle = data.key.vehicle
+    local hash = GetHashKey(vehicle.model)
+    local success = RPC.execute('pw-policejob:buyJobVehicle',vehicle.price)
+    local newPlate = exports['pw-vehicleshop']:GeneratePlate()
+    if success then
+        if not HasModelLoaded(hash) then
+            RequestModel(hash)
+            while not HasModelLoaded(hash) do
+                Citizen.Wait(10)
+            end
+        end
 
-		stats = {
-			["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
-			["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
-			["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity), 
-			["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
-			["radiator"] = 100,
-			["axle"] = 100, 
-			["brake"] = 100,
-			["clutch"] = 100,
-			["tire"] = 100,
-			["electronics"] = 100,
-			["transmission"] = 100,
-			["injector"] = 100,
-		}
+        local lastSelectedVehicleEntity = CreateVehicle(hash, 442.23022, -978.9822, -107.6886, 23.429121, false, false)
+        local vehicleProps = ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity)
+        vehicleProps.plate = newPlate
 
-		TriggerServerEvent('pw-policejob:server:setVehicleOwned', vehicleProps, stats,vehicle.model, ESX.GetPlayerData().job.name, vehicle.garage)
-		ESX.Game.SpawnVehicle(vehicle.model, vehicle.spawn.coords, vehicle.spawn.heading, function(veh)
-			TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
-			SetVehicleNumberPlateText(veh, vehicleProps.plate)	
-			TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)		
-		end)
+        stats = {
+            ["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity),
+            ["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity),
+            ["fuel"] = GetVehicleFuelLevel(lastSelectedVehicleEntity),
+            ["dirty"] = GetVehicleDirtLevel(lastSelectedVehicleEntity),
+            ["radiator"] = 100,
+            ["axle"] = 100,
+            ["brake"] = 100,
+            ["clutch"] = 100,
+            ["tire"] = 100,
+            ["electronics"] = 100,
+            ["transmission"] = 100,
+            ["injector"] = 100,
+        }
 
-		if lastSelectedVehicleEntity ~= nil then
+        TriggerServerEvent('pw-policejob:server:setVehicleOwned', vehicleProps, stats,vehicle.model, ESX.GetPlayerData().job.name, vehicle.garage)
+        ESX.Game.SpawnVehicle(vehicle.model, vehicle.spawn.coords, vehicle.spawn.heading, function(veh)
+            TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+            SetVehicleNumberPlateText(veh, vehicleProps.plate)
+            TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)
+        end)
+
+        if lastSelectedVehicleEntity ~= nil then
             DeleteVehicle(lastSelectedVehicleEntity)
         end
-		TriggerEvent('DoLongHudText',"Mua xe thành công",1)
-	else
-		TriggerEvent('DoLongHudText',"Không có đủ tiền để thực hiện",2)
-	end
+        TriggerEvent('DoLongHudText',"Mua xe thành công",1)
+    else
+        TriggerEvent('DoLongHudText',"Không có đủ tiền để thực hiện",2)
+    end
 
 end)

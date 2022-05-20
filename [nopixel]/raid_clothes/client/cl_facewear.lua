@@ -403,15 +403,16 @@ AddEventHandler("pw-facewear:steal", function(pArgs)
   	TriggerServerEvent("facewear:adjust", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pArgs.entity)), pArgs.type, true, true)
 end)
 
-AddEventHandler("pw-facewear:radial", function(pArgs)
-    if antispam >= GetCloudTimeAsInt() then
+RegisterUICallback('pw-facewear:radial', function (data, cb)
+    cb({ data = {}, meta = { ok = true, message = '' } })
+	if antispam >= GetCloudTimeAsInt() then
         TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
         return
     end
 
     antispam = GetCloudTimeAsInt() + 1
 
-    toggleFaceWear(pArgs.type, true, {}, false)
+    toggleFaceWear(data.key.type, true, {}, false)
 end)
 
 AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
@@ -435,7 +436,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Chapéu",
         action = event,
-        params = {
+        key = {
             type = "hat",
             entity = pEntity,
         },
@@ -449,7 +450,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Óculos",
         action = event,
-        params = {
+        key = {
             type = "googles",
             entity = pEntity,
         },
@@ -463,7 +464,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Máscara",
         action = event,
-        params = {
+        key = {
             type = "mask",
             entity = pEntity,
         },
@@ -477,7 +478,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Colar",
         action = event,
-        params = {
+        key = {
             type = "chain",
             entity = pEntity,
         },
@@ -500,7 +501,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Jaqueta",
         action = event,
-        params = {
+        key = {
             type = "jacket",
             entity = pEntity,
         },
@@ -521,7 +522,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Camisa",
         action = event,
-        params = {
+        key = {
             type = "shirt",
             entity = pEntity,
         },
@@ -535,7 +536,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Colete",
         action = event,
-        params = {
+        key = {
             type = "vest",
             entity = pEntity,
         },
@@ -549,7 +550,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Mochila",
         action = event,
-        params = {
+        key = {
             type = "backpack",
             entity = pEntity,
         },
@@ -570,7 +571,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Calça",
         action = event,
-        params = {
+        key = {
             type = "pants",
             entity = pEntity,
         },
@@ -591,7 +592,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Tênis",
         action = event,
-        params = {
+        key = {
             type = "shoes",
             entity = pEntity,
         },
@@ -605,7 +606,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Relógio",
         action = event,
-        params = {
+        key = {
             type = "watch",
             entity = pEntity,
         },
@@ -619,7 +620,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Pulseira",
         action = event,
-        params = {
+        key = {
             type = "braclets",
             entity = pEntity,
         },
@@ -633,14 +634,14 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     context[#context+1] = {
         title = text .. " Brincos",
         action = event,
-        params = {
+        key = {
             type = "earrings",
             entity = pEntity,
         },
         disabled = disabled,
     }
 
-    exports["pw-context"]:showContext(context)
+    exports["np-ui"]:showContextMenu(context)
 end)
 
 

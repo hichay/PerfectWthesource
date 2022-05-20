@@ -39,11 +39,13 @@ server_scripts {
 }
 
 client_scripts {
+	'client/cl_variables',
 	'client/common.lua',
 	'client/entityiter.lua',
 	'client/functions.lua',
 	'client/wrapper.lua',
 	'client/main.lua',
+	
 
 	'client/modules/death.lua',
 	'client/modules/scaleform.lua',
@@ -81,6 +83,7 @@ files {
 
 exports {
 	'getSharedObject'
+	
 }
 
 server_exports {

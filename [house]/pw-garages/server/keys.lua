@@ -26,6 +26,13 @@ ESX.RegisterServerCallback('vehiclekeys:CheckHasKey', function(source, cb, plate
     
 end)
 
+RPC.register('HasVehicleKey',function(src, plate, vehicle)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	return CheckOwner(plate, xPlayer.getIdentifier(),vehicle)
+end)
+
+
+
 RegisterServerEvent('vehiclekeys:server:SetVehicleOwner')
 AddEventHandler('vehiclekeys:server:SetVehicleOwner', function(plate)
     local src = source

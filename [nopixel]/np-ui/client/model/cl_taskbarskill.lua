@@ -17,7 +17,7 @@ function taskBarSkillCheck(difficulty, skillGapSent, cb, reverse, usePrev)
     return 0
   end
 
-  local duration = difficulty * (math.min(exports["np-buffs"]:getAlertLevelMultiplier(), 1.33))
+  local duration = difficulty --[[* (math.min(exports["caue-buffs"]:getAlertLevelMultiplier(), 1.33))]]
 
   local skillTick = usePrev and prevSkillCheck or 0
   local speed = (100.0 / duration)
@@ -101,6 +101,7 @@ function taskBarSkillCheck(difficulty, skillGapSent, cb, reverse, usePrev)
   tbsListening = true
   local minigameResult = 0
   exports['pw-actionbar']:disableActionBar(true)
+  --TriggerEvent("disableActionBar", true)
   while tbsListening do
     local delta = GetGameTimer() - timer
     timer = GetGameTimer()
@@ -173,6 +174,7 @@ function taskBarSkillCheck(difficulty, skillGapSent, cb, reverse, usePrev)
   SetTimeout(500, function()
     if not tbsListening then
       exports['pw-actionbar']:disableActionBar(false)
+	  --TriggerEvent("disableActionBar", false)
       SetStreamedTextureDictAsNoLongerNeeded('np_sprites')
     end
   end)

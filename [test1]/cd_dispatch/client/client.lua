@@ -470,6 +470,20 @@ function HideLargeUI()
     ShowSmallUI()
 end
 
+RegisterNetEvent('cd_dispatch:toggleDispatch')
+AddEventHandler('cd_dispatch:toggleDispatch', function()
+	if not Small_UI_enabled then 
+		Small_UI_enabled = true
+		SendNUIMessage({
+			action = GetNUIState(Small_UI_enabled),
+			SourceName = SourceName,
+		})
+	else 
+		Small_UI_enabled = false
+		SendNUIMessage({action = GetNUIState(Small_UI_enabled)})
+	end
+end)
+
 function ShowSmallUI()
     Small_UI_enabled = true
     SendNUIMessage({

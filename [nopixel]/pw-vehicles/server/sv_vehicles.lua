@@ -1,22 +1,8 @@
---[[
-
-    Variables
-
-]]
-
 local activeVehicles = {}
 
 
 
-
---[[
-
-    Functions
-
-]]
-
 function getVehicle(plate)
-    print(plate)
     local vehicles = MySQL.single.await('SELECT * FROM owned_vehicles WHERE plate = @plate', {
 		['@plate'] = plate
 	})
@@ -36,6 +22,18 @@ RPC.register("pw-vehicles:setJobVehicleState", function(src, plate, stored)
 		if rowsChanged == 0 then
 			print(('esx_vehicleshop: %s exploited the garage!'):format(xPlayer.identifier))
 		end
+	end)
+
+end)
+
+RPC.register("pw-vehicles:ImpoundVehicle", function(src, plate)
+
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	MySQL.query('UPDATE owned_vehicles SET `state` = @state WHERE plate = @plate', {
+		['@state'] = 'impound',
+		['@plate'] = plate
+	}, function(rowsChanged)
 	end)
 
 end)

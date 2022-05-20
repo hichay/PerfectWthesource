@@ -3,12 +3,12 @@ local VehicleEntries = MenuEntries["vehicles"]
 VehicleEntries[#VehicleEntries+1] = {
     data = {
         id = "vehicle-parkvehicle",
-        title = "Estacionar veiculo",
+        title = "Cất xe",
         icon = "#vehicle-parkvehicle",
         event = "caue-vehicles:storeVehicle"
     },
     isEnabled = function(pEntity, pContext)
-        return not isDisabled() and exports["caue-vehicles"]:HasVehicleKey(pEntity) and exports["pw-vehicles"]:IsOnParkingSpot(pEntity, false) and not IsPedInAnyVehicle(PlayerPedId(), false)
+        return not isDisabled() and exports["pw-garages"]:HasVehicleKey(pEntity) and exports["pw-vehicles"]:IsOnParkingSpot(pEntity, false) and not IsPedInAnyVehicle(PlayerPedId(), false)
     end
 }
 

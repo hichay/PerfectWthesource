@@ -38,19 +38,7 @@ Citizen.CreateThread(function()
     TriggerEvent('_npx_uiReady')
 end)
 
-function cashFlash(pCash, pChange)
-  SendUIMessage({
-      app = "cash",
-      data = {
-        cash = pCash,
-        amountAdjustment = pChange
-        -- duration = 5 // optional duration for fade, default 4 seconds
-      },
-      source = "np-nui",
-  })
-end
 
-exports("cashFlash", cashFlash)
 
 function openApplication(app, data, stealFocus)
   stealFocus = stealFocus == nil and true or false

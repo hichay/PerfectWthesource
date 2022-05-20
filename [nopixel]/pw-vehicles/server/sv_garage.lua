@@ -4,7 +4,7 @@ local garagesConfig = {
         ["jobGarage"] = true,
 		["vehicleType"] = "car",
         ["pos"] = vector4(437.31, -996.93, 25.3, 90.1),
-        ["distance"] = 150,
+        ["distance"] = 400,
         ["spaces"] = {
             vector4(445.74, -996.94, 25.3, 269.16),
             vector4(445.57, -994.23, 25.3, 269.26),
@@ -115,11 +115,6 @@ local garagesConfig = {
     },
 }
 
---[[
-
-    Exports
-
-]]
 
 exports("setGarage", function(pGarage, pVar, pValue, pEdit)
     if not garagesConfig[pGarage] then
@@ -139,11 +134,6 @@ exports("getGarage", function(pGarage, pVar)
     return garagesConfig[pGarage][pVar]
 end)
 
---[[
-
-    RPCs
-
-]]
 
 RPC.register("caue-vehicles:requestGarages", function(src)
     return garagesConfig
@@ -154,15 +144,6 @@ RPC.register("caue-vehicles:getGarage", function(src, garage)
     if not xPlayer then return {} end
     local typeveh = garagesConfig[garage]["vehicleType"]
 	local job = garagesConfig[garage]["type"]
-    -- local vehicles = MySQL.query.await([[
-        -- SELECT v2.id, v2.plate, v2.model, v3.body_damage, v3.engine_damage, v3.fuel
-        -- FROM vehicles_garage v1
-        -- INNER JOIN vehicles v2 ON v2.id = v1.vid AND v2.cid = ? AND v2.type = ?
-        -- INNER JOIN vehicles_metadata v3 ON v3.vid = v1.vid
-        -- WHERE garage = ? AND state = "In"
-    -- ]],
-    -- { cid, type, garage })
-	print(garage)
 	local vehicles = MySQL.query.await('SELECT * FROM owned_vehicles WHERE owner = @owner AND type = @type AND job = @job AND garagejob = @garagejob', {
 		['@owner'] = xPlayer.getIdentifier(),
 		['@type'] = typeveh,
@@ -172,27 +153,6 @@ RPC.register("caue-vehicles:getGarage", function(src, garage)
     return vehicles
 end)
 
-RPC.register("caue-vehicles:canStoreVehicle", function(src, garage, vid)
-    local typeGarage = garagesConfig[garage]["type"]
 
-    local typeVehicle = MySQL.scalar.await([[
-        SELECT type
-        FROM vehicles
-        WHERE id = ?
-    ]],
-    { vid })
-
-    if not typeVehicle then
-        TriggerClientEvent("DoLongHudText", src, "Error?", 2)
-        return false
-    end
-
-    if typeVehicle ~= typeGarage then
-        TriggerClientEvent("DoLongHudText", src, "You cant store this vehicle here", 2)
-        return false
-    end
-
-    return true
-end)
 
 
