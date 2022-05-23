@@ -618,7 +618,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentProp == -1
 
     context[#context+1] = {
-        title = text .. " Pulseira",
+        title = text .. " Vòng đeo tay",
         action = event,
         key = {
             type = "braclets",
@@ -632,7 +632,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentProp == -1
 
     context[#context+1] = {
-        title = text .. " Brincos",
+        title = text .. " Hoa tai",
         action = event,
         key = {
             type = "earrings",

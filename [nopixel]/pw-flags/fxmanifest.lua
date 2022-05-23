@@ -10,6 +10,6 @@ server_scripts {
 }
 
 client_scripts {
-    "@np-sync/client/cl_lib.lua",
+    "@pw-sync/client/lib.lua",
     "client/cl_*.lua",
 }

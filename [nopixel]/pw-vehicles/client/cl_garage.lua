@@ -66,10 +66,10 @@ end
 
 exports("IsOnParkingSpot", IsOnParkingSpot)
 RegisterCommand("openga", function(source, args, rawCommand)
-    TriggerEvent('caue-vehicles:garage')
+    TriggerEvent('pw-vehicles:garage')
 end, false)
 
-AddEventHandler("caue-vehicles:garage", function()
+AddEventHandler("pw-vehicles:garage", function()
     local job = ESX.GetPlayerData().job.name
     local garage = Garages[nearGarage["garage"]]
 
@@ -78,12 +78,12 @@ AddEventHandler("caue-vehicles:garage", function()
         return
     end
 
-    --[[ if garage["houseid"] and not exports["caue-housing"]:hasKey(garage["houseid"]) then
+    --[[ if garage["houseid"] and not exports["pw-housing"]:hasKey(garage["houseid"]) then
         TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
         return
     end ]]
 
-    local vehiclesGarage = RPC.execute("caue-vehicles:getGarage", nearGarage["garage"])
+    local vehiclesGarage = RPC.execute("pw-vehicles:getGarage", nearGarage["garage"])
 
     local data = {
         {
@@ -100,7 +100,7 @@ AddEventHandler("caue-vehicles:garage", function()
             description = "Biển: " .. v["plate"],
             disabled = v.stored,
             children = { 
-                { title = "Lấy xe ra", action = "caue-vehicles:retriveVehicle", key = v["plate"] },
+                { title = "Lấy xe ra", action = "pw-vehicles:retriveVehicle", key = v["plate"] },
                 { title = "Tình trạng", description = "Động cơ: " .. status.engine_damage / 10 .. "% | Thân vỏ: " .. status.body_damage / 10 .. "% | Xăng: " .. status.fuel .. "%"},
             
             }
@@ -112,7 +112,7 @@ AddEventHandler("caue-vehicles:garage", function()
 end)
 
 
-RegisterUICallback('caue-vehicles:retriveVehicle', function (data, cb)
+RegisterUICallback('pw-vehicles:retriveVehicle', function (data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
     local vehicle = RPC.execute("pw-vehicles:getVehicle", data.key)
     if vehicle then
@@ -120,7 +120,7 @@ RegisterUICallback('caue-vehicles:retriveVehicle', function (data, cb)
         --TriggerEvent('table',nearGarage["coords"])
         --local position = table.unpack(nearGarage["coords"])
         local x, y, z, w = table.unpack(nearGarage["coords"])
-        --TriggerEvent("caue-vehicles:spawnVehicle", vehicle.model, nearGarage["coords"], vehicle.id, vehicle.plate, vehicle.fuel, vehicle.modifications, vehicle.fakePlate, vehicle.harness, vehicle.body_damage, vehicle.engine_damage)
+        --TriggerEvent("pw-vehicles:spawnVehicle", vehicle.model, nearGarage["coords"], vehicle.id, vehicle.plate, vehicle.fuel, vehicle.modifications, vehicle.fakePlate, vehicle.harness, vehicle.body_damage, vehicle.engine_damage)
         ESX.Game.SpawnVehicle(vehicle.model, vector3(x,y,z), w , function(veh)
             local vehicleProps = json.decode(vehicle.vehicle)
             ESX.Game.SetVehicleProperties(veh, vehicleProps)
@@ -134,7 +134,7 @@ RegisterUICallback('caue-vehicles:retriveVehicle', function (data, cb)
 end)
 
 
-AddEventHandler("caue-vehicles:storeVehicle", function(params, pEntity)
+AddEventHandler("pw-vehicles:storeVehicle", function(params, pEntity)
 
     local lastveh = GetVehiclePedIsIn(PlayerPedId(),true)
     local plate = GetVehicleNumberPlateText(pEntity)
@@ -150,8 +150,8 @@ AddEventHandler("caue-vehicles:storeVehicle", function(params, pEntity)
     TriggerEvent('DoLongHudText',"Xe đã được cất vào garage",1)
 end)
 
-RegisterNetEvent("caue-vehicles:setGarage")
-AddEventHandler("caue-vehicles:setGarage", function(pGarage, pVar, pValue, pEdit)
+RegisterNetEvent("pw-vehicles:setGarage")
+AddEventHandler("pw-vehicles:setGarage", function(pGarage, pVar, pValue, pEdit)
     if pEdit then
         Garages[pGarage][pVar] = pValue
     else
@@ -162,5 +162,5 @@ end)
 Citizen.CreateThread(function()
     Citizen.Wait(2000)
 
-    Garages = RPC.execute("caue-vehicles:requestGarages")
+    Garages = RPC.execute("pw-vehicles:requestGarages")
 end)

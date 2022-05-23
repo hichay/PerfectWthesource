@@ -73,12 +73,6 @@ isWorking = false
 player = nil
 coords = {}
 
-
---[[ RegisterCommand("batdau321", function(source, args, rawCommand)
-	TriggerEvent("pw-hunting:client:kichhoat")
-    --isWorking = true
-end, false) ]]
-
 ------------------------------------------------------------[HARVEST]------------------------------------------------------------
 
 Citizen.CreateThread(function()
@@ -90,58 +84,75 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-   local playerPed = PlayerPedId()
-   
-   local createdPeds = {}
-   local pedcreated = false
-    while true do
-	local pos = GetEntityCoords(PlayerPedId())
-	local dst = #(pos - vector3(-674.0231, 5834.8413, 17.340139))
-	Citizen.Wait(15)	    
 
-		if dst <= 50 and pedcreated == false then
-				pedcreated = true
-				local pedModel = "cs_josef"
-			
-				RequestModel(pedModel)
-				while not HasModelLoaded(pedModel) do
-					RequestModel(pedModel)
-					Wait(100)
-				end
-			
-				local createdPed1 = CreatePed(5, pedModel, -674.0231, 5834.8413, 17.340139 - 1.0, 42.58, false, false)
-				ClearPedTasks(createdPed1)
-				ClearPedSecondaryTask(createdPed1)
-				TaskSetBlockingOfNonTemporaryEvents(createdPed1, true)
-				SetPedFleeAttributes(createdPed1, 0, 0)
-				SetPedCombatAttributes(createdPed1, 17, 1)
-			
-				SetPedSeeingRange(createdPed1, 0.0)
-				SetPedHearingRange(createdPed1, 0.0)
-				SetPedAlertness(createdPed1, 0)
-				SetPedKeepTask(createdPed1, true)
-				Wait(1000) -- for better freeze (not in air)
-				FreezeEntityPosition(createdPed1, true)
-				SetEntityInvincible(createdPed1, true)
-				
-				createdPeds[1] = createdPed1
-			
-				
+    local data = {
+        id = "hunterthenpc",
+        position = {coords = vector3(-674.0231, 5834.8413, 16.340139), heading = 42.58},
+        pedType = 4,
+        model = "cs_josef",
+        networked = false,
+        distance = 40.0,
+        settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+        flags = { ["isHuntingShopKeeper"] = true },
+        scenario = "WORLD_HUMAN_TOURIST_MOBILE",
+    }
+    local npc = exports["pw-npcs"]:RegisterNPC(data, "hunter_shopkeepr")
 
-		elseif dst > 50 and pedcreated == true then
-				pedcreated = false
-				if DoesEntityExist(createdPeds[1]) then 
-					local ped = createdPeds[1]
-					SetPedKeepTask(ped, false)
-					TaskSetBlockingOfNonTemporaryEvents(ped, false)
-					ClearPedTasks(ped)
-					TaskWanderStandard(ped, 10.0, 10)
-					SetPedAsNoLongerNeeded(ped)
-					DeleteEntity(ped)
-					createdPeds[1] = nil
-				end
-		end	
-	end
+    local Interact = {
+      data = {
+        {
+          id = 'hunter_interact',
+          label = 'Bắt đầu/kết thúc đi săn',
+          icon = 'person-rifle',
+          event = 'pw-hunting:client:kichhoat',
+          parameters = {},
+        },
+        {
+            id = 'hunter_interact_shop',
+            label = 'Mở cửa hàng',
+            icon = 'basket-shopping',
+            event = 'pw-shops:openHuntingShop',
+            parameters = {},
+        },
+        {
+            id = 'hunter_interact_sell',
+            label = 'Bán đồ đã săn được',
+            icon = 'hand-holding-dollar',
+            event = 'pw-hunting:makeSales',
+            parameters = {},
+        },
+      },
+      options = {
+        distance = { radius = 3.5 },
+      },
+    }
+    
+    exports["pw-interact"]:AddPeekEntryByFlag({'isHuntingShopKeeper'}, Interact.data, Interact.options)
+
+    local AnimalInteract = {
+        data = {
+          {
+            id = 'lamthi_animal',
+            label = 'Làm thịt',
+            icon = 'hand-holding',
+            event = 'pw-hunting:client:lamthit',
+            parameters = {},
+          },
+        },
+        options = {
+          distance = { radius = 2.5 },
+          isEnabled = function(pEntity, pContext)
+            return IsEntityDead(pEntity)
+          end, 
+        },
+      }
+      
+      exports["pw-interact"]:AddPeekEntryByFlag({'isAnimal'}, AnimalInteract.data, AnimalInteract.options) 
+end)
+
+RegisterNetEvent('pw-shops:openHuntingShop')
+AddEventHandler('pw-shops:openHuntingShop', function()
+	TriggerEvent("server-inventory-open", "12", "Shop")
 end)
 
 Citizen.CreateThread(function()
@@ -193,128 +204,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-
-
---[[ function isNearAnAnimal(dist, ped, i)
-    if IsControlJustReleased(0, 38) then
-        local model = GetEntityModel(ped)
-        local animal = getAnimalMatch(model)
-        --if GetPedSourceOfDeath(ped) == player then
-		if true then
-            harvestAnimal(ped, animal, i)
-        else
-            --exports["mythic_notify"]:DoHudText("error", Config.Text['you_didnt_kill_it'], 10000)
-			TriggerEvent("ESX:Notify",Config.Text['you_didnt_kill_it'],"error")
-        end
-    end  
-end ]]
-
---[[ function HasKnife()
-    for i, knife in pairs(Config.KnifesForHarvest) do
-        if GetHashKey(knife) == GetSelectedPedWeapon(player) then
-            return true
-        end
-    end
-    return false
-end ]]
-
-
-
-
---[[ function harvestAnimal(ped, model, i)
-    -- if HasKnife() then
-	if exports["pw-inventory"]:hasEnoughOfItem("huntingknife",1,false) then
-        for k, v in pairs(Config.Animals) do
-            if v.model == model then
-                specialItem = v.specialItem
-                dimension = v.dimension
-                bad = v.bad
-                good = v.good
-                perfect = v.perfect
-				badmeat = v.badmeat
-				goodmeat = v.goodmeat
-				perfectmeat = v.perfectmeat
-            end
-        end
-        local a, b = GetPedLastDamageBone(ped)
-        if b == 31086 then
-            WasPedShootedInHead = true
-        else
-            WasPedShootedInHead = false
-        end
-        local groupH = GetWeapontypeGroup(GetPedCauseOfDeath(ped))
-        local groupName = WeaponGroups[groupH]
-        for k, v in pairs(Config.WeaponDamages) do
-            if v.category == groupName then
-                dimensionLeather(v.small, v.medium, v.medBig, v.big)
-            end
-        end
-        local r = math.random(Config.MinLeather,Config.MaxLeather)
-		print(leatherToGive)
-		print(groupName)
-        if leatherToGive ~= nil and groupName ~= nil then
-            if Config.CameraMovement then
-                StartAnimCam()
-                --ProcessCamControls(ped) 
-                SetCurrentPedWeapon(player, -1569615261, true)
-                ensureAnimDict("amb@medic@standing@kneel@base")
-                TaskPlayAnim(player, "amb@medic@standing@kneel@base", "base", 1.0, -1.0, -1, 1, 0, false, false, false)                    
-                ensureAnimDict("anim@gangops@facility@servers@bodysearch@")
-                TaskPlayAnim(player, "anim@gangops@facility@servers@bodysearch@", "player_search", 1.0, -1.0, -1, 1, 0, false, false, false)
-                --exports['progressBars']:startUI(Config.TimeToHarvest, Config.Text['harvesting'])
-				local finished = exports["np-taskbar"]:taskBar(Config.TimeToHarvest, "Đang làm thịt", false, true, false, false, nil, 5.0)
-                
-					if finished ~= 100 then
-					SecondProcessCamControls(ped)
-                --Citizen.Wait(Config.TimeToHarvest)
-					ClearPedTasksImmediately(player)
-					EndAnimCam()
-					end
-            else
-                SetCurrentPedWeapon(player, -1569615261, true)
-                TaskTurnPedToFaceEntity(player, ped, -1)
-                ensureAnimDict("amb@medic@standing@kneel@base")
-                TaskPlayAnim(player, "amb@medic@standing@kneel@base", "base", 1.0, -1.0, -1, 1, 0, false, false, false)
-                ensureAnimDict("anim@gangops@facility@servers@bodysearch@")
-                TaskPlayAnim(player, "anim@gangops@facility@servers@bodysearch@", "player_search" ,1.0, -1.0, -1, 1, 0, false, false, false)                       
-                --exports['progressBars']:startUI(Config.TimeToHarvest, Config.Text['harvesting'])
-				local finished = exports["np-taskbar"]:taskBar(Config.TimeToHarvest, "Đang làm thịt", false, true, false, false, nil, 5.0)
-                --Citizen.Wait(Config.TimeToHarvest)
-					if finished ~= 100 then
-						ClearPedTasksImmediately(player)
-					end	
-            end
-            --exports["mythic_notify"]:DoHudText("inform", Config.Text['receved_leather'], 10000)
-            TriggerServerEvent('pw-hunting:server:giveReward', leatherToGive, r)
-            if Config.CanDropSpecial and not leatherIsBad then
-                DropSpecialItem(specialItem)
-            end
-            if Config.CanDropMeat then
-				for k, v in pairs(Config.WeaponDamages) do
-					if v.category == groupName then
-						dimensionMeat(v.smallmeat, v.mediummeat, v.medBigmeat, v.bigmeat)
-					end
-				end
-                local rMeat = math.random(Config.MinMeat,Config.MaxMeat)
-				print(meatToGive)
-                TriggerServerEvent('pw-hunting:server:giveReward', meatToGive, 1)
-                --exports["mythic_notify"]:DoHudText("inform", Config.Text['receved_meat'], 10000)
-            end
-        elseif leatherToGive == nil or groupName == nil then
-            --exports["mythic_notify"]:DoHudText("error", Config.Text['ruined_leather'], 10000)
-			TriggerEvent("ESX:Notify",Config.Text['ruined_leather'],"error")
-            Citizen.Wait(2000)
-        end
-        SetEntityCoords(ped, -7763.0, 8610.0, -100.0)
-        Citizen.Wait(1000)
-        deletePed(ped, i)
-        Citizen.Wait(3000)
-    else
-        --exports['mythic_notify']:DoHudText('error', Config.Text['need_knife'], 10000)
-		TriggerEvent("ESX:Notify",Config.Text['need_knife'],"info")
-        Citizen.Wait(200)
-    end
-end ]]
 
 function dimensionLeather(small, medium, medBig, big)
     if dimension == "small" then
@@ -392,7 +281,7 @@ function deletePed(entity, i)
     local model = GetEntityModel(entity)
     SetEntityAsNoLongerNeeded(entity)
     SetModelAsNoLongerNeeded(model)
-    DeleteEntity(entity)
+    Sync.DeleteEntity(entity)
     table.remove(search, i)
     animalsSpawnedCount = animalsSpawnedCount - 1
 end
@@ -464,7 +353,9 @@ function ensureAnimDict(animDict)
     end
     return animDict
 end
-
+RegisterCommand("disan", function(source, args, rawCommand)
+    TriggerEvent('pw-hunting:client:kichhoat')
+end, false)
 RegisterNetEvent('pw-hunting:client:kichhoat')
 AddEventHandler('pw-hunting:client:kichhoat', function()
     isWorking = not isWorking
@@ -474,6 +365,10 @@ AddEventHandler('pw-hunting:client:kichhoat', function()
         TriggerEvent("ESX:Notify","Bạn kết thúc chuyến đi săn","info")      
     end     
 end)
+
+RegisterCommand("bait", function(source, args, rawCommand)
+    TriggerEvent('pw-hunting:client:bait')
+end, false)
 
 Citizen.CreateThread(function()
     if not Config.NativeAnimal then
@@ -519,15 +414,6 @@ Citizen.CreateThread(function()
 						SetPedCombatAbility(entity,2)
 						
                         table.insert(search, entity)
-                        -- if Config.BlipOnEntity then
-                            -- local blip = AddBlipForEntity(entity)
-                            -- SetBlipSprite(blip,442)
-                            -- SetBlipColour(blip,1)
-                            -- SetBlipScale(blip, 0.8)
-                            -- BeginTextCommandSetBlipName("STRING")
-                            -- AddTextComponentString("Thú")
-                            -- EndTextCommandSetBlipName(blip)
-                        -- end
                     end
                 end
             else
@@ -549,24 +435,8 @@ end)
 ------------------------------------------------------------[LOCATIONS]------------------------------------------------------------
 
  Citizen.CreateThread(function()
-    --local SellZone = Config.Locations.SellZone
     while true do
         Citizen.Wait(5)
-        
-       --[[  for i = 1, #search, 1 do
-            local ped = search[i]
-            local distancePedPlayer = getDistance(ped)
-            if distancePedPlayer < 3.0 and not IsPedInAnyVehicle(player, false) and IsPedDeadOrDying(ped, true) then
-                if Config.huntAllMap then
-                    DrawText3Ds(pedCoords.x, pedCoords.y, pedCoords.z + 0.5, Config.Text['before_harvest'])
-                    isNearAnAnimal(distancePedPlayer, ped, i)
-                elseif IsInSpawnAnimalZone(pedCoords) then
-                    DrawText3Ds(pedCoords.x, pedCoords.y, pedCoords.z + 0.5, Config.Text['before_harvest'])
-                    isNearAnAnimal(distancePedPlayer, ped, i)
-                end
-            end
-        end ]]
-
         if #propSpawned > 0 then
             for i, prop in pairs(propSpawned) do
                 if GetDistanceBetweenCoords(coords, GetEntityCoords(prop), true) < 3 and not IsPedInAnyVehicle(player, false) then
@@ -583,11 +453,7 @@ end)
                 end
             end
         end
-        --[[ if IsNearIllegalNPC(coords) then
-            if IsControlJustReleased(0, Keys["E"]) then
-                OpenIllegalSellActionsMenu()
-            end
-        end ]]
+
     end
 end) 
 
@@ -787,7 +653,7 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 							DecorRemove(myAnimal,"HuntingMySpawn")
 							
 							--deletePed(targetedEntity, i)
-							DeleteEntity(myAnimal)
+							Sync.DeleteEntity(myAnimal)
 							SetEntityAsNoLongerNeeded(myAnimal)
 							SetModelAsNoLongerNeeded(myAnimal)
 							lamthit = false
@@ -865,6 +731,7 @@ end)
 RegisterNetEvent('pw-hunting:client:bait')
 AddEventHandler('pw-hunting:client:bait', function()
     --exports['progressBars']:startUI(Config.BaitPlacingTime, Config.Text['placing_bait'])
+    exports["np-taskbar"]:taskBar(Config.BaitPlacingTime, "Đang đặt mồi", false, true, false, false, nil, 5.0)
     TaskStartScenarioInPlace(player, "WORLD_HUMAN_GARDENER_PLANT", 0, true)
     Citizen.Wait(Config.BaitPlacingTime)
     ClearPedTasksImmediately(player)
@@ -945,7 +812,7 @@ function TrapPlaced(x,y,z)
         if Config.BlipOnBaitAnimal then
             RemoveBlip(blipBait)
         end
-        DeleteEntity(trapSpawned)
+        Sync.DeleteEntity(trapSpawned)
         trapSpawned = nil
     end
 end

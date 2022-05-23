@@ -402,7 +402,7 @@ AddEventHandler("truck_logistics:deactiveTruck",function(truck_id)
 	openUI(source,true)
 end)
 
-RegisterServerEvent("truck_logistics:upgradeSkill")
+--[[ RegisterServerEvent("truck_logistics:upgradeSkill")
 AddEventHandler("truck_logistics:upgradeSkill",function(data)
 	local source = source
 	local user_id = ESX.GetPlayerFromId(source).identifier
@@ -418,7 +418,42 @@ AddEventHandler("truck_logistics:upgradeSkill",function(data)
 			TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['insufficient_skill_points'],'success')
 		end
 	end
+end) ]]
+
+RegisterServerEvent("truck_logistics:upgradeSkill")
+AddEventHandler("truck_logistics:upgradeSkill",function(data)
+	local source = source
+	local user_id = ESX.GetPlayerFromId(source).identifier
+	if user_id then
+		local sql = "SELECT * FROM `trucker_users` WHERE user_id = @user_id";
+		local query = MySQL.query.await(sql,{['@user_id'] = user_id})[1];
+		local number = data.value - query[data.id]
+		if (data.value - query[data.id]) == 1 then 
+			if query.skill_points >= data.value then
+				local sql = "UPDATE `trucker_users` SET "..data.id.." = @value, skill_points = @skill_points WHERE user_id = @user_id";
+				MySQL.query(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - data.value)});
+				TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['upgraded_skill'],'success')
+				openUI(source,true)
+			else
+				TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['insufficient_skill_points'],'success')
+			end
+		else 
+			local oldskillpoint = (1+query[data.id])*query[data.id]/2
+			local newskillpoint = (1+data.value)*data.value/2
+
+			local totalskillpoint = newskillpoint - oldskillpoint
+			if query.skill_points >= (data.value - query[data.id]) then
+				local sql = "UPDATE `trucker_users` SET "..data.id.." = @value, skill_points = @skill_points WHERE user_id = @user_id";
+				MySQL.query(sql, {['@user_id'] = user_id, ['@value'] = data.value, ['@skill_points'] = (query.skill_points - totalskillpoint)});
+				TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['upgraded_skill'],'success')
+				openUI(source,true)
+			else
+				TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['insufficient_skill_points'],'success')
+			end
+		end
+	end
 end)
+
 
 RegisterServerEvent("truck_logistics:repairTruck")
 AddEventHandler("truck_logistics:repairTruck",function(item)

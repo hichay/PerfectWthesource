@@ -783,6 +783,8 @@ onNet("server-inventory-move", async (player, data, coords) => {
   if (purchase) {
     info = await GenerateInformation(player,itemidsent)
     removecash(src,itemCosts)
+	let baseprice = itemList[itemidsent].price
+	exports["pw-balance"].addTaxFromValue("Goods", baseprice)
     if (!PlayerStore) {
         for (let i = 0; i < parseInt(amount); i++) {
     
@@ -790,7 +792,7 @@ onNet("server-inventory-move", async (player, data, coords) => {
         }
     } else if (crafting) {
         // console.log("Crafting 1")
-        info - await GenerateInformation(player,itemidsent)
+        info = await GenerateInformation(player,itemidsent)
         for (let i = 0; i < parseInt(amount); i++) {
             db(`INSERT INTO user_inventory2 (item_id, name, information, slot, creationDate) VALUES ('${itemidsent}','${targetName}','${info}','${targetslot}','${creationDate}' );`);
         }
@@ -805,7 +807,7 @@ onNet("server-inventory-move", async (player, data, coords) => {
     }
   } else {
       if (crafting == true) {
-          info - await GenerateInformation(player,itemidsent)
+          info = await GenerateInformation(player,itemidsent)
           // console.log("Crafting 2",amount,"|",itemidsent,"|",targetName,"|",info,"|",targetslot)
           for (let i = 0; i < parseInt(amount); i++) {
               // console.log("Creat")
@@ -868,7 +870,8 @@ onNet("server-inventory-stack", async (player, data, coords) => {
   if (purchase) {
     info = await GenerateInformation(player,itemidsent)
     removecash(src,itemCosts)
-
+	let baseprice = itemList[itemidsent].price
+	exports["pw-balance"].addTaxFromValue("Goods", baseprice)
     if (!PlayerStore) {
         for (let i = 0; i < parseInt(amount); i++) {
             // console.log("This not plyr store")
@@ -965,6 +968,14 @@ onNet("inv:playerSpawned", () => {
     db(`DELETE FROM user_inventory2 WHERE quality like '0'`)
     console.log("[pw-inventory] Drops & broken items were deleted.")
 });
+
+onNet("onResourceStart", (resource) => {
+    if (resource == GetCurrentResourceName()) {
+        setTimeout(() => {
+            emit("pw-inventory:luaItemList", itemList)
+        }, 5000);
+    }
+})
 
 RegisterServerEvent('stores:pay:cycle')
 onNet('store:pay:cycle', async (storeList) => {

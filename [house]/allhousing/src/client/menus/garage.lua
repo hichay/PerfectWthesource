@@ -52,6 +52,7 @@ LeaveGarage = function(d)
 
   DoScreenFadeOut(500)
   TriggerEvent("Allhousing:Leave")
+  
   Wait(1000)
 
   local plyPed = GetPlayerPed(-1)

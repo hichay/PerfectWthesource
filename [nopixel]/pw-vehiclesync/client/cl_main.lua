@@ -6,7 +6,6 @@ AddEventHandler("baseevents:enteredVehicle", function(pVehicle, pSeat, pName, pC
     CurrentSeat = pSeat
     CurrentVehicle = pVehicle
     CurrentNetworkId = NetworkGetNetworkIdFromEntity(pVehicle)
-	print('wow')
     IsDriving = pSeat == -1
     IsEmergencyVehicle = pClass == 18
 

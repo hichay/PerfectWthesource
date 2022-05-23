@@ -10,6 +10,12 @@ function IsNearPlayer(player)
     end
 end
 
+inmenus = false
+
+RegisterNetEvent("inmenu")
+AddEventHandler("inmenu", function(change)
+	inmenus = change
+end)
 
 RegisterNetEvent("police:remmask")
 AddEventHandler("police:remmask", function(t)
@@ -64,7 +70,7 @@ AddEventHandler("police:checkInventory", function(pArgs, pEntity)
     end
 end)
 
-RegisterNetEvent("police:rob")
+--[[ RegisterNetEvent("police:rob")
 AddEventHandler("police:rob", function(pArgs, pEntity)
     RequestAnimDict("random@shop_robbery")
     while not HasAnimDictLoaded("random@shop_robbery") do
@@ -82,7 +88,7 @@ AddEventHandler("police:rob", function(pArgs, pEntity)
         TriggerServerEvent("police:rob", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)))
         TriggerServerEvent("police:targetCheckInventory", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), false)
     end
-end)
+end) ]]
 
 RegisterNetEvent("shoes:steal")
 AddEventHandler("shoes:steal", function(pArgs, pEntity)
@@ -94,14 +100,14 @@ AddEventHandler("shoes:steal", function(pArgs, pEntity)
   	TriggerServerEvent("facewear:adjust", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), "stolenshoes", true, true)
 end)
 
-RegisterNetEvent("police:gsr")
+--[[ RegisterNetEvent("police:gsr")
 AddEventHandler("police:gsr", function(pArgs, pEntity)
 
 	local finished = exports["caue-taskbar"]:taskBar(10000, "Teste de GSR")
 	if finished == 100 then
 		TriggerServerEvent("police:gsr", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)))
 	end
-end)
+end) ]]
 
 AddEventHandler("pw-police:impound", function(pParams, pVehicle)
 	TriggerEvent("animation:PlayAnimation", "phone")

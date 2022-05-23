@@ -18,7 +18,7 @@ Citizen.CreateThread(function()
         local options = {
             distance = { radius = 2.5 },
             isEnabled = function()
-                return ESX.GetPlayerData().job.name == v["Job"] and #(GetEntityCoords(PlayerPedId()) - v["Spawn"]["coords"]["xyz"]) < 300.0
+                return ESX.GetPlayerData().job.name == v["Job"]
             end
         }
         exports["pw-interact"]:AddPeekEntryByFlag(group, data, options)
@@ -43,13 +43,15 @@ AddEventHandler("pw-police:showVehicles", function()
         end
     end
 
-    exports["np-ui"]:showContextMenu(datamen)
+    --exports["np-ui"]:showContextMenu(datamen)
+    exports["pw-context"]:showContext(datamen)
 end)
 
 
-RegisterUICallback('pw-policejob:buyVeh', function (data, cb)
-    cb({ data = {}, meta = { ok = true, message = '' } })
-    local vehicle = data.key.vehicle
+--RegisterUICallback('pw-policejob:buyVeh', function (data, cb)
+AddEventHandler("pw-policejob:buyVeh", function(params)
+    --cb({ data = {}, meta = { ok = true, message = '' } })
+    local vehicle = params.vehicle
     local hash = GetHashKey(vehicle.model)
     local success = RPC.execute('pw-policejob:buyJobVehicle',vehicle.price)
     local newPlate = exports['pw-vehicleshop']:GeneratePlate()

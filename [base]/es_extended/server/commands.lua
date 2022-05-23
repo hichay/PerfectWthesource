@@ -216,3 +216,18 @@ ESX.RegisterCommand('players', "admin", function(xPlayer, args, showError)
 		print("^1[ ^2ID : ^5"..xPlayer.source.." ^0| ^2Name : ^5"..xPlayer.getName().." ^0 | ^2Group : ^5"..xPlayer.getGroup().." ^0 | ^2Identifier : ^5".. xPlayer.identifier .."^1]^0\n")
 	end
 end, true)
+
+
+ESX.RegisterCommand('time', {"admin", "mod" }, function(xPlayer, args, showError)
+	TriggerEvent('pw-weathersync:setTime',source ,args.time)
+end, true, {help = "Lệnh chỉnh thời gian", validate = true, arguments = {
+	{name = 'time', help = "Thời gian [0-24]", type = 'number'}
+}})
+
+ESX.RegisterCommand('weather', {"admin", "mod" }, function(xPlayer, args, showError)
+	TriggerEvent('pw-weathersync:setWeather',source ,args.weather)
+end, true, {help = "Điều chỉnh thời tiết", validate = true, arguments = {
+	{name = 'weather', help = "Lệnh thời tiết [EXTRASUNNY - CLEAR - CLEARING - OVERCAST - SMOG - FOGGY - CLOUDS - RAIN - THUNDER - SNOW - BLIZZARD - SNOWLIGHT - XMAS - HALLOWEEN] ", type = 'string'}
+}})
+
+

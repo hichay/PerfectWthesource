@@ -341,7 +341,6 @@ RPC.register("clothing:purchase", function(src, price, tax, paymentType)
 	local xPlayer = ESX.GetPlayerFromId(source)
     
     if not xPlayer then return false end
-
     if paymentType == "cash" then
 		local cash = xPlayer.getAccount('money').money
 
@@ -349,12 +348,12 @@ RPC.register("clothing:purchase", function(src, price, tax, paymentType)
             return false
         else 
 			xPlayer.removeAccountMoney('money', price)
+            exports["pw-balance"]:addTaxFromValue("Services", tax)
 			return true
 		end
 
        
-
-        exports["pw-balance"]:addTax("Services", tax)
+        
     else
 
         local bank = xPlayer.getAccount('bank').money
@@ -363,11 +362,11 @@ RPC.register("clothing:purchase", function(src, price, tax, paymentType)
             return false
         else
 			xPlayer.removeAccountMoney('bank', price)
+            exports["pw-balance"]:addTaxFromValue("Services", tax)
 			return true
 		end
 
-		
-        exports["pw-balance"]:addTax("Services", tax)
+        
     end
 
     return true

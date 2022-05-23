@@ -63,11 +63,11 @@ function NearATM()
 end
 
 function NearBank()
-    local pos = GetEntityCoords(GetPlayerPed(-1))
+    local pos = GetEntityCoords(PlayerPedId())
 
     for k, v in pairs(Config.BankLocations) do
-        local dist = GetDistanceBetweenCoords(v.x, v.y, v.z, pos.x, pos.y, pos.z, true)
-
+        local dist = #(vector3(v.x, v.y, v.z) - vector3(pos.x, pos.y, pos.z))
+		--local dist = GetDistanceBetweenCoords(v.x, v.y, v.z, pos.x, pos.y, pos.z, true) 
         if dist <= v.BankDistance then
             return true
         elseif dist <= v.BankDistance + 5 then
@@ -104,77 +104,106 @@ Citizen.CreateThread(function()
         	Citizen.Wait(1000)
         end
 
-        if inRange and not shown then
+        --[[ if inRange and not shown then
         	shown = true
         	exports['okokTextUI']:Open('[E] To access the bank', 'darkblue', 'left') 
         elseif not inRange and shown then
         	shown = false
         	exports['okokTextUI']:Close()
-        end
+        end ]]
     end
 end)
 
-Citizen.CreateThread(function()
-	local inRange = false
-	local shown = false
+-- Citizen.CreateThread(function()
+	-- local inRange = false
+	-- local shown = false
 
-	local dict = 'anim@amb@prop_human_atm@interior@male@enter'
-	local anim = 'enter'
-	local ped = GetPlayerPed(-1)
+	-- local dict = 'anim@amb@prop_human_atm@interior@male@enter'
+	-- local anim = 'enter'
+	-- local ped = GetPlayerPed(-1)
 
-    while true do
-    	inRange = false
-        Citizen.Wait(0)
-        if NearATM() and not isBankOpened and NearATM() ~= "update" then
-        	if not Config.okokTextUI then
-            	ESX.ShowHelpNotification("Nhấn ~INPUT_PICKUP~ để mở ~b~ATM")
-            else
-            	inRange = true
-            end
+    -- while true do
+    	-- inRange = false
+        -- Citizen.Wait(0)
+        -- if NearATM() and not isBankOpened and NearATM() ~= "update" then
+        	-- if not Config.okokTextUI then
+            	-- ESX.ShowHelpNotification("Nhấn ~INPUT_PICKUP~ để mở ~b~ATM")
+            -- else
+            	-- inRange = true
+            -- end
 
-            if IsControlJustReleased(0, 38) then
-            	ESX.TriggerServerCallback("okokBanking:GetPIN", function(pin)
-            		if pin then
-            			if not isBankOpened then
-	            			isBankOpened = true
-						    RequestAnimDict(dict)
+            -- if IsControlJustReleased(0, 38) then
+            	-- ESX.TriggerServerCallback("okokBanking:GetPIN", function(pin)
+            		-- if pin then
+            			-- if not isBankOpened then
+	            			-- isBankOpened = true
+						    -- RequestAnimDict(dict)
 
-						    while not HasAnimDictLoaded(dict) do
-						        Citizen.Wait(7)
-						    end
+						    -- while not HasAnimDictLoaded(dict) do
+						        -- Citizen.Wait(7)
+						    -- end
 
-						    TaskPlayAnim(ped, dict, anim, 8.0, 8.0, -1, 0, 0, 0, 0, 0)
-						    Citizen.Wait(Config.AnimTime)
-						    ClearPedTasks(ped)
+						    -- TaskPlayAnim(ped, dict, anim, 8.0, 8.0, -1, 0, 0, 0, 0, 0)
+						    -- Citizen.Wait(Config.AnimTime)
+						    -- ClearPedTasks(ped)
 
-			                SetNuiFocus(true, true)
-							SendNUIMessage({
-								action = 'atm',
-								pin = pin,
-							})
-						end
-					else
-						--exports['okokNotify']:Alert("BANK", "Head up to a bank to set a PIN code", 5000, 'info')
-						TriggerEvent("ESX:Notify","Bạn chưa hề set PIN cho thẻ hãy tới ngân hàng để làm điều này","info")
-					end
-				end)
-            end
-        elseif NearATM() == "update" then
-        	Citizen.Wait(100)
-        else
-        	Citizen.Wait(1000)
-        end
+			                -- SetNuiFocus(true, true)
+							-- SendNUIMessage({
+								-- action = 'atm',
+								-- pin = pin,
+							-- })
+						-- end
+					-- else
+						-- --exports['okokNotify']:Alert("BANK", "Head up to a bank to set a PIN code", 5000, 'info')
+						-- TriggerEvent("ESX:Notify","Bạn chưa hề set PIN cho thẻ hãy tới ngân hàng để làm điều này","info")
+					-- end
+				-- end)
+            -- end
+        -- elseif NearATM() == "update" then
+        	-- Citizen.Wait(100)
+        -- else
+        	-- Citizen.Wait(1000)
+        -- end
 
-        if inRange and not shown then
-        	shown = true
-        	exports['okokTextUI']:Open('[E] To access the ATM', 'darkblue', 'left') 
-        elseif not inRange and shown then
-        	shown = false
-        	exports['okokTextUI']:Close()
-        end
-    end
+        -- if inRange and not shown then
+        	-- shown = true
+        	-- exports['okokTextUI']:Open('[E] To access the ATM', 'darkblue', 'left') 
+        -- elseif not inRange and shown then
+        	-- shown = false
+        	-- exports['okokTextUI']:Close()
+        -- end
+    -- end
+-- end)
+
+
+RegisterNetEvent('pw-banking:OpenUI')
+AddEventHandler('pw-banking:OpenUI', function()
+	ESX.TriggerServerCallback("okokBanking:GetPIN", function(pin)
+		if pin then
+			if not isBankOpened then
+				isBankOpened = true
+				RequestAnimDict(dict)
+
+				while not HasAnimDictLoaded(dict) do
+					Citizen.Wait(7)
+				end
+
+				TaskPlayAnim(ped, dict, anim, 8.0, 8.0, -1, 0, 0, 0, 0, 0)
+				Citizen.Wait(Config.AnimTime)
+				ClearPedTasks(ped)
+
+				SetNuiFocus(true, true)
+				SendNUIMessage({
+					action = 'atm',
+					pin = pin,
+				})
+			end
+		else
+			--exports['okokNotify']:Alert("BANK", "Head up to a bank to set a PIN code", 5000, 'info')
+			TriggerEvent("ESX:Notify","Bạn chưa hề set PIN cho thẻ hãy tới ngân hàng để làm điều này","info")
+		end
+	end)
 end)
-
 function openBank()
 	local hasJob = false
 	local playeJob = ESX.GetPlayerData().job

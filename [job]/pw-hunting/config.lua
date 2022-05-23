@@ -21,7 +21,7 @@ Config.SpecialProb        = 96        -- probability, example: the script genera
 Config.EnableBait           = true
 Config.BlipOnBaitAnimal     = true
 Config.BaitPlacingTime      = 15000     -- milliseconds
-Config.BaitItemName         = "animal_bait"
+Config.BaitItemName         = "huntingbait"
 Config.BaitAnimals          = {"a_c_deer", "a_c_boar", "a_c_mtlion", "a_c_coyote"}  -- animal that can spawn when placing a bait (need to be also in Config.Animals)
 Config.TimeForAnimalToLeave = 10000     -- animal once reached bait will wait this time before walking away milliseconds
 Config.BaitSpawnRadious     = 30        -- when you place a bait, the animal will spawn in this radious (I raccomend 200) 
@@ -65,7 +65,7 @@ Config.KnifesForHarvest  = {'WEAPON_KNIFE', 'WEAPON_SWITCHBLADE', 'WEAPON_DAGGER
 
 
 -- [HUNTING ZONES]:
-Config.huntAllMap  = false   -- true if you want to enable hunting in all the map
+Config.huntAllMap  = true   -- true if you want to enable hunting in all the map
 Config.huntPoint   = {
     {x = -1133.44, y = 4605.55, z = 144.96},
 	{x = 2226.2229, y = 1942.3349, z = 110.3809},

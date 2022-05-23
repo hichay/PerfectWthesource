@@ -102,11 +102,10 @@ AddEventHandler("pw-bossmenu:server:openMenu", function()
             Accounts[job.name] = 0
         end
 
-        exports['ghmattimysql']:execute("SELECT * FROM `users` WHERE `job` = '" .. job.name .. "'", function(players)
+        MySQL.query("SELECT * FROM `users` WHERE `job` = '" .. job.name .. "'", function(players)
             if players[1] ~= nil then
                 for key, value in pairs(players) do
                     local xPlayerid = ESX.GetPlayerFromIdCard(value.id)
-					--print(key,value)
                     if xPlayerid then
                         table.insert(employees, {
                             source = xPlayerid.id, 
@@ -145,13 +144,13 @@ AddEventHandler('pw-bossmenu:server:fireEmployee', function(data)
     if xEmployee then
         if xEmployee then
 			xEmployee.setJob("unemployed", '0')
-			exports['ghmattimysql']:execute( "UPDATE `users` SET `job` = 'unemployed',`job_grade` = '0' WHERE `id` = '".. data.source .."'")	
+			MySQL.query( "UPDATE `users` SET `job` = 'unemployed',`job_grade` = '0' WHERE `id` = '".. data.source .."'")	
             TriggerClientEvent('ESX:Notify', src, "Đuổi ra thành công!", "success")
             TriggerClientEvent('ESX:Notify', xEmployee.source , "Bạn đã bị đuổi khỏi.", "success")
 
             Wait(500)
             local employees = {}
-            exports['ghmattimysql']:execute( "SELECT * FROM `users` WHERE `job` = '" .. job.name .. "'", function(players)
+            MySQL.query( "SELECT * FROM `users` WHERE `job` = '" .. job.name .. "'", function(players)
                 if players[1] ~= nil then
                     for key, value in pairs(players) do
 						local xPlayerid = ESX.GetPlayerFromIdCard(value.id)
@@ -182,18 +181,18 @@ AddEventHandler('pw-bossmenu:server:fireEmployee', function(data)
             TriggerClientEvent('ESX:Notify', src, "Error.", "error")
         end
     else
-        exports['ghmattimysql']:execute( "SELECT * FROM `users` WHERE `id` = '" .. data.source .. "' LIMIT 1", function(player)
+        MySQL.query( "SELECT * FROM `users` WHERE `id` = '" .. data.source .. "' LIMIT 1", function(player)
             if player[1] ~= nil then
                 xEmployee = player[1]
 				
 
-                exports['ghmattimysql']:execute( "UPDATE `users` SET `job` = 'unemployed',`job_grade` = '0' WHERE `id` = '".. data.source .."'")
+                MySQL.query( "UPDATE `users` SET `job` = 'unemployed',`job_grade` = '0' WHERE `id` = '".. data.source .."'")
                 TriggerClientEvent('ESX:Notify', src, "Bạn đã đuổi thành công!", "success")
                 --TriggerEvent('bb-logs:server:createLog', 'bossmenu', 'Fire', "Successfully fired " .. data.source .. ' (' .. xPlayer.PlayerData.job.name .. ')', src)
                 
                 Wait(500)
                 local employees = {}
-                exports['ghmattimysql']:execute( "SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
+                MySQL.query( "SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
                     if players[1] ~= nil then
                         for key, value in pairs(players) do
 							local xPlayerid = ESX.GetPlayerFromIdCard(value.id)
@@ -239,7 +238,7 @@ AddEventHandler('pw-bossmenu:server:giveJob', function(data)
 			xTarget.setJob(job.name, '0')
             TriggerClientEvent('ESX:Notify', src, "Bạn đã tuyển " .. xTarget.getName() .. " vào làm việc " .. job.label .. ".", "success")
             TriggerClientEvent('ESX:Notify', xTarget.source , "Bạn đã được tuyển dụng vào công việc: " .. job.label .. ".", "success")
-			exports['ghmattimysql']:execute( "UPDATE `users` SET `job` = '"..job.name.."',`job_grade` = '0' WHERE `id` = '".. data.source .."'")
+			MySQL.query( "UPDATE `users` SET `job` = '"..job.name.."',`job_grade` = '0' WHERE `id` = '".. data.source .."'")
             --TriggerEvent('bb-logs:server:createLog', 'bossmenu', 'Recruit', "Successfully recruited " .. (xTarget.PlayerData.charinfo.firstname .. ' ' .. xTarget.PlayerData.charinfo.lastname) .. ' (' .. job .. ')', src)
 
 			
@@ -259,13 +258,13 @@ AddEventHandler('pw-bossmenu:server:updateGrade', function(data)
     if xEmployee then
         if xEmployee then
 			xEmployee.setJob(job.name, data.grade)
-			exports['ghmattimysql']:execute( "UPDATE `users` SET `job` = '"..job.name.."',`job_grade` = '"..data.grade.."' WHERE `id` = '".. data.source .."'")	
+			MySQL.query( "UPDATE `users` SET `job` = '"..job.name.."',`job_grade` = '"..data.grade.."' WHERE `id` = '".. data.source .."'")	
             TriggerClientEvent('ESX:Notify', src, "Thăng/Hạ cấp thành công!", "success")
             TriggerClientEvent('ESX:Notify', xEmployee.source , "Bạn vừa được̣ bổ nhiệm chức vụ [" .. data.grade .."].", "success")
 
             Wait(500)
             local employees = {}
-            exports['ghmattimysql']:execute( "SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
+            MySQL.query( "SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
                 if players[1] ~= nil then
 					for key, value in pairs(players) do
 						local xPlayerid = ESX.GetPlayerFromIdCard(value.id)
@@ -296,15 +295,15 @@ AddEventHandler('pw-bossmenu:server:updateGrade', function(data)
             TriggerClientEvent('ESX:Notify', src, "Error.", "error")
         end
     else
-        exports['ghmattimysql']:execute( "SELECT * FROM `users` WHERE `id` = '" .. data.source .. "' LIMIT 1", function(player)
+        MySQL.query( "SELECT * FROM `users` WHERE `id` = '" .. data.source .. "' LIMIT 1", function(player)
             if player[1] ~= nil then
                 xEmployee = player[1]
-                exports['ghmattimysql']:execute( "UPDATE `users` SET `job_grade` = '"..data.grade.."' WHERE `id` = '".. data.source .."'")
+                MySQL.query( "UPDATE `users` SET `job_grade` = '"..data.grade.."' WHERE `id` = '".. data.source .."'")
                 TriggerClientEvent('ESX:Notify', src, "Thăng/Hạ cấp thành công!", "success")
                 
                 Wait(500)
                 local employees = {}
-                exports['ghmattimysql']:execute("SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
+                MySQL.query("SELECT * FROM `users` WHERE `job` LIKE '%".. job.name .."%'", function(players)
                     if players[1] ~= nil then
                         for key, value in pairs(players) do
 							local xPlayerid = ESX.GetPlayerFromIdCard(value.id)

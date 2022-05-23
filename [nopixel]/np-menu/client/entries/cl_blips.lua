@@ -2,25 +2,28 @@ local GeneralEntries, SubMenu = MenuEntries["general"], {}
 
 local Blips = {
     {
-        id = "blips:clothing",
-        title = "Roupas",
-        icon = "#blips-clothing",
-        event = "caue-blips:update",
-        parameters = "clothing",
+        id = "blips:weeds",
+        title = "Cần sa",
+        icon = "#blips-weed",
+        event = "pw-weeds:ToggleBlips",
     },
     {
         id = "blips:barber",
-        title = "Barbeiro",
+        title = "Barber Shop",
         icon = "#blips-barber",
-        event = "caue-blips:update",
-        parameters = "barber",
+        event = "hairDresser:ToggleHair",
+    },
+	{
+        id = "blips:clothing",
+        title = "Tiệm quần áo",
+        icon = "#blips-clothing",
+        event = "hairDresser:ToggleClothing",
     },
     {
         id = "blips:tattoo",
-        title = "Tatuagem",
+        title = "Tiệm xăm",
         icon = "#blips-tattoo",
-        event = "caue-blips:update",
-        parameters = "tattoo",
+        event = "tattoo:ToggleTattoo",
     },
     {
         id = "blips:bank",

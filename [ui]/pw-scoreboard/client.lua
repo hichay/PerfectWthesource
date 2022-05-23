@@ -32,7 +32,8 @@ end)
 
 RegisterCommand('scoreboard', function()
     if not scoreboardOpen then
-        ESX.TriggerServerCallback('qb-scoreboard:server:GetPlayersArrays', function(playerList)
+        --ESX.TriggerServerCallback('qb-scoreboard:server:GetPlayersArrays', function(playerList)
+		local playerList = RPC.execute('qb-scoreboard:server:GetPlayersArrays') 
             ESX.TriggerServerCallback('qb-scoreboard:server:GetActivity', function(cops, ambulance, mechanic)
                 ESX.TriggerServerCallback("qb-scoreboard:server:GetCurrentPlayers", function(Players)
                     PlayerOptin = playerList
@@ -49,10 +50,23 @@ RegisterCommand('scoreboard', function()
                     })
                     scoreboardOpen = true
 					
+					while scoreboardOpen == true do
+			Citizen.Wait(15)
+			 for _, player in pairs(GetPlayersFromCoords(GetEntityCoords(PlayerPedId()), 10.0)) do
+				local PlayerId = GetPlayerServerId(player)
+				local PlayerPed = GetPlayerPed(player)
+				local PlayerName = GetPlayerName(player)
+				local PlayerCoords = GetEntityCoords(PlayerPed)
+
+            
+               DrawText3D(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z + 1.0, '['..PlayerOptin[PlayerId].idcard..']')
+            end
+        end
                 end)
             end)
-        end)	
+        --end)	
 		scoreboardOpen = true
+		
     else
         SendNUIMessage({
             action = "close",
@@ -71,18 +85,7 @@ RegisterCommand('scoreboard', function()
 		end
 		
 			
-		while scoreboardOpen == true do
-			Wait(0)
-			 for _, player in pairs(GetPlayersFromCoords(GetEntityCoords(PlayerPedId()), 10.0)) do
-				local PlayerId = GetPlayerServerId(player)
-				local PlayerPed = GetPlayerPed(player)
-				local PlayerName = GetPlayerName(player)
-				local PlayerCoords = GetEntityCoords(PlayerPed)
-
-            
-               DrawText3D(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z + 1.0, '['..PlayerOptin[PlayerId].idcard..']')
-            end
-        end
+	
     
 end)
 

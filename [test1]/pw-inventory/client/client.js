@@ -164,11 +164,12 @@ on("esx:setmoneyinfo",(money) =>{
 
 
 let itemListWithTax = async () => {
-    const taxlv = 0;
+    const [fetchTax] = await RPC.execute("pw-balance:getTax", "Goods");
+    const tax = fetchTax["param"];
 
     for (const key in itemList) {
         let value = itemList[key];
-        value.tax = Math.ceil(value.price - value.price / (1 + taxlv / 100));
+        value.tax = Math.ceil((value.price / 100) * tax);
         value.priceWithTax = value.price + value.tax;
     }
 
@@ -439,8 +440,8 @@ function findSlot(ItemIdToCheck, amount, nonStacking, itemdata) {
 
 
 
-RegisterNetEvent('inventory-open-request')
-on('inventory-open-request', () => {
+RegisterNetEvent('inventory-open-request');
+on('inventory-open-request', async () => {
 	setImmediate(async () => {
         SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await itemListWithTax() }));
     });
@@ -478,7 +479,7 @@ on('inventory-open-request', () => {
 	if (isInVehicle) {
 		vehicleFound = GetVehiclePedIsIn(PlayerPedId(),false)
 		let licensePlate = GetVehicleNumberPlateText(vehicleFound);
-		emitNet("server-inventory-open", startPosition, plySteam, "1", "Glovebox-" + licensePlate);
+		emitNet("server-inventory-open", startPosition, plySteam, "1", "Glovebox-" + licensePlate);   
 	} else if (tacoShopDst < 2.0) {
 		TriggerEvent("server-inventory-open", "18", "Craft");
 	} else if (JailBinFound && jailDst < 80.0) {

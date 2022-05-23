@@ -402,9 +402,10 @@ LeaveHouse = function(d)
   elseif Config.UsingESX and Config.UsingESXMenu then
     ESX.UI.Menu.CloseAll()
   end
-
-  DoScreenFadeOut(500)
+  TriggerEvent("insideShell", false)
+  DoScreenFadeOut(1000)
   TriggerEvent("Allhousing:Leave")
+  
   Wait(1000)
 
   local plyPed = GetPlayerPed(-1)
@@ -427,7 +428,7 @@ LeaveHouse = function(d)
   end
 
   InsideHouse = false
-  SetWeatherAndTime(true)
+  --SetWeatherAndTime(true)
   LeavingHouse = false
 end
 
@@ -553,7 +554,8 @@ EnterHouse = function(d,visiting)
 
   TriggerEvent("Allhousing:Enter",d)
   TeleportInside(d,visiting)
-  SetWeatherAndTime(false)
+  TriggerEvent("insideShell", true)
+  --SetWeatherAndTime(false)
 end
 
 UpgradeHouse = function(d,data)

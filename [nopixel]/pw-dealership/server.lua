@@ -449,7 +449,10 @@ AddEventHandler("lc_dealership:buyVehicle",function(key,vehicle)
 						if arr_stock[vehicle] == 0 then arr_stock[vehicle] = nil end -- Clear empty stock
 						local sql = "UPDATE `dealership_owner` SET stock = @stock, stock_sold = @stock_sold WHERE dealership_id = @dealership_id";
 						MySQL.Sync.execute(sql, {['@stock'] = json.encode(arr_stock), ['@stock_sold'] = json.encode(arr_stock_sold), ['@dealership_id'] = key});
-						giveDealershipMoney(key,price)
+						local taxveh = exports["pw-balance"]:getTaxFromValue("Vehicles", price)
+						dealershipmoney = price - taxveh
+						giveDealershipMoney(key,dealershipmoney)
+						exports["pw-balance"]:addTaxFromValue("Vehicles", price)
 					end
 					
 					if query_dealership_stock and query_dealership_stock[1] then
@@ -463,8 +466,8 @@ AddEventHandler("lc_dealership:buyVehicle",function(key,vehicle)
 					TriggerClientEvent("lc_dealership:spawnVehicle",source,vehicle,GeneratePlate())
 					
 					TriggerClientEvent("DoLongHudText",source, Lang[Config.lang]['bought_vehicle']:format(veh_name),1)
-					insertBalanceHistory(key,user_id,Lang[Config.lang]['balance_vehicle_bought']:format(veh_name),price,0,1)
-					SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_vehicle_bought']:format(key,vehicle,price,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
+					insertBalanceHistory(key,user_id,Lang[Config.lang]['balance_vehicle_bought']:format(veh_name),dealershipmoney,0,1)
+					SendWebhookMessage(Config.webhook,Lang[Config.lang]['logs_vehicle_bought']:format(key,vehicle,dealershipmoney,user_id..os.date("\n["..Lang[Config.lang]['logs_date'].."]: %d/%m/%Y ["..Lang[Config.lang]['logs_hour'].."]: %H:%M:%S")))
 				else
 					TriggerClientEvent("ESX:Notify", source, "Không đủ tiền", "error", 5000)
 
@@ -1077,7 +1080,6 @@ function tryGetDealershipMoney(dealership_id,amount)
 end
 
 function insertBalanceHistory(dealership_id,user_id,description,amount,type,isbuy)
-	print(description)
 	local name = getPlayerName(user_id)
 	local IdNumber = getPleyrIdNumber(user_id)
 	local sql = "INSERT INTO `dealership_balance` (dealership_id,user_id,description,name,amount,type,isbuy,date) VALUES (@dealership_id,@user_id,@description,@name,@amount,@type,@isbuy,@date)";

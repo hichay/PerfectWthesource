@@ -15,7 +15,7 @@ function PoliceArmory() {
         { item_id: "radio", id: 0, name: "Shop", information: "{}", slot: 5, amount: 50 },
         { item_id: "camera", id: 0, name: "Shop", information: "{}", slot: 6, amount: 50 },
 		{ item_id: "keyfob", id: 0, name: "Shop", information: "{}", slot: 7, amount: 50 },
-		{ item_id: "evidencebag", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
+		{ item_id: "-1074790547", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
 
 
     ];

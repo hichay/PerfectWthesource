@@ -16,6 +16,16 @@ RegisterCommand('duatien', function(source, args, rawCommand)
     TriggerClientEvent("pw-scripts:client:Duatien",source , args[1], args[2])
 end)
 
+
+ESX.RegisterCommand('duatien1', 'user', function(xPlayer, args)
+	TriggerClientEvent("pw-scripts:client:Duatien",source, args.id, args.money)
+end, false, {help = "add thêm garage nhà", validate = true, arguments = {
+    {name = 'id', help = "Id người chơi", type = 'idcard'},
+    {name = 'money', help = "số tiền", type = 'number'}
+}})
+
+
+
 RegisterServerEvent('pw-scripts:server:Duatien')
 AddEventHandler('pw-scripts:server:Duatien', function(amount,playerId)
 	local _source = source

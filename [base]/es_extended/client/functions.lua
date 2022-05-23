@@ -177,6 +177,7 @@ ESX.ShowFloatingHelpNotification = function(msg, coords)
     if string.match(msg, "~INPUT_PICKUP~") then
         msg = msg:gsub("~INPUT_PICKUP~", "[E]")
     end
+	
 	AddTextEntry('esxFloatingHelpNotification', "<FONT FACE='Reaver-SemiBold'><b>"..msg.."</b></FONT>")
 	SetFloatingHelpTextWorldPosition(1, coords)
 	SetFloatingHelpTextStyle(1, 1, 2, -1, 3, 0)

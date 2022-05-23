@@ -3,6 +3,7 @@ fx_version 'adamant'
 game 'gta5'
 
 client_scripts{
+    '@pw-sync/client/lib.lua',
     'config.lua',
     'client/main.lua',
     'client/cl_sales.lua',

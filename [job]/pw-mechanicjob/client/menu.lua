@@ -106,12 +106,14 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
         },
     },
 
-    exports["np-ui"]:showContextMenu(data)
+    --exports["np-ui"]:showContextMenu(data)
+	exports["pw-context"]:showContext(data)
 end)
 
-RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
-	cb({ data = {}, meta = { ok = true, message = '' } })
-  local type = data.key.name
+--RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
+AddEventHandler("pw-ems:buyVeh", function(params)
+	--cb({ data = {}, meta = { ok = true, message = '' } })
+  local type = params.name
   local target = exports["pw-interact"]:GetCurrentEntity()
   if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
       vehicle = target

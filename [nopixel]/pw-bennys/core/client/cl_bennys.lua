@@ -293,7 +293,7 @@ function IsSpecialMotorcycle()
     end
 end
 
-local function listenForKeypress()
+--[[ local function listenForKeypress()
     listening = true
 
     Citizen.CreateThread(function()
@@ -304,7 +304,7 @@ local function listenForKeypress()
             Wait(0)
         end
     end)
-end
+end ]]
 
 
 --#[Global Functions]#--
@@ -1210,8 +1210,8 @@ function ExitBennys()
     TriggerEvent('vehicle:leftBennys')
     TriggerEvent('inmenu', isPlyInBennys)
     TriggerServerEvent("pw-bennys:removeFromInUse", currentBennys)
-    exports["np-ui"]:showInteraction("[E] Bennys")
-    listenForKeypress()
+    --[[ exports["np-ui"]:showInteraction("[E] Bennys")
+    listenForKeypress() ]]
     currentBennys = nil
 end
 
@@ -1459,14 +1459,14 @@ end)
 
 -- PolyZone stuff
 AddEventHandler("pw-polyzone:enter", function(zone, data)
-    if zone ~= "bennys" then return end
+    --[[ if zone ~= "bennys" then return end
     local plyPed = PlayerPedId()
     local plyVeh = GetVehiclePedIsIn(plyPed, false)
 
     if plyVeh ~= 0 and GetPedInVehicleSeat(plyVeh, -1) == plyPed then
         exports["np-ui"]:showInteraction("[E] Bennys")
         listenForKeypress()
-    end
+    end ]]
 end)
 
 AddEventHandler("pw-polyzone:exit", function(zone)

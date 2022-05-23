@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
 	job = ESX.PlayerData.job.name
 	if isMedic and job ~= "ambulance" then isMedic = false end
     if isPolice and job ~= "police" then isPolice = false end
-    if isDoc and job ~= "doc" then isDoc = false end
+    if isDoc and job ~= "ambulance" then isDoc = false end
     if isDoctor and job ~= "doctor" then isDoctor = false end
     if isNews and job ~= "news" then isNews = false end
     if isMayor and job ~= "mayor" then isMayor = false end
@@ -34,7 +34,7 @@ Citizen.CreateThread(function()
     if job == "police" then isPolice = true end
     if job == "ambulance" then isMedic = true end
     if job == "news" then isNews = true end
-    if job == "doctor" then isDoctor = true end
+    if job == "ambulance" then isDoctor = true end
     if job == "doc" then isDoc = true end
     if job == "mayor" then isMayor = true end
     if job == "county_clerk" then isCountyClerk = true end

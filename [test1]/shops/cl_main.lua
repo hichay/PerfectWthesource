@@ -23,9 +23,6 @@ local MenuData = {
     },
 	hunting_shop = {
         text = "Để mở cửa hàng"
-    },
-	tool_shop = {
-        text = "Để mở cửa hàng"
     }
 }
 
@@ -135,7 +132,7 @@ AddEventHandler("pw-polyzone:exit", function(zone)
     end
 end)
 
-local function listenForKeypress(zoneName)
+function listenForKeypress(zoneName)
     listening = true
     Citizen.CreateThread(function()
 
@@ -145,10 +142,10 @@ local function listenForKeypress(zoneName)
                     TriggerEvent("server-inventory-open", "2", "Shop");	
 				elseif zoneName == "weapon_shop" then
 					TriggerEvent("server-inventory-open", "5", "Shop");
-				elseif zoneName == "hunting_shop" then
-					TriggerEvent("server-inventory-open", "12", "Shop");
-				elseif zoneName == "tool_shop" then
-					TriggerEvent("server-inventory-open", "12", "Shop");
+				--[[ elseif zoneName == "hunting_shop" then
+					TriggerEvent("server-inventory-open", "12", "Shop"); ]]
+				--[[ elseif zoneName == "tool_shop" then
+					TriggerEvent("server-inventory-open", "12", "Shop"); ]]
                 end
                 
 
@@ -160,9 +157,9 @@ local function listenForKeypress(zoneName)
 end
 
 function addBlips()
-    showMinimarketBlips = true
-    showHuntingstoreBlips = true
-    showToolshopBlips = true    
+    --showMinimarketBlips = true
+    --showHuntingstoreBlips = true
+    --showToolshopBlips = true    
 
     TriggerEvent('blips:ToggleMinimarket')
 

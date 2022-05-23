@@ -6,6 +6,8 @@ EntryCount, ListCount, UpdateRequired, RefreshingList = 0, 0, false, false
 
 local enableWorldPrompts = true
 
+local EyeActive = false
+
 local function convertNpcIds(npcIds)
     if npcIds == nil then return nil end
     local idHashes = {}
@@ -103,7 +105,7 @@ function RefreshPeekList()
 
         RefreshingList = false
 
-        exports["np-ui"]:sendAppEvent('eye', {
+        SendNUIMessage({
             action = "refresh",
             payload = entries or {}
         })
@@ -119,7 +121,7 @@ function UpdatePeekEntryList(pEntries)
         IsPeakActive = false
     end
 
-    exports["np-ui"]:sendAppEvent('eye', {
+    SendNUIMessage({
         action = "update",
         payload = { active = IsPeakActive, options = pEntries }
     })
@@ -398,9 +400,12 @@ function StartPeekin()
             end
 
             if IsPeakActive and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
+                EyeActive = true
+
                 SetCursorLocation(0.5, 0.5)
-				print('eye')
-                exports["np-ui"]:openApplication("eye", {
+
+                SetNuiFocus(true, true)
+                SendNUIMessage({
                     action = "interact",
                     payload = { active = true, display = true, context = context, entity = CurrentTarget }
                 })
@@ -454,15 +459,20 @@ function StartPeekin()
         end
     end)
 
-    exports["np-ui"]:sendAppEvent('eye', { action = "peek", payload = { display = true, active = false } })
+    SendNUIMessage({
+        action = "peek",
+        payload = { display = true, active = false }
+    })
 end
 
 function StopPeekin()
     if not IsPeeking then return end
+    if EyeActive then return end
 
     IsPeeking = false
+    EyeActive = false
 
-    exports["np-ui"]:sendAppEvent('eye', {
+    SendNUIMessage({
         action = "peek",
         payload = { display = false, active = false }
     })
@@ -504,12 +514,15 @@ AddEventHandler('pw-polyzone:exit', function(zoneName)
     UpdateRequired = true
 end)
 
-RegisterUICallback("np-ui:targetSelectOption", function(data, cb)
+RegisterNUICallback("np-ui:targetSelectOption", function(data, cb)
     cb({ data = {}, meta = { ok = true, message = 'done' } })
 
-    IsPeeking = false
+    if EyeActive then
+        SetNuiFocus(false, false)
+    end
 
-    exports["np-ui"]:closeApplication("eye")
+    IsPeeking = false
+    EyeActive = false
 
     Wait(100)
 
@@ -530,6 +543,17 @@ end)
 
 AddEventHandler('np-ui:phoneReady', function()
     RefreshPeekList()
+end)
+
+RegisterNUICallback("closeTarget", function(data, cb)
+    cb("ok")
+
+    if EyeActive then
+        SetNuiFocus(false, false)
+    end
+
+    IsPeeking = false
+    EyeActive = false
 end)
 
 RegisterCommand('+targetInteract', StartPeekin, false)

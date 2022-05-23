@@ -113,8 +113,8 @@ local function toggleDebug(state)
     end
 end
 
-if GetConvar("sv_environment", "prod") == "debug" then
-    RegisterCommand("np-polytarget:debug", function (src, args)
-        toggleDebug(not debugEnabled)
-    end)
-end
+
+RegisterCommand("pw-polytarget:debug", function (src, args)
+	toggleDebug(not debugEnabled)
+end)
+

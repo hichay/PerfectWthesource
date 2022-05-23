@@ -72,6 +72,20 @@ ESX.RegisterServerCallback('qb-scoreboard:server:GetPlayersArrays', function(sou
     cb(players)
 end)
 
+RPC.register('qb-scoreboard:server:GetPlayersArrays',function(src)
+	local players = {}
+    for k, v in pairs(ESX.GetPlayers()) do
+        local Player = ESX.GetPlayerFromId(v)
+		local Idcard = Player.id
+        if Player ~= nil then 
+            players[Player.source] = {}
+			players[Player.source].idcard = Idcard
+            --players[Player.source].permission = QBCore.Functions.IsOptin(Player.source)
+        end
+    end
+	return players
+end)
+
 RegisterServerEvent('qb-scoreboard:server:SetActivityBusy')
 AddEventHandler('qb-scoreboard:server:SetActivityBusy', function(activity, bool)
     Config.IllegalActions[activity].busy = bool

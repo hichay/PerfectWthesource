@@ -36,9 +36,6 @@ local tattooHashList = CreateHashList()
 local isService = false
 local passedClothing = true
 
-local currentPrice = 0
-local currentPriceWithoutTax = 0
-
 local MenuData = {
     clothing_shop = {
         text = "To buy clothes",
@@ -1424,7 +1421,6 @@ end
 
 
 Citizen.CreateThread(function()
-    addBlips()
     SetCustomNuiFocus(false, false)
 
     Wait(1000)
@@ -1454,7 +1450,7 @@ end)
 local function listenForKeypress(zoneName, zoneData, isFree)
     listening = true
     Citizen.CreateThread(function()
-        local priceWithTax = RPC.execute("PriceWithTax", zoneData.basePrice, "Services")
+        local priceWithTax = RPC.execute("pw-balance:priceWithTax", zoneData.basePrice, "Services")
 	
         while listening do
             if IsControlJustReleased(0, 244) then
@@ -1465,7 +1461,6 @@ local function listenForKeypress(zoneName, zoneData, isFree)
                         Citizen.Wait(0)
                     end
                 end
-				TriggerEvent('table',priceWithTax)
                 currentPrice = isFree and 0 or priceWithTax.total
                 currentPriceWithoutTax = zoneData.basePrice
                 priceWithTax.text = isFree and 0 or priceWithTax.text
@@ -1483,7 +1478,7 @@ end
 RegisterNetEvent('raid_clothes:openClothing')
 AddEventHandler('raid_clothes:openClothing', function(pDontShowBarber, pShouldCost, pStartingMenu)
     if pShouldCost ~= nil and pShouldCost then
-        local priceWithTax = RPC.execute("PriceWithTax", MenuData.clothing_shop.basePrice, "Services")
+        local priceWithTax = RPC.execute("pw-balance:priceWithTax", MenuData.clothing_shop.basePrice, "Services")
         currentPrice = priceWithTax.total
         currentPriceWithoutTax = MenuData.clothing_shop.basePrice
         priceWithTax.text = priceWithTax.text
@@ -1500,7 +1495,7 @@ end)
 
 RegisterNetEvent('raid_clothes:openBarber', function(pShouldCost)
     if pShouldCost ~= nil and pShouldCost then
-        local priceWithTax = RPC.execute("PriceWithTax", MenuData.barber_shop.basePrice, "Services")
+        local priceWithTax = RPC.execute("pw-balance:priceWithTax", MenuData.barber_shop.basePrice, "Services")
         currentPrice = priceWithTax.total
         currentPriceWithoutTax = MenuData.barber_shop.basePrice
         priceWithTax.text = priceWithTax.text

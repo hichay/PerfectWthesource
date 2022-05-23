@@ -50,6 +50,18 @@ GeneralEntries[#GeneralEntries+1] = {
 }
 
 GeneralEntries[#GeneralEntries+1] = {
+  data = {
+      id = "bennys:enter",
+      title = "Enter Bennys",
+      icon = "#general-check-vehicle",
+      event = "bennys:enter"
+  },
+  isEnabled = function(pEntity, pContext)
+      return not IsDisabled() and polyChecks.bennys.isInside and IsPedInAnyVehicle(PlayerPedId(), false) and GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId(), false), -1) == PlayerPedId()
+  end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "car-radio",
         title = "Radio",
@@ -134,6 +146,37 @@ GeneralEntries[#GeneralEntries+1] = {
       return not isDead and (isPolice or isMedic) 
   end
 }
+
+local hasDrugs = function()
+    return exports["pw-inventory"]:hasEnoughOfItem("joint", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("1gcocaine", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("1gmeta", 1, false) or
+        exports["pw-inventory"]:hasEnoughOfItem("lean", 1, false)
+end
+GeneralEntries[#GeneralEntries+1] = {
+    data = {
+        id = "drugs-selling",
+        title = "Chào hàng quanh",
+        icon = "#weed-cultivation",
+        event = "pw-drugs:startSell"
+    },
+    isEnabled = function(pEntity, pContext)
+        return not IsDisabled() and hasDrugs() and not exports["pw-localselldrugs"]:isSelling() and not (isPolice or isDoc)
+    end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
+    data = {
+        id = "drugs-selling",
+        title = "Ngưng chào hàng",
+        icon = "#weed-cultivation",
+        event = "pw-drugs:startSell"
+    },
+    isEnabled = function(pEntity, pContext)
+        return exports["pw-localselldrugs"]:isSelling()
+    end
+}
+
 
 
 GeneralEntries[#GeneralEntries+1] = {

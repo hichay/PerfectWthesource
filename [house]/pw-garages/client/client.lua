@@ -80,10 +80,9 @@ Citizen.CreateThread(function()
 
     loggedIn = true 
     Wait(1500)
-    playerCid =  ESX.GetPlayerData().identifier
     PWGarages.Functions.CreateBlips()
 
-    while true do
+    --while true do
         
         if PWGarages.Config ~= nil then
             local playerPed = PlayerPedId()
@@ -93,17 +92,16 @@ Citizen.CreateThread(function()
                     if key == 'garages' or key == 'impounds' then
                         for name, data in pairs(value) do
                             if data['ped'] ~= nil then
-                                local dst = #(GetEntityCoords(playerPed) - vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z))
+                                --local dst = #(GetEntityCoords(playerPed) - vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z))
                                 local datanpc = {
                                     id = "npc_garage_"..name,
                                     position = {coords = vector3(vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z - 1.0)), heading = data['ped']['heading']},
                                     pedType = 4,
                                     model = data['ped']['type'],
                                     networked = false,
-                                    distance = 25.0,
+                                    distance = 50.0,
                                     settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
                                     flags = { ["isNPC"] = true, },
-                                    blip = { color = 10, sprite = 10, scale = 0.8, text = 'thuwr', short = true },
                                 }
                                 local npc = exports["pw-npcs"]:RegisterNPC(datanpc, "npc_name_"..name)
 
@@ -127,7 +125,7 @@ Citizen.CreateThread(function()
                                 }
                                 
                                 exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.datait, Interact.options)
-                                if data['ped']['enable'] == true then
+                                --[[ if data['ped']['enable'] == true then
                                     -- ped
                                     
 
@@ -140,7 +138,7 @@ Citizen.CreateThread(function()
                                     end            
                                 
                                     -- text
-                                    --[[ if data['ped']['created'] == true then              
+                                     if data['ped']['created'] == true then              
                                         if not IsPedInAnyVehicle(playerPed, false) then
                                             if dst < 3.0 then
                                                 PWGarages.Functions.DrawText3D({x = data['ped']['coords'].x, y = data['ped']['coords'].y, z = data['ped']['coords'].z + 0.9}, PWGarages.Config['settings']['interactions']['to_interact'])
@@ -174,8 +172,8 @@ Citizen.CreateThread(function()
                                                 --PWGarages.Functions.DrawText3D({x = data['ped']['coords'].x, y = data['ped']['coords'].y, z = data['ped']['coords'].z + 0.9}, PWGarages.Config['settings']['interactions']['interact'])
                                             end
                                         end
-                                    end ]]
-                                --[[ else
+                                    end 
+                                 else
                                     -- text
                                     if not IsPedInAnyVehicle(playerPed, false) then
                                         if dst < 3.0 then
@@ -206,12 +204,14 @@ Citizen.CreateThread(function()
                                         end
                                     end ]]
                                 end
-                            
-                                SetAllVehicleGeneratorsActiveInArea(vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) - 100.0, vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) + 100.0, false, false)
+                                
+                                    
+                                
                             end
+                        
                         end 
                         
-                    elseif key == 'houses' then
+                    --[[ elseif key == 'houses' then
                         for name, data in pairs(value) do
                             if PWGarages.Functions.HasHouseAccess(name) == true then
                                 local dst = #(GetEntityCoords(playerPed) - vector3(data['coords'].x, data['coords'].y, data['coords'].z))
@@ -246,19 +246,28 @@ Citizen.CreateThread(function()
                                 SetAllVehicleGeneratorsActiveInArea(vector3(data['coords'].x, data['coords'].y, data['coords'].z) - 100.0, vector3(data['coords'].x, data['coords'].y, data['coords'].z) + 100.0, false, false)
                             end
                         end
-                    end 
+                    end  ]]
                 end
             end
         end
-
+        for key, value in pairs(PWGarages.Config) do
+            if key == 'garages' or key == 'impounds' then
+                for name, data in pairs(value) do
+                    while true do 
+                        Citizen.Wait(500)
+                        SetAllVehicleGeneratorsActiveInArea(vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) - 100.0, vector3(data['ped']['coords'].x, data['ped']['coords'].y, data['ped']['coords'].z) + 100.0, false, false)
+                    end
+                end
+            end
+        end
         for key, vehicle in pairs(ownedVehicles) do
             if DoesEntityExist(vehicle[2]) == false then
                 TriggerServerEvent('pw-garages:server:impoundVehicle', vehicle[1])
                 table.remove(ownedVehicles, key)
             end
-        end
+        end 
         Wait(1500)
-    end
+    --end
 end)
 
 

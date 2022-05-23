@@ -207,6 +207,15 @@ ModelFlags = {
   [`np_beehive02`] = { 'isBeehive' },
   [`np_beehive03`] = { 'isBeehive' },
   [`bkr_prop_weed_lrg_01b`] = { 'isLrgWeedPlant', 'isWeedPlant' },
+  
+  [`a_c_deer`] = { 'isAnimal' },
+  [`a_c_boar`] = { 'isAnimal' },
+  [`a_c_mtlion`] = { 'isAnimal' },
+  [`a_c_coyote`] = { 'isAnimal' },
+  [`a_c_rabbit_01`] = { 'isAnimal' },
+  [`a_c_cormorant`] = { 'isAnimal' },
+  [`a_c_chickenhawk`] = { 'isAnimal' },
+
 
   [`mp_f_freemode_01`] = { 'isPlayerModel' },
   [`mp_m_freemode_01`] = { 'isPlayerModel' },

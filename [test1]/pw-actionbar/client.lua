@@ -4,35 +4,22 @@ unholsteringactive = false
 local prevupdate = 0
 local armed = false
 local currentInformation = 0
-local lastEquippedInfo = nil
 local CurrentSqlID = 0
 local TIME_REMOVED_FOR_DEG = 1000 * 60 * 5 -- 5 mins
 local focusTaken = false
 local UNARMED_HASH = `WEAPON_UNARMED`
-local isActionBarDisabled = false
-local lastEquippedItemToRemove = nil
 
 
 
 local throwableWeapons = {}
 throwableWeapons["741814745"] = true
-throwableWeapons["-1600701090"] = true
 throwableWeapons["615608432"] = true
 throwableWeapons["1233104067"] = true
 throwableWeapons["2874559379"] = true
 throwableWeapons["126349499"] = true
 throwableWeapons["-73270376"] = true
 throwableWeapons["-1169823560"] = true
-throwableWeapons["2481070269"] = true
-throwableWeapons["-1813897027"] = true
-throwableWeapons["600439132"] = true
-throwableWeapons["1064738331"] = true
-throwableWeapons["-691061592"] = true
-throwableWeapons["126349499"] = true
-throwableWeapons["-828058162"] = true
-throwableWeapons["571920712"] = true
-throwableWeapons["-1569615261"] = true
-throwableWeapons["-37975472"] = true
+
 
 
 function loadAnimDict( dict )
@@ -69,7 +56,7 @@ function attemptToDegWeapon()
 
 		if  hasTimer >= 2000 then
 			lastWeaponDeg = GetGameTimer();
-			TriggerEvent("inventory:DegenLastUsedItem",1)
+			TriggerServerEvent("inventory:degItem",CurrentSqlID)
 		end
 	end
 end
@@ -78,7 +65,7 @@ local reDelayed = false
 function actionBarDown()
 	if focusTaken or reDelayed then return end
 	TriggerEvent("inventory-bar", true)
-    --TriggerServerEvent("pw-financials:cash:get", GetPlayerServerId(PlayerId()))
+    TriggerServerEvent("pw-financials:cash:get", GetPlayerServerId(PlayerId()))
 end
 
 function actionBarUp()
@@ -115,65 +102,32 @@ function passiveMode()
   end)
 end
 
+Citizen.CreateThread(function()
+  exports["pw-keybinds"]:registerKeyMapping("", "Player", "Action Bar", "+actionBar", "-actionBar", "TAB")
+  RegisterCommand('+actionBar', actionBarDown, false)
+  RegisterCommand('-actionBar', actionBarUp, false)
 
-	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Action Bar", "+actionBar", "-actionBar", "TAB")
-	RegisterCommand('+actionBar', actionBarDown, false)
-	RegisterCommand('-actionBar', actionBarUp, false)
+  --exports["np-keybinds"]:registerKeyMapping("", "Player", "Wink", "+playerWink", "-playerWink")
+  RegisterCommand('+playerWink', playerWink, false)
+  RegisterCommand('-playerWink', function() end, false)
 
-	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Wink", "+playerWink", "-playerWink")
-	RegisterCommand('+playerWink', playerWink, false)
-	RegisterCommand('-playerWink', function() end, false)
-
-	exports["pw-keybinds"]:registerKeyMapping("", "Player", "Passive Mode", "+passiveMode", "-passiveMode")
-	RegisterCommand('+passiveMode', passiveMode, false)
-	RegisterCommand('-passiveMode', function() end, false)
-
-
-local excludedWeapons = {
-	[UNARMED_HASH] = true,
-	[`WEAPON_FIREEXTINGUISHER`] = true,
-	[`WEAPON_FLARE`] = true,
-	[`WEAPON_PetrolCan`] = true,
-	[`WEAPON_STUNGUN`] = true,
-	[-2009644972] = true, -- paintball gun bruv
-	[1064738331] = true, -- bricked
-	[-828058162] = true, -- shoed
-	[571920712] = true, -- money
-	[-691061592] = true, -- book
-	[1834241177] = true, -- EMP Gun
-	[1233104067] = true, -- Flare
-	[600439132] = true, -- Lime
-	[126349499] = true, -- Snowball
-	[-2084633992] = true, -- Airsoft
-}
-
-local lastShot = 0
-local lastDamageTrigger = 0
-local shotRecentlyLoopActive = false
-local disableGSR = false
-local enableStressReliefWhenShooting = false
-
-local function shotRecently()
-	if shotRecentlyLoopActive then return end
-	shotRecentlyLoopActive = true
-	Citizen.CreateThread(function()
-		while shotRecentlyLoopActive do
-			Citizen.Wait(60000)
-			if (lastShot + 2400000) < GetGameTimer() then
-				shotRecentlyLoopActive = false
-			end
-		end
-	end)
-end
-
-AddEventHandler('pw-actionbar:hotreload', function()
-    ammoTable = RPC.execute("weapons:getAmmo")
+  --exports["np-keybinds"]:registerKeyMapping("", "Player", "Passive Mode", "+passiveMode", "-passiveMode")
+  RegisterCommand('+passiveMode', passiveMode, false)
+  RegisterCommand('-passiveMode', function() end, false)
 end)
 
+local shotRecently = false
+local lastShot = 0
+local lastDamageTrigger = 0
 Citizen.CreateThread( function()
 	local lastWeapon
 	while true do
 		Citizen.Wait(0)
+		
+		HideHudComponentThisFrame(19) -- 19 : WEAPON_WHEEL
+        HideHudComponentThisFrame(20) -- 20 : WEAPON_WHEEL_STATS
+		HudWeaponWheelIgnoreSelection()  -- CAN'T SELECT WEAPON FROM SCROLL WHEEL
+        DisableControlAction(0, 37, true)
 		
 		local ped = PlayerPedId()
 		local selectedWeapon = GetSelectedPedWeapon(ped)
@@ -199,16 +153,6 @@ Citizen.CreateThread( function()
 					Citizen.Wait(3000)
 				end
 			end
-			if weapon == "-37975472" then
-		        TriggerEvent("pw-weapons:threwSmokeGrenade")
-		        if lastEquippedItemToRemove then
-		          if exports["pw-inventory"]:hasEnoughOfItem(lastEquippedItemToRemove,1,false) then
-		            TriggerEvent("inventory:removeItem", lastEquippedItemToRemove, 1)
-		            Citizen.Wait(3000)
-		          end
-		        end
-		        lastEquippedItemToRemove = nil
-		      end
 
 			if hash ~= `WEAPON_STUNGUN` and hash ~= `WEAPON_FIREEXTINGUISHER` then
 				lastShot = GetGameTimer()
@@ -223,13 +167,6 @@ Citizen.CreateThread( function()
 				end
 			end
 
-			if selectedWeapon ~= lastWeapon and (lastWeapon == 741814745 or lastWeapon == -1600701090 or lastWeapon == 600439132 or lastWeapon == 126349499 or lastWeapon == -828058162 or lastWeapon == 1064738331 or lastWeapon == -691061592 or lastWeapon == 1233104067) then
-				TriggerEvent("inventory:removeItem", lastWeapon, 1)
-			end
-
-			if selectedWeapon ~= lastWeapon and (lastWeapon == 571920712) then
-				TriggerEvent("inventory:removeItemByMetaKV", lastWeapon, 1, "id", lastEquippedInfo.id)
-			end
 		end
 
 		if unholsteringactive then
@@ -241,23 +178,24 @@ Citizen.CreateThread( function()
 
 		prevupdate = prevupdate - 1
 
-		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken and not isActionBarDisabled then
+		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken then
 			TriggerEvent("inventory-bind",1)
 		end
 
-		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken and not isActionBarDisabled then
+		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken then
 			TriggerEvent("inventory-bind",2)
 		end
 
-		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken and not isActionBarDisabled then
+		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken then
 			TriggerEvent("inventory-bind",3)
 		end
 
-		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken and not isActionBarDisabled then
+		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken then
 			TriggerEvent("inventory-bind",4)
 		end
 
-		if UNARMED_HASH ~= selectedWeapon and 741814745 ~= selectedWeapon and 100416529 ~= selectedWeapon then
+		local selectedWeapon = GetSelectedPedWeapon(PlayerPedId())
+		if UNARMED_HASH ~= selectedWeapon and 741814745 ~= selectedWeapon then
 			DisplayAmmoThisFrame(true)
 		end
 
@@ -284,8 +222,9 @@ local cannotPullWeaponInAnimation = false
 
 
 RegisterNetEvent('equipWeaponID')
-AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID,itemToRemove)
+AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID)
 	--GiveAmmoNow()
+	--print(GetHashKey("WEAPON_SNIPERRIFLE2"))
 	if not exports["pw-propattach"]:canPullWeaponHoldingEntity() then return end
 	
 	if cannotPullWeaponInAnimation  then return end
@@ -308,7 +247,6 @@ AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID,itemToRemove
 	-- if dead then
 		-- return
 	-- end
-	lastEquippedItemToRemove = itemToRemove
 
 	if UNARMED_HASH == GetSelectedPedWeapon(PlayerPedId()) then
 		armed = false
@@ -326,17 +264,11 @@ AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID,itemToRemove
 		unholster1h(tonumber(hash),true, json.decode(newInformation))
 	end	
 
-	if hash == "-72657034" then
-		RemoveAllPedWeaponsP(PlayerPedId(),hash)
-	end
 
 	SetPedAmmo(PlayerPedId(),  `WEAPON_FIREEXTINGUISHER`, 10000)
 	SetPedAmmo(PlayerPedId(),  `WEAPON_STICKYBOMB`, 1)
-	SetPedAmmo(PlayerPedId(),  1233104067, 1)
-	SetPedAmmo(PlayerPedId(),  -37975472, 1)
 	
 	SetPlayerCanDoDriveBy(PlayerId(),true)
-	SetWeaponsNoAutoswap(true)
 
 end)
 
@@ -445,11 +377,9 @@ AddEventHandler('armory:ammo', function()
 end)
 
 RegisterNetEvent('actionbar:setEmptyHanded')
-AddEventHandler('actionbar:setEmptyHanded', function(ignoreUpdateAmmo)
+AddEventHandler('actionbar:setEmptyHanded', function()
 	prevupdate = 0
-  if not ignoreUpdateAmmo then
-	  updateAmmo(true)
-  end
+	updateAmmo(true)
 	Wait(500)
 	SetCurrentPedWeapon(PlayerPedId(), UNARMED_HASH, true)
 end)
@@ -502,8 +432,6 @@ end
 
 
 function getAmmo(hash)
-	if hash == nil then return end
-
 	if (throwableWeapons[""..hash..""]) then
     	return 2
     end
@@ -560,31 +488,16 @@ function unholster1h(weaponHash, a, info)
 	local ped = PlayerPedId()
 
 	if myJob == "police" or myJob == "doc" then
-
-		if weaponHash == -1953168119 then
-			TriggerEvent("fx:staffused",true)
-			GiveWeaponToPed(ped, weaponHash, getAmmo(weaponHash), 1, 1)
-			cannotPullWeaponInAnimation = false
-			ClearPedTasks(ped)
-			Citizen.Wait(1200)
-			unholsteringactive = false
-			return
-		end
-
 		copunholster(weaponHash)
 
-		if weaponHash == 218362403 then
-			SetPedWeaponTintIndex(ped, weaponHash, 6)
-		end
-		  
 	    if weaponHash == 3219281620 then
-			  GiveWeaponComponentToPed(PlayerPedId(), 3219281620, `COMPONENT_AT_PI_FLSH_02` )
+			GiveWeaponComponentToPed(PlayerPedId(), 3219281620, `COMPONENT_AT_PI_FLSH_02` )
 	    end
 
 
 	    if weaponHash == 736523883 then
-        GiveWeaponComponentToPed( ped, 736523883, `COMPONENT_AT_AR_FLSH` )
-        GiveWeaponComponentToPed( ped, 736523883, `COMPONENT_AT_SCOPE_MACRO_02` )	
+			GiveWeaponComponentToPed( ped, 736523883, `COMPONENT_AT_AR_FLSH` )
+			GiveWeaponComponentToPed( ped, 736523883, `COMPONENT_AT_SCOPE_MACRO_02` )	
 	    end
 
 	    if weaponHash == -2084633992 then
@@ -599,10 +512,10 @@ function unholster1h(weaponHash, a, info)
 	    end
 
 	    if weaponHash == 2024373456 then
-        GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_AR_FLSH` )
-        GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_SIGHTS_SMG` )	
-        GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_MUZZLE_01` )
-        GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_SB_BARREL_02` )	
+			GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_AR_FLSH` )
+			GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_SIGHTS_SMG` )	
+			GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_MUZZLE_01` )
+			GiveWeaponComponentToPed( ped, 2024373456, `COMPONENT_AT_SB_BARREL_02` )	
 	    end
 
 	    if weaponHash == -86904375 then
@@ -612,65 +525,11 @@ function unholster1h(weaponHash, a, info)
 
 	    if weaponHash == -1075685676 then
 	    	GiveWeaponComponentToPed( ped, -1075685676, `COMPONENT_AT_PI_FLSH_02` )
-	    end
-
-		if weaponHash == 1649403952 and info and info.componentVariant then
-			local variants = {
-			  ["1"] = 0xF605986F,
-			}
-			if variants[info.componentVariant] then
-			  GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-			end
-		  end
-
-		  if weaponHash == -1024456158 and info and info.componentVariant then
-			local variants = {
-			  ["1"] = 0xDF427E88,
-			  ["2"] = 0x84276AFF,
-			  ["3"] = 0x1122A82,
-			  ["4"] = 0x12788BB7,
-			  ["5"] = 0x475ECA83,
-			  ["6"] = 0x2B65CEAD,
-			  ["7"] = 0xFE52F3D7,
-			}
-			if variants[info.componentVariant] then
-			  GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-			end
-		  end
+	    end  
 
 		AttachmentCheck(weaponHash)
 		
 	    Citizen.Wait(450)
-      unholsteringactive = false
-      cannotPullWeaponInAnimation = false
-		return
-	end	
-
-	RemoveAllPedWeaponsP(ped,weaponHash)
-
-	if weaponHash == -1953168119 then
-		TriggerEvent("fx:staffused",true)
-		GiveWeaponToPed(ped, weaponHash, getAmmo(weaponHash), 1, 1)
-		cannotPullWeaponInAnimation = false
-		ClearPedTasks(ped)
-		if info and info.componentVariant then
-			local variants = {
-			  ["1"] = 0xF5C8A04A,
-			  ["2"] = 0xEC7D8DB4,
-			  ["3"] = 0x1C7C6DB1,
-			  ["4"] = 0xB18CAEA,
-			  ["5"] = 0xB0DF1678,
-			  ["6"] = 0xDF8AF3CF,
-			  ["7"] = 0xC80344C0,
-			  ["8"] = 0x791226CB,
-			  ["9"] = 0x78ADA746,
-			  ["10"] = 0xC52AC043,
-			}
-			if variants[info.componentVariant] then
-			  GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-			end
-		end
-		Citizen.Wait(1200)
 		unholsteringactive = false
 		cannotPullWeaponInAnimation = false
 		return
@@ -692,13 +551,13 @@ function unholster1h(weaponHash, a, info)
 	end
     
 
-  if weaponHash == 218362403 then
-      SetPedWeaponTintIndex(ped, weaponHash, 6)
-  end
+	if weaponHash == 218362403 then
+     	  SetPedWeaponTintIndex(ped, weaponHash, 6)
+	end
   
-  if info and info.weaponTint then
-    SetPedWeaponTintIndex(ped, weaponHash, info.weaponTint)
-  end
+	  if info and info.weaponTint then
+		SetPedWeaponTintIndex(ped, weaponHash, info.weaponTint)
+	  end
 
   if weaponHash == 1692590063 and info and info.componentVariant then
     local variants = {
@@ -706,71 +565,21 @@ function unholster1h(weaponHash, a, info)
       ["2"] = 0xA4BF7400,
       ["3"] = 0x3F2DA8E2, -- cursed katana, never use this one
       ["4"] = 0x849233A6,
-      ["5"] = 0x83648BFB, -- Talon sword, don't use this
     }
     if variants[info.componentVariant] then
       GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
     end
   end
 
-  if weaponHash == 1649403952 and info and info.componentVariant then
-    local variants = {
-      ["1"] = 0xF605986F,
-    }
-    if variants[info.componentVariant] then
-      GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-    end
-  end
 
-  if weaponHash == -1024456158 and info and info.componentVariant then
-    local variants = {
-      ["1"] = 0xDF427E88,
-      ["2"] = 0x84276AFF,
-      ["3"] = 0x1122A82,
-      ["4"] = 0x12788BB7,
-      ["5"] = 0x475ECA83,
-      ["6"] = 0x2B65CEAD,
-      ["7"] = 0xFE52F3D7,
-    }
-    if variants[info.componentVariant] then
-      GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-    end
-  end
-
-  if weaponHash == 3638508604 and info and info.componentVariant then
-    local variants = {
-      ["1"] = 0xF3462F33,
-      ["2"] = 0xC613F685,
-      ["3"] = 0xEED9FD63,
-      ["4"] = 0x50910C31,
-      ["5"] = 0x9761D9DC,
-      ["6"] = 0x7DECFE30,
-      ["7"] = 0x3F4E8AA6,
-	  ["8"] = 0x8B808BB,
-	  ["9"] = 0xE28BABEF,
-	  ["10"] = 0x7AF3F785,
-    }
-    if variants[info.componentVariant] then
-      GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-    end
-  end
    
-  if weaponHash == 1317494643 and info and info.componentVariant then
-    local variants = {
-      ["1"] = 0x904467BA,
-    }
-    if variants[info.componentVariant] then
-      GiveWeaponComponentToPed(ped, weaponHash, variants[info.componentVariant])
-    end
-  end
-
-  AttachmentCheck(weaponHash)
-  Citizen.Wait(500)
-  cannotPullWeaponInAnimation = false
-  ClearPedTasks(ped)
-  Citizen.Wait(1200)
-  
-  unholsteringactive = false
+    AttachmentCheck(weaponHash)
+    Citizen.Wait(500)
+    cannotPullWeaponInAnimation = false
+    ClearPedTasks(ped)
+    Citizen.Wait(1200)
+    
+    unholsteringactive = false
 
 end
 
@@ -834,13 +643,13 @@ end
 
 
 function copunholster(weaponHash)
-  local dic = "reaction@intimidation@cop@unarmed"
-  local anim = "intro"
-  local ammoCount = 0
-   loadAnimDict( dic ) 
+	local dic = "reaction@intimidation@cop@unarmed"
+	local anim = "intro"
+	local ammoCount = 0
+   	loadAnimDict( dic ) 
 
 	local ped = PlayerPedId()
-	RemoveAllPedWeaponsP(ped,weaponHash)
+	RemoveAllPedWeapons(ped)
 
 	TaskPlayAnim(ped, dic, anim, 10.0, 2.3, -1, 49, 1, 0, 0, 0 )
 
@@ -853,24 +662,12 @@ function copunholster(weaponHash)
 
 end
 
-function RemoveAllPedWeaponsP(ped,weaponHash)
-	local chute = false
-	if HasPedGotWeapon(ped,`gadget_parachute`,false) then
-		chute = true
-	end
-	RemoveAllPedWeapons(ped)
-	if chute or weaponHash == '-72657034' then
-		GiveWeaponToPed(ped, -72657034, 1, 0, 1)
-		SetPlayerHasReserveParachute(PlayerId())
-	end
-end
-
 function copholster()
 
-  local dic = "reaction@intimidation@cop@unarmed"
-  local anim = "intro"
-  local ammoCount = 0
-   loadAnimDict( dic ) 
+	local dic = "reaction@intimidation@cop@unarmed"
+	local anim = "intro"
+	local ammoCount = 0
+   	loadAnimDict( dic ) 
 
 	local ped = PlayerPedId()
 	prevupdate = 0
@@ -880,7 +677,7 @@ function copholster()
 
 	Citizen.Wait(600)
 	SetCurrentPedWeapon(ped, UNARMED_HASH, 1)
-	RemoveAllPedWeaponsP(ped,0)
+	RemoveAllPedWeapons(ped)
 	ClearPedTasks(ped)
 end
 function holster1h()
@@ -890,34 +687,13 @@ function holster1h()
 	-- local myJob = exports["isPed"]:isPed("myJob")
 	local myJob = "unemployed"
 	if myJob == "police" or myJob == "doc" then
-
-		if weaponHash == -1953168119 then
-			TriggerEvent("fx:staffused",true)
-			GiveWeaponToPed(ped, weaponHash, getAmmo(weaponHash), 1, 1)
-			cannotPullWeaponInAnimation = false
-			ClearPedTasks(ped)
-			Citizen.Wait(1200)
-			unholsteringactive = false
-			return
-		end
-
 		copholster()
 		Citizen.Wait(600)
 		unholsteringactive = false
 		cannotPullWeaponInAnimation = false
 		return
 	end
-
-	if weaponHash == -1953168119 then
-		TriggerEvent("fx:staffused",false)
-		SetCurrentPedWeapon(ped, UNARMED_HASH, 1)
-		RemoveAllPedWeaponsP(ped,0)
-		ClearPedTasks(ped)
-		unholsteringactive = false
-		cannotPullWeaponInAnimation = false
-		return
-	end
-
+	local ped = PlayerPedId()
 	prevupdate = 0
 	updateAmmo()
 	local animLength = GetAnimDuration(dict, anim) * 1000
@@ -927,31 +703,9 @@ function holster1h()
     
     SetCurrentPedWeapon(ped, UNARMED_HASH, 1)
     Citizen.Wait(300)
-    RemoveAllPedWeaponsP(ped,0)
+    RemoveAllPedWeapons(ped)
     ClearPedTasks(ped)
     Citizen.Wait(800)
 	unholsteringactive = false
 	cannotPullWeaponInAnimation = false
 end
-
-
-exports('disableActionBar', function(pState)
-  isActionBarDisabled = pState
-end)
-
--- RegisterNetEvent("disableActionBar", function(pState)
--- print('dis')
-  -- isActionBarDisabled = pState
--- end)
-
-exports('DisableGSR', function(pState)
-	disableGSR = pState
-end)
-
-exports('EnableStressReliefWhenShooting', function(pState)
-	enableStressReliefWhenShooting = pState
-end)
-
-RegisterNetEvent("pw-weapons:hitPlayerWithCash", function(pTarget)
-  TriggerServerEvent("pw-weapons:processGiveCashAmount", pTarget, lastEquippedInfo.amount, lastEquippedInfo.id)
-end)

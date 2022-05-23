@@ -51,9 +51,13 @@ Flags["PedFlags"] = {
     isBicycleShop = prevPedFlag(),
     isBoatShop = prevPedFlag(),
     isEmsVehicleSeller = prevPedFlag(),
+	isHuntingShopKeeper = prevPedFlag(),
     isPoliceVehicleSeller = prevPedFlag(),
     isPetshopSeller = prevPedFlag(),
     isWeedShopKeeper = prevPedFlag(),
+	isJobVehShopKeeper = prevPedFlag(),
 }
 
-Flags["ObjectFlags"] = {}
+Flags["ObjectFlags"] = {
+
+}

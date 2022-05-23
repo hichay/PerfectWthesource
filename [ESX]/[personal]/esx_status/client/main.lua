@@ -1,5 +1,4 @@
-local Status = {}
-local isPaused = false
+local Status, isPaused = {}, false
 
 function GetStatusData(minimal)
 	local status = {}
@@ -17,7 +16,6 @@ function GetStatusData(minimal)
 				val     = Status[i].val,
 				color   = Status[i].color,
 				visible = Status[i].visible(Status[i]),
-				max     = Status[i].max,
 				percent = (Status[i].val / Config.StatusMax) * 100
 			})
 		end
@@ -31,9 +29,31 @@ AddEventHandler('esx_status:registerStatus', function(name, default, color, visi
 	table.insert(Status, status)
 end)
 
+AddEventHandler('esx_status:unregisterStatus', function(name)
+	for k,v in ipairs(Status) do
+		if v.name == name then
+			table.remove(Status, k)
+			break
+		end
+	end
+end)
+
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	ESX.PlayerLoaded = false
+	Status = {}
+	if Config.Display then
+		SendNUIMessage({
+			update = true,
+			status = Status
+		})
+	end
+end)
+
 RegisterNetEvent('esx_status:load')
 AddEventHandler('esx_status:load', function(status)
-
+	ESX.PlayerLoaded = true
+	TriggerEvent('esx_status:loaded')
 	for i=1, #Status, 1 do
 		for j=1, #status, 1 do
 			if Status[i].name == status[j].name then
@@ -42,23 +62,37 @@ AddEventHandler('esx_status:load', function(status)
 		end
 	end
 
-	Citizen.CreateThread(function()
-	  while true do
-        Citizen.Wait(50)
-	  	for i=1, #Status, 1 do
-	  		Status[i].onTick()
-	  	end
+	if Config.Display then TriggerEvent('esx_status:setDisplay', 0.5) end
 
-			SendNUIMessage({
-				update = true,
-				status = GetStatusData()
-			})
-	
-		TriggerEvent('ui:updateStatus', GetStatusData(true))
-	    Citizen.Wait(Config.TickTime)
-	  end
+	CreateThread(function()
+		local data = {}
+		while ESX.PlayerLoaded do
+			for i=1, #Status do
+				Status[i].onTick()
+				table.insert(data, {
+					name = Status[i].name,
+					val = Status[i].val,
+					percent = (Status[i].val / 1000000) * 100
+				})
+			end
+
+			if Config.Display then
+				local fullData = data
+				for i=1, #data, 1 do
+					fullData[i].color = Status[i].color
+					fullData[i].visible = Status[i].visible(Status[i])
+				end
+				SendNUIMessage({
+					update = true,
+					status = fullData
+				})
+			end
+
+			TriggerEvent('esx_status:onTick', data)
+			table.wipe(data)
+			Wait(Config.TickTime)
+		end
 	end)
-
 end)
 
 RegisterNetEvent('esx_status:set')
@@ -69,13 +103,12 @@ AddEventHandler('esx_status:set', function(name, val)
 			break
 		end
 	end
-
-	SendNUIMessage({
-		update = true,
-		status = GetStatusData()
-	})
-
-	TriggerServerEvent('esx_status:update', GetStatusData(true))
+	if Config.Display then
+		SendNUIMessage({
+			update = true,
+			status = GetStatusData()
+		})
+	end
 end)
 
 RegisterNetEvent('esx_status:add')
@@ -86,13 +119,12 @@ AddEventHandler('esx_status:add', function(name, val)
 			break
 		end
 	end
-
-	SendNUIMessage({
-		update = true,
-		status = GetStatusData()
-	})
-
-	TriggerServerEvent('esx_status:update', GetStatusData(true))
+	if Config.Display then
+		SendNUIMessage({
+			update = true,
+			status = GetStatusData()
+		})
+	end
 end)
 
 RegisterNetEvent('esx_status:remove')
@@ -103,13 +135,12 @@ AddEventHandler('esx_status:remove', function(name, val)
 			break
 		end
 	end
-
-	SendNUIMessage({
-		update = true,
-		status = GetStatusData()
-	})
-
-	TriggerServerEvent('esx_status:update', GetStatusData(true))
+		if Config.Display then
+		SendNUIMessage({
+			update = true,
+			status = GetStatusData()
+		})
+	end
 end)
 
 AddEventHandler('esx_status:getStatus', function(name, cb)
@@ -129,31 +160,33 @@ AddEventHandler('esx_status:setDisplay', function(val)
 end)
 
 -- Pause menu disable hud display
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(300)
+if Config.Display then
+	CreateThread(function()
+		while true do
+			Wait(300)
 
-		if IsPauseMenuActive() and not isPaused then
-			isPaused = true
-			TriggerEvent('esx_status:setDisplay', 0.0)
-		elseif not IsPauseMenuActive() and isPaused then
-			isPaused = false 
-			TriggerEvent('esx_status:setDisplay', 0.5)
+			if IsPauseMenuActive() and not isPaused then
+				isPaused = true
+				TriggerEvent('esx_status:setDisplay', 0.0)
+			elseif not IsPauseMenuActive() and isPaused then
+				isPaused = false 
+				TriggerEvent('esx_status:setDisplay', 0.5)
+			end
 		end
+	end)
+end
+
+-- Loading screen off event
+AddEventHandler('esx:loadingScreenOff', function()
+	if not isPaused then
+		TriggerEvent('esx_status:setDisplay', 0.3)
 	end
 end)
 
--- Loaded event
-Citizen.CreateThread(function()
-	TriggerEvent('esx_status:loaded')
-end)
-
 -- Update server
-Citizen.CreateThread(function()
-	while true do 
-	    Citizen.Wait(50)
-		Citizen.Wait(Config.UpdateInterval)
-
-		TriggerServerEvent('esx_status:update', GetStatusData(true))
+CreateThread(function()
+	while true do
+		Wait(Config.UpdateInterval)
+		if ESX.PlayerLoaded then TriggerServerEvent('esx_status:update', GetStatusData(true)) end
 	end
 end)

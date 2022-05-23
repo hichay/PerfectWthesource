@@ -73,8 +73,9 @@ local garagesConfig = {
         },
     },
     ["Hospital"] = {
-        ["type"] = "ems",
+        ["type"] = "ambulance",
         ["jobGarage"] = true,
+        ["vehicleType"] = "car",
         ["pos"] = vector4(316.52, -578.24, 28.4, 250.64),
         ["distance"] = 100,
         ["spaces"] = {
@@ -127,7 +128,7 @@ exports("setGarage", function(pGarage, pVar, pValue, pEdit)
         garagesConfig[pGarage] = pVar
     end
 
-    TriggerClientEvent("caue-vehicles:setGarage", -1, pGarage, pVar, pValue, pEdit)
+    TriggerClientEvent("pw-vehicles:setGarage", -1, pGarage, pVar, pValue, pEdit)
 end)
 
 exports("getGarage", function(pGarage, pVar)
@@ -135,11 +136,11 @@ exports("getGarage", function(pGarage, pVar)
 end)
 
 
-RPC.register("caue-vehicles:requestGarages", function(src)
+RPC.register("pw-vehicles:requestGarages", function(src)
     return garagesConfig
 end)
 
-RPC.register("caue-vehicles:getGarage", function(src, garage)
+RPC.register("pw-vehicles:getGarage", function(src, garage)
 	local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return {} end
     local typeveh = garagesConfig[garage]["vehicleType"]

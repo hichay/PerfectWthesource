@@ -34,9 +34,6 @@ client_scripts {
 	'client/cl_vehicleweights.js',
 	'client/cl_*.lua',
 	"@PolyZone/client.lua"
-	
-	
-	
 }
 
 server_scripts {
@@ -44,10 +41,10 @@ server_scripts {
 	'server/server_degradation.js',
 	'server/server_shops.js',
 	'server/server.js',
-	'server/server.lua'
+	'server/server.lua',
+	'server/sv_functions.lua'
 	
 }
-
 
 
 

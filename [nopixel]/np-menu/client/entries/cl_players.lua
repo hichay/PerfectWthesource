@@ -46,7 +46,7 @@ PedEntries[#PedEntries+1] = {
         event = "blindfold:blindfold"
     },
     isEnabled = function(pEntity, pContext)
-        return not isDisabled() and pEntity and pContext.flags["isPlayer"] and pContext.flags["isBlindfolded"]
+        return not IsDisabled() and pEntity and pContext.flags["isPlayer"] and pContext.flags["isBlindfolded"]
     end
 }
 

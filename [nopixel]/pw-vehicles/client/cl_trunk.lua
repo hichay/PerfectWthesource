@@ -63,7 +63,7 @@ local function DrawText3DTrunk(x,y,z, text)
     SetTextProportional(1)
     SetTextColour(255, 255, 255, 215)
 
-    SetTextEntry("STRING")
+    SetTextEntry("CUSTOM_TEXT")
     SetTextCentre(1)
     AddTextComponentString(text)
     DrawText(_x,_y)
@@ -133,7 +133,7 @@ function PutInTrunk(veh)
 
             local DropPosition = GetOffsetFromEntityInWorldCoords(veh, 0.0, d1["y"] - 0.2, 0.0)
 
-            DrawText3DTrunk(DropPosition["x"], DropPosition["y"], DropPosition["z"],"[G] Open/Close | [F] Climb Out")
+            DrawText3DTrunk(DropPosition["x"], DropPosition["y"], DropPosition["z"],"[G] Mở/Đóng | [F] Chui ra")
 
             if IsControlJustReleased(0, 47) then
                 if GetVehicleDoorAngleRatio(veh, 5) > 0.0 then
@@ -145,8 +145,12 @@ function PutInTrunk(veh)
 
             if IsControlJustReleased(0, 23) then
                 --exports["pw-base"]:setVar("trunk", false)
-                exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isInTrunk", false)
-                break
+				if GetVehicleDoorAngleRatio(veh, 5) == 0.0 then 
+					TriggerEvent('DoLongHudText','Cốp đang đóng',2)
+				else 
+					exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isInTrunk", false)
+					break
+				end
             end
 
 			if GetVehicleEngineHealth(veh) < 100.0 or not DoesEntityExist(veh) then

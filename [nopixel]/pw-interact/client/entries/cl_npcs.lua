@@ -2,6 +2,24 @@ local Entries = {}
 --Perfect World
 
 Entries[#Entries + 1] = {
+  type = 'flag',
+  group = { 'isWeedShopKeeper' },
+  data = {
+      {
+          id = "weedshop_keeper",
+          label = "Smoke on the Water",
+          icon = "cannabis",
+          event = "pw-npcs:ped:weedSales",
+          parameters = {}
+      },
+	  
+  },
+  options = {
+      distance = { radius = 2.5 }
+  }
+}
+
+Entries[#Entries + 1] = {
     type = 'flag',
     group = { 'isRecycleExchange' },
     data = {
@@ -1094,22 +1112,7 @@ Entries[#Entries + 1] = {
     }
 }
 
-Entries[#Entries + 1] = {
-  type = 'flag',
-  group = { 'isWeedShopKeeper' },
-  data = {
-      {
-          id = "weedshop_keeper",
-          label = _L("interact-purchase-weed", "Purchase Weed"),
-          icon = "cannabis",
-          event = "pw-npcs:ped:weedSales",
-          parameters = {}
-      }
-  },
-  options = {
-      distance = { radius = 2.5 }
-  }
-}
+
 
 Entries[#Entries + 1] = {
   type = 'flag',

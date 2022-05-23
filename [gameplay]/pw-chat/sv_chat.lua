@@ -238,11 +238,13 @@ local function routeMessage(source, author, message, mode, fromConsole)
                     if os.time() < ChattedPlayers[idnumber] then
 
                         TriggerClientEvent('chatMessage', source, "SYSTEM" , 4, ("^0 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
+						TriggerClientEvent('chatMessage', source, "OOC" , 4, ("^0 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
                         return
                     end
                 end
                 ChattedPlayers[idnumber] = os.time() + math.floor(100)
-                TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+                --TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+				TriggerClientEvent('chatMessage', -1, "OOC | "..author.." ["..idnumber.."]" , {163, 62, 48}, message, 'ooc')
             end
         else
             for _, id in ipairs(routingTarget) do

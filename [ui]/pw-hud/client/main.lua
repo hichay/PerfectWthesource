@@ -57,9 +57,6 @@ AddEventHandler("esx:playerLoaded", function()
 end)
 
 
-RegisterCommand("tathud", function(source, args, rawCommand)
-	exports["np-ui"]:closeApplication("radio")
-end, false)
 
 local StressGain = 0
 local IsGaining = false
@@ -301,24 +298,26 @@ function roundedRadar()
 	 local isPause = false
     local uiHidden = false
     
-    -- Citizen.CreateThread(function()
-        -- while true do
-            -- Wait(50)
-            -- if IsBigmapActive() or IsPauseMenuActive() and not isPause or IsRadarHidden() then
-                -- if not uiHidden then
-                    -- SendNUIMessage({
-                        -- action = "hideUI"
-                    -- })
-                    -- uiHidden = true
-                -- end
-            -- elseif uiHidden or IsPauseMenuActive() and isPause then
-                -- SendNUIMessage({
-                    -- action = "displayUI"
-                -- })
-                -- uiHidden = false
-            -- end
-        -- end
-    -- end)
+    Citizen.CreateThread(function()
+        while true do
+            Wait(50)
+            if IsBigmapActive() or IsPauseMenuActive() and not isPause or IsRadarHidden() then
+                if not uiHidden then
+                    SendNUIMessage({
+                        action = "hideUI"
+                    })
+                    uiHidden = true
+					TriggerEvent('inmenu',true)
+                end
+            elseif uiHidden or IsPauseMenuActive() and isPause then
+                SendNUIMessage({
+                    action = "displayUI"
+                })
+                uiHidden = false
+				TriggerEvent('inmenu',false)
+            end
+        end
+    end)
 end
 
 RegisterNetEvent("stress:timed")

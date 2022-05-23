@@ -10,10 +10,18 @@ shared_scripts {
 	'config.lua'
 }
 
-client_script 'client.lua'
-server_script 'server.lua'
+client_script {
+	'@pw-lib/client/cl_rpc.lua',
+	'client.lua'
+}
 
-server_script '@mysql-async/lib/MySQL.lua'
+server_script {
+	"@oxmysql/lib/MySQL.lua",
+	'@pw-lib/server/sv_rpc.lua',
+	'server.lua'
+	
+}
+
 
 files {
     'html/*'

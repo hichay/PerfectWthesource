@@ -45,6 +45,7 @@ client_scripts {
 	'client/functions.lua',
 	'client/wrapper.lua',
 	'client/main.lua',
+	'client/cl_noclip.lua',
 	
 
 	'client/modules/death.lua',

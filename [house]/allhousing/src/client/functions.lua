@@ -426,7 +426,8 @@ end
 SetWeatherAndTime = function(syncTime)
   if not syncTime then
     if Config.UsingVSync then
-      TriggerEvent('vSync:toggle',false)
+      --TriggerEvent('vSync:toggle',false)
+      TriggerEvent("insideShell", true)
     end
     
     SetRainFxIntensity(0.0)
@@ -439,8 +440,9 @@ SetWeatherAndTime = function(syncTime)
     NetworkOverrideClockTime(23,0,0)
   else
     if Config.UsingVSync then
-      TriggerEvent('vSync:toggle',true)
-      TriggerServerEvent('vSync:requestSync')
+      --TriggerEvent('vSync:toggle',true)
+      TriggerEvent("insideShell", false)
+      --TriggerServerEvent('vSync:requestSync')
     else
       h,m,s = NetworkGetGlobalMultiplayerClock()
       NetworkOverrideClockTime(h,m,s)

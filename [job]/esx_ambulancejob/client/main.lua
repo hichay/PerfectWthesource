@@ -141,14 +141,7 @@ function OnPlayerDeath()
 	
 	StartScreenEffect('DeathFailOut', 0, false)
 end
-function GetPlayerDead()
-	local isDeadd = RPC.execute('CheckPlayerDead')
-	if isDeadd then 
-		return true 
-	else 
-		return false
-	end
-end
+
 RegisterNetEvent('esx_ambulancejob:useItem')
 AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	ESX.UI.Menu.CloseAll()

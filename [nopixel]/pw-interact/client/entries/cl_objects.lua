@@ -165,7 +165,7 @@ Entries[#Entries + 1] = {
             id = 'use_atm',
             label = "Dùng ATM",
             icon = "credit-card",
-            event = "okokBanking:OpenUI",
+            event = "pw-banking:OpenUI",
             parameters = {}
         }
     },

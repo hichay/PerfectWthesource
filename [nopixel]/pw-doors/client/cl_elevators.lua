@@ -42,7 +42,6 @@ end)
 
 
 AddEventHandler('pw-doors:elevator:prompt', function(pParameters, pEntity, pContext)
-	print('test')
     local data = pContext.zones and pContext.zones['pw-doors:elevator']
 
     if not data or not Elevators[data.elevatorId] then return end
