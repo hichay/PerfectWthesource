@@ -36,18 +36,18 @@ GeneralEntries[#GeneralEntries+1] = {
   end
 }
 
-
 GeneralEntries[#GeneralEntries+1] = {
-  data = {
-    id = "peds-escort",
-    title = "Stop escorting",
-    icon = "#general-escort",
-    event = "pw-police:unescort"
-  },
-  isEnabled = function(pEntity, pContext)
-      return not IsDisabled() and isEscorting
-  end
+    data = {
+        id = "peds-escort",
+        title = "Hủy áp giải",
+        icon = "#general-escort",
+        event = "pw-police:escort"
+    },
+    isEnabled = function(pEntity, pContext)
+        return not IsDisabled() and DecorGetInt(PlayerPedId(), "escorting") ~= 0
+    end
 }
+
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {
@@ -224,7 +224,7 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "police:tenThirteenA",
     },
     isEnabled = function(pEntity, pContext)
-        return exports["esx_ambulancejob"]:GetPlayerDead() and ESX.GetPlayerData().job.name == 'police' or CurrentJob == "doc"
+        return isDead and ESX.GetPlayerData().job.name == 'police' or CurrentJob == "doc"
     end
 }
 
@@ -237,7 +237,7 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "police:tenThirteenB",
     },
     isEnabled = function(pEntity, pContext)
-        return exports["esx_ambulancejob"]:GetPlayerDead() and ESX.GetPlayerData().job.name == 'police' or CurrentJob == "doc"
+        return isDead and ESX.GetPlayerData().job.name == 'police' or CurrentJob == "doc"
     end
 }
 
@@ -249,7 +249,7 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "police:tenForteenA",
     },
     isEnabled = function(pEntity, pContext)
-        return exports["esx_ambulancejob"]:GetPlayerDead() and ESX.GetPlayerData().job.name == 'ambulance'
+        return isDead and ESX.GetPlayerData().job.name == 'ambulance'
     end
 }
 
@@ -261,7 +261,7 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "police:tenForteenB",
     },
     isEnabled = function(pEntity, pContext)
-        return exports["esx_ambulancejob"]:GetPlayerDead() and ESX.GetPlayerData().job.name == 'ambulance'
+        return isDead and ESX.GetPlayerData().job.name == 'ambulance'
     end
 }
 

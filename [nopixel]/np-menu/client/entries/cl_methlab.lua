@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
             event = "caue-meth:cornerSellProduct",
         },
         isEnabled = function()
-            return not exports["esx_ambulancejob"]:GetPlayerDead() and showSellMethOption and not canStartCornering and hasCarTarget
+            return not isDead and showSellMethOption and not canStartCornering and hasCarTarget
         end,
     }
     GeneralEntries[#GeneralEntries+1] = {
@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
             event = "caue-meth:cornerStartSelling",
         },
         isEnabled = function()
-            return not exports["esx_ambulancejob"]:GetPlayerDead() and canStartCornering
+            return not isDead and canStartCornering
         end,
     }
     -- for index, data in ipairs(Options) do
@@ -64,14 +64,14 @@ Citizen.CreateThread(function()
     --     },
     --     subMenus = SubMenu,
     --     isEnabled = function()
-    --         return not exports["esx_ambulancejob"]:GetPlayerDead() and inLab
+    --         return not isDead and inLab
     --     end,
     -- }
 end)
 
 -- local function checkObject(obj)
 --     return function()
---         return not exports["esx_ambulancejob"]:GetPlayerDead() and inLab and targetObject == obj
+--         return not isDead and inLab and targetObject == obj
 --     end
 -- end
 

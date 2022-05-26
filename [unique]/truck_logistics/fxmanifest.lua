@@ -12,6 +12,7 @@ files {
 }
 
 client_scripts {
+	'@pw-lib/client/cl_rpc.lua',
 	"lang/en.lua",
 	
 	"config.lua",
@@ -20,6 +21,7 @@ client_scripts {
 }
 
 server_scripts {
+	'@pw-lib/server/sv_rpc.lua',
 	"@oxmysql/lib/MySQL.lua",
 	"lang/en.lua",
 

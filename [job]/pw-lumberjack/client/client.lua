@@ -53,8 +53,6 @@ Citizen.CreateThread(function()
 	addBlip(Config.NPC, 79, 0.5, 25, Strings['npc'])
     local playerPed = PlayerPedId()
    
-    local createdPeds = {}
-    local pedcreated = false
     local data = {
         id = "lumber_jack",
         position = {coords = Config.NPC, heading = 158.20},
@@ -65,6 +63,7 @@ Citizen.CreateThread(function()
         settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
         flags = { ["isNPC"] = true, },
     }
+
     local npc = exports["pw-npcs"]:RegisterNPC(data, "lumb_jacknpc")
 
     local Interact = {
@@ -94,15 +93,6 @@ Citizen.CreateThread(function()
 
         local closeTo = 0
         local xp ,yp ,zp
-
-        if #(pos - Config.NPC) <= 50 and not pedcreated then 
-            
-            pedcreated = true
-            exports["pw-npcs"]:EnableNPC(npc)
-        elseif #(pos - Config.NPC) > 50 and pedcreated then
-            pedcreated = false
-            exports["pw-npcs"]:DisableNPC(npc)
-        end
 
         for k, v in pairs(Config.WoodPosition) do
             --if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v.coords, true) <= 2.5 then

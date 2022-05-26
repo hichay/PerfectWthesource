@@ -66,6 +66,13 @@ AddEventHandler('truck_logistics:open', function(dados,update)
 	end
 end)
 
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+	RPC.execute('truck_logistics:ActiveMoneyEarn')
+end)
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CALLBACKS
 -----------------------------------------------------------------------------------------------------------------------------------------

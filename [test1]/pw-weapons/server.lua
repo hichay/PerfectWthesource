@@ -31,8 +31,9 @@ AddEventHandler("pw-weapons:getAmmo", function()
     local src = source
     local ammoTable = {}
     local xPlayer = ESX.GetPlayerFromId(src)
-    MySQL.Async.fetchAll("SELECT type, ammo FROM user_weapons WHERE id = @cid",{
-        ["@cid"] = xPlayer.getIdentifier()
+	local identifier = xPlayer.getIdentifier()
+    MySQL.query("SELECT type, ammo FROM user_weapons WHERE id = @cid",{
+        ["@cid"] = identifier
     },function(result)
         for i = 1, #result do
             if ammoTable["" .. result[i].type .. ""] == nil then

@@ -303,7 +303,7 @@ local Animations = {
 --         },
 --         subMenus = SubMenu,
 --         isEnabled = function()
---             return not exports["esx_ambulancejob"]:GetPlayerDead()
+--             return not isDead
 --         end,
 --     }
 -- end)

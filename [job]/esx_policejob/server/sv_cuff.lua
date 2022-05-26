@@ -1,19 +1,19 @@
-RegisterServerEvent("caue-police:cuff")
-AddEventHandler("caue-police:cuff", function(pTarget)
+RegisterServerEvent("pw-police:cuff")
+AddEventHandler("pw-police:cuff", function(pTarget)
 	local src = source
 
-    TriggerClientEvent("caue-police:getArrested", pTarget, src)
-	TriggerClientEvent("caue-police:cuffTransition", src)
+    TriggerClientEvent("pw-police:getArrested", pTarget, src)
+	TriggerClientEvent("pw-police:cuffTransition", src)
 end)
 
-RegisterServerEvent("caue-police:uncuff")
-AddEventHandler("caue-police:uncuff", function(pTarget)
-	TriggerClientEvent("caue-police:uncuff", pTarget)
+RegisterServerEvent("pw-police:uncuff")
+AddEventHandler("pw-police:uncuff", function(pTarget)
+	TriggerClientEvent("pw-police:uncuff", pTarget)
 end)
 
-RegisterServerEvent("caue-police:softcuff")
-AddEventHandler("caue-police:softcuff", function(pTarget)
-    TriggerClientEvent("caue-police:handCuffedWalking", pTarget)
+RegisterServerEvent("pw-police:softcuff")
+AddEventHandler("pw-police:softcuff", function(pTarget)
+    TriggerClientEvent("pw-police:handCuffedWalking", pTarget)
 end)
 
 RPC.register("isPedCuffed", function(src, pTarget)

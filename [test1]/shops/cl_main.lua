@@ -109,7 +109,7 @@ AddEventHandler('blips:ToggleMinimarket', function()
             SetBlipColour(item.blip, 2)
 			SetBlipScale(item.blip, 0.7)
             SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("CUSTOM_STRING")
+            BeginTextCommandSetBlipName("CUSTOM_TEXT")
             AddTextComponentString("Cửa hàng tạp hoá")
             EndTextCommandSetBlipName(item.blip)
         end

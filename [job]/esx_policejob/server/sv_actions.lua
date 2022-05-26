@@ -7,7 +7,7 @@ RegisterNetEvent("police:targetCheckInventory")
 AddEventHandler("police:targetCheckInventory", function(pTarget, pFrisk)
     local src = source
 
-    --local cid = exports["caue-base"]:getChar(pTarget, "id")
+    --local cid = exports["pw-base"]:getChar(pTarget, "id")
     local xPlayer = ESX.GetPlayerFromId(pTarget)
     if not xPlayer then return end
 
@@ -38,11 +38,11 @@ RegisterNetEvent("police:rob")
 AddEventHandler("police:rob", function(pTarget)
     local src = source
 
-    local cash = exports["caue-financials"]:getCash(pTarget)
+    local cash = exports["pw-financials"]:getCash(pTarget)
 
     if cash > 0 then
-        if exports["caue-financials"]:updateCash(pTarget, "-", cash) then
-            exports["caue-financials"]:updateCash(src, "+", cash)
+        if exports["pw-financials"]:updateCash(pTarget, "-", cash) then
+            exports["pw-financials"]:updateCash(src, "+", cash)
         end
     end
 end)

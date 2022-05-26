@@ -68,7 +68,7 @@ function GetPedContext(pEntity, pContext)
     end
 end
 
-function isDisabled()
+function IsDisabled()
     return exports["esx_ambulancejob"]:GetPlayerDead()
 end
 

@@ -208,7 +208,7 @@ RegisterUICallback('pw-police:handler', function (data, cb)
         TriggerEvent("raid_clothes:openClothing", true, true)
     elseif eventData == EVENTS.EVIDENCE and job == 'police' then
         if job == "cid" then
-            local input = exports["caue-input"]:showInput({
+            local input = exports["pw-input"]:showInput({
                 {
                     icon = "hashtag",
                     label = "ID do Caso",
@@ -248,7 +248,7 @@ AddEventHandler("pw-police:handler", function(eventData)
         TriggerEvent("raid_clothes:openClothing", true, true)
     elseif eventData == EVENTS.EVIDENCE and job == 'police' then
         if job == "cid" then
-            local input = exports["caue-input"]:showInput({
+            local input = exports["pw-input"]:showInput({
                 {
                     icon = "hashtag",
                     label = "ID do Caso",
@@ -273,7 +273,7 @@ AddEventHandler("pw-police:handler", function(eventData)
     end
 end) ]]
 
-AddEventHandler("caue-polce:changewhiteboardurl", function(pParams)
+AddEventHandler("pw-polce:changewhiteboardurl", function(pParams)
     
     exports['np-ui']:openApplication('textbox', {
         callbackUrl = 'np-ui:policechangeurl',
@@ -470,7 +470,7 @@ Citizen.CreateThread(function()
     })
 
     exports["pw-interact"]:AddPeekEntryByPolyTarget("mrdp_change_picture", {{
-        event = "caue-polce:changewhiteboardurl",
+        event = "pw-polce:changewhiteboardurl",
         id = "polcechangewhiteboardurlc",
         icon = "circle",
         label = "Change URL",
@@ -480,7 +480,7 @@ Citizen.CreateThread(function()
     }}, { distance = { radius = 2.5 } })
 
     exports["pw-interact"]:AddPeekEntryByPolyTarget("mrpd_meetingroom_screen", {{
-        event = "caue-polce:changewhiteboardurl",
+        event = "pw-polce:changewhiteboardurl",
         id = "polcechangewhiteboardurlm",
         icon = "circle",
         label = "Change URL",

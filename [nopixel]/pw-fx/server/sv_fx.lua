@@ -1,8 +1,3 @@
---[[
-
-    Functions
-
-]]
 
 function GetRandomString(lenght)
     local chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'

@@ -8,6 +8,7 @@ Config.ReviveReward               = 100  -- revive reward, set to 0 if you don't
 Config.Hoisinhcommand               = 500
 Config.AntiCombatLog              = true -- enable anti-combat logging?
 Config.LoadIpl                    = false -- disable if you're using fivem-ipl or other IPL loaders
+Config.CheckInHospital            = 200
 
 Config.Locale                     = 'en'
 

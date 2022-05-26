@@ -326,7 +326,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "shopkeeper",
-            label = "Purchase goods",
+            label = "Mua đồ",
             icon = "circle",
             event = "pw-npcs:ped:keeper",
             parameters = { "2" }

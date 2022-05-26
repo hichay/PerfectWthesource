@@ -64,10 +64,20 @@ RegisterServerEvent("server-update-item")
 onNet("server-update-item", async (player, itemidsent, slot, data) => {
   let src = source
   let playerinvname = player
-  let string = `UPDATE user_inventory2 SET information='${JSON.stringify(data)}' WHERE item_id='${itemidsent}' and name='${playerinvname}' and slot='${slot}'`
+  console.log(itemidsent)
+  console.log(slot)
+  console.log(playerinvname)
+  console.log(data)
+  /* let string = `UPDATE user_inventory2 SET information='${JSON.stringify(data)}' WHERE item_id='${itemidsent}' and name='${playerinvname}' and slot='${slot}'`
     exports.oxmysql.query(string,{}, function() {
         emit("server-request-update-src",player,src)
-    });
+    }); */
+	
+	let affectedRows = await exports.oxmysql.update_async(`UPDATE user_inventory2 SET information='${JSON.stringify(data)}' WHERE item_id='${itemidsent}' and name='${playerinvname}' and slot='${slot}'`);
+
+	if (affectedRows && affectedRows > 0) {
+		emit("server-request-update-src", player, src)
+	}
 });
 
 onNet("server-update-item-id", async (player, itemidsent, data) => {

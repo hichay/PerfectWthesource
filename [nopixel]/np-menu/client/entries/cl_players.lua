@@ -1,22 +1,21 @@
 local PedEntries = MenuEntries["peds"]
 
-
 PedEntries[#PedEntries+1] = {
     data = {
         id = "peds-escort",
-        title = "Escort",
+        title = "Áp giải",
         icon = "#general-escort",
         event = "pw-police:escort"
     },
     isEnabled = function(pEntity, pContext)
-        return not IsDisabled() and not isEscorting and pEntity and pContext.flags['isPlayer']
+        return not IsDisabled() and DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and pEntity and pContext.flags["isPlayer"]
     end
 }
 
 PedEntries[#PedEntries+1] = {
     data = {
         id = "peds-cuff",
-        title = "Cuff",
+        title = "Còng tay",
         icon = "#cuffs-cuff",
         event = "pw-police:cuffPlayer"
     },
@@ -29,12 +28,12 @@ PedEntries[#PedEntries+1] = {
 PedEntries[#PedEntries+1] = {
     data = {
         id = "peds-ucuff",
-        title = "Uncuff",
+        title = "Mở còng",
         icon = "#cuffs-uncuff",
         event = "pw-police:uncuffPlayer"
     },
     isEnabled = function(pEntity, pContext)
-        return not IsDisabled() and pEntity and pContext.flags['isPlayer'] and pContext.flags['isCuffed'] and ((exports["np-inventory"]:hasEnoughOfItem("cuffs",1,false) or (isPolice or isDoc)))
+        return not IsDisabled() and pEntity and pContext.flags['isPlayer'] and pContext.flags['isCuffed'] and ((exports["pw-inventory"]:hasEnoughOfItem("cuffs",1,false) or (isPolice or isDoc)))
     end
 }
 
@@ -63,6 +62,8 @@ PedEntries[#PedEntries+1] = {
     end
 }
 
+
+
 PedEntries[#PedEntries+1] = {
     data = {
         id = "peds-revive",
@@ -88,7 +89,7 @@ PedEntries[#PedEntries+1] = {
             and pEntity
             and pContext.flags['isPlayer']
             and pContext.flags['isDead']
-            and exports["np-inventory"]:hasEnoughOfItem("varmedkit", 1, false, true)
+            and exports["pw-inventory"]:hasEnoughOfItem("varmedkit", 1, false, true)
     end
 }
 
@@ -113,7 +114,7 @@ PedEntries[#PedEntries+1] = {
   },
   subMenus = {"police:frisk", "police:search"},
   isEnabled = function(pEntity, pContext)
-    return not IsDisabled() and pEntity and pContext.flags['isPlayer'] and (isPolice or isDoc) and pContext.distance <= 2.0
+    return not IsDisabled() and pEntity and pContext.flags['isPlayer'] and (isPolice or isDoc) and pContext.flags['isCuffed'] and pContext.distance <= 2.0
   end
 }
 
@@ -165,14 +166,14 @@ MenuItems["cuffs:softcuff"] = {
         id = "cuffs:softcuff",
         title = "Còng tay nhẹ",
         icon = "#walking",
-        event = "caue-police:softcuffPlayer"
+        event = "pw-police:softcuffPlayer"
     }
 }
 
 MenuItems['cuffs:remmask'] = {
     data = {
         id = "cuffs:remmask",
-        title = "Remove Mask Hat",
+        title = "Tháo mặt nạ/mũ",
         icon = "#cuffs-remove-mask",
         event = "police:remmask"
     }
@@ -196,7 +197,7 @@ MenuItems["cuffs:blindfold"] = {
         event = "blindfold:blindfold"
     },
     isEnabled = function(pEntity, pContext)
-        return not isDisabled() and pEntity and pContext.flags["isCuffed"] and pContext.flags["isPlayer"] and not pContext.flags["isBlindfolded"] and ((exports["pw-inventory"]:hasEnoughOfItem("blindfold",1,false)))
+        return not IsDisabled() and pEntity and pContext.flags["isCuffed"] and pContext.flags["isPlayer"] and not pContext.flags["isBlindfolded"] and ((exports["pw-inventory"]:hasEnoughOfItem("blindfold",1,false)))
     end
 }
 
@@ -209,7 +210,7 @@ MenuItems["police:dnaSwab"] = {
         event = "caue-evidence:dnaSwab"
     },
     isEnabled = function(pEntity, pContext)
-        return not exports["esx_ambulancejob"]:GetPlayerDead() and pContext.flags and CurrentJob == "cid"
+        return not isDead and pContext.flags and CurrentJob == "cid"
     end
 }
 
@@ -221,7 +222,7 @@ MenuItems["police:checkBank"] = {
         event = "police:checkBank"
     },
     isEnabled = function(pEntity, pContext)
-        return not exports["esx_ambulancejob"]:GetPlayerDead() and pContext.flags and ESX.GetPlayerData().job.name == 'police'
+        return not isDead and pContext.flags and ESX.GetPlayerData().job.name == 'police'
     end
 }
 
@@ -233,6 +234,6 @@ MenuItems["police:gsr"] = {
         event = "police:gsr"
     },
     isEnabled = function(pEntity, pContext)
-        return not exports["esx_ambulancejob"]:GetPlayerDead() and pContext.flags and ESX.GetPlayerData().job.name == 'police'
+        return not isDead and pContext.flags and ESX.GetPlayerData().job.name == 'police'
     end
 }

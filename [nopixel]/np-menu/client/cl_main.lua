@@ -281,7 +281,7 @@ end
 
 
 Citizen.CreateThread(function()
-    local keyBind = "F1"
+    local keyBind = "~"
     while true do
         Citizen.Wait(0)
         if IsControlPressed(1, keybindControls[keyBind]) and GetLastInputMethod(2) and showMenu then

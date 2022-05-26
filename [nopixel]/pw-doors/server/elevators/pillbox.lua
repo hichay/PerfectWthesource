@@ -7,7 +7,7 @@ ELEVATORS[#ELEVATORS + 1] = {
     ["floors"] = {
         {
             ["name"] = "Level 1",
-            ["description"] = "Garage Floor",
+            ["description"] = "Garage",
             ["locked"] = false,
             ["zones"] = {
                 {
@@ -54,7 +54,7 @@ ELEVATORS[#ELEVATORS + 1] = {
         },
         {
             ["name"] = "Level 2",
-            ["description"] = "Main Floor",
+            ["description"] = "Tầng chính",
             ["locked"] = false,
             ["zones"] = {
                 {
@@ -92,7 +92,7 @@ ELEVATORS[#ELEVATORS + 1] = {
         },
         {
             ["name"] = "Level 3",
-            ["description"] = "Helipad",
+            ["description"] = "Sân thượng",
             ["locked"] = true,
             ["zones"] = {
                 {

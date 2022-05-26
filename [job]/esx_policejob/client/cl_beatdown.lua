@@ -101,7 +101,7 @@ end)
 AddEventHandler("police:startPutInBeatMode", function()
     local ped = PlayerPedId()
     local tped, tply, tplyId = getClosestPlayer(GetEntityCoords(ped), 3.5)
-
+    print('ok')
     if tped == nil or tped <= 0 then
         return
     end
@@ -122,7 +122,7 @@ AddEventHandler("police:recieveBeatMode", function()
     if isInBeatMode then
         startBeatMode()
     else
-        TriggerEvent("caue-police:cuffPlayer")
+        TriggerEvent("pw-police:cuffPlayer")
     end
 end)
 

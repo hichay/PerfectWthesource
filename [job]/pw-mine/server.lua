@@ -9,12 +9,21 @@ AddEventHandler('pepe-mine:getItem', function()
 		--local Item = xPlayer.Functions.GetItemByName(randomItem)
         local name = randomItem
 		--if Item == nil then
-            TriggerClientEvent("player:receiveItem",source,randomItem,1)
+            TriggerClientEvent("player:receiveItem",source,'rock',1)
 		--else	
 	    
     end
 end)
 
+RPC.register('pw-mine:sellStolenItems',function(src)
+    local inventory = exports["pw-inventory"]:getInventory("Stolen-Goods-1-")
+    local item = inventory[1]
+    if item then 
+        
+        local qty = exports["pw-inventory"]:getQuantityOfInven('water',true,"Stolen-Goods-1-")
+        print(qty)
+    end
+end)
 
 
 

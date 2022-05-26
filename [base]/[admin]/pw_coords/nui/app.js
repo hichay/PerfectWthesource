@@ -105,7 +105,7 @@ window.addEventListener("message", function (event) {
         $('#closeWindow').fadeIn(500)
         updateCoords(event.data.x, event.data.y, event.data.z, event.data.h, event.data.json)
     } else if(event.data.action == "closemenu") {
-
+	$.post('http://pw_coords/closeWindow', JSON.stringify({ }));
     } else if(event.data.action == "showCoords") {
         $('#showCoords').fadeIn(500);
     } else if(event.data.action == "hideCoords") {

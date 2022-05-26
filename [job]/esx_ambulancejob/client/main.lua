@@ -17,6 +17,42 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
+Citizen.CreateThread(function()
+	exports["pw-polytarget"]:AddCircleZone("pillbox_checkin", vector3(307.57711, -595.4158, 43.284065), 0.4, {
+		useZ=true,
+	})
+
+	exports['pw-interact']:AddPeekEntryByPolyTarget('pillbox_checkin', {
+        {
+            id = "check_in_hospial",
+            event = "pw-ems:checkIn",
+            icon = "clipboard-list-check",
+            label = "Làm thủ tục nhập viện"
+        }
+    
+    }, { distance = { radius = 4.5 } })
+end)
+
+RegisterNetEvent('pw-ems:checkIn')
+AddEventHandler('pw-ems:checkIn', function()
+	loadAnimDict("anim@narcotics@trash")
+	TaskPlayAnim(PlayerPedId(),"anim@narcotics@trash", "drop_front",1.0, 1.0, -1, 1, 0, 0, 0, 0)
+	local finished = exports["np-taskbar"]:taskBar(1700, "Kiểm tra thông tin")
+	ClearPedSecondaryTask(PlayerPedId())
+	if finished == 100 then
+		TriggerEvent("bed:checkin")
+	end
+end)
+
+function GetPlayerDead()
+	local isDeadd = RPC.execute('CheckPlayerDead')
+	if isDeadd then 
+		return true 
+	else 
+		return false
+	end
+end
+
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
@@ -136,8 +172,12 @@ function OnPlayerDeath()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', true)
 	exports["pw-lib"]:setVar("dead", true)
     exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", true)
+	TriggerEvent('Evidence:isDead')
 	StartDeathTimer()
 	StartDistressSignal()
+	ClearPedTasksImmediately(PlayerPedId())
+    loadAnimDict("dead")
+    TaskPlayAnim(PlayerPedId(), "dead", "dead_d", 8.0, -8, -1, 1, 0, 0, 0, 0)
 	
 	StartScreenEffect('DeathFailOut', 0, false)
 end
@@ -241,10 +281,23 @@ function secondsToClock(seconds)
 		return mins, secs
 	end
 end
-
+function drawTxt(x, y, width, height, scale, text, r, g, b, a, outline)
+    SetTextFont(4)
+    SetTextProportional(0)
+    SetTextScale(scale, scale)
+    SetTextColour(r, g, b, a)
+    SetTextDropShadow(0, 0, 0, 0,255)
+    SetTextEdge(2, 0, 0, 0, 255)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("CUSTOM_TEXT1")
+    AddTextComponentString(text)
+    DrawText(x - width/2, y - height/2 + 0.005)
+end
 function StartDeathTimer()
 	local canPayFine = false
-
+	respawnText = ("~w~Nhấn giữ ~r~E ~w~(%s %s) ~w~ để hồi sinh (lưu ý mất đồ - tiền)")
+	deathText = ("Bất tỉnh: ~r~%s phút %s giây~w~ nữa mới tỉnh ")
 	if Config.EarlyRespawnFine then
 		ESX.TriggerServerCallback('esx_ambulancejob:checkBalance', function(canPay)
 			canPayFine = canPay
@@ -273,15 +326,15 @@ function StartDeathTimer()
 			end
 		end
 	end)
-
 	Citizen.CreateThread(function()
 		local text, timeHeld
 
 		-- early respawn timer
 		while earlySpawnTimer > 0 and isDead do
 			Citizen.Wait(0)
-			text = _U('respawn_available_in', secondsToClock(earlySpawnTimer))
-
+			--text = _U('respawn_available_in', secondsToClock(earlySpawnTimer))
+			
+			drawTxt(0.89, 1.42, 1.0,1.0,0.6, deathText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
 			DrawGenericTextThisFrame()
 
 			SetTextEntry('CUSTOM_TEXT')
@@ -292,7 +345,7 @@ function StartDeathTimer()
 		while bleedoutTimer > 0 and isDead do
 			Citizen.Wait(0)
 			text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
-			
+			drawTxt(0.89, 1.42, 1.0,1.0,0.6, respawnText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
 			if not Config.EarlyRespawnFine then
 				text = text .. _U('respawn_bleedout_prompt')
 
@@ -303,7 +356,7 @@ function StartDeathTimer()
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
 				text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
-
+				drawTxt(0.89, 1.42, 1.0,1.0,0.6, respawnText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
 				if IsControlPressed(0, 38) and timeHeld > 60 then
 					TriggerServerEvent('esx_ambulancejob:payFine')
 					RemoveItemsAfterRPDeath()
@@ -391,6 +444,7 @@ AddEventHandler('esx_ambulancejob:revive', function()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', false)
 	exports["pw-lib"]:setVar("dead", false)
 	exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", false)
+	TriggerEvent('Evidence:isAlive')
 	Citizen.CreateThread(function()
 		DoScreenFadeOut(800)
 

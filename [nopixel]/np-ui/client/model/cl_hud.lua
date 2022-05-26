@@ -576,7 +576,7 @@ Citizen.CreateThread(function()
             HideMinimapInteriorMapThisFrame()
         end
         if useDefaultMinimap then
-          SetRadarZoom(1000) -- 1200
+          SetRadarZoom(1400) -- 1200
         else
           SetRadarZoom(1200) -- 1200
         end

@@ -20,6 +20,18 @@ itemList['728397530'] = {
   weapon: true,
 };
 
+itemList['pdevidencebag'] = {
+  fullyDegrades: false,
+  decayrate: 0,
+  displayname: 'Evidence Bag',
+  price: 10,
+  weight: 10,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_bag.png',
+};
+
+
 itemList['detcord'] = {
   fullyDegrades: true,
   decayrate: 0.001385,
@@ -3439,6 +3451,22 @@ itemList['stolenart'] = {
   image: 'np_stolenart.png',
 };
 
+itemList['gatheringkit'] = {
+  fullyDegrades: false,
+  decayrate: 0.25,
+  displayname: 'Kit Detetive',
+  price: 1500,
+  weight: 15,
+  craft: [[
+    { itemid: 'plastic', amount: 100 },
+    { itemid: 'rubber', amount: 100 },
+  ]],
+  nonStack: false,
+  model: '',
+  image: 'np_cleaning-goods.png',
+  information: 'Usado para coletar evidências.',
+};
+
 itemList['stolenBrokenGoods'] = {
   fullyDegrades: false,
   decayrate: 0.0,
@@ -3448,4 +3476,59 @@ itemList['stolenBrokenGoods'] = {
   nonStack: false,
   model: '',
   image: 'np_stolenBrokenGoods.png',
+};
+
+itemList['np_evidence_marker_red'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Evidência Vermelha',
+  price: 0,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_marker_red.png',
+};
+
+itemList['np_evidence_marker_white'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Evidência Branca',
+  price: 0,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_marker_white.png',
+};
+
+itemList['np_evidence_marker_orange'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Evidência Laranja',
+  price: 0,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_marker_orange.png',
+};
+
+itemList['np_evidence_marker_light_blue'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Evidência Azul',
+  price: 0,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_marker_light_blue.png',
+};
+
+itemList['np_evidence_marker_purple'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Evidência Roxa',
+  price: 0,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_evidence_marker_purple.png',
 };

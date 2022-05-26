@@ -77,7 +77,7 @@ local K9 = {
 --         },
 --         subMenus = SubMenu,
 --         isEnabled = function ()
---             return not exports["esx_ambulancejob"]:GetPlayerDead() and exports["caue-jobs"]:getJob(CurrentJob, "is_police")
+--             return not isDead and exports["caue-jobs"]:getJob(CurrentJob, "is_police")
 --         end,
 --     }
 -- end)

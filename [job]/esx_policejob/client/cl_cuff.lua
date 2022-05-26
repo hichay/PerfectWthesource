@@ -55,7 +55,7 @@ function policeCuff()
 			TriggerEvent("platecheck:frontradar")
 		else
 			if not IsControlPressed(0, 19) then
-				TriggerEvent("caue-police:cuffPlayer")
+				TriggerEvent("pw-police:cuffPlayer")
 			end
 		end
 	end
@@ -68,7 +68,7 @@ function policeUnCuff()
 		if IsPedInAnyVehicle(PlayerPedId(), false) then
 			TriggerEvent("platecheck:rearradar")
 		else
-			TriggerEvent("caue-police:uncuffPlayer")
+			TriggerEvent("pw-police:uncuffPlayer")
 		end
 	end
 end
@@ -89,23 +89,23 @@ end
 
 
 
-RegisterNetEvent("caue-police:cuffPlayer")
-AddEventHandler("caue-police:cuffPlayer", function()
-	if not cuffstate and not exports["pw-lib"]:getVar("handcuffed") and not IsPedRagdoll(PlayerPedId()) and not IsPlayerFreeAiming(PlayerId()) and not IsPedInAnyVehicle(PlayerPedId(), false) then
+RegisterNetEvent("pw-police:cuffPlayer")
+AddEventHandler("pw-police:cuffPlayer", function()
+	if not cuffstate and not exports["pw-lib"]:getVar("handcuffed") and not IsPedRagdoll(PlayerPedId()) and not IsPlayerFreeAiming(PlayerId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and exports["pw-inventory"]:hasEnoughOfItem("cuffs",1,false) then
 		cuffstate = true
 
 		local t, distance = GetClosestPlayer()
 		if distance ~= -1 and distance < 2 and not IsPedRagdoll(PlayerPedId()) then
 			TriggerEvent("DoLongHudText", "Bạn đã còng tay!")
-			TriggerEvent("caue-police:cuff", GetPlayerServerId(t))
+			TriggerEvent("pw-police:cuff", GetPlayerServerId(t))
 		end
 
 		cuffstate = false
 	end
 end)
 
-RegisterNetEvent("caue-police:cuff")
-AddEventHandler("caue-police:cuff", function(t, softcuff)
+RegisterNetEvent("pw-police:cuff")
+AddEventHandler("pw-police:cuff", function(t, softcuff)
 	if not tryingcuff then
 		tryingcuff = true
 
@@ -114,7 +114,7 @@ AddEventHandler("caue-police:cuff", function(t, softcuff)
         Citizen.Wait(1500)
 
         if distance ~= -1 and #(GetEntityCoords(ped) - GetEntityCoords(PlayerPedId())) < 2.5 and GetEntitySpeed(ped) < 1.0 then
-			TriggerServerEvent("caue-police:cuff", GetPlayerServerId(t))
+			TriggerServerEvent("pw-police:cuff", GetPlayerServerId(t))
 		else
 			ClearPedSecondaryTask(PlayerPedId())
 			TriggerEvent("DoLongHudText", "Không có ai ở gần (Hãy lại gần)!", 2)
@@ -124,8 +124,8 @@ AddEventHandler("caue-police:cuff", function(t, softcuff)
 	end
 end)
 
-RegisterNetEvent("caue-police:getArrested")
-AddEventHandler("caue-police:getArrested", function(cuffer)
+RegisterNetEvent("pw-police:getArrested")
+AddEventHandler("pw-police:getArrested", function(cuffer)
 	if lastCuffAttemptTime + 5000 > GetGameTimer() and (not handCuffed or not handCuffedWalking) then
 		ClearPedTasksImmediately(PlayerPedId())
 		return
@@ -152,7 +152,7 @@ AddEventHandler("caue-police:getArrested", function(cuffer)
 			[3] = { 4000, 11 },
 			[4] = { 4000, 9 },
 		}
-		finished = exports["np-ui"]:taskBarSkill(cuffAttemptTbl[cuffAttemptCount][1], cuffAttemptTbl[cuffAttemptCount][2])
+		finished = exports["np-taskbarskill"]:taskBarSkill(cuffAttemptTbl[cuffAttemptCount][1], cuffAttemptTbl[cuffAttemptCount][2])
 	end
 
 	if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(cuffPed)) < 2.5 and finished ~= 100 then
@@ -168,8 +168,8 @@ AddEventHandler("caue-police:getArrested", function(cuffer)
 	end
 end)
 
-RegisterNetEvent("caue-police:cuffTransition")
-AddEventHandler("caue-police:cuffTransition", function()
+RegisterNetEvent("pw-police:cuffTransition")
+AddEventHandler("pw-police:cuffTransition", function()
 	loadAnimDict("mp_arrest_paired")
 	Citizen.Wait(100)
 	TaskPlayAnim(PlayerPedId(), "mp_arrest_paired", "cop_p2_back_right", 8.0, -8, -1, 48, 0, 0, 0, 0)
@@ -177,22 +177,22 @@ AddEventHandler("caue-police:cuffTransition", function()
 	ClearPedTasksImmediately(PlayerPedId())
 end)
 
-RegisterNetEvent("caue-police:uncuffPlayer")
-AddEventHandler("caue-police:uncuffPlayer", function()
+RegisterNetEvent("pw-police:uncuffPlayer")
+AddEventHandler("pw-police:uncuffPlayer", function()
 	local t, distance = GetClosestPlayer()
 
     if distance ~= -1 and distance < 2 then
 		TriggerEvent("animation:PlayAnimation", "uncuff")
 		Wait(3000)
-		TriggerServerEvent("caue-police:uncuff", GetPlayerServerId(t))
+		TriggerServerEvent("pw-police:uncuff", GetPlayerServerId(t))
 		TriggerEvent("DoLongHudText", "Bạn đã tháo còng cho ai đó!")
 	else
 		TriggerEvent("DoLongHudText", "Không có ai ở gần!", 2)
 	end
 end)
 
-RegisterNetEvent("caue-police:uncuff")
-AddEventHandler("caue-police:uncuff", function()
+RegisterNetEvent("pw-police:uncuff")
+AddEventHandler("pw-police:uncuff", function()
 	ClearPedTasksImmediately(PlayerPedId())
 
 	handCuffed = false
@@ -205,21 +205,21 @@ AddEventHandler("caue-police:uncuff", function()
     exports["esx_policejob"]:setIsInBeatmode(false)
 end)
 
-RegisterNetEvent("caue-police:softcuffPlayer")
-AddEventHandler("caue-police:softcuffPlayer", function()
+RegisterNetEvent("pw-police:softcuffPlayer")
+AddEventHandler("pw-police:softcuffPlayer", function()
 	local t, distance = GetClosestPlayer()
 
     if distance ~= -1 and distance < 2 then
 		TriggerEvent("animation:PlayAnimation", "uncuff")
 		Wait(3000)
-		TriggerServerEvent("caue-police:softcuff", GetPlayerServerId(t))
+		TriggerServerEvent("pw-police:softcuff", GetPlayerServerId(t))
 	else
 		TriggerEvent("DoLongHudText", "Không có ai ở gần!!", 2)
 	end
 end)
 
-RegisterNetEvent("caue-police:handCuffedWalking")
-AddEventHandler("caue-police:handCuffedWalking", function()
+RegisterNetEvent("pw-police:handCuffedWalking")
+AddEventHandler("pw-police:handCuffedWalking", function()
 	if handCuffedWalking then
 		handCuffedWalking = false
 		handCuffed = true
@@ -237,8 +237,8 @@ AddEventHandler("caue-police:handCuffedWalking", function()
 	ClearPedTasksImmediately(PlayerPedId())
 end)
 
-RegisterNetEvent("caue-police:resetCuffs")
-AddEventHandler("caue-police:resetCuffs", function()
+RegisterNetEvent("pw-police:resetCuffs")
+AddEventHandler("pw-police:resetCuffs", function()
 	ClearPedTasksImmediately(PlayerPedId())
 
     handCuffed = false

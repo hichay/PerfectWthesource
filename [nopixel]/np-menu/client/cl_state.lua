@@ -119,10 +119,6 @@ AddEventHandler("esx:setJob", function(jobn)
     myJob = job.name
 end)
 
-RegisterNetEvent('np-jobs:jobChanged')
-AddEventHandler('np-jobs:jobChanged', function(pJobId)
-    CurrentJob = pJobId
-end)
 
 -- RegisterNetEvent('pd:deathcheck')
 -- AddEventHandler('pd:deathcheck', function()

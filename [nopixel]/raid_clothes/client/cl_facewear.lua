@@ -417,11 +417,11 @@ end)
 
 AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local context = {}
-    local text = "Retirar"
+    local text = "Tháo"
     local event = "pw-facewear:radial"
 
     if pArgs == "steal" then
-        text = "Roubar"
+        text = "Lấy trộm"
         event = "pw-facewear:steal"
     else
         pEntity = PlayerPedId()
@@ -434,7 +434,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentProp == -1
 
     context[#context+1] = {
-        title = text .. " Chapéu",
+        title = text .. " Mũ",
         action = event,
         key = {
             type = "hat",
@@ -448,7 +448,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentProp == -1
 
     context[#context+1] = {
-        title = text .. " Óculos",
+        title = text .. " Kính",
         action = event,
         key = {
             type = "googles",
@@ -462,7 +462,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1
 
     context[#context+1] = {
-        title = text .. " Máscara",
+        title = text .. " Mặt nạ",
         action = event,
         key = {
             type = "mask",
@@ -476,7 +476,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1
 
     context[#context+1] = {
-        title = text .. " Colar",
+        title = text .. " Dây chuyền",
         action = event,
         key = {
             type = "chain",
@@ -499,7 +499,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1 or currentDrawable == bareTorsoIndex
 
     context[#context+1] = {
-        title = text .. " Jaqueta",
+        title = text .. " Áo khoác",
         action = event,
         key = {
             type = "jacket",
@@ -520,7 +520,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1 or currentDrawable == bareTorsoIndex
 
     context[#context+1] = {
-        title = text .. " Camisa",
+        title = text .. " Áo thun",
         action = event,
         key = {
             type = "shirt",
@@ -534,7 +534,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1
 
     context[#context+1] = {
-        title = text .. " Colete",
+        title = text .. " Áo vest",
         action = event,
         key = {
             type = "vest",
@@ -548,7 +548,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1
 
     context[#context+1] = {
-        title = text .. " Mochila",
+        title = text .. " Balo",
         action = event,
         key = {
             type = "backpack",
@@ -569,7 +569,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1 or currentDrawable == bareLegsIndex
 
     context[#context+1] = {
-        title = text .. " Calça",
+        title = text .. " Quần",
         action = event,
         key = {
             type = "pants",
@@ -590,7 +590,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentDrawable == -1 or currentDrawable == bareFootIndex
 
     context[#context+1] = {
-        title = text .. " Tênis",
+        title = text .. " Giày",
         action = event,
         key = {
             type = "shoes",
@@ -604,7 +604,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
     local disabled = currentProp == -1
 
     context[#context+1] = {
-        title = text .. " Relógio",
+        title = text .. " Đồng hồ",
         action = event,
         key = {
             type = "watch",
@@ -641,7 +641,7 @@ AddEventHandler("pw-facewear:clothesMenu", function(pArgs, pEntity)
         disabled = disabled,
     }
 
-    exports["np-ui"]:showContextMenu(context)
+    exports["pw-context"]:showContextMenu(context)
 end)
 
 
@@ -662,7 +662,7 @@ Citizen.CreateThread(function()
     local options = {
         distance = { radius = 1.5 },
         isEnabled = function(pEntity, pContext)
-            return not isDisabled() and pContext.flags["isPlayer"] and (pContext.flags["isCuffed"] or pContext.flags["isDead"] or isPersonBeingHeldUp(pEntity))
+            return not IsDisabled() and pContext.flags["isPlayer"] and (pContext.flags["isCuffed"] or pContext.flags["isDead"] or isPersonBeingHeldUp(pEntity))
         end
     }
 

@@ -295,36 +295,6 @@ function getPriceFromHash(vehicleHash, jobGrade, type)
 	return 0
 end
 
-RegisterNetEvent('esx_ambulancejob:removeItem')
-AddEventHandler('esx_ambulancejob:removeItem', function(item)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	xPlayer.removeInventoryItem(item, 1)
-
-	if item == 'bandage' then
-		xPlayer.showNotification(_U('used_bandage'))
-	elseif item == 'medikit' then
-		xPlayer.showNotification(_U('used_medikit'))
-	end
-end)
-
-RegisterNetEvent('esx_ambulancejob:giveItem')
-AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if xPlayer.job.name ~= 'ambulance' then
-		print(('[esx_ambulancejob] [^2INFO^7] "%s" attempted to spawn in an item!'):format(xPlayer.identifier))
-		return
-	elseif (itemName ~= 'medikit' and itemName ~= 'bandage') then
-		print(('[esx_ambulancejob] [^2INFO^7] "%s" attempted to spawn in an item!'):format(xPlayer.identifier))
-		return
-	end
-
-	if xPlayer.canCarryItem(itemName, amount) then
-		xPlayer.addInventoryItem(itemName, amount)
-	else
-		xPlayer.showNotification(_U('max_item'))
-	end
-end)
 
 ESX.RegisterCommand('revive', 'moderator', function(xPlayer, args, showError)
 	args.playerId.triggerEvent('esx_ambulancejob:revive')
@@ -358,6 +328,19 @@ ESX.RegisterUsableItem('bandage', function(source)
 	end
 end)
 
+RPC.register('CheckPlayerDead',function(src)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier
+	}, function(isDead)
+		if isDead then
+			return true
+		else
+			return false
+		end
+	end)
+end)
+
 ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -372,273 +355,6 @@ ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, c
 	end)
 end)
 
-
-ESX.RegisterServerCallback('esx_ambulancejob:GetListDeadPlayers', function(source, cb, name)
-    local src = source
-    local xPlayer = ESX.GetPlayerFromId(src)
-    
-
-    MySQL.Async.fetchScalar("SELECT reciverstatus, recivername, identifier FROM `users` WHERE identifier = @", function(player)
-        function payButton(plate)
-            return "<a id='button' btn-type='pay' btn-id='" .. plate .. "' href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-warning btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Trả tiền</span></a>"
-        end
-        
-        local PlayerList = {}
-        if vehicles[1] ~= nil and isAuthorized == true then
-            for k, v in pairs(player) do
-                table.insert(PlayerList, {v.model, v.plate, v.name, payButton(v.plate), serverConfig['impounds'][name]['price']})
-            end
-        end
-
-        cb(PlayerList)
-    end)
-end)
-
-RegisterNetEvent('esx_ambulancejob:setDeathStatus')
-AddEventHandler('esx_ambulancejob:setDeathStatus', function(isDead)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if type(isDead) == 'boolean' then
-		MySQL.Sync.execute('UPDATE users SET is_dead = @isDead WHERE identifier = @identifier', {
-			['@identifier'] = xPlayer.identifier,
-			['@isDead'] = isDead
-		})
-	end
-end)
-
--- ESX.RegisterServerCallback('esx_ambulancejob:getPlayerName', function(source,cb, playerArray)
-	-- local cacheName = {}
-	-- for i = 1, #playerArray, 1 do 
-		-- local xPlayer = ESX.GetPlayerFromId(playerArray[i])
-		-- local name = xPlayer.getName()
-		-- table.insert(cacheName, {name = name, serverId = playerArray[i]})
-	-- end 
-	
-	
-	
-	-- cb(cacheName)
--- end)
-
-ESX.RegisterServerCallback('esx_ambulancejob:getPlayerName321', function(source,cb, data)
-	local cacheName = {}
-	--local playerlist = MySQL.Sync.fetchAll('SELECT * FROM users')
-	print(data)
-	function Accept(id)
-		return "<a id='button' btn-type='accept' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-warning btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Trả tiền</span></a>"
-	end 
-
-	function Getback(id)
-		return "<a id='button' btn-type='accept' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-danger btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Nhận</span></a>"
-	end
-	
-	function Getback(id)
-		return "<a id='button' btn-type='accept' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-danger btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Nhận</span></a>"
-	end 
-
-		for j = 1, #data do
-			
-			local xPlayer = ESX.GetPlayerFromId(data[j])
-			local Player = ESX.GetPlayerFromId(source)
-			local sourceplayername = GetPlayerName(source)
-			local name = xPlayer.getName()
-
-		local result = MySQL.Sync.fetchAll('SELECT * FROM users WHERE is_dead = @is_dead AND identifier = @identifier', {
-			['@is_dead'] = 0,
-			['@identifier'] = xPlayer.identifier
-		})
-			for n,m in pairs(result) do 
-				if m.recivername == NULL then
-					table.insert(cacheName, {name = name,status = m.reciverstatus,reciver =  "Chưa có ai nhận",playerid = data[j] ,accept = Accept(data[j])})	
-				else
-					if sourceplayername == m.recivername then 
-						print('thisline')
-						table.insert(cacheName, {name = name,status = m.reciverstatus,reciver =  m.recivername,playerid = data[j] ,accept = Accept(data[j]),getback = Getback(data[j])})	
-					else 
-						table.insert(cacheName, {name = name,status = m.reciverstatus,reciver =  m.recivername,playerid = data[j] ,accept = Accept(data[j])})   
-					end
-					
-				end	
-			end
-			
-
-		--[[ MySQL.Async.fetchAll('SELECT * FROM users WHERE is_dead = @is_dead AND identifier = @identifier' , {
-			['@is_dead'] = 0,
-			['@identifier'] = xPlayer.identifier
-		}, function (result)
-			
-			print(result)
-			--for i = 1, #result do 
-				
-				for n,m in pairs(result) do 
-					--print(m.firstname)
-					table.insert(cacheName, {name = name, status = result[i].reciverstatus, revicer = result[i].recivername, Idplayer = data[j]})
-			end	
-			
-				
-				
-		end) ]]
-		cb(cacheName)
-			
-		
-		end 
-		
-		--[[ for i = 1, #data, 1 do 
-			 local xPlayer = ESX.GetPlayerFromId(data[i])
-			 local name = xPlayer.getName()
-			 table.insert(cacheName, {name = name, Idplayer = data[i]})
-		end
-		
-		
-		MySQL.Async.fetchAll('SELECT * FROM users WHERE is_dead = @is_dead AND identifier = @identifier' , {
-			['@is_dead'] = 0,
-		}, function (result)
-			
-			print(result)
-			--for i = 1, #result do 
-				
-				for n,m in pairs(result) do 
-					print(m.firstname)
-					table.insert(cacheName, {status = m.reciverstatus, revicer = m.recivername})
-				end	
-			
-				
-				
-		end) ]]
-		
-		
-end)
-	
-
-ESX.RegisterServerCallback('esx_ambulancejob:getPlayerName', function(source,cb, data)
-	local cacheName = {}
-	--local playerlist = MySQL.Sync.fetchAll('SELECT * FROM users')
-	--print(data)
-	 
-	for j = 1, #data do
-		local xPlayer = ESX.GetPlayerFromId(data[j])
-		--print(xPlayer.identifier)
-		MySQL.Async.fetchAll('SELECT * FROM users WHERE is_dead = @is_dead AND identifier = @identifier' , {
-			['@is_dead'] = 0,
-			['@identifier'] = xPlayer.identifier
-			
-		}, function (result)
-			local cacheName = {}
-			print(result)
-			for k,v in pairs(result) do
-				print(k,v)
-			end
-			if result[1] ~= nil then	
-				for j = 1, #data do
-					for n,m in pairs(result) do 
-					
-						local xPlayer = ESX.GetPlayerFromId(data[j])
-						local Player = ESX.GetPlayerFromId(source)
-						local sourceplayername = xPlayer.getName(source)
-						local name = xPlayer.getName()
-						function Accept(id)
-							return "<a id='button' btn-type='accept' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-warning btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Trả tiền</span></a> " 
-						end 
-
-						function Getback(id)
-							return "<a></a>"
-						end
-
-						function GetLocationorCancel(id)
-							return "<a id='button' btn-type='accept' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-warning btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Nhận lại</span></a> <a id='button' btn-type='canceltextt' btn-id="..id.." href=\"#\" data-toggle=\"modal\" data-target=\"#payModal\" class=\"btn btn-danger btn-icon-split\"><span class=\"icon text-white-50\"> <i class=\"fas fa-money-check-alt\"></i></span><span class=\"text\">Hủy</span></a>"
-						end  
-
-
-						
-						--[[ if Player.identifier == m.recivername then 
-							print('người nhận là:'..Player.identifier)
-						end ]] 
-						
-						if m.recivername == NULL then
-								table.insert(cacheName, {name = m.firstname.." "..m.lastname,status = m.reciverstatus,reciver =  "Chưa có ai nhận",playerid = data[j] ,button = Accept(data[j])})	
-						else
-							if sourceplayername == m.recivername then 
-								--[[ Người nhận hiển thị thông tin vị trí và hủy ]]
-							   	table.insert(cacheName, {name = m.firstname.." "..m.lastname,status = m.reciverstatus,reciver =  m.recivername,playerid = data[j] ,button = GetLocationorCancel(data[j])})	
-							else  
-
-								--[[ không hiển thị gì cả ]]
-								table.insert(cacheName, {name = m.firstname.." "..m.lastname,status = m.reciverstatus,reciver =  m.recivername,playerid = data[j] ,button = Getback(data[j])})   
-
-							end
-							
-						end	
-							
-						
-					end
-					
-				end	
-			
-			end	
-				cb(cacheName)	
-		end)	
-	end	
-end)
-
-
--- RegisterNetEvent('esx_ambulancejob:setReciverStatus')
--- AddEventHandler('esx_ambulancejob:setReciverStatus', function()
-	-- local xPlayer = ESX.GetPlayerFromId(source)
-
-	
-		-- MySQL.Sync.execute('UPDATE users SET reciverstatus = @reciverstatus WHERE identifier = @identifier', {
-			-- ['@identifier'] = xPlayer.identifier,
-			-- ['@reciverstatus'] = 1
-		-- })
-	
--- end)
-
-
-RegisterServerEvent("esx_ambulancejob:setReciverStatus")
-AddEventHandler("esx_ambulancejob:setReciverStatus", function(iddeadplayer)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(iddeadplayer)
-	local name = GetPlayerName(_source)
-	--print("id người chết.." ..deadplayerid)
-	
-		-- playerAccepted = GetCharacterName(_source)
-		-- Deadname = GetDaedName(deadplayerid)
-		playerAccepted = xPlayer.getName(_source)
-		--Deadname = GetPlayerName(deadplayerid)
-	--print(iddeadplayer)
-		
-	--TriggerClientEvent("ui_ambulanceAlert:ReceiveAccepted", -1, number, playerAccepted, street)
-	
-	--TriggerClientEvent("ui_ambulanceAlert:ReceiveAcceptedNotifyAll", -1, 'black', playerAccepted .. ' Nhận trường hợp của' , Deadname)
-	MySQL.Sync.execute('UPDATE users SET reciverstatus = @reciverstatus , recivername = @recivername WHERE identifier = @identifier', {
-			['@identifier'] = xPlayer.identifier,
-			['@reciverstatus'] = 1,
-			['@recivername'] = playerAccepted
-	})
-end)
-
-
-RegisterServerEvent("esx_ambulancejob:SetNull")
-AddEventHandler("esx_ambulancejob:SetNull", function(iddeadplayer)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(iddeadplayer)
-	local name = GetPlayerName(_source)
-	--print("id người chết.." ..deadplayerid)
-	
-		-- playerAccepted = GetCharacterName(_source)
-		-- Deadname = GetDaedName(deadplayerid)
-		
-		--Deadname = GetPlayerName(deadplayerid)
-	--print(iddeadplayer)
-		
-	--TriggerClientEvent("ui_ambulanceAlert:ReceiveAccepted", -1, number, playerAccepted, street)
-	
-	--TriggerClientEvent("ui_ambulanceAlert:ReceiveAcceptedNotifyAll", -1, 'black', playerAccepted .. ' Nhận trường hợp của' , Deadname)
-	MySQL.Sync.execute('UPDATE users SET reciverstatus = @reciverstatus , recivername = @recivername WHERE identifier = @identifier', {
-			['@identifier'] = xPlayer.identifier,
-			['@reciverstatus'] = 0,
-			['@recivername'] = NULL
-	})
-end)
 
 
 function CountMedic()
@@ -669,20 +385,20 @@ AddEventHandler("esx_ambulancejob:hoisinh", function()
 	else
 		for i,data in pairs(deadPlayers) do
 			local xPlayer = ESX.GetPlayerFromId(i)
-			if xPlayer.getAccount('money').money > Config.Hoisinhcommand then
-				xPlayer.removeAccountMoney('money', Config.Hoisinhcommand)
-				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.Hoisinhcommand)
-				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.Hoisinhcommand.."$ để hồi sinh",'info')
+			if xPlayer.getAccount('money').money > Config.CheckInHospita then
+				xPlayer.removeAccountMoney('money', Config.CheckInHospita)
+				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospita)
+				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.CheckInHospita.."$ để hồi sinh",'info')
 
 				TriggerClientEvent('esx_ambulancejob:revive', i)
 				
-			elseif xPlayer.getAccount('bank').money > Config.Hoisinhcommand then
-				xPlayer.removeAccountMoney('bank', Config.Hoisinhcommand)
-				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.Hoisinhcommand)
-				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.Hoisinhcommand.."$ để hồi sinh",'info')
+			elseif xPlayer.getAccount('bank').money > Config.CheckInHospita then
+				xPlayer.removeAccountMoney('bank', Config.CheckInHospita)
+				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospita)
+				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.CheckInHospita.."$ để hồi sinh",'info')
 				TriggerClientEvent('esx_ambulancejob:revive', i)
 			else
-				TriggerClientEvent('esx:showNotification', i, "Bạn không có "..Config.Hoisinhcommand.."$ để hồi sinh")
+				TriggerClientEvent('esx:showNotification', i, "Bạn không có "..Config.CheckInHospita.."$ để hồi sinh")
 			end
 			
 		end	
@@ -691,3 +407,23 @@ AddEventHandler("esx_ambulancejob:hoisinh", function()
 end)
 
 
+RPC.register("pw-ems:canHeal", function(src)
+	local xPlayer = ESX.GetPlayerFromId(src)
+	local cid = xPlayer.id
+    if not cid then return false end
+
+    if xPlayer.getAccount('money').money > Config.CheckInHospital then 
+		xPlayer.removeAccountMoney('money', Config.CheckInHospital)
+		TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospital)
+		return true
+		
+	elseif xPlayer.getAccount('bank').money > Config.CheckInHospital then
+		xPlayer.removeAccountMoney('bank', Config.CheckInHospital)
+		TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospital)
+		return true
+	else
+		TriggerClientEvent('DoLongHudText',source, "Bạn không có "..Config.CheckInHospital.."$ để làm thủ tục nhập viện")
+		return false
+	end
+   
+end)

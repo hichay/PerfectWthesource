@@ -14,6 +14,28 @@ Citizen.CreateThread(function()
         }
     })
 
+    exports["pw-polytarget"]:AddCircleZone("weed_sellposition", vector3(-1171.522, -1571.314, 4.6636252), 1.0, {
+        options = {
+            ["useZ"] = true,
+        }
+    })
+
+    exports['pw-interact']:AddPeekEntryByPolyTarget('weed_sellposition', {
+        {
+            id = "weed_sell",
+            event = "pw-weeds:weed_dry",
+            icon = "cannabis",
+            label = "Bán cần sa"
+        },
+        {
+            id = "weed_shops",
+            event = "pw-weeds:weed_dry",
+            icon = "cannabis",
+            label = "Smoke on the Water"
+        }
+    
+    }, { distance = { radius = 4.5 } })
+
 
     --[[ local data = {
         id = "weedshopnpc",
@@ -57,7 +79,7 @@ Citizen.CreateThread(function()
         {
             id = "weed_drylc",
             event = "pw-weeds:weed_dry",
-            icon = "chevron-circle-up",
+            icon = "sun-dust",
             label = "Sấy cần"
         }}, { distance = { radius = 4.5 } })
 end)

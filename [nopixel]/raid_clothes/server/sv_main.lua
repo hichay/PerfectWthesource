@@ -31,7 +31,7 @@ end
 
 ESX.RegisterServerCallback('raid_clothes:getSex', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(source)
-    MySQL.Async.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {["identifier"] = xPlayer.getIdentifier()}, function(result)
+    MySQL.Async.fetchAll("SELECT sex FROM users WHERE identifier = @identifier", {["identifier"] = xPlayer.getIdentifier()}, function(result)
         cb(result[1].sex)
     end)
 end)
@@ -98,14 +98,14 @@ AddEventHandler("clothing:checkIfNew", function()
     local user = ESX.GetPlayerFromId(src)
     local steamid = user.identifier
 
-    MySQL.Async.fetchAll("SELECT * FROM users WHERE identifier = @identifier LIMIT 1", {
+    MySQL.Async.fetchAll("SELECT id FROM users WHERE identifier = @identifier LIMIT 1", {
         ['identifier'] = steamid
     }, function(result)
         local isService = false;
         if user.job.name == "police" or user.job.name == "ambulance" then isService = true end
 
         if result[1] == nil then
-            MySQL.Async.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {["identifier"] = steamid}, function(result)
+            MySQL.Async.fetchAll("SELECT skin FROM users WHERE identifier = @identifier", {["identifier"] = steamid}, function(result)
                 if result[1].skin then
                     TriggerClientEvent('raid_clothes:setclothes',src,{},json.decode(result[1].skin))
                 else
@@ -159,7 +159,7 @@ AddEventHandler("raid_clothes:get_character_face",function(pSrc)
     local characterId = xPlayer.getIdentifier()
 
     if not characterId then return end
-    MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
+    MySQL.Async.fetchAll('SELECT hairColor, headBlend, headOverlay, headStructure, drawables, props, drawtextures, proptextures, sex FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
         local temp_data = {
             hairColor = json.decode(result[1].hairColor),
             headBlend = json.decode(result[1].headBlend),
@@ -190,7 +190,7 @@ AddEventHandler("raid_clothes:get_character_current",function(pSrc)
 
     if not characterId then return end
 
-    MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
+    MySQL.Async.fetchAll('SELECT model, drawables, props, drawtextures, proptextures FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
         local temp_data = {
             model = result[1].model,
             drawables = json.decode(result[1].drawables),
@@ -208,7 +208,7 @@ AddEventHandler("raid_clothes:retrieve_tats", function()
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
     local playerId = xPlayer.getIdentifier()
-	MySQL.Async.fetchAll("SELECT * FROM playerstattoos WHERE identifier = @identifier", {['@identifier'] = playerId}, function(result)
+	MySQL.Async.fetchAll("SELECT tattoos FROM playerstattoos WHERE identifier = @identifier", {['@identifier'] = playerId}, function(result)
         if result and result[1] ~= nil then
 			TriggerClientEvent("raid_clothes:settattoos", src, json.decode(result[1].tattoos))
 		else

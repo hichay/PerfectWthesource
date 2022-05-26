@@ -304,10 +304,10 @@ function UpdateItem(id, slot, data) {
 	emitNet("server-update-item",plySteam, id, slot, data,)
 }
 
-RegisterNetEvent('inventory:updateItem')
+RegisterNetEvent('inventory:updateItem');
 on('inventory:updateItem', (id, slot, data) => {
-	UpdateItem(id, slot, data)
-})
+    UpdateItem(id, slot, data);
+});
 
 // this is used for giving a dropped item, not put into inventory
 RegisterNetEvent('CreateCraftOption')
@@ -1235,6 +1235,25 @@ on('toggle-animation', (toggleAnimation) => {
 		StopAnimTask(lPed, "mini@repair", "fixing_a_player", -4.0);
 	}
 });
+
+RegisterNetEvent('inventory-open-container');
+on('inventory-open-container', async (inventoryId, slots, weight) => {
+    const playerPos = GetEntityCoords(PlayerPedId());
+    emitNet('server-inventory-open', playerPos, plySteam, '1', inventoryId, [], null, weight, slots);
+});
+
+RegisterNuiCallbackType('openJewelry');
+on('__cfx_nui:openJewelry', async (data, cb) => {
+    await CloseGui(false);
+    OpenJewelryInventory();
+    cb({});
+});
+
+function OpenJewelryInventory() {
+    const inventory = `container-jewelry:${plySteam}-Jewelry-jewelry`;
+    emit("inventory-open-container", inventory, 5, 30.0);
+}
+
 
 function UpdateSettings() {
     let holdInt = GetResourceKvpInt('inventorySettings-HoldToDrag');

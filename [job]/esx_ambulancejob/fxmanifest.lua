@@ -10,6 +10,7 @@ shared_scripts {
 
 server_scripts {
 	"@pw-lib/server/sv_rpc.lua",
+	'@es_extended/locale.lua',
 	'@oxmysql/lib/MySQL.lua',
 	'locales/en.lua',
 	'config.lua',

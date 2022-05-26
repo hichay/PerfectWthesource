@@ -1,5 +1,6 @@
 ESX = nil
 local mining = false
+local exploded = false
 local textDel = Config.textDel
 isWorking = false
 blipCreated = false
@@ -14,14 +15,14 @@ AddEventHandler('pw-mine:client:kichhoat', function()
     end     
 end)
 
---[[ RegisterCommand("lamviec", function(source, args, rawCommand)
+RegisterCommand("lamviec", function(source, args, rawCommand)
     isWorking = not isWorking
     if isWorking then 
-        TriggerEvent("ESX:Notify","Bắt đầu công việc","info")
+        print("Bắt đầu công việc")
     else 
-        TriggerEvent("ESX:Notify","Kết thúc công việc","info")      
+        print("Kết thúc công việc")      
     end
-end, false) ]]
+end, false)
 
 
 
@@ -39,57 +40,57 @@ Citizen.CreateThread(function()
 	addBlip(Config.NPC, 318, 0.8, 5, Strings['npc'])
     local playerPed = PlayerPedId()
 
-
     local createdPeds = {}
 
     local playerPed = PlayerPedId()
-    local pedcreated = false
+
+    local data = {
+        id = "miner_jobempoly",
+        position = {coords = Config.NPC, heading = 158.20},
+        pedType = 4,
+        model = "mp_m_counterfeit_01",
+        networked = false,
+        distance = 25.0,
+        settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+        flags = { ["isNPC"] = true, },
+    }
+
+    local npc = exports["pw-npcs"]:RegisterNPC(data, "miner_emply")
+
+    local Interact = {
+      data = {
+        {
+          id = 'Miner_interact',
+          label = 'Bắt đầu/Kết thúc công việc',
+          icon = 'person-digging',
+          event = 'pw-mine:client:kichhoat',
+          parameters = {},
+        },
+        {
+            id = 'Miner_sellitem',
+            label = 'Bán đồ',
+            icon = 'seal-exclamation',
+            event = 'pw-mine:makeSales',
+            parameters = {},
+          },
+
+      },
+      options = {
+        distance = { radius = 2.5 },
+        npcIds = { 'miner_jobempoly' },
+        --[[ isEnabled = function(pEntity, pContext)
+          return isOnDeliveryTask()
+        end, ]]
+      },
+    }
+    
+    exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
 
     while true do
         Citizen.Wait(15)
         local xp ,yp ,zp
         local closeTo = 0
         local pos = GetEntityCoords(PlayerPedId())
-        if #(pos - Config.NPC) <= 50 and pedcreated == false then 
-            
-            pedcreated = true
-            local pedModel = "g_m_importexport_01"
-            RequestModel(pedModel)
-            while not HasModelLoaded(pedModel) do
-                RequestModel(pedModel)
-                Wait(100)
-            end
-        
-            local createdPed1 = CreatePed(5, pedModel, Config.NPC - 1.0, 158.19, false, false)
-            ClearPedTasks(createdPed1)
-            ClearPedSecondaryTask(createdPed1)
-            TaskSetBlockingOfNonTemporaryEvents(createdPed1, true)
-            SetPedFleeAttributes(createdPed1, 0, 0)
-            SetPedCombatAttributes(createdPed1, 17, 1)
-        
-            SetPedSeeingRange(createdPed1, 0.0)
-            SetPedHearingRange(createdPed1, 0.0)
-            SetPedAlertness(createdPed1, 0)
-            SetPedKeepTask(createdPed1, true)
-            Wait(1000) -- for better freeze (not in air)
-            FreezeEntityPosition(createdPed1, true)
-            SetEntityInvincible(createdPed1, true)
-            
-            createdPeds[1] = createdPed1
-        elseif #(pos - Config.NPC) > 50 and pedcreated == true then
-            pedcreated = false
-            if DoesEntityExist(createdPeds[1]) then 
-                local ped = createdPeds[1]
-                SetPedKeepTask(ped, false)
-                TaskSetBlockingOfNonTemporaryEvents(ped, false)
-                ClearPedTasks(ped)
-                TaskWanderStandard(ped, 10.0, 10)
-                SetPedAsNoLongerNeeded(ped)
-                DeleteEntity(ped)
-                createdPeds[1] = nil
-            end
-        end
-
         for k, v in pairs(Config.MiningPositions) do
             if #(pos - v.coords) <= 2.5 and isWorking then 
                 closeTo = v
@@ -100,54 +101,82 @@ Citizen.CreateThread(function()
             end
         end
         if type(closeTo) == 'table' then
-            while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), closeTo.coords, true) <= 2.5 and isWorking do
+            while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), closeTo.coords, true) <= 2.5 and not exploded do
+                local counter = 0
                 Wait(0)
-                --helpText(Strings['press_mine'])
-                DrawText3D2(xp, yp, zp+0.97, ''..textDel..'')
+                helpText(Strings['press_mine'])
                 if IsControlJustReleased(0, 38) then
                     local player, distance = ESX.Game.GetClosestPlayer()
                     if distance == -1 or distance >= 4.0 then
                         mining = true
-                        SetEntityCoords(PlayerPedId(), closeTo.coords)
-                        SetEntityHeading(PlayerPedId(), closeTo.heading)
-                        FreezeEntityPosition(PlayerPedId(), true)
+                        GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
+                        Citizen.Wait(1250)                                                                                      
+                        TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
 
-                        local model = loadModel(GetHashKey(Config.Objects['pickaxe']))
-                        local axe = CreateObject(model, GetEntityCoords(PlayerPedId()), true, false, false)
-                        AttachEntityToEntity(axe, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005), 0.09, 0.03, -0.02, -78.0, 13.0, 28.0, false, true, true, true, 0, true)
-
-                        while mining do
-                            Wait(0)
-                            SetCurrentPedWeapon(PlayerPedId(), GetHashKey('WEAPON_UNARMED'))
-                            helpText(Strings['mining_info'])
-                            DisableControlAction(0, 24, true)
-                            if IsDisabledControlJustReleased(0, 18) then
-                                local da = exports["pw-inventory"]:hasEnoughOfItem("rock",20,false,true)
-                                if da then
-                                    TriggerEvent("ESX:Notify","Số lượng đá trên người đã quá nhiều","info")  
-                                else
-                                    local dict = loadDict('melee@hatchet@streamed_core')
-                                    TaskPlayAnim(PlayerPedId(), dict, 'plyr_rear_takedown_b', 8.0, -8.0, -1, 2, 0, false, false, false)
-                                    local timer = GetGameTimer() + 800
-                                    while GetGameTimer() <= timer do Wait(0) DisableControlAction(0, 24, true) end
-                                    ClearPedTasks(PlayerPedId())
-                                    TriggerServerEvent('pepe-mine:getItem')
-                                end     
-                            elseif IsControlJustReleased(0, 194) then
-                                break
-                            end
+                        while mining and not exploded do
+                            -- Wait(1000)
+                            local time = 6
+							while time > 0 do 
+								Citizen.Wait(1000)
+								time = time - 1
+							end
+                            
+							AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 4.0, true, false, 20.0)
+                            exploded = true
+                            local rock = GetHashKey("prop_rock_4_c")
+                            rock1 = CreateObject(rock, closeTo.coords.x, closeTo.coords.y , closeTo.coords.z + 2.5, true, true, true)                           
                         end
-                        mining = false
-                        DeleteObject(axe)
-                        FreezeEntityPosition(PlayerPedId(), false)
                     else
-                        helpText(Strings['someone_close'])
-
-                    end                         
+                        TriggerEvent("DoLongHudText","Chỗ này đã có người làm", 2)
+                    end
                 end
             end
         end
         Wait(250)
+    end
+end)
+Citizen.CreateThread(function()
+    local sleep
+    while true do
+        sleep = 5
+        local player = PlayerPedId()
+        local pos = GetEntityCoords(player)
+        if exploded then
+            if #(GetEntityCoords(rock1) - GetEntityCoords(player)) <= 2.5 then
+                sleep = 5
+                local rpos = GetEntityCoords(rock1)
+                DrawText3D2(rpos.x, rpos.y, rpos.z,'Bấm ~g~[ E ]~w~ để đào')
+                if IsControlJustPressed(0, 38) then
+                    
+                    local model = loadModel(GetHashKey('prop_tool_jackham'))
+                    local axe = CreateObject(model, GetEntityCoords(PlayerPedId()), true, false, false)
+                    AttachEntityToEntity(axe, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005), 0.09, 0.03, -0.02, -78.0, 13.0, 28.0, false, true, true, true, 0, true)
+                        Citizen.Wait(100)
+
+                    FreezeEntityPosition(player, true)
+                    local dict = loadDict('amb@world_human_const_drill@male@drill@base')
+                    TaskPlayAnim(PlayerPedId(), dict, 'base', 8.0, -8.0, -1, 2, 0, false, false, false)
+
+                    Citizen.Wait(5000)
+
+                    ClearPedTasks(PlayerPedId())
+                    FreezeEntityPosition(player, false)
+                    DeleteObject(axe)
+                    DeleteObject(rock1)
+
+                    TriggerServerEvent('pepe-mine:getItem')
+
+                    iswashing = false
+                    exploded = false
+                    mining = false
+                end
+            else
+                sleep = 2500
+            end
+        else
+            sleep = 3000
+        end
+        Citizen.Wait(sleep)
     end
 end)
 
@@ -191,6 +220,16 @@ end
 
 RegisterNetEvent("pw-mine:makeSales")
 AddEventHandler("pw-mine:makeSales", SellMaterial)
+
+RegisterCommand("putgood", function(source, args, rawCommand)
+    TriggerEvent("server-inventory-open", "1", "Stolen-Goods-1-")
+end, false)
+
+RegisterCommand("sellgood", function(source, args, rawCommand)
+    RPC.execute("pw-mine:sellStolenItems", false)
+end, false)
+    
+
 
 
 --[[ Citizen.CreateThread(function()

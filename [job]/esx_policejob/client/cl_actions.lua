@@ -103,7 +103,7 @@ end)
 --[[ RegisterNetEvent("police:gsr")
 AddEventHandler("police:gsr", function(pArgs, pEntity)
 
-	local finished = exports["caue-taskbar"]:taskBar(10000, "Teste de GSR")
+	local finished = exports["pw-taskbar"]:taskBar(10000, "Teste de GSR")
 	if finished == 100 then
 		TriggerServerEvent("police:gsr", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)))
 	end

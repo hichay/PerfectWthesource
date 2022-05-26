@@ -7,6 +7,7 @@ local currentInformation = 0
 local CurrentSqlID = 0
 local TIME_REMOVED_FOR_DEG = 1000 * 60 * 5 -- 5 mins
 local focusTaken = false
+local isActionBarDisabled = false
 local UNARMED_HASH = `WEAPON_UNARMED`
 
 
@@ -119,6 +120,10 @@ end)
 local shotRecently = false
 local lastShot = 0
 local lastDamageTrigger = 0
+
+exports('disableActionBar', function(pState)
+  isActionBarDisabled = pState
+end)
 Citizen.CreateThread( function()
 	local lastWeapon
 	while true do
@@ -178,19 +183,19 @@ Citizen.CreateThread( function()
 
 		prevupdate = prevupdate - 1
 
-		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken then
+		if (IsControlJustReleased(0,157) or IsDisabledControlJustReleased(0,157)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",1)
 		end
 
-		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken then
+		if (IsControlJustReleased(0,158) or IsDisabledControlJustReleased(0,158)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",2)
 		end
 
-		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken then
+		if (IsControlJustReleased(0,160) or IsDisabledControlJustReleased(0,160)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",3)
 		end
 
-		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken then
+		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",4)
 		end
 
@@ -233,20 +238,9 @@ AddEventHandler('equipWeaponID', function(hash,newInformation,sqlID)
 	CurrentSqlID = sqlID
 	currentInformation = json.decode(newInformation)
 
-	
+	print(currentInformation.serial)
 
-
-	-- if (currentInformation.cartridge == nil) then
-		-- currentInformation = "Scratched off data"
-	-- else
-		-- currentInformation = currentInformation.cartridge
-	-- end
-	-- TriggerEvent("evidence:bulletInformation", currentInformation)
-
-	-- local dead = exports["isPed"]:isPed("dead")
-	-- if dead then
-		-- return
-	-- end
+	TriggerEvent("evidence:bulletInformation", true and currentInformation.serial or "Scratched off data")
 
 	if UNARMED_HASH == GetSelectedPedWeapon(PlayerPedId()) then
 		armed = false

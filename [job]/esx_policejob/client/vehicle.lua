@@ -44,7 +44,7 @@ AddEventHandler("pw-police:showVehicles", function()
     end
 
     --exports["np-ui"]:showContextMenu(datamen)
-    exports["pw-context"]:showContext(datamen)
+    exports["pw-context"]:showContextMenu(datamen)
 end)
 
 

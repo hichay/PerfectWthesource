@@ -248,41 +248,45 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- Gera trabalho para os motoristas
-Citizen.CreateThread(function()
+
+RPC.register('truck_logistics:ActiveMoneyEarn',function(src)
+	
+	local source = source
 	Citizen.Wait(10000)
-	while true do 
-		local sql = [[SELECT d.driver_id, d.user_id, d.name, d.product_type, d.distance, d.valuable, d.fragile, d.fast, d.price, d.price_per_km 
+	print('ok')
+		while true do 
+			local xPlayer = ESX.GetPlayerFromId(source)
+				local sql = [[SELECT d.driver_id, d.user_id, d.name, d.product_type, d.distance, d.valuable, d.fragile, d.fast, d.price, d.price_per_km 
 					FROM trucker_trucks t
 						INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
 					WHERE t.driver <> 0 AND t.driver IS NOT NULL]];
-		local data = MySQL.query.await(sql, {});
-		local xPlayer = ESX.GetPlayerFromId(source)
-		if xPlayer ~= nil then
-			for k,v in pairs(data) do
-				local source = ESX.GetPlayerFromIdentifier(tonumber(v.user_id))
-
-				if tryGetTruckerMoney(v.user_id,v.price + v.price_per_km) then
-					local amount = math.random(Config.trabalhos.valor_inicial_min,Config.trabalhos.valor_inicial_max)
-					amount = amount + (v.product_type+v.distance+v.fragile+v.valuable+v.fast)*(amount*(Config.trabalhos.porcentagem_bonus_habilidades/100))
-					giveTruckerMoney(v.user_id,amount)
-				else
-					local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
-					MySQL.query(sql, {['@driver_id'] = v.driver_id});
-					local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-					MySQL.query(sql, {['@driver_id'] = v.driver_id});
+				local data = MySQL.query.await(sql, {});	
+			if xPlayer then
+				for k,v in pairs(data) do
+					local identifier = xPlayer.getIdentifier()
+					local source = ESX.GetPlayerFromIdentifier(tonumber(identifier))
+					
+					if tryGetTruckerMoney(identifier,v.price + v.price_per_km) then
+						local amount = math.random(Config.trabalhos.valor_inicial_min,Config.trabalhos.valor_inicial_max)
+						amount = amount + (v.product_type+v.distance+v.fragile+v.valuable+v.fast)*(amount*(Config.trabalhos.porcentagem_bonus_habilidades/100))
+						giveTruckerMoney(identifier,amount)
+					else
+						local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
+						MySQL.query(sql, {['@driver_id'] = v.driver_id});
+						local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
+						MySQL.query(sql, {['@driver_id'] = v.driver_id});
+						if source then
+							TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
+						end
+					end
+	
 					if source then
-						TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
+						openUI(source, true)
 					end
 				end
-
-				if source then
-					openUI(source, true)
-				end
 			end
+			Citizen.Wait(Config.trabalhos.cooldown*1000*60)
 		end
-		Citizen.Wait(Config.trabalhos.cooldown*1000*60)
-	end
 end)
 
 -- Paga empréstimo

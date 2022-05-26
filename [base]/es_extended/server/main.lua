@@ -314,6 +314,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 		maxWeight = xPlayer.getMaxWeight(),
 		money = xPlayer.getMoney(),
 		firstname = userData.firstname,
+		phone = userData.phone,
 		lastname = userData.lastname,
 		dead = false
 	}, isNew, userData.skin)

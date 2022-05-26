@@ -61,6 +61,32 @@ function K9SniffVehicle(pId)
     return false
 end
 
+function getQuantityOfInven(src, itemid, checkQuality, inventory, metaInformation)
+	local amount = 0
+    for i,v in pairs(inventory) do
+        local qCheck = not checkQuality or v.quality > 0
+        if v.item_id == itemid and qCheck then
+            if metaInformation then
+                local totalMetaKeys = 0
+                local metaFoundCount = 0
+                local itemMeta = json.decode(v.information)
+                for metaKey, metaValue in pairs(metaInformation) do
+                    totalMetaKeys = totalMetaKeys + 1
+                    if itemMeta[metaKey] and itemMeta[metaKey] == metaValue then
+                        metaFoundCount = metaFoundCount + 1
+                    end
+                end
+                if totalMetaKeys <= metaFoundCount then
+                    amount = amount + v.amount
+                end
+            else
+                amount = amount + v.amount
+            end
+        end
+    end
+    return amount
+end
+
 function getQuantity(src, itemid, checkQuality, metaInformation)
     --local cid = exports["caue-base"]:getChar(src, "id")
 	local xPlayer = ESX.GetPlayerFromId(src)
@@ -116,6 +142,7 @@ exports("getItem", getItem)
 exports("getInventory", getInventory)
 exports("K9Sniff", K9Sniff)
 exports("K9SniffVehicle", K9SniffVehicle)
+exports("getQuantityOfInven", getQuantityOfInven)
 exports("getQuantity", getQuantity)
 exports("hasEnoughOfItem", hasEnoughOfItem)
 

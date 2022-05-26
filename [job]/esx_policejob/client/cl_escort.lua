@@ -26,7 +26,7 @@ function policeEscort()
 end
 
 function policeSeat()
-	if not inmenus and job == 'police' then
+	if not inmenus and ESX.GetPlayerData().job.name  == 'police' then
 		TriggerEvent("police:forceEnter")
 	end
 end
@@ -76,7 +76,7 @@ end
 
 RegisterNetEvent("pw-police:escort")
 AddEventHandler("pw-police:escort", function()
-	if not isDisabled() and DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
+	if DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
 		local t, distance, ped = GetClosestPlayer()
 
 		if distance ~= -1 and distance < 2.0 and GetEntitySpeed(ped) < 1.0 and not IsPedInAnyVehicle(ped, false) then
@@ -134,17 +134,18 @@ RegisterNetEvent("pw-police:unescort")
 AddEventHandler("pw-police:unescort", function()
 	TriggerServerEvent("pw-police:escorting", DecorGetInt(PlayerPedId(), "escorted"), 0, false)
 	TriggerServerEvent("pw-police:escorting", DecorGetInt(PlayerPedId(), "dragged"), 0, true)
-
+	
 	DecorSetInt(PlayerPedId(), "escorted", 0)
 	DecorSetInt(PlayerPedId(), "dragged", 0)
 
 	ClearPedTasks(PlayerPedId())
 	DetachEntity(PlayerPedId(), true, false)
+
 end)
 
 RegisterNetEvent("pw-police:drag")
 AddEventHandler("pw-police:drag", function()
-	if not isDisabled() and DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
+	if DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
 		local t, distance, ped = GetClosestPlayer()
 
 		if distance ~= -1 and distance < 1.0 and GetEntitySpeed(ped) < 1.0 and not IsPedInAnyVehicle(ped, false) then
@@ -252,7 +253,7 @@ AddEventHandler("police:forceSeatPlayer", function(vehNet, seat)
 		return
 	end
 
-	TriggerEvent("pw-police:unescort")
+
 	Citizen.Wait(100)
 	TaskWarpPedIntoVehicle(PlayerPedId(), veh, seat)
 end)
