@@ -49,9 +49,7 @@ AddEventHandler("pw-ems:showVehicles", function()
 end)
 
 
---RegisterUICallback('pw-ems:buyVeh', function (data, cb)
 AddEventHandler("pw-ems:buyVeh", function(params)
-    --cb({ data = {}, meta = { ok = true, message = '' } })
     local vehicle = params.vehicle
     local hash = GetHashKey(vehicle.model)
     local success = RPC.execute('pw-policejob:buyJobVehicle',vehicle.price)

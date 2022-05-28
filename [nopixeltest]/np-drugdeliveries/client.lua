@@ -700,7 +700,7 @@ function SearchPockets(ai)
             if IsControlJustReleased(1,38) and #(pos - GetEntityCoords(PlayerPedId())) < 3.0 then
                 searching = true
                 TriggerEvent("animation:PlayAnimation","search")
-                local finished = exports["np-taskbar"]:taskBar(15000,"Searching Thug")
+                local finished = exports["pw-taskbar"]:taskBar(15000,"Searching Thug")
 
                 if tonumber(finished) == 100 then
                     DropItemPed(ai)
@@ -995,7 +995,7 @@ function CompleteScrapping(vehicle, originalVehicleLocation)
 
 	TaskPlayAnim(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
 
-	local finished = exports["np-taskbar"]:taskBar(20000,"Scrapping Car")
+	local finished = exports["pw-taskbar"]:taskBar(20000,"Scrapping Car")
 	local currentLocation = GetEntityCoords(vehicle)
 	if finished == 100 then
 	    local vehicleDifference = #(currentLocation - originalVehicleLocation)
@@ -1105,7 +1105,7 @@ Citizen.CreateThread(function()
 				if IsControlJustReleased(0,38) then
 					if exports["pw-inventory"]:hasEnoughOfItem("goldbar",10,true) then
 						FreezeEntityPosition(PlayerPedId(),true)
-						local finished = exports["np-taskbar"]:taskBar(120000,"Đang đổi vàng")
+						local finished = exports["pw-taskbar"]:taskBar(120000,"Đang đổi vàng")
 						if finished == 100 then
 							FreezeEntityPosition(PlayerPedId(),false)
 							--TriggerEvent("pixerium:check",5,"goldtrade",false)

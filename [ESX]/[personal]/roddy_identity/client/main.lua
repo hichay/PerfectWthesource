@@ -1,4 +1,4 @@
--- Leaked By: Leaking Hub | J. Snow | leakinghub.com
+
 local loadingScreenFinished = false
 
 RegisterNetEvent('esx_identity:alreadyRegistered')
@@ -57,6 +57,7 @@ if not Config.UseDeferrals then
 					SetSkin(`mp_m_freemode_01`, true)
 				end
 				TriggerEvent('raid_clothes:openBarber',false)
+				TriggerEvent("player:receiveItem", "idcard", 1)
 				if not ESX.GetConfig().Multichar then TriggerEvent('esx_skin:playerRegistered') end
 			else
 				ESX.ShowNotification(_U('registration_error'))

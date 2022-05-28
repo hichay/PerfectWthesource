@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
 
                 CurrentVehicle = vehicle
                 CurrentSeat = GetPedVehicleSeat(PlayerPed)
-
+				TriggerEvent("attachedItems:block",true)
 				TriggerEvent('baseevents:enteredVehicle', vehicle, CurrentSeat, name, class, model)
 				TriggerServerEvent('baseevents:enteredVehicle', netId, CurrentSeat, name, class, model)
             end
@@ -79,7 +79,7 @@ Citizen.CreateThread(function()
                 local netId = NetworkGetNetworkIdFromEntity(PreviousVehicle)
                 local model = GetEntityModel(PreviousVehicle)
                 local name = GetDisplayNameFromVehicleModel(model)
-
+				TriggerEvent("attachedItems:block",false)
 				TriggerEvent('baseevents:leftVehicle', PreviousVehicle, PreviousSeat, name, class, model)
 				TriggerServerEvent('baseevents:leftVehicle', netId, PreviousSeat, name, class, model)
             elseif PreviousVehicle and PreviousVehicle ~= 0 and PreviousVehicle ~= CurrentVehicle then

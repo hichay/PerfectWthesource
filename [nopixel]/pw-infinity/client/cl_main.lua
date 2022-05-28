@@ -1,21 +1,21 @@
 local Promises, PlayerCoords, EntityCoords = {}, {}, {}
 
-RegisterNetEvent("caue:infinity:player:coords")
-AddEventHandler("caue:infinity:player:coords", function (pCoords)
+RegisterNetEvent("pw:infinity:player:coords")
+AddEventHandler("pw:infinity:player:coords", function (pCoords)
     PlayerCoords = pCoords
 
     --Fucking lack of support for vector3
-    TriggerEvent("caue:infinity:player:coords:array", GetCoordsArray(PlayerCoords))
+    TriggerEvent("pw:infinity:player:coords:array", GetCoordsArray(PlayerCoords))
 end)
 
-RegisterNetEvent("caue:infinity:entity:coords")
-AddEventHandler("caue:infinity:entity:coords", function (pNetId, pCoords)
+RegisterNetEvent("pw:infinity:entity:coords")
+AddEventHandler("pw:infinity:entity:coords", function (pNetId, pCoords)
     if Promises[pNetId] then
         Promises[pNetId]:resolve(pCoords)
     end
 
     --Fucking lack of support for vector3
-    TriggerEvent("caue:infinity:entity:coords:array", pNetId, VectorToArray(pCoords))
+    TriggerEvent("pw:infinity:entity:coords:array", pNetId, VectorToArray(pCoords))
 end)
 
 function FetchEntityCoords(pNetId, pArray)
@@ -24,7 +24,7 @@ function FetchEntityCoords(pNetId, pArray)
 
     Promises[pNetId] = result
 
-    TriggerServerEvent("caue:infinity:entity:coords", pNetId)
+    TriggerServerEvent("pw:infinity:entity:coords", pNetId)
 
     local coords = Citizen.Await(promise.first({ timeout, result }))
 
@@ -33,7 +33,7 @@ function FetchEntityCoords(pNetId, pArray)
     Citizen.SetTimeout(1000, function()
         EntityCoords[pNetId] = nil
         --More compatibility bs
-        TriggerEvent("caue:infinity:entity:coords:array", pNetId, nil)
+        TriggerEvent("pw:infinity:entity:coords:array", pNetId, nil)
     end)
 
     Promises[pNetId] = nil
@@ -107,5 +107,5 @@ end)
 
 Citizen.CreateThread(function()
     Citizen.Wait(2000)
-    TriggerServerEvent("caue:infinity:player:ready")
+    TriggerServerEvent("pw:infinity:player:ready")
 end)

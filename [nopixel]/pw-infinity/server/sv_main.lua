@@ -38,8 +38,8 @@ exports("GetNerbyPlayers", GetNerbyPlayers)
 
 ]]
 
-RegisterServerEvent("caue:infinity:player:ready")
-AddEventHandler("caue:infinity:player:ready", function()
+RegisterServerEvent("pw:infinity:player:ready")
+AddEventHandler("pw:infinity:player:ready", function()
     local src = source
 
     -- local ped = GetPlayerPed(src)
@@ -48,18 +48,18 @@ AddEventHandler("caue:infinity:player:ready", function()
     -- PlayersCoords[src] = coords
 end)
 
-RegisterServerEvent("caue:infinity:entity:coords")
-AddEventHandler("caue:infinity:entity:coords", function(pNetId)
+RegisterServerEvent("pw:infinity:entity:coords")
+AddEventHandler("pw:infinity:entity:coords", function(pNetId)
     local src = source
 
     local entity = NetworkGetEntityFromNetworkId(pNetId)
     local coords = GetEntityCoords(Gentity)
 
-    TriggerClientEvent("caue:infinity:entity:coords", src, coords)
+    TriggerClientEvent("pw:infinity:entity:coords", src, coords)
 end)
 
-RegisterServerEvent("caue:infinity:player:remove")
-AddEventHandler("caue:infinity:player:remove", function(src)
+RegisterServerEvent("pw:infinity:player:remove")
+AddEventHandler("pw:infinity:player:remove", function(src)
     PlayersCoords[src] = nil
 end)
 
@@ -79,7 +79,7 @@ Citizen.CreateThread(function()
             local coords = GetEntityCoords(ped)
 
             PlayersCoords[player] = coords
-            TriggerClientEvent("caue:infinity:player:coords", -1, PlayersCoords)
+            TriggerClientEvent("pw:infinity:player:coords", -1, PlayersCoords)
         end
     end
 end)

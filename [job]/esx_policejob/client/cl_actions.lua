@@ -62,7 +62,7 @@ end)
 RegisterNetEvent("police:checkInventory")
 AddEventHandler("police:checkInventory", function(pArgs, pEntity)
 	TriggerEvent("animation:PlayAnimation", "push")
-    local finished = exports["np-taskbar"]:taskBar(15000, pArgs and "Đang kiểm tra" , false, true, nil, false, nil, 5)
+    local finished = exports["pw-taskbar"]:taskBar(15000, pArgs and "Đang kiểm tra" , false, true, nil, false, nil, 5)
 	TriggerEvent("animation:PlayAnimation", "c")
 
     if finished == 100 then
@@ -80,7 +80,7 @@ AddEventHandler("police:rob", function(pArgs, pEntity)
     ClearPedTasksImmediately(PlayerPedId())
 
     TaskPlayAnim(PlayerPedId(), "random@shop_robbery", "robbery_action_b", 8.0, -8, -1, 16, 0, 0, 0, 0)
-    local finished = exports["np-taskbar"]:taskBar(60000, "Ăn trộm", true, true, nil, false, nil, 5)
+    local finished = exports["pw-taskbar"]:taskBar(60000, "Ăn trộm", true, true, nil, false, nil, 5)
 
     ClearPedTasksImmediately(PlayerPedId())
 
@@ -111,7 +111,7 @@ end) ]]
 
 AddEventHandler("pw-police:impound", function(pParams, pVehicle)
 	TriggerEvent("animation:PlayAnimation", "phone")
-    local finished = exports["np-taskbar"]:taskBar(math.random(5000, 10000), "Đang dọn xe")
+    local finished = exports["pw-taskbar"]:taskBar(math.random(5000, 10000), "Đang dọn xe")
     TriggerEvent("animation:PlayAnimation", "cancel")
 	local plate = GetVehicleNumberPlateText(pVehicle)
 	

@@ -512,7 +512,7 @@ AddEventHandler("pw-vehicles:repairVehicle", function(type)
     Citizen.Wait(100)
     TaskPlayAnim(PlayerPedId(), "mp_car_bomb","car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
 
-    local finished = exports["np-taskbar"]:taskBar(15000, "Repairing")
+    local finished = exports["pw-taskbar"]:taskBar(15000, "Repairing")
     if finished then
         if type == "body" then
             SetVehicleBodyHealth(vehicle, 1000.0)
@@ -823,13 +823,13 @@ Citizen.CreateThread(function()
             rTick = rTick + 1
 
 
-            if tick >= 5 then
+            if tick >= 15 then
                 getDegredation()
                 --updateVehicleHealth()
                 tick = 0
             end
 
-            if rTick >= 5 then
+            if rTick >= 60 then
                 TriggerEvent("pw-vehicles:randomDegredation", currentVehicle, 1, 3)
                 rTick = 0
             end

@@ -278,23 +278,23 @@ AddEventHandler('__cfx_internal:commandFallback', function(command)
 end)
 
 -- player join messages
-AddEventHandler('playerJoining', function()
-    if GetConvarInt('chat_showJoins', 1) == 0 then
-        return
-    end
-    local xPlayer = ESX.GetPlayerFromId(source)
-    local name = xPlayer.getName()
-    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name .. ' vừa connect.', { 158, 71, 158 } )
-end)
+-- AddEventHandler('playerJoining', function()
+    -- if GetConvarInt('chat_showJoins', 1) == 0 then
+        -- return
+    -- end
+    -- local xPlayer = ESX.GetPlayerFromId(source)
+    -- local name = xPlayer.getName()
+    -- TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name .. ' vừa connect.', { 158, 71, 158 } )
+-- end)
 
-AddEventHandler('playerDropped', function(reason)
-    if GetConvarInt('chat_showQuits', 1) == 0 then
-        return
-    end
-    local xPlayer = ESX.GetPlayerFromId(source)
-    local name = xPlayer.getName()
-    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name ..' vừa thoát (' .. reason .. ')', { 158, 71, 158 })
-end)
+-- AddEventHandler('playerDropped', function(reason)
+    -- if GetConvarInt('chat_showQuits', 1) == 0 then
+        -- return
+    -- end
+    -- local xPlayer = ESX.GetPlayerFromId(source)
+    -- local name = xPlayer.getName()
+    -- TriggerClientEvent('chatMessage', -1, '', '^2* ' .. name ..' vừa thoát (' .. reason .. ')', { 158, 71, 158 })
+-- end)
 
 RegisterCommand('say', function(source, args, rawCommand)
     routeMessage(source, (source == 0) and 'console' or GetPlayerName(source), rawCommand:sub(5), nil, true)

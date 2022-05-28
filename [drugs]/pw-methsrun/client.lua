@@ -468,7 +468,7 @@ Citizen.CreateThread(function()
 						local water = exports["pw-inventory"]:hasEnoughOfItem("water",5,false)
 						
 						if meththo and water then
-							local finished = exports["np-taskbar"]:taskBar(30000,"Pha chế Cocain",false,false,playerVeh)
+							local finished = exports["pw-taskbar"]:taskBar(30000,"Pha chế Cocain",false,false,playerVeh)
 								if (finished == 100) then
 									TriggerEvent("inventory:removeItem", "morphine", 1)
 									TriggerEvent("inventory:removeItem", "water", 5)
@@ -498,7 +498,7 @@ Citizen.CreateThread(function()
 					local scale = exports["pw-inventory"]:hasEnoughOfItem("smallscales",1,false)
 					
 					if meththo and bag and scale then
-						local finished = exports["np-taskbar"]:taskBar(30000,"Đóng gói Cocain",false,false,playerVeh)
+						local finished = exports["pw-taskbar"]:taskBar(30000,"Đóng gói Cocain",false,false,playerVeh)
 							if (finished == 100) then
 								TriggerEvent("inventory:removeItem", "curedmeth", 2)
 								TriggerEvent("inventory:removeItem", "emptymethbag", 1)
@@ -516,7 +516,7 @@ Citizen.CreateThread(function()
 			if not IsPedInAnyVehicle(PlayerPedId()) and IsControlJustReleased(0,38) then
 				local meth = exports["pw-inventory"]:hasEnoughOfItem("methbagged",5,false)
 				if meth then
-					local finished = exports["np-taskbar"]:taskBar(60000,"Đang bán",false,false,playerVeh)
+					local finished = exports["pw-taskbar"]:taskBar(60000,"Đang bán",false,false,playerVeh)
 						if (finished == 100) then
 							TriggerEvent("inventory:removeItem", "methbagged", 5)
 							TriggerEvent("player:receiveItem","cashroll",math.random(1,2),true,true,"Tiền không rõ nguồn gốc")

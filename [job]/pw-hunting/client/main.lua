@@ -516,7 +516,7 @@ if Config.EnableCampfire then
                 local land = false
                 local Z = nil
                 TaskStartScenarioInPlace(player, "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-                local finished = exports["np-taskbar"]:taskBar(Config.CampPlacingTime, "Đang đốt lửa", false, true, false, false, nil, 5.0)
+                local finished = exports["pw-taskbar"]:taskBar(Config.CampPlacingTime, "Đang đốt lửa", false, true, false, false, nil, 5.0)
                 if finished then
                     ClearPedTasksImmediately(player)
                     local x, y, z = table.unpack(GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1),0.0,3.0,5.0))
@@ -565,7 +565,7 @@ end
 function deleteCampfire(coords)
     if GetDistanceBetweenCoords(coords, GetEntityCoords(nearestCampfire), true) < 3.0 then
         TaskStartScenarioInPlace(player, "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-        local finished = exports["np-taskbar"]:taskBar(Config.CampPlacingTime, "Đang dập lửa", false, true, false, false, nil, 5.0)
+        local finished = exports["pw-taskbar"]:taskBar(Config.CampPlacingTime, "Đang dập lửa", false, true, false, false, nil, 5.0)
         if finished then
             ClearPedTasksImmediately(player) 
             DeleteObject(nearestCampfire)
@@ -642,7 +642,7 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 					TaskPlayAnim(player, "anim@gangops@facility@servers@bodysearch@", "player_search" ,1.0, -1.0, -1, 1, 0, false, false, false)
 					FreezeEntityPosition(PlayerPedId(), true)		
 					--exports['progressBars']:startUI(Config.TimeToHarvest, Config.Text['harvesting'])
-					local finished = exports["np-taskbar"]:taskBar(Config.TimeToHarvest, "Đang làm thịt", false, true, false, false, nil, 5.0)
+					local finished = exports["pw-taskbar"]:taskBar(Config.TimeToHarvest, "Đang làm thịt", false, true, false, false, nil, 5.0)
 
 					
 					--Citizen.Wait(Config.TimeToHarvest)
@@ -731,7 +731,7 @@ end)
 RegisterNetEvent('pw-hunting:client:bait')
 AddEventHandler('pw-hunting:client:bait', function()
     --exports['progressBars']:startUI(Config.BaitPlacingTime, Config.Text['placing_bait'])
-    exports["np-taskbar"]:taskBar(Config.BaitPlacingTime, "Đang đặt mồi", false, true, false, false, nil, 5.0)
+    exports["pw-taskbar"]:taskBar(Config.BaitPlacingTime, "Đang đặt mồi", false, true, false, false, nil, 5.0)
     TaskStartScenarioInPlace(player, "WORLD_HUMAN_GARDENER_PLANT", 0, true)
     Citizen.Wait(Config.BaitPlacingTime)
     ClearPedTasksImmediately(player)

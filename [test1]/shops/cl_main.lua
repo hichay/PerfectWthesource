@@ -74,26 +74,6 @@ AddEventHandler('blips:ToggleWeaponShop', function()
     end
 end)
 
-RegisterNetEvent('blips:ToggleHuntingStore')
-AddEventHandler('blips:ToggleHuntingStore', function()
-   showHuntingstoreBlips = not showHuntingstoreBlips
-   for _, item in pairs(huntingshop) do
-        if not showHuntingstoreBlips then
-            if item.blip ~= nil then
-                RemoveBlip(item.blip)
-            end
-        else
-            item.blip = AddBlipForCoord(item[1], item[2], item[2])
-            SetBlipSprite(item.blip, 463)
-            SetBlipColour(item.blip, 48)
-			SetBlipScale(item.blip, 1.0)
-            SetBlipAsShortRange(item.blip, true)
-            BeginTextCommandSetBlipName("CUSTOM_TEXT")
-            AddTextComponentString("Cửa hàng thợ săn")
-            EndTextCommandSetBlipName(item.blip)
-        end
-    end
-end)
 
 RegisterNetEvent('blips:ToggleMinimarket')
 AddEventHandler('blips:ToggleMinimarket', function()

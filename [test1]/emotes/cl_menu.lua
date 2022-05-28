@@ -377,7 +377,7 @@ Citizen.CreateThread(function()
         end
     end
     while true do
-        Citizen.Wait(1)
+        Citizen.Wait(100)
         if not dToggle then
             for i,v in ipairs(currentKeys) do
                 if v.key[2] ~= nil then

@@ -3,7 +3,7 @@ SetMapName('San Andreas')
 SetGameType('Perfect Roleplay')
 
 local newPlayer = 'INSERT INTO `users` SET `accounts` = ?, `identifier` = ?, `group` = ?'
-local loadPlayer = 'SELECT `id`, `accounts`, `job`, `job_grade`, `group`, `position`, `inventory`, `skin`, `loadout`'
+local loadPlayer = 'SELECT `id`, `accounts`, `job`, `job_grade`, `group`, `position`, `inventory`, `skin`, `loadout` , `phone`'
 
 if Config.Multichar then
 	newPlayer = newPlayer..', `firstname` = ?, `lastname` = ?, `dateofbirth` = ?, `sex` = ?, `height` = ?'
@@ -301,7 +301,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 	end
 
 	TriggerEvent('esx:playerLoaded', playerId, xPlayer, isNew)
-
+	xPlayer.triggerEvent('esx:setmoneyinfo',xPlayer.getMoney())
 	xPlayer.triggerEvent('esx:playerLoaded', {
 		cid  = xPlayer.getIdentifier(),
 		id = xPlayer.id,
@@ -314,7 +314,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 		maxWeight = xPlayer.getMaxWeight(),
 		money = xPlayer.getMoney(),
 		firstname = userData.firstname,
-		phone = userData.phone,
+		phone = result.phone,
 		lastname = userData.lastname,
 		dead = false
 	}, isNew, userData.skin)

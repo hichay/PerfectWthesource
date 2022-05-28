@@ -170,7 +170,7 @@ RegisterUICallback('pw-doors:elevator:teleport', function (data, cb)
             local playerCoords = GetEntityCoords(playerPed)
 
             if #(startingCoords - playerCoords) >= 1.6 or IsPedRagdoll(playerPed) or IsPedBeingStunned(playerPed) then
-                exports['np-taskbar'].taskCancel()
+                exports['pw-taskbar'].taskCancel()
             end
 
             Citizen.Wait(100)
@@ -178,7 +178,7 @@ RegisterUICallback('pw-doors:elevator:teleport', function (data, cb)
     end)
 
     local time = math.random(4000, 12000)
-    local finished = exports["np-taskbar"]:taskBar(time, "Waiting for the Elevator", false)
+    local finished = exports["pw-taskbar"]:taskBar(time, "Waiting for the Elevator", false)
 
     taskActive = false
 

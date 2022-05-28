@@ -108,13 +108,14 @@ AddEventHandler("pw-vehicles:garage", function()
         }
     end
 
-    exports["np-ui"]:showContextMenu(data)
+    exports["pw-context"]:showContextMenu(data)
 end)
 
 
-RegisterUICallback('pw-vehicles:retriveVehicle', function (data, cb)
-    cb({ data = {}, meta = { ok = true, message = '' } })
-    local vehicle = RPC.execute("pw-vehicles:getVehicle", data.key)
+--RegisterUICallback('pw-vehicles:retriveVehicle', function (data, cb)
+RegisterNetEvent('pw-vehicles:retriveVehicle',function(data)
+    --cb({ data = {}, meta = { ok = true, message = '' } })
+    local vehicle = RPC.execute("pw-vehicles:getVehicle", data)
     if vehicle then
         if not nearGarage["coords"] then return end
         --TriggerEvent('table',nearGarage["coords"])

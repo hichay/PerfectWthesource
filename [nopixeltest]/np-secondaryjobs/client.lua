@@ -825,7 +825,7 @@ function SearchPockets(ai)
             if IsControlJustReleased(1,Controlkey["generalUse"][1]) then
                 searching = true
                 TriggerEvent("animation:PlayAnimation","search")
-                local finished = exports["np-taskbar"]:taskBar(25000,"Searching Thug")
+                local finished = exports["pw-taskbar"]:taskBar(25000,"Searching Thug")
                 if finished == 100 then
                     DropItemPed(ai)
                 end

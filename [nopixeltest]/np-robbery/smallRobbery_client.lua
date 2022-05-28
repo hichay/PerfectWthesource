@@ -254,7 +254,7 @@ AddEventHandler("robbery:scanLock", function(lockpick,cardType)
             }
           })
           print("vault trigger")
-          local finished = exports["np-taskbar"]:taskBar(3500,"Requesting Access")
+          local finished = exports["pw-taskbar"]:taskBar(3500,"Requesting Access")
           TriggerEvent('inventory:removeItem',cardType, 1)
           if finished ~= 100 or not passCard then 
               TriggerEvent("DoLongHudText","Incorrect card or you cancelled..",2)
@@ -276,7 +276,7 @@ AddEventHandler("robbery:scanLock", function(lockpick,cardType)
             }
           })
 
-          local finished = exports["np-taskbar"]:taskBar(3500,"Requesting Access")
+          local finished = exports["pw-taskbar"]:taskBar(3500,"Requesting Access")
             TriggerEvent('inventory:removeItem',cardType, 1)
           if finished ~= 100 or not passCard then
               TriggerEvent("DoLongHudText","Incorrect card or you cancelled..",2)
@@ -376,7 +376,7 @@ AddEventHandler("robbery:secure", function()
     return
   end
 
-  local finished = exports["np-taskbar"]:taskBar(25000,"Securing Bank")
+  local finished = exports["pw-taskbar"]:taskBar(25000,"Securing Bank")
   if finished == 100 then
     TriggerServerEvent("robbery:shutdown",nearbank)
   end
@@ -545,7 +545,7 @@ function DrawTextAndScan(x,y,z, inputType)
         if inputType < 5 then
           timer = 20000
         end
-        local finished = exports["np-taskbar"]:taskBar(timer,"Opening")
+        local finished = exports["pw-taskbar"]:taskBar(timer,"Opening")
         if finished == 100 then
           TriggerServerEvent("robbery:checkSearch",nearbank, inputType)
         end

@@ -367,12 +367,12 @@ function attemptToRob(itemID,activePolice)
     if itemID == "Gruppe6Card2" then
 
         if exports["pw-inventory"]:hasEnoughOfItem("electronickit",1,false) then
-            local card = exports["np-taskbar"]:taskBar(9000,"Inserting Card")
+            local card = exports["pw-taskbar"]:taskBar(9000,"Inserting Card")
             if card == 100 then
                 Wait(400)
                 TriggerEvent("animation:cancel")
                 TriggerServerEvent("robbery:alarmTrigger",locationID)
-                local rdif = exports["np-taskbar"]:taskBar(6000,"Hacking..")
+                local rdif = exports["pw-taskbar"]:taskBar(6000,"Hacking..")
                 if  rdif == 100 then
                     local kit = difficult.kit
                     TriggerEvent('inventory:removeItem',"Gruppe6Card2", 1)
@@ -395,12 +395,12 @@ function attemptToRob(itemID,activePolice)
         print('pog')
 
         if exports["pw-inventory"]:hasEnoughOfItem("electronickit",1,false) then
-            local card = exports["np-taskbar"]:taskBar(9000,"Inserting Card")
+            local card = exports["pw-taskbar"]:taskBar(9000,"Inserting Card")
             if card == 100 then
                 Wait(400)
                  TriggerEvent("animation:cancel")
                 TriggerServerEvent("robbery:alarmTrigger",locationID)
-                local rdif = exports["np-taskbar"]:taskBar(6000,"Hacking..")
+                local rdif = exports["pw-taskbar"]:taskBar(6000,"Hacking..")
                 if  rdif == 100 then
                     local kit = difficult.kit
                     TriggerEvent('inventory:removeItem',"Gruppe6Card22", 1)
@@ -438,7 +438,7 @@ function thermiteHandle(locationID,itemID)
     local marker = markers[locationID]
     local particle = particlePos[locationID]
 
-    local taskFinished = exports["np-taskbar"]:taskBar(1000,"Getting Thermite ready")
+    local taskFinished = exports["pw-taskbar"]:taskBar(1000,"Getting Thermite ready")
     if taskFinished == 100 then
        
         TriggerEvent("attachItem","minigameThermite")

@@ -101,7 +101,7 @@ Citizen.CreateThread(function()
             end
         end
         if type(closeTo) == 'table' then
-            while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), closeTo.coords, true) <= 2.5 and not exploded do
+            while #(GetEntityCoords(PlayerPedId() - closeTo.coords)) <= 2.5 and not exploded do
                 local counter = 0
                 Wait(0)
                 helpText(Strings['press_mine'])

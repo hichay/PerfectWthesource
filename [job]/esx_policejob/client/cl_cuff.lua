@@ -147,12 +147,12 @@ AddEventHandler("pw-police:getArrested", function(cuffer)
 		lastCuffAttemptTime = GetGameTimer()
         exports["pw-lib"]:setVar("recentcuff", GetGameTimer())
         local cuffAttemptTbl = {
-			[1] = { 4000, 15 },
-			[2] = { 4000, 13 },
-			[3] = { 4000, 11 },
-			[4] = { 4000, 9 },
+			[1] = { 1000, 15 },
+			[2] = { 900, 13 },
+			[3] = { 800, 11 },
+			[4] = { 700, 9 },
 		}
-		finished = exports["np-taskbarskill"]:taskBarSkill(cuffAttemptTbl[cuffAttemptCount][1], cuffAttemptTbl[cuffAttemptCount][2])
+		finished = exports["pw-taskbarskill"]:taskBarSkill(cuffAttemptTbl[cuffAttemptCount][1], cuffAttemptTbl[cuffAttemptCount][2])
 	end
 
 	if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(cuffPed)) < 2.5 and finished ~= 100 then

@@ -1,7 +1,7 @@
 ActiveAreaEvents = {}
 
 Citizen.CreateThread(function()
-    ActiveAreaEvents = RPC.execute("caue:sync:getActiveEvents") or {}
+    ActiveAreaEvents = RPC.execute("pw:sync:getActiveEvents") or {}
 
     while true do
         local idle = 1000
@@ -124,13 +124,13 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent("caue:sync:active:area:start")
-AddEventHandler("caue:sync:active:area:start", function (data)
+RegisterNetEvent("pw:sync:active:area:start")
+AddEventHandler("pw:sync:active:area:start", function (data)
     ActiveAreaEvents[#ActiveAreaEvents + 1] = data
 end)
 
-RegisterNetEvent("caue:sync:active:area:stop")
-AddEventHandler("caue:sync:active:area:stop", function (pEventId)
+RegisterNetEvent("pw:sync:active:area:stop")
+AddEventHandler("pw:sync:active:area:stop", function (pEventId)
     local data, index = GetEventData(pEventId)
     if data then
         ActiveAreaEvents[index] = nil

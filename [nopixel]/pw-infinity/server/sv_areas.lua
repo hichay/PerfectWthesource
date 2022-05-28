@@ -1,3 +1,3 @@
-RPC.register("caue:sync:getActiveEvents", function(src)
+RPC.register("pw:sync:getActiveEvents", function(src)
     return {}
 end)

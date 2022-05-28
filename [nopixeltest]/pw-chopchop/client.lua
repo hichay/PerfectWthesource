@@ -250,7 +250,7 @@ function CompleteScrapping(vehicle, originalVehicleLocation)
 
 	TaskPlayAnim(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
 
-	local finished = exports["np-taskbar"]:taskBar(20000,"Scrapping Car")
+	local finished = exports["pw-taskbar"]:taskBar(20000,"Scrapping Car")
 	local currentLocation = GetEntityCoords(vehicle)
 	if finished == 100 then
 	    local vehicleDifference = #(currentLocation - originalVehicleLocation)

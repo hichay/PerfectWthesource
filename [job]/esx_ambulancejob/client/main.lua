@@ -37,7 +37,7 @@ RegisterNetEvent('pw-ems:checkIn')
 AddEventHandler('pw-ems:checkIn', function()
 	loadAnimDict("anim@narcotics@trash")
 	TaskPlayAnim(PlayerPedId(),"anim@narcotics@trash", "drop_front",1.0, 1.0, -1, 1, 0, 0, 0, 0)
-	local finished = exports["np-taskbar"]:taskBar(1700, "Kiểm tra thông tin")
+	local finished = exports["pw-taskbar"]:taskBar(1700, "Kiểm tra thông tin")
 	ClearPedSecondaryTask(PlayerPedId())
 	if finished == 100 then
 		TriggerEvent("bed:checkin")
@@ -174,7 +174,7 @@ function OnPlayerDeath()
     exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isDead", true)
 	TriggerEvent('Evidence:isDead')
 	StartDeathTimer()
-	StartDistressSignal()
+	--StartDistressSignal()
 	ClearPedTasksImmediately(PlayerPedId())
     loadAnimDict("dead")
     TaskPlayAnim(PlayerPedId(), "dead", "dead_d", 8.0, -8, -1, 1, 0, 0, 0, 0)
@@ -222,31 +222,32 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	end
 end)
 
-function StartDistressSignal()
-	Citizen.CreateThread(function()
-		local timer = Config.BleedoutTimer
+-- function StartDistressSignal()
+	-- Citizen.CreateThread(function()
+		-- local timer = Config.BleedoutTimer
 
-		while timer > 0 and isDead do
-			Citizen.Wait(0)
-			timer = timer - 30
+		-- while timer > 0 and isDead do
+			-- Citizen.Wait(0)
+			-- timer = timer - 30
 
-			SetTextFont(ESX.FontId)
-			SetTextScale(0.45, 0.45)
-			SetTextColour(185, 185, 185, 255)
-			SetTextDropshadow(0, 0, 0, 0, 255)
-			SetTextDropShadow()
-			SetTextOutline()
-			BeginTextCommandDisplayText('CUSTOM_TEXT')
-			AddTextComponentSubstringPlayerName(_U('distress_send'))
-			EndTextCommandDisplayText(0.175, 0.805)
+			-- SetTextFont(ESX.FontId)
+			-- SetTextScale(0.45, 0.45)
+			-- SetTextColour(185, 185, 185, 255)
+			-- SetTextDropshadow(0, 0, 0, 0, 255)
+			-- SetTextDropShadow()
+			-- SetTextOutline()
+			-- BeginTextCommandDisplayText('CUSTOM_TEXT')
+			-- AddTextComponentSubstringPlayerName(_U('distress_send'))
+			-- EndTextCommandDisplayText(0.175, 0.805)
 
-			if IsControlJustReleased(0, 47) then
-				SendDistressSignal()
-				break
-			end
-		end
-	end)
-end
+			-- if IsControlJustReleased(0, 47) then
+				-- SendDistressSignal()
+				-- TriggerEvent('alert:AlertDeath')
+				-- break
+			-- end
+		-- end
+	-- end)
+-- end
 
 function SendDistressSignal()
 	local playerPed = PlayerPedId()

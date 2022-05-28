@@ -60,12 +60,12 @@ AddEventHandler("caue-vehicles:refuel",function()
     if not curFuel or curFuel == 100 then return end
 
     local price = (100 - curFuel) * 3
-    local tax = RPC.execute("caue-financials:priceWithTax", price, "Services")
+    local tax = RPC.execute("pw-blance:priceWithTax", price, "Services")
 
     local data = {
         {
             title = "Gas Station",
-            description = "$" .. tax.total .. " Incl. " .. tax.porcentage .. "% tax",
+            description = "$" .. tax.total .. " Incl. " .. tax.percent .. "% tax",
             action = "caue-vehicles:refuelVehicle",
             params = {
                 price = tax.total,
@@ -89,14 +89,21 @@ AddEventHandler("caue-vehicles:refuelVehicle",function(params)
     local curFuel = GetVehicleFuel(vehicle)
     if not curFuel or curFuel == 100 then return end
 
-    local refuel = RPC.execute("caue-vehicles:refuel", params.price, params.tax)
-    if not refuel then return end
+    --local refuel = RPC.execute("caue-vehicles:refuel", params.price, params.tax)
+    --if not refuel then return end
 
     ClearPedSecondaryTask(PlayerPedId())
     loadAnimDict("weapon@w_sp_jerrycan")
     TaskPlayAnim(PlayerPedId(), "weapon@w_sp_jerrycan", "fire", 8.0, 1.0, -1, 1, 0, 0, 0, 0)
 
-    local finished = exports["caue-taskbar"]:taskBar((100 - curFuel) * 400, "Refueling")
+    local finished = exports["pw-taskbar"]:taskBar((100 - curFuel) * 400, "Refueling")
+	if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
+		local Chance = math.random(1, 100)
+	if Chance <= Config.BlowUpChance then
+		AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
+			return
+		end
+	end
     if finished == 100 then
         SetVehicleFuel(vehicle, 100)
     else
@@ -110,15 +117,15 @@ AddEventHandler("caue-vehicles:refuelVehicle",function(params)
     ClearPedTasksImmediately(PlayerPedId())
 end)
 
-AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat, vehicleDisplayName)
-    local vid = GetVehicleIdentifier(pCurrentVehicle)
-    if vid then
-        local fuel = GetVehicleFuel(pCurrentVehicle)
-        if not fuel then return end
+-- AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat, vehicleDisplayName)
+    -- local vid = GetVehicleIdentifier(pCurrentVehicle)
+    -- if vid then
+        -- local fuel = GetVehicleFuel(pCurrentVehicle)
+        -- if not fuel then return end
 
-        RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "fuel", fuel)
-    end
-end)
+        -- RPC.execute("caue-vehicles:updateVehicle", vid, "metadata", "fuel", fuel)
+    -- end
+-- end)
 
 --[[
 

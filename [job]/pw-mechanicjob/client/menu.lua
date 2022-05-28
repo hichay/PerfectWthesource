@@ -1,14 +1,7 @@
-RegisterCommand("kiemtra", function(source, args, rawCommand)
-	TriggerEvent('pw-mechanicjob:MainMenu')
-end, false)
 
 RegisterNetEvent('pw-mechanicjob:MainMenu', function()
 
-    local vehicle = nil
-    local target = exports["pw-interact"]:GetCurrentEntity()
-    if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
-        vehicle = target
-    end
+    local vehicle = GetVehiclePedIsIn(PlayerPedId(),false)
 
     if not vehicle then return end
 
@@ -110,14 +103,13 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
 	exports["pw-context"]:showContext(data)
 end)
 
+
+
 --RegisterUICallback('pw-vehicles:repairVehicle', function (data, cb)
-AddEventHandler("pw-ems:buyVeh", function(params)
+AddEventHandler("pw-vehicles:repairVehicle", function(params)
 	--cb({ data = {}, meta = { ok = true, message = '' } })
   local type = params.name
-  local target = exports["pw-interact"]:GetCurrentEntity()
-  if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
-      vehicle = target
-  end
+  local vehicle = GetVehiclePedIsIn(PlayerPedId(),false)
 
   if not vehicle then return end
 
@@ -127,14 +119,11 @@ AddEventHandler("pw-ems:buyVeh", function(params)
   local engineHealth = GetVehicleEngineHealth(vehicle)
   local class = exports["pw-vehicles"]:GetVehicleClass(vehicle)
 
-  if class == "X" then
-    class = "S"
-  end
+  local item = string.lower(class).."fix"..type
 
-  --[[ local item = type.."repair"..string.lower(class)
   if not exports["pw-inventory"]:hasEnoughOfItem(item, 1, true) then return end
 
-  TriggerEvent("inventory:removeItem", item, 1) ]]
+  TriggerEvent("inventory:removeItem", item, 1)
 
   Citizen.Wait(100)
 
@@ -143,7 +132,7 @@ AddEventHandler("pw-ems:buyVeh", function(params)
 	Citizen.Wait(100)
 	TaskPlayAnim(PlayerPedId(), "mp_car_bomb","car_bomb_mechanic", 8.0, -8, -1, 49, 0, 0, 0, 0)
 
-	local finished = exports["np-taskbar"]:taskBar(15000, "Repairing")
+	local finished = exports["pw-taskbar"]:taskBar(15000, "Repairing")
     if finished then
         if type == "body" then
             SetVehicleBodyHealth(vehicle, 1000.0)
@@ -175,4 +164,84 @@ AddEventHandler("pw-ems:buyVeh", function(params)
     end
 
     ClearPedTasks(PlayerPedId())
+end)
+
+
+RegisterNetEvent('pw-mechanicjob:Check', function()
+
+  local vehicle = nil
+  local target = exports["pw-interact"]:GetCurrentEntity()
+  if DoesEntityExist(target) and GetEntityType(target) == 2 and #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(target)) < 5 then
+      vehicle = target
+  end
+
+
+  if not vehicle then return end
+
+  local plate = GetVehicleNumberPlateText(vehicle)
+  local class = exports["pw-vehicles"]:GetVehicleClass(vehicle)
+  local mileage = RPC.execute("pw-vehicles:getMileage", plate)
+  local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
+  degHealth["body"] = round(GetVehicleBodyHealth(vehicle) / 10)
+  degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
+
+  local data = {
+    {
+        title = "Kết thúc sửa chữa",
+        description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
+        action = 'pw-mechanicjob:DetachVehicle',
+    },
+    {
+      icon = "check",
+      title = "Kiểm tra xe",
+      children = {
+          
+          {
+            title = "1. Động cơ",
+            description = "Tình trạng: " .. degHealth.engine,
+          },
+          {
+              title = "2. Thân vỏ",
+              description = "Tình trạng: " .. degHealth.body,
+          },
+          
+          {
+              title = "3. Ly hợp",
+              description = "Tình trạng: " .. degHealth.clutch,
+          },
+          {
+              title = "4. Thiết bị điện tử",
+              description = "Tình trạng: " .. degHealth.electronics,
+          },
+          
+          {
+              title = "5. Bộ tản nhiệt động cơ",
+              description = "Tình trạng: " .. degHealth.radiator,
+          },
+          {
+              title = "6. Kim phun nhiên liệu",
+              description = "Tình trạng: " .. degHealth.injector,
+          },
+          {
+              title = "7. Trục chuyển",
+              description = "Tình trạng: " .. degHealth.transmission,
+          },
+          {
+              title = "8. Lốp xe",
+              description = "Tình trạng: " .. degHealth.tire,
+          },
+          {
+              title = "9. Đĩa phanh",
+              description = "Tình trạng: " .. degHealth.brake,
+          },
+          {
+              title = "10. Cây trục",
+              description = "Tình trạng: " .. degHealth.axle,
+          },
+        },
+      },
+  },
+
+  --exports["np-ui"]:showContextMenu(data)
+exports["pw-context"]:showContext(data)
 end)
