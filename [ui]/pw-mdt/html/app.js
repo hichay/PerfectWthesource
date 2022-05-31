@@ -419,7 +419,7 @@ $(document).ready(() => {
         if ($(".badge-logo").attr('src') == 'https://cdn.discordapp.com/attachments/770324167894761522/912602342275301396/ems_badge.png') {
             $(".manage-incidents-reports-content").val("ICU Room #: [ # ]\n\nReport ID: [ Report ID ]\n\nTime Admitted: [ Date and Time Here ]\n\nSurgery: [Yes/No]\n\nInjuries/Ailments:\n - [ Enter List Of Injuries Here ]\n\n\nAdditional Attending:\n - [ List Any Other Staff Here ]\n\n\n🧑‍🤝‍🧑 Additonal Emergency Contacts:\n - [ Name And Number ]\n\n\nNotes:\n[Additional Notes Here]");
             $("#manage-incidents-title-input").val("Name - " + $(".date").html());
-            $(".manage-incidents-editing-title").html("You are currently creating a new check-in report");
+            $(".manage-incidents-editing-title").html("Bạn đang tạo báo cáo nhận phòng mới");
             $(".manage-incidents-title-holder").empty();
             $(".manage-incidents-title-holder").prepend(
                 `
@@ -623,7 +623,7 @@ $(document).ready(() => {
             {
                 "className": "expand-image",
                 "icon": "fas fa-expand",
-                "text": "Expandir Imagem",
+                "text": "Xem Hình Ảnh",
                 "info": $(this).attr("src"),
                 "status": $(this).css("filter")
             },
@@ -948,7 +948,7 @@ $(document).ready(() => {
     $(".manage-bolos-title-holder").on("click", ".manage-bolos-new", function () {
         var template = "";
         if ($(".badge-logo").attr('src') == 'https://cdn.discordapp.com/attachments/770324167894761522/912602342275301396/ems_badge.png') {
-            template = "ICU Room #: [ # ]\n\nReport ID: [ Report ID ]\n\nTime Admitted: [ Date and Time Here ]\n\nSurgery: [Yes/No]\n\nInjuries/Ailments:\n - [ Enter List Of Injuries Here ]\n\n\nAdditional Attending:\n - [ List Any Other Staff Here ]\n\n\n🧑‍🤝‍🧑 Additonal Emergency Contacts:\n - [ Name And Number ]\n\n\nNotes:\n[Additional Notes Here]"
+            template = "Phòng bệnh #: [ # ]\n\nNgười Báo Cáo : [ ID Của Người Báo Cáo ]\n\nThời Gian : [ Ngày - Thời Gian ]\n\nPhẩu Thuật :  [Có Hoặc Không ]\n\nBị Vết Thương  / Bệnh Gì :\n - [ Note Lại Những Vết Thương ]\n\n\nLưu Ý Bổ Sung Thêm :\n  - [ Tự Ghi Vào ]\n\n\n🧑‍🤝‍🧑 Liên Hệ Khẩn Cấp Khi Cần :\n - [ Tên + Số Điện Thoại ]\n\n\nGhi Chú :\n-  [ Ghi Vào Phần Này ]"
         }
         $(".manage-bolos-editing-title").html("Bạn đang tạo một BOLO mới")
         $(".manage-bolos-input-title").val('');
@@ -1264,7 +1264,7 @@ $(document).ready(() => {
         args = [{
             "className": "missing-delete",
             "icon": "fas fa-times",
-            "text": "Remove",
+            "text": "Xóa",
             "info": $(this).data("dbid"),
             "status": ""
         }, ]
@@ -1296,7 +1296,7 @@ $(document).ready(() => {
             args = [{
                 "className": "bolo-delete",
                 "icon": "fas fa-times",
-                "text": "Delete Check-In",
+                "text": "Xóa Hồ Sơ",
                 "info": $(this).data("id"),
                 "status": ""
             }, ]
@@ -1857,7 +1857,7 @@ $(document).ready(() => {
             {
                 "className": "expand-image",
                 "icon": "fas fa-expand",
-                "text": "Expandir Imagem",
+                "text": "Xem Hình Ảnh",
                 "info": $(this).attr("src"),
                 "status": $(this).css("filter")
             },
@@ -2832,7 +2832,7 @@ $(document).ready(() => {
                 $(".convictions-title").html("Tội Trạng Từng Mắc");
 
                 $(".incidents-nav-item").html('<i class="fas fa-stethoscope"></i> Sự cố');
-                $(".incidents-title").html(`<span class="fas fa-search"></span> Sự cố`);
+                $(".incidents-title").html(`<span class="fas fa-search"></span> Sự Cố`);
                 $("#incidents-search-input").attr('placeholder', 'Tìm kiếm...');
                 $(".manage-incidents-reports-content").attr('placeholder', 'Nội dung báo cáo sự cố tại đây...');
                 $(".manage-incidents-title").html("Sự Cố");
@@ -2857,10 +2857,10 @@ $(document).ready(() => {
                 $("#boloindividual").attr('placeholder', 'Tên loại hình...');
 
                 $(".roster-iframe").attr("src", PoliceRoster)
-            } else if (["ambulance", "ems", "doctor", "fire_department"].includes(sentJob)) {
+            } else if (["ems", "ambulance", "doctor", "fire_department"].includes(sentJob)) {
                 $(".badge-logo").attr('src', 'https://cdn.discordapp.com/attachments/770324167894761522/912602342275301396/ems_badge.png');
                 $(".header-title").html("PERFECT WORLD MEDICAL DEPARTMENT");
-                $(".quote-span").html("Thích thì cứu không thích thì cứu 🐒");
+                $(".quote-span").html("Thích Thì Cứu Không Thích Thì Cứu 🐒");
                 $(".dispatch-title-ofsomesort").html("Tin Nhắn")
 
                 document.documentElement.style.setProperty('--color-1', '#551e1e');
@@ -2880,7 +2880,7 @@ $(document).ready(() => {
                 $("#home-warrants-container").fadeOut(0)
                 $("#home-reports-container").fadeIn(0)
 
-                $(".convictions-title").html("Treatments");
+                $(".convictions-title").html("Điều Trị");
 
                 $(".incidents-nav-item").html('<i class="fas fa-stethoscope"></i> ICU');
                 $(".incidents-title").html("Hồ sơ");
@@ -3050,7 +3050,7 @@ $(document).ready(() => {
             let number = table["phone"].toString()
             let phoneNumber = `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(6, 10)}`
 
-            $(".manage-profile-editing-title").html("Bạn hiện đang chỉnh sửa thông tin của " + table["firstname"] + " " + table["lastname"])
+            $(".manage-profile-editing-title").html("Bạn đang chỉnh sửa thông tin của " + table["firstname"] + " " + table["lastname"])
             $(".manage-profile-citizenid-input").val(table["cid"]);
             $(".manage-profile-name-input-1").val(table["firstname"])
             $(".manage-profile-name-input-2").val(table["lastname"])
@@ -3601,7 +3601,7 @@ $(document).ready(() => {
             $(".associated-incidents-tags-holder").html("")
 
             if ($(".badge-logo").attr('src') == 'https://cdn.discordapp.com/attachments/770324167894761522/912602342275301396/ems_badge.png') {
-                $(".manage-incidents-editing-title").html("You are currently editing check-in report " + table["id"]);
+                $(".manage-incidents-editing-title").html("Bạn đang chỉnh sửa báo cáo nhận phòng " + table["id"]);
             } else {
                 $(".manage-incidents-editing-title").html("Bạn đang chỉnh sửa tai nạn " + table["id"]);
             }
@@ -3650,7 +3650,7 @@ $(document).ready(() => {
             } else {
                 $(".manage-incidents-title-holder").prepend(
                     `
-                    <div class="manage-incidents-title">Incidente</div>
+                    <div class="manage-incidents-title">Tai Nạn</div>
                     <div class="manage-incidents-create"> <span class="fas fa-plus" style="margin-top: 3.5px;"></span></div>
                     <div class="manage-incidents-save"><span class="fas fa-save" style="margin-top: 3.5px;"></span></div>
                     `
@@ -3798,7 +3798,7 @@ $(document).ready(() => {
             $(".manage-bolos-editing-title").html("Bạn đang chỉnh sửa BOLO " + table["id"]);
 
             if ($(".badge-logo").attr('src') == 'https://cdn.discordapp.com/attachments/770324167894761522/912602342275301396/ems_badge.png') {
-                $(".manage-bolos-editing-title").html("You are editing ICU Check-in " + table["id"]);
+                $(".manage-bolos-editing-title").html("Bạn đang chỉnh sửa hồ sơ ICU" + table["id"]);
             }
 
             $(".manage-bolos-editing-title").data("id", Number(table["id"]));
@@ -4065,10 +4065,10 @@ $(document).ready(() => {
             }
 
             $('.vehicle-tags').prepend(`<div class="dmv-tag ${table.color}-color">${table.colorName}</div>`);
-            $('.vehicle-tags').append(`<div class="vehicle-tag ${impound}">Apreendido</div>`);
+            $('.vehicle-tags').append(`<div class="vehicle-tag ${impound}">Giam</div>`);
             $('.vehicle-tags').append(`<div class="vehicle-tag ${bolo}">BOLO</div>`);
-            $('.vehicle-tags').append(`<div class="vehicle-tag ${stolen} stolen-tag">Roubado</div>`);
-            $('.vehicle-tags').append(`<div class="vehicle-tag ${code5} code5-tag">Código 5</div>`);
+            $('.vehicle-tags').append(`<div class="vehicle-tag ${stolen} stolen-tag">Mất Trộm</div>`);
+            $('.vehicle-tags').append(`<div class="vehicle-tag ${code5} code5-tag">Code 5</div>`);
             $(".vehicle-info-imageurl-input").val(table["image"]);
         } else if (e.type == "getWeaponData") {
             let table = e.data

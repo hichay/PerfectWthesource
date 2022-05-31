@@ -53,7 +53,7 @@ PedEntries[#PedEntries+1] = {
 PedEntries[#PedEntries+1] = {
     data = {
         id = "peds-cuffActions",
-        title = "Cuff Actions",
+        title = "Hành động còng",
         icon = "#cuffs",
     },
     subMenus = {"cuffs:softcuff", "cuffs:remmask", "cuffs:beatmode", "cuffs:blindfold"},
@@ -145,7 +145,7 @@ PedEntries[#PedEntries+1] = {
 MenuItems['police:frisk'] = {
   data = {
       id = "peds-frisk",
-      title = "Frisk",
+      title = "Khám xét",
       icon = "#police-action-frisk",
       event = "police:checkInventory",
       parameters = { true }
@@ -155,7 +155,7 @@ MenuItems['police:frisk'] = {
 MenuItems['police:search'] = {
   data = {
       id = "peds-search",
-      title = "Search",
+      title = "Kiểm tra",
       icon = "#cuffs-check-inventory",
       event = "police:checkInventory"
   }

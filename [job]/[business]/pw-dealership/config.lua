@@ -26,7 +26,7 @@ Config.sell_vehicles = {
 -- You can add as many locations as you want, just use the location already created as an example
 Config.dealership_locations = {
 	["dealer_1"] = {															-- ID
-		['buy_price'] = 10,													-- Price to buy this dealership
+		['buy_price'] = 100000000000000000,													-- Price to buy this dealership
 		['sell_price'] = 0,												-- Price to sell this dealership
 		['coord'] = {-781.79, -211.32, 37.15},									-- Coordinate to open the menu
 		['truck_coord'] = {-780.39,-195.95,37.28,212.62},				-- Garage coordinates, where the trucks will spawn (coordinates composed of x, y, z, h)
@@ -63,7 +63,7 @@ Config.dealership_locations = {
 		['type'] = 'Super_dealer',			 									-- Insert here the dealership type ID
 	},
 	["dealer_2"] = {
-		['buy_price'] = 10,
+		['buy_price'] = 100000000000000000,
 		['sell_price'] = 0,
 		['coord'] = {1221.03, 2738.74, 38.01},
 		['truck_coord'] = {1241.96,2705.5,38.01,181.3},
@@ -92,7 +92,7 @@ Config.dealership_locations = {
 		['type'] = 'Xe_thung',
 	},
 	["dealer_3"] = {
-		['buy_price'] = 10,
+		['buy_price'] = 100000000000000000,
 		['sell_price'] = 0,
 		['coord'] = {-30.86, -1106.64, 26.42}, --
 		['truck_coord'] = {-17.91,-1109.77,26.67,157.12}, --

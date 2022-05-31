@@ -55,8 +55,8 @@ function SetNitroLevel(vehicle, value)
 end
 
 function startNitrous()
+	
     if currentVehicle == 0 or currentSeat ~= -1 or nitrousActive or delay then return end
-
     local vehicle = currentVehicle
 
     local model = GetEntityModel(vehicle)
@@ -67,7 +67,6 @@ function startNitrous()
     local isBoosting = IsVehicleNitroBoostEnabled(vehicle)
     local isPurging = IsVehicleNitroPurgeEnabled(vehicle)
     local isFueled = GetNitroLevel(vehicle) > 0
-
     if isRunning and isFueled and not isBoosting and not isPurging then
         if speed > 13.0 then -- 30 MPH
             SetVehicleNitroBoostEnabled(vehicle, true)
@@ -83,8 +82,8 @@ function startNitrous()
         end
 
         SetNitroLevel(vehicle, GetNitroLevel(vehicle) - 10)
-        TriggerEvent("noshud", GetNitroLevel(_vehicle), true)
-
+        --TriggerEvent("noshud", GetNitroLevel(_vehicle), true)
+		TriggerEvent("hud:client:UpdateNitrous", true, GetNitroLevel(vehicle) ,true)
         nitrousActive = true
 
         Citizen.SetTimeout(1000 * nosTimeInSeconds, function()
@@ -96,7 +95,8 @@ end
 function stopNitrous(_vehicle)
     if not nitrousActive then return end
 
-    TriggerEvent("noshud", GetNitroLevel(_vehicle), false, true)
+    --TriggerEvent("noshud", GetNitroLevel(_vehicle), false, true)
+	--TriggerEvent("hud:client:UpdateNitrous",GetNitroLevel(_vehicle) ,false)
 
     SetVehicleNitroBoostEnabled(_vehicle, false)
     SetVehicleLightTrailEnabled(_vehicle, false)
@@ -109,7 +109,9 @@ function stopNitrous(_vehicle)
 
     Citizen.SetTimeout(1000 * nosTimeInSeconds, function()
         if currentVehicle == _vehicle then
-            TriggerEvent("noshud", GetNitroLevel(_vehicle), false, false)
+            --TriggerEvent("noshud", GetNitroLevel(_vehicle), false, false)
+			--TriggerEvent("hud:client:UpdateNitrous",GetNitroLevel(_vehicle) ,true)
+			TriggerEvent("hud:client:UpdateNitrous", true, GetNitroLevel(currentVehicle) ,false)
         end
 
         delay = false
@@ -141,6 +143,7 @@ AddEventHandler("vehicle:addNos", function(type)
     if not vid then return end
 
     RPC.execute("pw-vehicles:updateVehicle", vid, "metadata", "nitrous", 100)
+	TriggerEvent("hud:client:UpdateNitrous", true, 100 ,false)
 end)
 
 RegisterNetEvent("nitro:__update")
@@ -182,7 +185,7 @@ end)
 AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, pCurrentSeat, vehicleDisplayName)
     currentVehicle = pCurrentVehicle
     currentSeat = pCurrentSeat
-
+	print(GetNitroLevel(currentVehicle))
     if not VehicleHasNitro(currentVehicle) then
         local vid = GetVehicleNumberPlateText(currentVehicle)
         if vid then
@@ -191,7 +194,8 @@ AddEventHandler("baseevents:enteredVehicle", function(pCurrentVehicle, pCurrentS
         end
     end
 
-    TriggerEvent("noshud", GetNitroLevel(currentVehicle), false)
+    --TriggerEvent("noshud", GetNitroLevel(currentVehicle), false)
+	TriggerEvent("hud:client:UpdateNitrous", true, GetNitroLevel(currentVehicle) ,false)
 end)
 
 AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat, vehicleDisplayName)
@@ -209,16 +213,17 @@ AddEventHandler("baseevents:leftVehicle", function(pCurrentVehicle, pCurrentSeat
         end
     end
 
-    TriggerEvent("noshud", 0, false)
+    --TriggerEvent("noshud", 0, false)
+	TriggerEvent("hud:client:UpdateNitrous", false, 0, false)
 end)
 
 AddEventHandler("baseevents:vehicleChangedSeat", function(pCurrentVehicle, pCurrentSeat, previousSeat)
     currentSeat = pCurrentSeat
 
     if pCurrentSeat == -1 then
-        TriggerEvent("noshud", GetNitroLevel(currentVehicle), false)
+		TriggerEvent("hud:client:UpdateNitrous", true, GetNitroLevel(currentVehicle) ,false)
     else
-        TriggerEvent("noshud", 0, false)
+        TriggerEvent("hud:client:UpdateNitrous", false, 0, false)
     end
 end)
 

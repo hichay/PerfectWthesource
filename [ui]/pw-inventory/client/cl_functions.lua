@@ -1106,7 +1106,7 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
     end
 
     if (itemid == "empammo") then
-        local finished = exports["pw-taskbar"]:taskBar(30000,"Recharging EMP",false,false,playerVeh)
+        local finished = exports["pw-taskbar"]:taskBar(100,"Recharging EMP",false,false,playerVeh)
         if ( finished == 100 and hasEnoughOfItem(itemid, 1, false) ) then
             TriggerEvent("actionbar:ammo",2034517757,2,true)
             remove = true
@@ -1316,7 +1316,7 @@ end
         local currentVehicle = GetVehiclePedIsIn(player, false)
         
         if not IsToggleModOn(currentVehicle,18) then
-            TriggerEvent("DoLongHudText","You need a Turbo to use NOS!",2)
+            TriggerEvent("DoLongHudText","Cần phải có turbo mới dùng được nitro!",2)
         else
             local finished = 0
             local cancelNos = false
@@ -1331,8 +1331,7 @@ end
             end)
             finished = exports["pw-taskbar"]:taskBar(20000,"Nitrous")
             if (finished == 100 and not cancelNos) then
-                TriggerEvent("NosStatus")
-                TriggerEvent("noshud", 100, false)
+                TriggerEvent("vehicle:addNos")
                 remove = true
             else
                 TriggerEvent("DoLongHudText","You can't drive and hook up nos at the same time.",2)
@@ -1882,14 +1881,14 @@ end
         TriggerEvent("carHud:compass")
     end
 
-    if (itemid == "harness") then
-        local veh = GetVehiclePedIsIn(player, false)
-        local driver = GetPedInVehicleSeat(veh, -1)
-        if (PlayerPedId() == driver) then
-            TriggerEvent("vehicleMod:useHarnessItem")
-            remove = true
-        end
-    end 
+    -- if (itemid == "harness") then
+        -- local veh = GetVehiclePedIsIn(player, false)
+        -- local driver = GetPedInVehicleSeat(veh, -1)
+        -- if (PlayerPedId() == driver) then
+            -- TriggerEvent("vehicleMod:useHarnessItem")
+            -- remove = true
+        -- end
+    -- end 
 	
 	if itemid == "mask" then
         local parsedInfo = json.decode(passedItemInfo)
@@ -2965,7 +2964,8 @@ AddEventHandler('inv:lockPick', function(isForced,inventoryName,slot)
 				TriggerEvent("animation:lockpickinvtest",false)
 				ClearPedTasks(playerped)
 				if math.random(1,10) > 7 then
-				TriggerServerEvent('lockpick:vehicle', exports['cd_dispatch']:GetPlayerInfo())
+				--TriggerServerEvent('lockpick:vehicle', exports['cd_dispatch']:GetPlayerInfo())
+				TriggerEvent("civilian:alertPolice",20.0,"lockpick",targetVehicle)
 				TriggerEvent("ESX:Notify", "Lockpick đã bị gãy","error")
                 TriggerEvent("inventory:removeItem","lockpick", 1)                
                 lockpicking = false
@@ -2983,7 +2983,8 @@ AddEventHandler('inv:lockPick', function(isForced,inventoryName,slot)
 
                     local plate = GetVehicleNumberPlateText(targetVehicle)
                     SetVehicleDoorsLocked(targetVehicle, 1)
-					TriggerServerEvent('lockpick:vehicle', exports['cd_dispatch']:GetPlayerInfo())
+					--TriggerServerEvent('lockpick:vehicle', exports['cd_dispatch']:GetPlayerInfo())
+					TriggerEvent("civilian:alertPolice",20.0,"lockpick",targetVehicle)
 					TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(targetVehicle).plate)
                     TriggerEvent("ESX:Notify", "Cạy khóa xe thành công.","info")
                     SetEntityAsMissionEntity(targetVehicle,true,true)

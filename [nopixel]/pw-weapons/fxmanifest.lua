@@ -6,6 +6,7 @@ description "Weapons"
 
 client_scripts {
   "client.lua",
+  "pickups.lua",
   "melee.lua"
 }
 

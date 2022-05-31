@@ -326,7 +326,7 @@ local function OpenPhone()
 			-- end)
 		end)	
 	else
-		QBCore.Functions.Notify("You don't have a phone", "error")
+		TriggerEvent("DoLongHudText","Bạn không có điện thoại",2)
 	end
    
 end

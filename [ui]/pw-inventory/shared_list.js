@@ -1930,7 +1930,7 @@ itemList['rifleammo'] = {
 itemList['pistolammoPD'] = {
   fullyDegrades: true,
   decayrate: 0.05,
-  displayname: 'Pistol Ammo x50 PD',
+  displayname: 'Đạn Pistol x50 PD',
   craft: [[
     { itemid: 'aluminium', amount: 1 },
     { itemid: 'plastic', amount: 1 },
@@ -1947,7 +1947,7 @@ itemList['pistolammoPD'] = {
 itemList['subammoPD'] = {
   fullyDegrades: true,
   decayrate: 0.05,
-  displayname: 'Sub Ammo x50 PD',
+  displayname: 'Đạn tiểu liên x50 PD',
   craft: [[
     { itemid: 'aluminium', amount: 20 },
     { itemid: 'plastic', amount: 1 },
@@ -1964,7 +1964,7 @@ itemList['subammoPD'] = {
 itemList['rifleammoPD'] = {
   fullyDegrades: true,
   decayrate: 0.05,
-  displayname: 'Rifle Ammo x50 PD',
+  displayname: 'Đạn súng máy x50 PD',
   craft: [[
     { itemid: 'aluminium', amount: 1 },
     { itemid: 'plastic', amount: 1 },
@@ -1982,7 +1982,7 @@ itemList['rifleammoPD'] = {
 itemList['shotgunammoPD'] = {
   fullyDegrades: true,
   decayrate: 0.05,
-  displayname: 'Shotgun Ammo x50',
+  displayname: 'Đạn Shotgun x50',
   craft: [[
     { itemid: 'aluminium', amount: 1 },
     { itemid: 'plastic', amount: 1 },
@@ -1999,7 +1999,7 @@ itemList['shotgunammoPD'] = {
 itemList['taserammo'] = {
   fullyDegrades: true,
   decayrate: 0.1,
-  displayname: 'Taser Cartridges',
+  displayname: 'Đạn súng điện',
   craft: [[
     { itemid: 'aluminium', amount: 1 },
     { itemid: 'plastic', amount: 1 },
@@ -6753,7 +6753,7 @@ itemList['hairtie'] = {
 
 itemList['harness'] = {
   fullyDegrades: false,
-  decayrate: 0.0,
+  decayrate: 1.0,
   displayname: 'Racing Harness',
   craft: [[{ itemid: 'rubber', amount: 10 }]],
   price: 10000,
@@ -16680,7 +16680,7 @@ itemList['beehive'] = {
   displayname: 'Beehive',
   craft: [],
   price: 150,
-  weight: 150.0,
+  weight: 1.0,
   nonStack: false,
   model: '',
   image: 'np_beehive.png',
@@ -21236,183 +21236,4 @@ itemList["huntingcarcass3"]	    = {fullyDegrades: true, decayrate: 1.0, displayn
 
 itemList["huntingcarcass4"]	    = {fullyDegrades: true, decayrate: 0.90, displayname: "Thịt thú rừng loại 4", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass4.png", information: "Đây là động vật quý hiếm ư?", deg: false}
 
-/*
 
-  CLOTHES START
-
-*/
-
-itemList['mask'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Mặt nạ',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_mask.png',
-  information: '',
-};
-
-itemList['googles'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Kính',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_oakley-sunglasses.png',
-  information: '',
-};
-
-itemList['hat'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Mũ',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_hat.png',
-  information: '',
-};
-
-itemList['chain'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Dây chuyền',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_5ct-gold-chain.png',
-  information: '',
-};
-
-itemList['vest'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Áo Vest',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_vest.png',
-  information: '',
-};
-
-itemList['jacket'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Áo khoác',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_jacket.png',
-  information: '',
-};
-
-itemList['shirt'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Áo thun',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_shirt.png',
-  information: '',
-};
-
-itemList['backpack'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Balo',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_backpack.png',
-  information: '',
-};
-
-itemList['pants'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Quần',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_pants.png',
-  information: '',
-};
-
-itemList['shoes'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Giày',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_stolenshoes.png',
-  information: '',
-};
-
-itemList['watch'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Đồng hồ',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'np_casio-watch.png',
-  information: '',
-};
-
-itemList['braclets'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Vòng tay',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_braclets.png',
-  information: '',
-};
-
-itemList['earrings'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Khuyên tai',
-  craft: [],
-  price: 10,
-  weight: 1,
-  nonStack: true,
-  model: '',
-  image: 'pw_earrings.png',
-  information: '',
-};
-
-/*
-
-  CLOTHES END
-
-*/

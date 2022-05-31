@@ -14,13 +14,13 @@ function PoliceArmory() {
         { item_id: "1737195953", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 },//baton
         { item_id: "218362403", id: 0, name: "Shop", information: "{}", slot: 10, amount: 5 },//Sung cao su
         { item_id: "rubberslugpd", id: 0, name: "Shop", information: "{}", slot: 11, amount: 50 },//sung cao su (ngan)
-        { item_id: "820634585", id: 0, name: "Shop", information: "{}", slot: 12, amount: 50 },//sung dien
+        { item_id: "-820634585", id: 0, name: "Shop", information: "{}", slot: 12, amount: 50 },//sung dien
         { item_id: "1834241177", id: 0, name: "Shop", information: "{}", slot: 13, amount: 50 },//sung emp
         { item_id: "elevatorhackingdevice", id: 0, name: "Shop", information: "{}", slot: 14, amount: 50 },//hack thang may
-        { item_id: "120179019", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },//Glock22
-        { item_id: "-86904375", id: 0, name: "Shop", information: "Police", slot: 16, amount: 5 }, //M4
-        { item_id: "1768145561", id: 0, name: "Shop", information: "{}", slot: 17, amount: 50 }, //ScarL
-        { item_id: "1719357158", id: 0, name: "Shop", information: "{}", slot: 18, amount: 50 }, //mk14
+        { item_id: "-120179019", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },//Glock22
+        { item_id: "1192676223", id: 0, name: "Shop", information: "Police", slot: 16, amount: 5 }, //M4
+        { item_id: "-1768145561", id: 0, name: "Shop", information: "{}", slot: 17, amount: 50 }, //ScarL
+        { item_id: "-1719357158", id: 0, name: "Shop", information: "{}", slot: 18, amount: 50 }, //mk14
         { item_id: "1432025498", id: 0, name: "Shop", information: "{}", slot: 19, amount: 50 }, //Remington 870
         { item_id: "171789620", id: 0, name: "Shop", information: "{}", slot: 20, amount: 50 }, // Sig MPX
         { item_id: "taserammo", id: 0, name: "Shop", information: "{}", slot: 21, amount: 50 },
@@ -34,6 +34,25 @@ function PoliceArmory() {
     ];
     return JSON.stringify(shopItems);
 }
+
+
+
+
+
+
+function VendingMachine() {
+    var shopItems = [
+        { item_id: "cola", id: 0, name: "Shop", information: "{}", slot: 1, amount: 50 },
+	    { item_id: "water", id: 0, name: "Shop", information: "{}", slot: 2, amount: 50 },
+        { item_id: "redpack", id: 0, name: "Shop", information: "{}", slot: 3, amount: 50 },
+        { item_id: "coffee", id: 0, name: "craft", information: "{}", slot: 4, amount: 1 },
+        { item_id: "donut", id: 0, name: "craft", information: "{}", slot: 5, amount: 1 },
+
+    ];
+    return JSON.stringify(shopItems);
+}
+
+
 
 function EMT() {
     var shopItems = [

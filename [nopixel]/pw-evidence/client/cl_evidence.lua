@@ -16,7 +16,6 @@ end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
-    print('trigger spawn dna')
     Ped.characterDNA = RPC.execute("pw-evidence:getDNA")
 	TriggerEvent('SpawnEventsServer')
 end)

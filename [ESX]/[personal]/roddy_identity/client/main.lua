@@ -48,7 +48,6 @@ if not Config.UseDeferrals then
 	RegisterNUICallback('register', function(data, cb)
 		ESX.TriggerServerCallback('esx_identity:registerIdentity', function(callback)
 			if callback then
-				print(data.sex)
 				ESX.ShowNotification(_U('thank_you_for_registering'))
 				EnableGui(false)
 				if data.sex == 0 then
@@ -56,7 +55,7 @@ if not Config.UseDeferrals then
 				else
 					SetSkin(`mp_m_freemode_01`, true)
 				end
-				TriggerEvent('raid_clothes:openBarber',false)
+				TriggerEvent('raid_clothes:openBarber',0)
 				TriggerEvent("player:receiveItem", "idcard", 1)
 				if not ESX.GetConfig().Multichar then TriggerEvent('esx_skin:playerRegistered') end
 			else

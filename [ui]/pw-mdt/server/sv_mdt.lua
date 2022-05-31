@@ -537,7 +537,7 @@ RPC.register("pw-mdt:getProfileData", function(src, pCid)
         firstname = result[1].firstname,
         lastname = result[1].lastname,
         job = result[1].job,
-        dateofbirth = result[1]["dob"],
+        dateofbirth = result[1]["dateofbirth"],
         phone = result[1]["phone"],
         dna = "Chưa ghi DNa",
         profilepic = profilePic(result[1].sex, result[1].image),

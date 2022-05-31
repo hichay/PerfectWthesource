@@ -833,7 +833,7 @@ function addBlip(x,y,z,idtype,idcolor,text,scale)
 		SetBlipScale(blip,scale)
 
 		if text then
-			BeginTextCommandSetBlipName("STRING")
+			BeginTextCommandSetBlipName("CUSTOM_TEXT")
 			AddTextComponentString(text)
 			EndTextCommandSetBlipName(blip)
 		end

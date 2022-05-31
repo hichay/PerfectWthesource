@@ -3,7 +3,7 @@ Config                  = {}
 Config.Locale           = 'en'
 
 
-Config.EnableCommands   = false
+Config.EnableCommands   = true
 
 Config.UseDeferrals     = false -- EXPERIMENTAL Character Registration Method.
 

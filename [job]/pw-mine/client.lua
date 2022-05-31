@@ -10,8 +10,14 @@ AddEventHandler('pw-mine:client:kichhoat', function()
     isWorking = not isWorking
     if isWorking then 
         TriggerEvent("ESX:Notify","Bắt đầu công việc","info")
+        iswashing = false
+        exploded = false
+        mining = false  
     else 
-        TriggerEvent("ESX:Notify","Kết thúc công việc","info")      
+        TriggerEvent("ESX:Notify","Kết thúc công việc","info")
+        iswashing = false
+        exploded = false
+        mining = false      
     end     
 end)
 
@@ -182,11 +188,11 @@ end)
 
 local materialslist = {
     { name = "coal", price = 5},
-    { name = "goldmate", price = 15},
-    { name = "ironmate", price = 10,},
-    { name = "mercury", price = 10},
-    { name = "aluminiummate", price = 30},
-    { name = "jadeite", price = 800},
+    { name = "goldmate", price = math.random(10,15)},
+    { name = "ironmate", price = math.random(10,15),},
+    { name = "mercury", price = math.random(10,15)},
+    { name = "aluminiummate", price = math.random(30,50)},
+    { name = "jadeite", price = math.random(800,1000)},
 }
 
 function SellMaterial()
@@ -361,7 +367,7 @@ function DrawText3D2(x, y, z, text)
     SetTextFont(4)
     SetTextProportional(1)
     SetTextColour(255, 255, 255, 215)
-    SetTextEntry("CUSTOM_TEXT1")
+    SetTextEntry("CUSTOM_TEXT")
     SetTextCentre(1)
     AddTextComponentString(text)
     DrawText(_x,_y)
@@ -370,7 +376,7 @@ function DrawText3D2(x, y, z, text)
 end
 
 helpText = function(msg)
-    BeginTextCommandDisplayHelp('CUSTOM_TEXT1')
+    BeginTextCommandDisplayHelp('CUSTOM_TEXT')
     AddTextComponentSubstringPlayerName(msg)
     EndTextCommandDisplayHelp(0, false, true, -1)
 end

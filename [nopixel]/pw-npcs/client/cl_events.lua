@@ -54,4 +54,5 @@ AddEventHandler("pw-npcs:ped:keeper", function(pArgs, pEntity, pEntityFlags, pEn
     TriggerEvent("server-inventory-open", pArgs[1], "Shop")
 end)
 
+
 TriggerServerEvent("pw-npcs:location:fetch")

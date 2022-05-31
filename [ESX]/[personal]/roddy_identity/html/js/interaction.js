@@ -1,7 +1,7 @@
 'use strict'
 
-const DATE_FORMAT = '****/**/**'
-const DATE_PLACEHOLDER = 'YYYY/MM/DD'
+const DATE_FORMAT = '**/**/****'
+const DATE_PLACEHOLDER = 'DD/MM/YYYY'
 
 
 

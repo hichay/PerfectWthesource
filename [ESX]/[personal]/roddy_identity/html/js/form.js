@@ -48,7 +48,7 @@ class FormValidator {
     }
 
     if (field.id === 'surname' || field.id === 'name') {
-      const regularExpression = /^[a-zA-Z]+$/
+      const regularExpression = /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$/
       if (!regularExpression.test(field.value.trim())) {
         this.Error(field)
         return false
@@ -56,8 +56,8 @@ class FormValidator {
     }
 
     if (field.id === 'birthdate') {
-      if (/^\d\d\d\d\/\d\d\/\d\d$/.test(field.value)) {
-        let [yyyy, mm, dd] = field.value.split('/').map(p => parseInt(p, 10))
+      if (/^\d\d\/\d\d\/\d\d\d\d$/.test(field.value)) {
+        let [dd, mm, yyyy] = field.value.split('/').map(p => parseInt(p, 10))
         mm -= 1
         const date = new Date(yyyy, mm, dd)
         if (date.getMonth() === mm && date.getDate() === dd && date.getFullYear() === yyyy) {

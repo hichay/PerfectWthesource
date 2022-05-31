@@ -25,23 +25,6 @@ setInterval(clean, 20000)
   }
 }) */
 
-const val = 100000
-RegisterCommand('jssync', async() => {
-    const queryTimesLocal = [];
-    let result
-    for(let i=0; i < val; i++) {
-        const startTime = process.hrtime()
-        const r = await exports.oxmysql.query('SELECT item_id from user_inventory2 WHERE name = ?', ['steam:11000010be7c8b0'])
-        queryTimesLocal.push(process.hrtime(startTime)[1] / 1000000)
-        if (i === 0) result = r
-    }
-    const queryMsSum = queryTimesLocal.reduce((a, b) => a + b, 0)
-    const queryMsLow = queryTimesLocal.sort((a, b) => a - b)[0]
-    const averageQueryTime = queryMsSum / queryTimesLocal.length
-    console.log(result)
-    console.log('Low: '+ queryMsLow +'ms | Avg: '+averageQueryTime+'ms | Total: '+queryMsSum+'ms ('+queryTimesLocal.length+' queries)')
-})
-
 function db(string) {
   exports.oxmysql.query(string, {}, function(result) {});
 }
@@ -64,10 +47,6 @@ RegisterServerEvent("server-update-item")
 onNet("server-update-item", async (player, itemidsent, slot, data) => {
   let src = source
   let playerinvname = player
-  console.log(itemidsent)
-  console.log(slot)
-  console.log(playerinvname)
-  console.log(data)
   /* let string = `UPDATE user_inventory2 SET information='${JSON.stringify(data)}' WHERE item_id='${itemidsent}' and name='${playerinvname}' and slot='${slot}'`
     exports.oxmysql.query(string,{}, function() {
         emit("server-request-update-src",player,src)
@@ -112,12 +91,10 @@ onNet("request-dropped-items", async (player) => {
   emitNet("requested-dropped-items", src, JSON.stringify(Object.assign({}, DroppedInventories)));
 });
 
+
 onNet("server-request-update", async (player) => {
-	console.log(player)
-	console.log('this is the loadplayer')
   let src = source
   let playerInventoryName = player
-
   let inventoryPlayer = await exports.oxmysql.query_async(`SELECT count(item_id) as amount, id, name, item_id, information, slot, dropped, creationDate FROM user_inventory2 where name= '${playerInventoryName}' group by slot`);
 
   if (inventoryPlayer) {
@@ -131,7 +108,7 @@ onNet("inventory:degItem", async (itemID, Percent, pItemClass, pCid) => {
     if (itemList[pItemClass.toString()] == null || itemList[pItemClass.toString()].decayrate <= 0.0) {
         return
     }
-
+	
     let percent = Math.round(((TimeAllowed * itemList[pItemClass.toString()].decayrate) / 100) * Percent)
     exports.oxmysql.query(`UPDATE user_inventory2 set creationDate = creationDate - ${percent} WHERE id = ${itemID}`);
 });
@@ -187,31 +164,31 @@ function GenerateInformation(player, itemid, itemdata) {
             let string = `SELECT id,firstname,lastname,sex,dateofbirth,phone FROM users WHERE identifier = '${player}'`;
 
 			let gender = "Nam"
-            exports.oxmysql.query(string, {}, function(result) {
-				if (result[0].sex == 'f') {
+            exports.oxmysql.single(string, {}, function(result) {
+				if (result.sex == 'f') {
 					gender = 'Nữ'
 				}
               returnInfo = JSON.stringify({
-					["ID"]: result[0].id,
-					["Tên"]: result[0].firstname.replace(/[^\w\s]/gi, ''),
-					["Họ"]: result[0].lastname.replace(/[^\w\s]/gi, ''),
+					["ID"]: result.id,
+					["Tên"]: result.firstname,
+					["Họ"]: result.lastname,
 					["Giới tính"]: gender,
-					["Ngày sinh"]: result[0].dateofbirth,
-					["SĐT"]: result[0].phone
+					["Ngày sinh"]: result.dateofbirth,
+					["SĐT"]: result.phone
 				})
               timeout = 1
               clearTimeout(timeout)
               return resolve(returnInfo);
             });
           /* } */
-		case "pdbadge":
+		/* case "pdbadge":
 		case "3219281620":
 			returnInfo = JSON.stringify({
             Iden: "POLICE"
           })
 		  timeout = 1;
 		  clearTimeout(timeout)
-        return resolve(returnInfo);
+        return resolve(returnInfo); */
 		break;
         case "casing":
           returnInfo = JSON.stringify({
@@ -286,7 +263,9 @@ onNet("server-inventory-give", async (player, itemid, slot, amount, generateInfo
    information = itemdata
   }	 
 
-
+	if (generateInformation || itemdata) {
+		information = await GenerateInformation(src, player, itemid, itemdata)
+	}
 
   if (itemid == "idcard") {
     information = await GenerateInformation(player, itemid, itemdata)
@@ -670,12 +649,9 @@ function payStore(storeName, amount, itemid) {
 
       emit('traps:pay', id, amount)
   } else {
-  print('muado')
   
       let cid = storeName.split('|')
       let name = cid[1]
-  
-  print(name)
   
       if (itemList[itemid].illegal && mathrandom(1, 100) > 80) {
           //      emitNet('IllegalSale',"Store Owner", name)
@@ -809,10 +785,8 @@ onNet("server-inventory-move", async (player, data, coords) => {
         }
     } else {
         if (targetName.indexOf("Drop") > -1 || targetName.indexOf("hidden") > -1) {
-			console.log('day1')
             db(`INSERT INTO user_inventory2 SET slot='${targetslot}', name='${targetName}', dropped='1' WHERE slot='${startslot}' AND name='${startname}'`);
         } else {
-			console.log('day2')
             db(`UPDATE user_inventory2 SET slot='${targetslot}', name='${targetName}', dropped='0' WHERE slot='${startslot}' and name='${startname}'`);
         }
     }
@@ -825,7 +799,6 @@ onNet("server-inventory-move", async (player, data, coords) => {
               db(`INSERT INTO user_inventory2 (item_id, name, information, slot, creationDate) VALUES ('${itemidsent}','${targetName}','${info}','${targetslot}','${creationDate}' );`);
           }
       }
-	  console.log('day')
       db(`UPDATE user_inventory2 SET slot='${targetslot}', name='${targetName}', dropped='0' WHERE slot='${startslot}' and name='${startname}'`);
   }
 });
@@ -859,9 +832,7 @@ onNet("server-inventory-stack", async (player, data, coords) => {
   let PlayerStore = data[12] 
   let amountRemaining = data[13]
   let creationDate = Date.now()
-  console.log('day')
   if ((targetName.indexOf("Drop") > -1 || targetName.indexOf("hidden") > -1) && DroppedInventories[targetName]) {
-	 console.log('drop nay')
     if (DroppedInventories[targetName].used === false) {
       DroppedInventories[targetName] = {
         position: {
@@ -892,7 +863,6 @@ onNet("server-inventory-stack", async (player, data, coords) => {
 
     if (PlayerStore) {
         // console.log("This plyr store")
-		console.log('kiem')
         /* payStore(startname, itemCosts, itemidsent) */
         db(`UPDATE user_inventory2 SET slot='${targetslot}', name='${targetname}', dropped = '0' WHERE slot='${startslot}' AND name='${targetName}'`);
 		/* db(`INSERT INTO user_inventory2 (item_id, name, information, slot, creationDate) VALUES ('${itemidsent}','${targetName}','${info}','${targetslot}','${creationDate}' );`); */
@@ -937,7 +907,6 @@ onNet("server-inventory-swap", (player, data, coords) => {
   let startname = data[3].replace(/"/g, "");
 
   let string = `SELECT id FROM user_inventory2 WHERE slot='${targetslot}' AND name='${targetname}'`;
-	 console.log('drop nay2')
     exports.oxmysql.query(string,{}, function(startid) {
         var itemids = "0"
         for (let i = 0; i < startid.length; i++) {

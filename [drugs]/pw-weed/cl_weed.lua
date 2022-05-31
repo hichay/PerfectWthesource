@@ -88,12 +88,12 @@ end)
 
 AddEventHandler("pw-polyzone:enter", function(pZoneName, pZoneData)
     if pZoneName == "weed_pickuplocation" then
-		if ESX.GetPlayerData().job.name ~= 'police' or ESX.GetPlayerData().job.name ~= 'ambulance' then 
+		--if ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance' then 
 
-		else
+		--else
 			exports["pw-interaction"]:showInteraction("Nhấn [E] để hái")
 			listenForKeypress(pZoneData.action)
-		end
+		--end
     end
 end)
 

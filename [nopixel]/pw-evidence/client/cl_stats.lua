@@ -62,169 +62,167 @@ local disKeys = {
 }
 
 local Currentstates = {
-	[1] = { ["text"] = "Red Hands", ["status"] = false, ["timer"] = 0 },
-	[2] = { ["text"] = "Dilated Eyes", ["status"] = false, ["timer"] = 0 },
-	[3] = { ["text"] = "Red Eyes", ["status"] = false, ["timer"] = 0 },
-	[4] = { ["text"] = "Smells Like Marijuana", ["status"] = false, ["timer"] = 0 },
-	[5] = { ["text"] = "Fresh Bandaging", ["status"] = false, ["timer"] = 0 },
-	[6] = { ["text"] = "Agitated", ["status"] = false, ["timer"] = 0 },
-	[7] = { ["text"] = "Uncoordinated", ["status"] = false, ["timer"] = 0 },
-	[8] = { ["text"] = "Breath smells like Alcohol", ["status"] = false, ["timer"] = 0 },
-	[9] = { ["text"] = "Smells like Gasoline", ["status"] = false, ["timer"] = 0 },
-	[10] = { ["text"] = "Red Gunpowder Residue", ["status"] = false, ["timer"] = 0 },
-	[11] = { ["text"] = "Smells of Chemicals", ["status"] = false, ["timer"] = 0 },
-	[12] = { ["text"] = "Smells of Oil / Metalwork", ["status"] = false, ["timer"] = 0 },
-	[13] = { ["text"] = "Ink Stained Hands", ["status"] = false, ["timer"] = 0 },
-	[14] = { ["text"] = "Smells like smoke.", ["status"] = false, ["timer"] = 0 },
-	[15] = { ["text"] = "Has camping equipment.", ["status"] = false, ["timer"] = 0 },
-	[16] = { ["text"] = "Smells like burnt Aluminum and iron.", ["status"] = false, ["timer"] = 0 },
-	[17] = { ["text"] = "Has metal specs on clothing.", ["status"] = false, ["timer"] = 0 },
-	[18] = { ["text"] = "Smells Like Cigarette Smoke.", ["status"] = false, ["timer"] = 0 },
-	[19] = { ["text"] = "Labored Breathing.", ["status"] = false, ["timer"] = 0 },
-	[20] = { ["text"] = "Body Sweat.", ["status"] = false, ["timer"] = 0 },
-	[21] = { ["text"] = "Clothing Sweat.", ["status"] = false, ["timer"] = 0 },
-    [22] = { ["text"] = "Wire Cuts.", ["status"] = false, ["timer"] = 0 },
-	[23] = { ["text"] = "Saturated Clothing.", ["status"] = false, ["timer"] = 0 },
-    [24] = { ["text"] = "Looks Dazed.", ["status"] = false, ["timer"] = 0 },
-    [25] = { ["text"] = "Looks Well Fed.", ["status"] = false, ["timer"] = 0 },
-    [26] = { ["text"] = "Has scratches on hands.", ["status"] = false, ["timer"] = 0 },
-    [27] = { ["text"] = "Looks Alert.", ["status"] = false, ["timer"] = 0 },
+	[1] = { ["text"] = "Tay Bị Đỏ", ["status"] = false, ["timer"] = 0 },
+	[2] = { ["text"] = "Giãn Đồng Tử", ["status"] = false, ["timer"] = 0 },
+	[3] = { ["text"] = "Đau Mắt Đỏ", ["status"] = false, ["timer"] = 0 },
+	[4] = { ["text"] = "Có Mùi Của Cần Sa", ["status"] = false, ["timer"] = 0 },
+	[5] = { ["text"] = "Vừa Mới Băng Bó", ["status"] = false, ["timer"] = 0 },
+	[6] = { ["text"] = "Bị Kích Động", ["status"] = false, ["timer"] = 0 },
+	[7] = { ["text"] = "Bủn Rủn Tay Chân", ["status"] = false, ["timer"] = 0 },
+	[8] = { ["text"] = "Hơi Thở Có Mùi Cồn", ["status"] = false, ["timer"] = 0 },
+	[9] = { ["text"] = "Có Mùi Của Xăng Dầu", ["status"] = false, ["timer"] = 0 },
+	[10] = { ["text"] = "Có Vết Của Thuốc Súng", ["status"] = false, ["timer"] = 0 },
+	[11] = { ["text"] = "Mùi Của Hóa Chất ", ["status"] = false, ["timer"] = 0 },
+	[12] = { ["text"] = "Mùi Của Dầu / Kim Loại", ["status"] = false, ["timer"] = 0 },
+	[13] = { ["text"] = "Tay Dính Mực", ["status"] = false, ["timer"] = 0 },
+	[14] = { ["text"] = "Có Mùi Của Khói", ["status"] = false, ["timer"] = 0 },
+	[15] = { ["text"] = "Đã Cài Thiết Bị Cấm Trại", ["status"] = false, ["timer"] = 0 },
+	[16] = { ["text"] = "Có Mùi Cháy Của Sắt - Nhôm", ["status"] = false, ["timer"] = 0 },
+	[17] = { ["text"] = "Có Mẫu Kim Loại Trên Quần Áó", ["status"] = false, ["timer"] = 0 },
+	[18] = { ["text"] = "Mùi Của Thuốc Lá", ["status"] = false, ["timer"] = 0 },
+	[19] = { ["text"] = "Hơi Thở Gấp", ["status"] = false, ["timer"] = 0 },
+	[20] = { ["text"] = "Đỗ Mồ Hôi", ["status"] = false, ["timer"] = 0 },
+	[21] = { ["text"] = "Bồ Đồ Bị Ướt .", ["status"] = false, ["timer"] = 0 },
+    [22] = { ["text"] = "Cắt Dây", ["status"] = false, ["timer"] = 0 },
+	[23] = { ["text"] = "Ngấm Vào Quần Áo", ["status"] = false, ["timer"] = 0 },
+    [24] = { ["text"] = "Bị Chóng Mặt", ["status"] = false, ["timer"] = 0 },
+    [25] = { ["text"] = "Bị Chán Nản", ["status"] = false, ["timer"] = 0 },
+    [26] = { ["text"] = "Có Vết Xước Trên Cánh Tay", ["status"] = false, ["timer"] = 0 },
+    [27] = { ["text"] = "Chú Ý Đề Phòng.", ["status"] = false, ["timer"] = 0 },
 }
 
 InjuryIndexList = { 
-	{ "Pelvis","4103","11816" },
-	{ "Left Thigh","4103","58271" },
-	{ "Left Calf","4103","63931" },
-	{ "Left Foot","4103","14201" },
-	{ "Left Knee","119","46078" },
-	{ "Right Thigh","4103","51826" },
-	{ "Right Calf","4103","36864" },
-	{ "Right Foot","4103","52301" },
-	{ "Right Knee","119","16335" },
-	{ "Spine Lower","4103","23553" },
-	{ "Spine Mid Lower","4103","24816" },
-	{ "Spine Mid","4103","24817" },
-	{ "Spine High","4103","24818" },
-	{ "Left Clavicle","4103","64729" },
-	{ "Left UpperArm","4103","45509" },
-	{ "Left Forearm","4215","61163" },
-	{ "Left Hand","4215","18905" },
-	{ "Left Finger Pinky","4103","26610" },
-	{ "Left Finger Index","4103","26611" },
-	{ "Left Finger Middle","4103","26612" },
-	{ "Left Finger Ring","4103","26613" },
-	{ "Left Finger Thumb","4103","26614" },
-	{ "Left Hand","119","60309" },
-	{ "Left ForeArmRoll","7","61007" },
-	{ "Left ArmRoll","7","5232" },
-	{ "Left Elbow","119","22711" },
-	{ "Right Clavicle","4103","10706" },
-	{ "Right UpperArm","4103","40269" },
-	{ "Right Forearm","4215","28252" },
-	{ "Right Hand","4215","57005" },
-	{ "Right Finger Pinky","4103","58866" },
-	{ "Right Finger Index","4103","58867" },
-	{ "Right Finger Middle","4103","58868" },
-	{ "Right Finger Ring","4103","58869" },
-	{ "Right Finger Thumb","4103","58870" },
-	{ "Right Hand","119","28422" },
-	{ "Right Hand","119","6286" },
-	{ "Right ForeArmRoll","7","43810" },
-	{ "Right ArmRoll","7","37119" },
-	{ "Right Elbow","119","2992" },
-	{ "Neck","4103","39317" },
-	{ "Head","4103","31086" },
-	{ "Head","119","12844" },
-	{ "Face Left Brow_Out","1799","58331" },
-	{ "Face Left Lid_Upper","1911","45750" },
-	{ "Face Left Eye","1799","25260" },
-	{ "Face Left CheekBone","1799","21550" },
-	{ "Face Left Lip_Corner","1911","29868" },
-	{ "Face Right Lid_Upper","1911","43536" },
-	{ "Face Right Eye","1799","27474" },
-	{ "Face Right CheekBone","1799","19336" },
-	{ "Face Right Brow_Out","1799","1356" },
-	{ "Face Right Lip_Corner","1911","11174" },
-	{ "Face Brow_Centre","1799","37193" },
-	{ "Face UpperLipRoot","5895","20178" },
-	{ "Face UpperLip","6007","61839" },
-	{ "Face Left Lip_Top","1911","20279" },
-	{ "Face Right Lip_Top","1911","17719" },
-	{ "Face Jaw","5895","46240" },
-	{ "Face LowerLipRoot","5895","17188" },
-	{ "Face LowerLip","6007","20623" },
-	{ "Face Left Lip_Bot","1911","47419" },
-	{ "Face Right Lip_Bot","1911","49979" },
-	{ "Face Tongue","1911","47495" },
-	{ "Neck","7","35731" }
+	{ "Hông","4103","11816" },
+	{ "Đùi Trái","4103","58271" },
+	{ "Bắp Chân Trái","4103","63931" },
+	{ "Chân Trái","4103","14201" },
+	{ "Đầu Gối Trái","119","46078" },
+	{ "Đùi Phải","4103","51826" },
+	{ "Bắp Chân Phải","4103","36864" },
+	{ "Chân Phải","4103","52301" },
+	{ "Đầu Gối Phải","119","16335" },
+	{ "Xương Sống","4103","23553" },
+	{ "Thắt Lưng","4103","24816" },
+	{ "Phần Cột Sống Giữa","4103","24817" },
+	{ "Xương Sống Cổ","4103","24818" },
+	{ "Xương Đòn Trái","4103","64729" },
+	{ "Bắp Tay Trên Bên Trái","4103","45509" },
+	{ "Cẳng Tay Bên Trái","4215","61163" },
+	{ "Tay Trái ","4215","18905" },
+	{ "Ngón Út Bên Tay Trái","4103","26610" },
+	{ "Ngón Trỏ Bên Tay Trái","4103","26611" },
+	{ "Ngón Giữa Bên Tay Trái","4103","26612" },
+	{ "Ngón Áp Út Bên Tay Trái","4103","26613" },
+	{ "Ngón Cái Bên Tay Trái","4103","26614" },
+	{ "Tay Trái","119","60309" },
+	{ "Cẳng Tay Trái","7","61007" },
+	{ "Cánh Tay Trái","7","5232" },
+	{ "Khủyu Tay Trái","119","22711" },
+	{ "Xương Đòn Phải","4103","10706" },
+	{ "Bắp Tay Bên Phải","4103","40269" },
+	{ "Cẳng Tay Bên Phải","4215","28252" },
+	{ "Tay Phải","4215","57005" },
+	{ "Ngón Út Bên Tay Phải","4103","58866" },
+	{ "Ngón Trỏ Bên Tay Phải","4103","58867" },
+	{ "Ngón Giữa Bên Tay Phải","4103","58868" },
+	{ "Ngón Áp Út Bên Tay Phải","4103","58869" },
+	{ "Ngón Cái Bên Tay Phải","4103","58870" },
+	{ "Tay Phải","119","28422" },
+	{ "Tay Phải","119","6286" },
+	{ "Cẳng Tay Phải","7","43810" },
+	{ "Cánh Tay Phải","7","37119" },
+	{ "Khuỷu Tay Phải","119","2992" },
+	{ "Cổ","4103","39317" },
+	{ "Đầu","4103","31086" },
+	{ "Đầu","119","12844" },
+	{ "Chân Mày Trái","1799","58331" },
+	{ "Lông Mi Trái","1911","45750" },
+	{ "Mắt Trái","1799","25260" },
+	{ "Gò Má Trái","1799","21550" },
+	{ "Khóe Môi Trái","1911","29868" },
+	{ "Khóe Môi Phải","1911","43536" },
+	{ "Mặt Bên Phải Mắt","1799","27474" },
+	{ "Khóe Môi Bên Phải","1911","11174" },
+	{ "Khúc Giữa Của Chân Mày ","1799","37193" },
+	{ "khóe Môi","5895","20178" },
+	{ "Khóe Môi Trên","6007","61839" },
+	{ "Môi Trên Trái","1911","20279" },
+	{ "Môi Trên Phải","1911","17719" },
+	{ "Hàm Mặt","5895","46240" },
+	{ "Lòng Môi","5895","17188" },
+	{ "Môi Dưới","6007","20623" },
+	{ "Môi Trong Trái","1911","47419" },
+	{ "Môi Trong Bên Phải","1911","49979" },
+	{ "Lưỡi","1911","47495" },
+	{ "Cổ","7","35731" }
 }
 
 local InjuryList = {
-	[1] = { "WEAPON_UNARMED","-1569615261", "Fist Marks" },
-	[2] = { "WEAPON_ANIMAL","-100946242", "Animal Bites and Claws" },
-	[3] = { "WEAPON_COUGAR","148160082", "Animal Bites and Claws" },
-	[4] = { "WEAPON_KNIFE","-1716189206", "Knife Wounds" },
-	[5] = { "WEAPON_NIGHTSTICK","1737195953", "Blunt Object (Metal)" },
-	[6] = { "WEAPON_HAMMER","1317494643", "Small Blunt Object (Metal)" },
-	[7] = { "WEAPON_BAT","-1024456158", "Large Blunt Object" },
-	[8] = { "WEAPON_GOLFCLUB","1141786504", "Long Thing Blunt Object" },
-	[9] = { "WEAPON_CROWBAR","-2067956739", "Medium Size Jagged Metal Object" },
-	[10] = { "WEAPON_PISTOL","453432689", "Pistol Bullets" },
-	[11] = { "WEAPON_COMBATPISTOL","1593441988", "Combat Pistol Bullets" },
-	[12] = { "WEAPON_APPISTOL","584646201", "AP Pistol Bullets" },
-	[13] = { "WEAPON_PISTOL50","-1716589765", "50 Cal Pistol Bullets" },
-	[14] = { "WEAPON_MICROSMG","324215364", "Micro SMG Bullets" },
-	[15] = { "WEAPON_SMG","736523883", "SMG Bullets" },
-	[16] = { "WEAPON_ASSAULTSMG","-270015777", "Assault SMG Bullets" },
-	[17] = { "WEAPON_ASSAULTRIFLE","-1074790547", "Assault Rifle Bullets" },
-	[18] = { "WEAPON_CARBINERIFLE","-2084633992", "Carbine Rifle Bullets" },
-	[19] = { "WEAPON_ADVANCEDRIFLE","-1357824103", "Advanced Rifle bullets" },
-	[20] = { "WEAPON_MG","-1660422300", "Machine Gun Bullets" },
-	[21] = { "WEAPON_COMBATMG","2144741730", "Combat MG Bullets" },
-	[22] = { "WEAPON_PUMPSHOTGUN","487013001", "Pump Shotgun Bullets" },
-	[23] = { "WEAPON_SAWNOFFSHOTGUN","2017895192", "Sawn Off Bullets" },
-	[24] = { "WEAPON_ASSAULTSHOTGUN","-494615257", "Assault Shotgun Bullets" },
-	[25] = { "WEAPON_BULLPUPSHOTGUN","-1654528753", "Bullpup Shotgun Bullets" },
-	[26] = { "WEAPON_STUNGUN","911657153", "Stun Gun Damage" },
-	[27] = { "WEAPON_SNIPERRIFLE","100416529", "Sniper Rifle Wounds" },
-	[28] = { "WEAPON_HEAVYSNIPER","205991906", "Sniper Rifle Wounds" },
-	[29] = { "WEAPON_REMOTESNIPER","856002082", "Sniper Rifle Wounds" },
-	[30] = { "WEAPON_GRENADELAUNCHER","-1568386805", "Explosive Damage (Grenades)" },
-	[31] = { "WEAPON_GRENADELAUNCHER_SMOKE","1305664598", "Smoke Damage" },
-	[32] = { "WEAPON_RPG","-1312131151", "RPG damage" },
-	[33] = { "WEAPON_STINGER","1752584910", "RPG damage" },
-	[34] = { "WEAPON_MINIGUN","1119849093", "Minigun Wounds" },
-	[35] = { "WEAPON_GRENADE","-1813897027", "Grenade Wounds" },
-	[36] = { "WEAPON_STICKYBOMB","741814745", "Sticky Bomb Wounds" },
-	[37] = { "WEAPON_SMOKEGRENADE","-37975472", "Smoke Damage" },
-	[38] = { "WEAPON_BZGAS","-1600701090", "Gas Damage" },
-	[39] = { "WEAPON_MOLOTOV","615608432", "Molotov/Accelerant Burns" },
-	[40] = { "WEAPON_FIREEXTINGUISHER","101631238", "Fire Extenguisher Damage" },
-	[41] = { "WEAPON_PETROLCAN","883325847", "Petrol Can Damage" },
-	[42] = { "WEAPON_FLARE","1233104067", "Flare Damage" },
-	[43] = { "WEAPON_BARBED_WIRE","1223143800", "Barbed Wire Damage" },
-	[44] = { "WEAPON_DROWNING","-10959621", "Drowning" },
-	[45] = { "WEAPON_DROWNING_IN_VEHICLE","1936677264", "Drowned in Vehicle" },
-	[46] = { "WEAPON_BLEEDING","-1955384325", "Died to Blood Loss" },
-	[47] = { "WEAPON_ELECTRIC_FENCE","-1833087301", "Electric Fence Wounds" },
-	[48] = { "WEAPON_EXPLOSION","539292904", "Explosion Damage" },
-	[49] = { "WEAPON_FALL","-842959696", "Fall / Impact Damage" },
-	[50] = { "WEAPON_EXHAUSTION","910830060", "Died of Exhaustion" },
-	[51] = { "WEAPON_HIT_BY_WATER_CANNON","-868994466", "Water Cannon Pelts" },
-	[52] = { "WEAPON_RAMMED_BY_CAR","133987706", "Vehicular Accident" },
-	[53] = { "WEAPON_RUN_OVER_BY_CAR","-1553120962", "Runover by Vehicle" },
-	[54] = { "WEAPON_HELI_CRASH","341774354", "Heli Crash" },
-	[55] = { "WEAPON_FIRE","-544306709", "Fire Victim" },
-	[56] = { "WEAPON_ASSAULTSMG","4024951519", "Assault SMG"},
-	[57] = { "WEAPON_GUSENBERG","1627465347", "Gusenberg"},
-	[58] = { "WEAPON_COMBATPDW","171789620", "Combat PDW"},
-	[59] = { "WEAPON_HEAVYSHOTGUN","984333226", "Heavy Shotgun"},
-	[60] = { "WEAPON_AUTOSHOTGUN","317205821", "Autoshotgun"},
-	[61] = { "WEAPON_BULLPUPSHOTGUN","2640438543", "Bullpup Shotgun"},
-	[62] = { "WEAPON_ASSAULTSHOTGUN","3800352039", "Assault Shotgun"},
-	[63] = { "WEAPON_BULLPUPRIFLE","2132975508", "Bullpup Rifle"},
-	[64] = { "WEAPON_ASSAULTRIFLE","3220176749", "Assault Rifle"},
-	[65] = { "WEAPON_PISTOL_MK2","3219281620", "PD Pistol"}
+	[1] = { "WEAPON_UNARMED","-1569615261", "Dấu Đấm Tay" },
+	[2] = { "WEAPON_ANIMAL","-100946242", "Vết Cắn Và Móng Vuốt Động Vật" },
+	[3] = { "WEAPON_COUGAR","148160082", "Vết Cắn Và Móng Vuốt Động Vật" },
+	[4] = { "WEAPON_KNIFE","-1716189206", "Vết Thương Của Dao" },
+	[5] = { "WEAPON_NIGHTSTICK","1737195953", "Vết Xước Từ Đồ Vật (Kim Loại)" },
+	[6] = { "WEAPON_HAMMER","1317494643", "Vết Xước Từ Đồ Vật Nhỏ (Kim Loại)" },
+	[7] = { "WEAPON_BAT","-1024456158", "Vết Xước Từ Đồ Vật To" },
+	[8] = { "WEAPON_GOLFCLUB","1141786504", "Vết Xước Từ Đồ Vật Dài" },
+	[9] = { "WEAPON_CROWBAR","-2067956739", "Vết Vật Thể Kim Loại Có Răng Cưa Trung Bình" },
+	[10] = { "WEAPON_PISTOL","453432689", "Vết Đạn Súng Lục" },
+	[11] = { "WEAPON_COMBATPISTOL","1593441988", "Vết Đạn Combat Pistol" },
+	[12] = { "WEAPON_APPISTOL","584646201", "Vết Đạn AP Pistol" },
+	[13] = { "WEAPON_PISTOL50","-1716589765", "Vệt Đạn 50 Cal Pistol" },
+	[14] = { "WEAPON_MICROSMG","324215364", "Vết Đạn Micro SMG" },
+	[15] = { "WEAPON_SMG","736523883", "Vết Đạn SMG" },
+	[16] = { "WEAPON_ASSAULTSMG","-270015777", "Vết Đạn Assault SMG" },
+	[17] = { "WEAPON_ASSAULTRIFLE","-1074790547", "Vết Đạn Assault Rifle" },
+	[18] = { "WEAPON_CARBINERIFLE","-2084633992", "Vết Đạn Carbine Rifle" },
+	[19] = { "WEAPON_ADVANCEDRIFLE","-1357824103", "Vết Đạn Advanced Rifle" },
+	[20] = { "WEAPON_MG","-1660422300", "Vết Đạn Machine Gun" },
+	[21] = { "WEAPON_COMBATMG","2144741730", "Vết Đạn Combat MG" },
+	[22] = { "WEAPON_PUMPSHOTGUN","487013001", "Vết Đạn Pump Shotgun" },
+	[23] = { "WEAPON_SAWNOFFSHOTGUN","2017895192", "Vết Đạn Sawn Off" },
+	[24] = { "WEAPON_ASSAULTSHOTGUN","-494615257", "Vết Đạn Assault Shotgun" },
+	[25] = { "WEAPON_BULLPUPSHOTGUN","-1654528753", "Vết Đạn Bullpup Shotgun" },
+	[26] = { "WEAPON_STUNGUN","911657153", "Vết Đạn Súng Điện" },
+	[27] = { "WEAPON_SNIPERRIFLE","100416529", "Vết Đạn Sniper Rifle Wounds" },
+	[28] = { "WEAPON_HEAVYSNIPER","205991906", "Vết Đạn Sniper Rifle Wounds" },
+	[29] = { "WEAPON_REMOTESNIPER","856002082", "Vết Đạn Sniper Rifle Wounds" },
+	[30] = { "WEAPON_GRENADELAUNCHER","-1568386805", "Vụ Nổ To (Lựu Đạn)" },
+	[31] = { "WEAPON_GRENADELAUNCHER_SMOKE","1305664598", "Khói Độc" },
+	[32] = { "WEAPON_RPG","-1312131151", "Sát Thương Từ RPG" },
+	[33] = { "WEAPON_STINGER","1752584910", "Sát Thương Từ RPG" },
+	[34] = { "WEAPON_MINIGUN","1119849093", "Vết Thương Từ Minigun" },
+	[35] = { "WEAPON_GRENADE","-1813897027", "Vết Thương Từ Lựu Đạn" },
+	[36] = { "WEAPON_STICKYBOMB","741814745", "Vết Thương Sticky Bomb" },
+	[37] = { "WEAPON_SMOKEGRENADE","-37975472", "Bị Ngẹt Bởi Khói" },
+	[38] = { "WEAPON_BZGAS","-1600701090", "Bị Thương Do Dính Gas" },
+	[39] = { "WEAPON_MOLOTOV","615608432", "Bị Bỏng Bởi Molotov / Accelerant Burns" },
+	[40] = { "WEAPON_FIREEXTINGUISHER","101631238", "Bị Thương Bởi Bình Chữa Cháy" },
+	[41] = { "WEAPON_PETROLCAN","883325847", "Bị Bỏng Bởi Can Xăng Dầu" },
+	[42] = { "WEAPON_FLARE","1233104067", "Vết Đạn Flare" },
+	[43] = { "WEAPON_BARBED_WIRE","1223143800", "Bị Thương Bởi Dây Thép Gai" },
+	[44] = { "WEAPON_DROWNING","-10959621", "Bị Chết Đuối" },
+	[45] = { "WEAPON_DROWNING_IN_VEHICLE","1936677264", "Chết Đuối Trong Xe" },
+	[46] = { "WEAPON_BLEEDING","-1955384325", "Chết Vì Bị Rỉa Máu" },
+	[47] = { "WEAPON_ELECTRIC_FENCE","-1833087301", "Vết Thương Hàng Rào Điện" },
+	[48] = { "WEAPON_EXPLOSION","539292904", "Bị Thương Do Nổ" },
+	[49] = { "WEAPON_FALL","-842959696", "Bị Thương Bởi Va / Chạm / Đập" },
+	[50] = { "WEAPON_EXHAUSTION","910830060", "Chết Vì Kiệt Sức" },
+	[51] = { "WEAPON_HIT_BY_WATER_CANNON","-868994466", "Bị Thương Bởi Vòi Rồng" },
+	[52] = { "WEAPON_RAMMED_BY_CAR","133987706", "Bị Thương Bởi Xe Cộ" },
+	[53] = { "WEAPON_RUN_OVER_BY_CAR","-1553120962", "Bị Thương Bởi Chạy Qua Xe" },
+	[54] = { "WEAPON_HELI_CRASH","341774354", "Bị Thương Bởi Té Đồi" },
+	[55] = { "WEAPON_FIRE","-544306709", "Bị Thương Bởi Cháy" },
+	[56] = { "WEAPON_ASSAULTSMG","4024951519", "Vết Đạn Assault SMG"},
+	[57] = { "WEAPON_GUSENBERG","1627465347", "Vết Đạn Gusenberg"},
+	[58] = { "WEAPON_COMBATPDW","171789620", "Vết Đạn Combat PDW"},
+	[59] = { "WEAPON_HEAVYSHOTGUN","984333226", "Vết Đạn Heavy Shotgun"},
+	[60] = { "WEAPON_AUTOSHOTGUN","317205821", "Vết Đạn Autoshotgun"},
+	[61] = { "WEAPON_BULLPUPSHOTGUN","2640438543", "Vết đạnBullpup Shotgun"},
+	[62] = { "WEAPON_ASSAULTSHOTGUN","3800352039", "Vết Đạn Assault Shotgun"},
+	[63] = { "WEAPON_BULLPUPRIFLE","2132975508", "Vết Đạn Bullpup Rifle"},
+	[64] = { "WEAPON_ASSAULTRIFLE","3220176749", "Vết Đạn Assault Rifle"},
+	[65] = { "WEAPON_PISTOL_MK2","3219281620", "Vết Đạn PD Pistol"}
 }
 
 local function getInjuryReplacements()
@@ -264,68 +262,68 @@ local tier2 = {
 }
 
 local bones = {
-    [1] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Pelvis",               ["boneIndex"] = 11816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.35, ["zone"] = 0 },
-    [2] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Thigh",           ["boneIndex"] = 58271, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 4 },
-    [3] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Mouth",                ["boneIndex"] = 47495, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1 },
-    [4] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Foot",            ["boneIndex"] = 14201, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 4 },
-    [5] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Knee",            ["boneIndex"] = 46078, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 4 },
-    [6] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Thigh",          ["boneIndex"] = 51826, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 5 },
-    [7] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine Lower",          ["boneIndex"] = 24816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.35, ["zone"] = 0 },
-    [8] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Foot",           ["boneIndex"] = 52301, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 5 },
-    [9] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Knee",           ["boneIndex"] = 16335, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 5 },
-    [10] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine Mid",            ["boneIndex"] = 24817, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.55, ["zone"] = 0 },
-    [11] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Hand",            ["boneIndex"] = 60309, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [12] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Elbow",           ["boneIndex"] = 22711, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 2 },
-    [13] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Hand",           ["boneIndex"] = 57005, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [14] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Elbow",          ["boneIndex"] = 2992,  ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 3 },
-    [15] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Neck",                 ["boneIndex"] = 39317, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.95, ["zone"] = 0 },
-    [16] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Head",                 ["boneIndex"] = 31086, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 1 },
-    [17] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine High",           ["boneIndex"] = 24818, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.85, ["zone"] = 0 },
-    [18] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Clavicle",        ["boneIndex"] = 64729, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.15, ["offset2"] = 0.75, ["zone"] = 0 },
-    [19] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Pinky",    ["boneIndex"] = 26610, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [20] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Index",    ["boneIndex"] = 26611, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [21] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Middle",   ["boneIndex"] = 26612, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [22] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Ring",     ["boneIndex"] = 26613, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [23] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Thumb",    ["boneIndex"] = 26614, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-    [24] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Clavicle",       ["boneIndex"] = 10706, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 0 },
-    [25] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Pinky",   ["boneIndex"] = 58866, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [26] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Index",   ["boneIndex"] = 58867, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [27] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Middle",  ["boneIndex"] = 58868, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [28] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Ring",    ["boneIndex"] = 58869, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [29] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Thumb",   ["boneIndex"] = 58870, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-    [30] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Face Left CheekBone",  ["boneIndex"] = 21550, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.55, ["offset2"] = 0.45, ["zone"] = 1 },
-    [31] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Face Right CheekBone", ["boneIndex"] = 19336, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.45, ["zone"] = 1 },
-    [32] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Forehead",             ["boneIndex"] = 37193, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.45, ["offset2"] = 0.75, ["zone"] = 1  },
-    [33] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Face UpperLip",        ["boneIndex"] = 61839, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
-    [34] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Face LowerLip",        ["boneIndex"] = 20623, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
+    [1] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Chậu",               ["boneIndex"] = 11816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.35, ["zone"] = 0 },
+    [2] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đùi Trái",           ["boneIndex"] = 58271, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 4 },
+    [3] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Miệng",                ["boneIndex"] = 47495, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1 },
+    [4] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Chân Trái",            ["boneIndex"] = 14201, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 4 },
+    [5] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu Gối Trái",            ["boneIndex"] = 46078, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 4 },
+    [6] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đùi Phải",          ["boneIndex"] = 51826, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 5 },
+    [7] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cột Sống Dưới",          ["boneIndex"] = 24816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.35, ["zone"] = 0 },
+    [8] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Chân Phải",           ["boneIndex"] = 52301, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 5 },
+    [9] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu Gối Phải",           ["boneIndex"] = 16335, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 5 },
+    [10] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cót Sống Giữa",            ["boneIndex"] = 24817, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.55, ["zone"] = 0 },
+    [11] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Tay Trái",            ["boneIndex"] = 60309, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [12] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Khuỷu Tay Trái",           ["boneIndex"] = 22711, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 2 },
+    [13] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Tay Phải",           ["boneIndex"] = 57005, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [14] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Khủy Tay Phải",          ["boneIndex"] = 2992,  ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 3 },
+    [15] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cổ",                 ["boneIndex"] = 39317, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.95, ["zone"] = 0 },
+    [16] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu",                 ["boneIndex"] = 31086, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 1 },
+    [17] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cột Sống Trên",           ["boneIndex"] = 24818, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.85, ["zone"] = 0 },
+    [18] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Đòn Trái",        ["boneIndex"] = 64729, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.15, ["offset2"] = 0.75, ["zone"] = 0 },
+    [19] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Út Trái",    ["boneIndex"] = 26610, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [20] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Trái",    ["boneIndex"] = 26611, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [21] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Giữa Trái",   ["boneIndex"] = 26612, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [22] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Áp Út Trái",     ["boneIndex"] = 26613, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [23] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Trái",    ["boneIndex"] = 26614, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+    [24] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Đòn Phải",       ["boneIndex"] = 10706, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 0 },
+    [25] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Út Phải",   ["boneIndex"] = 58866, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [26] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Phải",   ["boneIndex"] = 58867, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [27] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Giữa Phải",  ["boneIndex"] = 58868, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [28] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Áp Út Phải",    ["boneIndex"] = 58869, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [29] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Phải",   ["boneIndex"] = 58870, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+    [30] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Gò Má Trái",  ["boneIndex"] = 21550, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.55, ["offset2"] = 0.45, ["zone"] = 1 },
+    [31] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Gò Má Phải", ["boneIndex"] = 19336, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.45, ["zone"] = 1 },
+    [32] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Trán",             ["boneIndex"] = 37193, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.45, ["offset2"] = 0.75, ["zone"] = 1  },
+    [33] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Môi Trên",        ["boneIndex"] = 61839, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
+    [34] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Môi Dưới",        ["boneIndex"] = 20623, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
 }
 
 lightwounds = {
-	[1] = { ["text"] = "Light Bleeding" },
-	[2] = { ["text"] = "Light Bleeding" },
-	[3] = { ["text"] = "Light Bleeding" },
-	[4] = { ["text"] = "Heavy Bleeding" },
-	[5] = { ["text"] = "Heavy Bleeding" },
-	[6] = { ["text"] = "Very Heavy Bleeding" },	
+	[1] = { ["text"] = "Rỉ Máu" },
+	[2] = { ["text"] = "Rỉ Máu" },
+	[3] = { ["text"] = "Rỉ Máu" },
+	[4] = { ["text"] = "Chảy Máu" },
+	[5] = { ["text"] = "Chảy Máu" },
+	[6] = { ["text"] = "Máu Chảy Nhanh" },	
 }
 -- maxStatus == 2
 concussions = {
-	[1] = { ["text"] = "Light Bleeding" },
-	[2] = { ["text"] = "Heavy Bleeding" },
-	[3] = { ["text"] = "Light Concussion" },
-	[4] = { ["text"] = "Concussion" },
-	[5] = { ["text"] = "Heavy Concussion" },
-	[6] = { ["text"] = "Very Heavy Concussion" },
+	[1] = { ["text"] = "Rỉ Máu" },
+	[2] = { ["text"] = "Chảy Máu" },
+	[3] = { ["text"] = "Choáng Nhẹ" },
+	[4] = { ["text"] = "Choáng" },
+	[5] = { ["text"] = "Choáng Nặng" },
+	[6] = { ["text"] = "Choáng Chuẩn Bị Ngất" },
 }
 
 -- maxStatus == 3 to 5
 movement = {
-	[1] = { ["text"] = "Basic Movement Issues" },
-	[2] = { ["text"] = "Movement Issues" },
-	[3] = { ["text"] = "Severe Movement Issues" },
-	[4] = { ["text"] = "Very Severe Movement Issues" },
-	[5] = { ["text"] = "Extreme Movement Issues" },
-	[6] = { ["text"] = "Fully Impaired Movement" },
+	[1] = { ["text"] = "Di Chuyển Bình Thường" },
+	[2] = { ["text"] = "Di Chuyển " },
+	[3] = { ["text"] = "Di Chuyển Nghiêm Trọng" },
+	[4] = { ["text"] = "Di Chuyển Rất Nghiêm Trọng" },
+	[5] = { ["text"] = "Di Chuyển Bị Cực Đoan" },
+	[6] = { ["text"] = "Di Chuyển Bị Suy Giảm Hoàn Toàn" },
 }
 
 local bedcoords = {
@@ -368,12 +366,12 @@ local beds = {
 }
 
 local InjuryTypes = {
-	[1] = "Light Bandage",
-	[2] = "Butterfly Stitching",
-	[3] = "Pressure Bandaging",
-	[4] = "Disinfect Deep Wound",
-	[5] = "Pain killer",
-	[6] = "Splinting / Bracing",
+	[1] = "Băng",
+	[2] = "Vết Khâu Hình Bướm",
+	[3] = "Băng Ép",
+	[4] = "Khử Trùng Vết Thương Sâu",
+	[5] = "Thuốc Giảm Đau",
+	[6] = "Nẹp",
 }
 
 sleepanim = 0
@@ -414,11 +412,11 @@ function updateStates()
     	if Currentstates[i]["timer"] > 0 then
     		local msg = Currentstates[i]["text"] .. " " 
 	    	if Currentstates[i]["timer"] > 360 then
-	    		msg = msg .. "(Very noticable)"
+	    		msg = msg .. "(Rất đáng chú ý)"
 	    	elseif Currentstates[i]["timer"] > 180 then
-	    		msg = msg .. "(Noticable)"
+	    		msg = msg .. "(Đáng chú ý)"
 	    	elseif Currentstates[i]["timer"] > 60 then
-	    		msg = msg .. "(Very light)"
+	    		msg = msg .. "(Rất nhẹ)"
 	    	end
 	    	 CurrentDamageList[# CurrentDamageList+1]= msg
 	    end
@@ -719,7 +717,8 @@ function DoScreenFade(length, todark)
 
         if distcheckhsp < 30.0 or distcheckhsp2 < 30.0 then
 			if not (IsPedInAnyVehicle(PlayerPedId(), false)) then
-				findBed(false)
+				--findBed(false)
+                TriggerEvent('bed:checkin')
 			end
 		end
 	end
@@ -739,7 +738,7 @@ local function HealInjuries()
 				bones[i]["applied"] = false
 				Citizen.Wait(1000)
 
-				injury = bones[i]["part"] .. " Injury"
+				injury = bones[i]["part"] .. " Vết thương"
 			end
 		end
 	end
@@ -783,7 +782,7 @@ function findBed(fadein, skipServices)
         if not bonesUpdatingServer then
           TriggerEvent("bones:client:updateServer")
         end
-        TriggerEvent("chatMessage", "Service ", 5, "Điều trị thành công", "feed", false )
+        TriggerEvent("chatMessage", "Service ", 5, "Trị thương thành công!", "feed", false )
         SetEntityHealth(PlayerPedId(), 200)
         Citizen.Wait(1000)
         inbed = false
@@ -1070,70 +1069,70 @@ AddEventHandler("pw-evidence:reset",function()
     targetidsend = 0
 
     Currentstates = {
-        [1] = { ["text"] = "Red Hands", ["status"] = false, ["timer"] = 0 },
-        [2] = { ["text"] = "Dilated Eyes", ["status"] = false, ["timer"] = 0 },
-        [3] = { ["text"] = "Red Eyes", ["status"] = false, ["timer"] = 0 },
-        [4] = { ["text"] = "Smells Like Marijuana", ["status"] = false, ["timer"] = 0 },
-        [5] = { ["text"] = "Fresh Bandaging", ["status"] = false, ["timer"] = 0 },
-        [6] = { ["text"] = "Agitated", ["status"] = false, ["timer"] = 0 },
-        [7] = { ["text"] = "Uncoordinated", ["status"] = false, ["timer"] = 0 },
-        [8] = { ["text"] = "Breath smells like Alcohol", ["status"] = false, ["timer"] = 0 },
-        [9] = { ["text"] = "Smells like Gasoline", ["status"] = false, ["timer"] = 0 },
-        [10] = { ["text"] = "Red Gunpowder Residue", ["status"] = false, ["timer"] = 0 },
-        [11] = { ["text"] = "Smells of Chemicals", ["status"] = false, ["timer"] = 0 },
-        [12] = { ["text"] = "Smells of Oil / Metalwork", ["status"] = false, ["timer"] = 0 },
-        [13] = { ["text"] = "Ink Stained Hands", ["status"] = false, ["timer"] = 0 },
-        [14] = { ["text"] = "Smells like smoke.", ["status"] = false, ["timer"] = 0 },
-        [15] = { ["text"] = "Has camping equipment.", ["status"] = false, ["timer"] = 0 },
-        [16] = { ["text"] = "Smells like burnt Aluminum and iron.", ["status"] = false, ["timer"] = 0 },
-        [17] = { ["text"] = "Has metal specs on clothing.", ["status"] = false, ["timer"] = 0 },
-        [18] = { ["text"] = "Smells Like Cigarette Smoke.", ["status"] = false, ["timer"] = 0 },
-        [19] = { ["text"] = "Labored Breathing.", ["status"] = false, ["timer"] = 0 },
-        [20] = { ["text"] = "Body Sweat.", ["status"] = false, ["timer"] = 0 },
-        [21] = { ["text"] = "Clothing Sweat.", ["status"] = false, ["timer"] = 0 },
-        [22] = { ["text"] = "Wire Cuts.", ["status"] = false, ["timer"] = 0 },
-        [23] = { ["text"] = "Saturated Clothing.", ["status"] = false, ["timer"] = 0 },
-        [24] = { ["text"] = "Looks Dazed.", ["status"] = false, ["timer"] = 0 },
-        [25] = { ["text"] = "Looks Well Fed.", ["status"] = false, ["timer"] = 0 },
-        [26] = { ["text"] = "Has scratches on hands.", ["status"] = false, ["timer"] = 0 },
-        [27] = { ["text"] = "Looks Alert.", ["status"] = false, ["timer"] = 0 },
+        [1] = { ["text"] = "Bàn Tay Bị Đỏ", ["status"] = false, ["timer"] = 0 },
+        [2] = { ["text"] = "Giãn Nở Đồng Tử", ["status"] = false, ["timer"] = 0 },
+        [3] = { ["text"] = "Đau Mắt Đở", ["status"] = false, ["timer"] = 0 },
+        [4] = { ["text"] = "Có Mùi Của Cần Sa", ["status"] = false, ["timer"] = 0 },
+        [5] = { ["text"] = "Vừa Mới Băng Bó", ["status"] = false, ["timer"] = 0 },
+        [6] = { ["text"] = "Bị Kích Động", ["status"] = false, ["timer"] = 0 },
+        [7] = { ["text"] = "Bủn Rủn Tay Chân", ["status"] = false, ["timer"] = 0 },
+        [8] = { ["text"] = "Hơi Thở Có Mùi Cồn", ["status"] = false, ["timer"] = 0 },
+        [9] = { ["text"] = "Có Mùi Của Xăng Dầu", ["status"] = false, ["timer"] = 0 },
+        [10] = { ["text"] = "Có Vết Của Thuốc Súng", ["status"] = false, ["timer"] = 0 },
+        [11] = { ["text"] = "Có Mùi Của Hóa Chất", ["status"] = false, ["timer"] = 0 },
+        [12] = { ["text"] = "Mùi Của Dầu / Kim Loại", ["status"] = false, ["timer"] = 0 },
+        [13] = { ["text"] = "Tay Dính Mực", ["status"] = false, ["timer"] = 0 },
+        [14] = { ["text"] = "Có Mùi Của Khói", ["status"] = false, ["timer"] = 0 },
+        [15] = { ["text"] = "Đã Cài Thiết Bị Cấm Trại", ["status"] = false, ["timer"] = 0 },
+        [16] = { ["text"] = "Có Mùi Cháy Của Sắt - Nhôm", ["status"] = false, ["timer"] = 0 },
+        [17] = { ["text"] = "Có Mẫu Kim Loại Trên Quần Áo", ["status"] = false, ["timer"] = 0 },
+        [18] = { ["text"] = "Có Mùi Của Thuốc Lá.", ["status"] = false, ["timer"] = 0 },
+        [19] = { ["text"] = "Hơi Thở Gấp", ["status"] = false, ["timer"] = 0 },
+        [20] = { ["text"] = "Đỗ Mồ Hôi", ["status"] = false, ["timer"] = 0 },
+        [21] = { ["text"] = "Quần Áo Bị Ướt", ["status"] = false, ["timer"] = 0 },
+        [22] = { ["text"] = "Cắt Dây", ["status"] = false, ["timer"] = 0 },
+        [23] = { ["text"] = "Ngấm Vào Quần Áo", ["status"] = false, ["timer"] = 0 },
+        [24] = { ["text"] = "Bị Chóng Mặt.", ["status"] = false, ["timer"] = 0 },
+        [25] = { ["text"] = "Bị Chán Nản", ["status"] = false, ["timer"] = 0 },
+        [26] = { ["text"] = "Có Vết Xước Trên Cánh Tay", ["status"] = false, ["timer"] = 0 },
+        [27] = { ["text"] = "Chú Ý Đề Phòng", ["status"] = false, ["timer"] = 0 },
     }
 
     bones = {
-        [1] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Pelvis",               ["boneIndex"] = 11816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.35, ["zone"] = 0 },
-        [2] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Thigh",           ["boneIndex"] = 58271, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 4 },
-        [3] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Mouth",                ["boneIndex"] = 47495, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1 },
-        [4] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Foot",            ["boneIndex"] = 14201, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 4 },
-        [5] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Knee",            ["boneIndex"] = 46078, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 4 },
-        [6] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Thigh",          ["boneIndex"] = 51826, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 5 },
-        [7] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine Lower",          ["boneIndex"] = 24816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.35, ["zone"] = 0 },
-        [8] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Foot",           ["boneIndex"] = 52301, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 5 },
-        [9] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Knee",           ["boneIndex"] = 16335, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 5 },
-        [10] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine Mid",            ["boneIndex"] = 24817, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.55, ["zone"] = 0 },
-        [11] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Hand",            ["boneIndex"] = 60309, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [12] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Elbow",           ["boneIndex"] = 22711, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 2 },
-        [13] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Hand",           ["boneIndex"] = 57005, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [14] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Elbow",          ["boneIndex"] = 2992,  ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 3 },
-        [15] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Neck",                 ["boneIndex"] = 39317, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.95, ["zone"] = 0 },
-        [16] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Head",                 ["boneIndex"] = 31086, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 1 },
-        [17] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Spine High",           ["boneIndex"] = 24818, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.85, ["zone"] = 0 },
-        [18] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Left Clavicle",        ["boneIndex"] = 64729, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.15, ["offset2"] = 0.75, ["zone"] = 0 },
-        [19] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Pinky",    ["boneIndex"] = 26610, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [20] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Index",    ["boneIndex"] = 26611, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [21] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Middle",   ["boneIndex"] = 26612, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [22] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Ring",     ["boneIndex"] = 26613, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [23] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Left Finger Thumb",    ["boneIndex"] = 26614, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
-        [24] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Right Clavicle",       ["boneIndex"] = 10706, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 0 },
-        [25] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Pinky",   ["boneIndex"] = 58866, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [26] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Index",   ["boneIndex"] = 58867, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [27] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Middle",  ["boneIndex"] = 58868, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [28] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Ring",    ["boneIndex"] = 58869, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [29] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Right Finger Thumb",   ["boneIndex"] = 58870, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
-        [30] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Face Left CheekBone",  ["boneIndex"] = 21550, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.55, ["offset2"] = 0.45, ["zone"] = 1 },
-        [31] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Face Right CheekBone", ["boneIndex"] = 19336, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.45, ["zone"] = 1 },
-        [32] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Forehead",             ["boneIndex"] = 37193, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.45, ["offset2"] = 0.75, ["zone"] = 1  },
-        [33] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Face UpperLip",        ["boneIndex"] = 61839, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
-        [34] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Face LowerLip",        ["boneIndex"] = 20623, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
+        [1] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Chậu",               ["boneIndex"] = 11816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.35, ["zone"] = 0 },
+        [2] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đùi Trái",           ["boneIndex"] = 58271, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 4 },
+        [3] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Miệng",                ["boneIndex"] = 47495, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1 },
+        [4] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Chân Trái",            ["boneIndex"] = 14201, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 4 },
+        [5] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu Gối Trái",            ["boneIndex"] = 46078, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 4 },
+        [6] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đùi Phải",          ["boneIndex"] = 51826, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.8,  ["zone"] = 5 },
+        [7] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cột Sống Dưới",          ["boneIndex"] = 24816, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.35, ["zone"] = 0 },
+        [8] =  { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Chân Phải",           ["boneIndex"] = 52301, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 5 },
+        [9] =  { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu Gối Phải",           ["boneIndex"] = 16335, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 4, ["offset1"] = 0.35, ["offset2"] = 0.55, ["zone"] = 5 },
+        [10] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cột Sống Giữa",            ["boneIndex"] = 24817, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.55, ["zone"] = 0 },
+        [11] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Tay Trái",            ["boneIndex"] = 60309, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [12] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Khuỷu Tay Trái",           ["boneIndex"] = 22711, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 2 },
+        [13] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Tay Phải",           ["boneIndex"] = 57005, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [14] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Khuỷu Tay Phải",          ["boneIndex"] = 2992,  ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 3 },
+        [15] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cổ",                 ["boneIndex"] = 39317, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.95, ["zone"] = 0 },
+        [16] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Đầu",                 ["boneIndex"] = 31086, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 1 },
+        [17] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Cột Sống Cao",           ["boneIndex"] = 24818, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 5, ["offset1"] = 0.25, ["offset2"] = 0.85, ["zone"] = 0 },
+        [18] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Đòn Trái",        ["boneIndex"] = 64729, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.15, ["offset2"] = 0.75, ["zone"] = 0 },
+        [19] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Út Trái",    ["boneIndex"] = 26610, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [20] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Trái",    ["boneIndex"] = 26611, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [21] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Giữa Trái",   ["boneIndex"] = 26612, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [22] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Áp Út Trái",     ["boneIndex"] = 26613, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [23] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Cái Trái",    ["boneIndex"] = 26614, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 2 },
+        [24] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Xương Đòn Phải",       ["boneIndex"] = 10706, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 3, ["offset1"] = 0.35, ["offset2"] = 0.75, ["zone"] = 0 },
+        [25] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Út Phải",   ["boneIndex"] = 58866, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [26] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Trỏ Phải",   ["boneIndex"] = 58867, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [27] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Giữa Phải",  ["boneIndex"] = 58868, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [28] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Áp Út Phải",    ["boneIndex"] = 58869, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [29] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Ngón Cái Phải",   ["boneIndex"] = 58870, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.2,  ["zone"] = 3 },
+        [30] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Gò Má Trái",  ["boneIndex"] = 21550, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.55, ["offset2"] = 0.45, ["zone"] = 1 },
+        [31] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Gò Má Phải", ["boneIndex"] = 19336, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.35, ["offset2"] = 0.45, ["zone"] = 1 },
+        [32] = { ["applied"] = false, ["maxhit"] = false, ["part"] = "Trán",             ["boneIndex"] = 37193, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 2, ["offset1"] = 0.45, ["offset2"] = 0.75, ["zone"] = 1  },
+        [33] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Môi Trên",        ["boneIndex"] = 61839, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
+        [34] = { ["applied"] = false, ["maxhit"] = true,  ["part"] = "Môi Dưới",        ["boneIndex"] = 20623, ["timer"] = 0, ["hitcount"] = 0, ["injuryType"] = 1, ["offset1"] = 0.45, ["offset2"] = 0.35, ["zone"] = 1  },
     }
 end)
 
@@ -1218,37 +1217,37 @@ AddEventHandler("myboneIssuesTarget",function()
 			if bones[i]["hitcount"] > 2 then
                 effectedcount = effectedcount + 1
                 if damagereport == "" then
-                    damagereport = damagereport .. "" .. bones[i]["part"] .. " is very painful"
+                    damagereport = damagereport .. "" .. bones[i]["part"] .. " rất đau đớn"
                 else
-                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " is very painful"
+                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " rất đau đớn"
                 end
 			elseif bones[i]["hitcount"] == 2 then
                 effectedcount = effectedcount + 1
                 if damagereport == "" then
-                    damagereport = damagereport .. "" .. bones[i]["part"] .. " feels warm with blood"
+                    damagereport = damagereport .. "" .. bones[i]["part"] .. " cảm thấy ấm với máu"
                 else
-                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " feels warm with blood"
+                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " cảm thấy ấm với máu"
                 end 
 			elseif bones[i]["hitcount"] == 1 then
                 effectedcount = effectedcount + 1
                 if damagereport == "" then
-                    damagereport = damagereport .. "" .. bones[i]["part"] .. " feels irritated"
+                    damagereport = damagereport .. "" .. bones[i]["part"] .. " cảm thấy khó chịu"
                 else
-                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " feels irritated"
+                    damagereport = damagereport .. " | " .. bones[i]["part"] .. " cảm thấy khó chịu"
                 end
 			end
 		end	
 
         if armsdisabled and not legsdisabled then
-            TriggerEvent("DoLongHudText","I am finding it difficult to use my arms properly.",2)
+            TriggerEvent("DoLongHudText","Tôi cảm thấy khó sử dụng cánh tay của mình đúng cách.",2)
         elseif legsdisabled and not armsdisabled then
-            TriggerEvent("DoLongHudText","I am finding it difficult to use my legs properly.",2)
+            TriggerEvent("DoLongHudText","Tôi cảm thấy khó sử dụng chân của mình đúng cách.",2)
         elseif legsdisabled and armsdisabled then
-            TriggerEvent("DoLongHudText","I am finding it difficult to use my arms and legs.",2)
+            TriggerEvent("DoLongHudText","Tôi cảm thấy khó sử dụng tay và chân của mình.",2)
         end
 
         if effectedcount > 3 then
-            damagereport = "I feel multiple pains"
+            damagereport = "Tôi cảm thấy nhiều cơn đau"
         end
         if damagereport ~= "" then
             TriggerEvent("DoLongHudText",damagereport, 155)
@@ -1377,7 +1376,7 @@ RegisterNetEvent("bed:checkin")
 AddEventHandler("bed:checkin",function()
 	local canHeal = RPC.execute("pw-ems:canHeal")
     if canHeal then
-        findBed(false)
+        findBed(true)
     end
 end)
 
@@ -2007,7 +2006,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(500)
         myPains()
 
-        if (heavybleed or lightbleed or lightestbleed) and not exports["pw-lib"]:getVar("dead") then
+        --[[ if (heavybleed or lightbleed or lightestbleed) then
             TriggerEvent("evidence:bleeding",false)
             Wait(50)
             if (GetPedArmour(PlayerPedId()) > 1 and math.random(80) > 100) or GetPedArmour(PlayerPedId()) < 35 then
@@ -2017,6 +2016,6 @@ Citizen.CreateThread(function()
                     myBleeds()
                 end
             end
-        end
+        end ]]
     end
 end)

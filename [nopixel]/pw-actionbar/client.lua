@@ -69,7 +69,7 @@ function attemptToDegWeapon()
 
 		if  hasTimer >= 2000 then
 			lastWeaponDeg = GetGameTimer();
-			TriggerServerEvent("inventory:degItem",CurrentSqlID)
+			TriggerEvent("inventory:DegenLastUsedItem",1)
 		end
 	end
 end
@@ -78,7 +78,7 @@ local reDelayed = false
 function actionBarDown()
 	if focusTaken or reDelayed then return end
 	TriggerEvent("inventory-bar", true)
-    TriggerServerEvent("pw-financials:cash:get", GetPlayerServerId(PlayerId()))
+    TriggerEvent("hud:client:ShowMoney")
 end
 
 function actionBarUp()
@@ -129,9 +129,43 @@ Citizen.CreateThread(function()
   RegisterCommand('-passiveMode', function() end, false)
 end)
 
-local shotRecently = false
+local excludedWeapons = {
+	[UNARMED_HASH] = true,
+	[`WEAPON_FIREEXTINGUISHER`] = true,
+	[`WEAPON_FLARE`] = true,
+	[`WEAPON_PetrolCan`] = true,
+	[`WEAPON_STUNGUN`] = true,
+	[-2009644972] = true, -- paintball gun bruv
+	[1064738331] = true, -- bricked
+	[-828058162] = true, -- shoed
+	[571920712] = true, -- money
+	[-691061592] = true, -- book
+	[1834241177] = true, -- EMP Gun
+	[1233104067] = true, -- Flare
+	[600439132] = true, -- Lime
+	[126349499] = true, -- Snowball
+	[-2084633992] = true, -- Airsoft
+}
+
+
 local lastShot = 0
 local lastDamageTrigger = 0
+local shotRecentlyLoopActive = false
+local disableGSR = false
+local lastDamageTrigger = 0
+
+local function shotRecently()
+	if shotRecentlyLoopActive then return end
+	shotRecentlyLoopActive = true
+	Citizen.CreateThread(function()
+		while shotRecentlyLoopActive do
+			Citizen.Wait(60000)
+			if (lastShot + 2400000) < GetGameTimer() then
+				shotRecentlyLoopActive = false
+			end
+		end
+	end)
+end
 
 Citizen.CreateThread( function()
 	local lastWeapon
@@ -149,6 +183,10 @@ Citizen.CreateThread( function()
 		if UNARMED_HASH ~= selectedWeapon then
 			lastWeapon = selectedWeapon
 		end	
+		
+		if selectedWeapon == 741814745 then
+			TriggerEvent('Evidence:StateSet', 29, 3600)
+		end
 		
 		if IsPedShooting(ped) then
 			local hash = GetSelectedPedWeapon(ped)

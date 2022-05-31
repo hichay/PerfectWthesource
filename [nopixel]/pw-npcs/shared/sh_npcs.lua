@@ -6,6 +6,11 @@ Generic.SpawnLocations = {
 }
 
 Generic.ShopKeeperLocations = {
+    {46.080375, -1749.123, 28.633472, 45.888553},
+	{2748.6979, 3472.0498, 54.677799, 245.58422}
+}
+
+Generic.ShopKeeperLocations = {
     vector4(-3037.773, 584.8989, 6.97, 30.0),
     vector4(1960.64, 3739.03, 31.50, 321.36),
     vector4(1393.84,3606.8,34.99,172.8),

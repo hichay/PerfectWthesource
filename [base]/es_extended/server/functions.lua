@@ -268,7 +268,8 @@ end
 ESX.GetIdentifier = function(playerId)
 	for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
 		if string.match(v, 'steam:') then
-			local identifier = string.gsub(v, 'steam:', '')
+			-- local identifier = string.gsub(v, 'steam:', '')
+			local identifier = v
 			return identifier
 		end
 	end

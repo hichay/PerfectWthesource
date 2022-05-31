@@ -186,7 +186,9 @@ end)
 -- Update server
 CreateThread(function()
 	while true do
-		Wait(Config.UpdateInterval)
-		if ESX.PlayerLoaded then TriggerServerEvent('esx_status:update', GetStatusData(true)) end
+		Wait(60000 * Config.UpdateInterval)
+		if ESX.PlayerLoaded then 
+			TriggerServerEvent('esx_status:update', GetStatusData(true)) 
+		end
 	end
 end)

@@ -150,7 +150,7 @@ on('inventory-client-identifier', _0x3d372a => {
 RegisterNetEvent('esx:playerLoaded');
 on('esx:playerLoaded', async (plydata) => {
     cid = plydata.identifier
-    emitNet('server-request-update', plySteam);
+    emitNet('server-request-update', cid);
     SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await itemListWithTax() }));
     //Send updated settings
     UpdateSettings();
@@ -166,12 +166,13 @@ on("esx:setmoneyinfo",(money) =>{
 let itemListWithTax = async () => {
     const [fetchTax] = await RPC.execute("pw-balance:getTax", "Goods");
     const tax = fetchTax["param"];
-
-    for (const key in itemList) {
+	
+	for (const key in itemList) {
         let value = itemList[key];
-        value.tax = Math.ceil((value.price / 100) * tax);
+        value.tax = Math.ceil(value.price - value.price / (1 + tax / 100));
         value.priceWithTax = value.price + value.tax;
     }
+
 
     return itemList;
 };
@@ -443,7 +444,7 @@ function findSlot(ItemIdToCheck, amount, nonStacking, itemdata) {
 RegisterNetEvent('inventory-open-request');
 on('inventory-open-request', async () => {
 	setImmediate(async () => {
-        SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await itemListWithTax() }));
+        SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await getItemListWithTax() }));
     });
 
 	let player = PlayerPedId();
@@ -460,10 +461,11 @@ on('inventory-open-request', async () => {
 	if (openedInv) {
 		CloseGui()
 	}
-	emit("randPickupAnim")
+	
 
 	OpenGui()
-
+	emit("randPickupAnim")
+	
 	/* let rayhandle = StartShapeTestRay(startPosition[0],startPosition[1],startPosition[2], endPosition[0],endPosition[1],endPosition[2], 10, player, 0) */
 	/* let vehicleInfo = GetShapeTestResult(rayhandle)
 	let vehicleFound = vehicleInfo[4] */
@@ -560,10 +562,14 @@ on('inventory-open-request', async () => {
                             });
 							
                             emitNet('server-inventory-open', startPosition, plySteam, '1', carInvName, [], null, vehWeightCalc);
+							SetVehicleDoorOpen(vehicleFound, front ? 4 : 5, 0, 0);
+							TaskTurnPedToFaceEntity(player, vehicleFound, 1.0);
+							emit('toggle-animation', true);
+                        }  else {
+                            GroundInventoryScan();
                         }
-                        SetVehicleDoorOpen(vehicleFound, front ? 4 : 5, 0, 0);
-                        TaskTurnPedToFaceEntity(player, vehicleFound, 1.0);
-                        emit('toggle-animation', true);
+						
+                     
                     }
                 }
             }
@@ -942,7 +948,6 @@ on('inventory-open-target', async (information) => {
 				const hasWeaponsLicense = true;
                 const hasClass2WeaponsLicense = false;
                 let brought = hadBrought[plySteam];
-				console.log('te')
                 let cop = false;
                 if (exports.isPed.isPed('myjob') == 'police' || exports.isPed.isPed('myjob') == 'doc') {
                     cop = true;

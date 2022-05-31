@@ -35,7 +35,7 @@ local w = {
 
 
 	-- smg small
-	[22] = { ["type"] = 1, "Gepard", ["id"] = "-1518444656", ["model"] = 'w_ar_gepard', ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
+	[22] = { ["type"] = 1, "Gepard", ["id"] = "-1518444656", ["model"] = 'w_ar_gepard', ["skinOf"] = "1649403952", ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
 
 	[23] = { ["type"] = 1, "MAC-10", ["id"] = "-134995899", ["model"] = 'w_sb_microsmg3', ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
 	[24] = { ["type"] = 1, "Uzi", ["id"] = "-942620673", ["model"] = 'w_sb_uzi', ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
@@ -71,7 +71,7 @@ local w = {
 	-- barrel
 	[39] = { ["type"] = 4, "Grape Barrel", ["id"] = "vineyardbarrel", ["model"] = 'prop_wooden_barrel', ["x"] = -0.3, ["z"] = 0.7, ["rx"] = 0.0, ["ry"] = 180.0, ["rz"] = 0.0 },
 	-- Vector
-	[40] = { ["type"] = 1, "KRISS Vector", ["id"] = "185608774", ["model"] = 'w_sb_vector', ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
+	[40] = { ["type"] = 1, "KRISS Vector", ["id"] = "185608774", ["skinOf"] = "171789620", ["model"] = 'w_sb_vector', ["z"] = 0.0, ["rx"] = 0.0, ["ry"] = 0.0, ["rz"] = 0.0 },
 }
 
 
@@ -96,11 +96,12 @@ AddEventHandler("AttachWeapons", function()
 	local num, curw = GetCurrentPedWeapon(ped, false)
 	local sheathed = false
 	DeleteAttached()
+	print('attach')
 	for i = 1, #w do
 		if exports["pw-inventory"]:getQuantity(w[i]["id"]) > 0 then
 			local mdl = GetHashKey(w[i]["model"])
 			loadmodel(mdl)
-			if w[i]["type"] == 1 and #ag < gunLimit and curw ~= tonumber(w[i]["id"]) then
+			if w[i]["type"] == 1 and #ag < gunLimit and curw ~= tonumber(w[i]["id"]) and not isSkinOf(w[i], curw) then
 				local bone = GetPedBoneIndex(ped, 24818)
 				ag[#ag+1] = CreateObject(mdl, 1.0 ,1.0 ,1.0, 1, 1, 0)
 				AttachEntityToEntity(ag[#ag], ped, bone, w[i]["z"], -0.155, 0.21 - (#ag/10), w[i]["rx"], w[i]["ry"], w[i]["rz"], 0, 1, 0, 1, 0, 1)
@@ -135,6 +136,11 @@ AddEventHandler("AttachWeapons", function()
 	end
 end)
 
+function isSkinOf (item, model)
+	if item["skinOf"] == nil then return false end
+	return tonumber(item["skinOf"]) == tonumber(model)
+end
+
 function loadmodel(mdl)
 	RequestModel(mdl)
 	local rst = 0
@@ -164,6 +170,28 @@ function DeleteAttached()
 	ab = {}
 end
 
+AddEventHandler("onResourceStop", function (resource)
+	if resource == GetCurrentResourceName() then
+		DeleteAttached()
+	end
+end)
+
 exports('GetAttachedBag', function()
 	return ab[1] and ab[1] or 0
+end)
+
+
+local clipsetChanged = false
+AddEventHandler("pw-inventory:attachmentsToggle", function(pEnabled, pId)
+  if pEnabled and pId == "vineyardbarrel" then
+    if clipsetChanged then return end
+    clipsetChanged = true
+    TriggerEvent("AnimSet:Set:temp", true, "move_m@hiking")
+    return
+  end
+  if clipsetChanged and (not pEnabled) then
+    clipsetChanged = false
+    TriggerEvent("AnimSet:Set:temp", false, "move_m@hiking")
+    return
+  end
 end)

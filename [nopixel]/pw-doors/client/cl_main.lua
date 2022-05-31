@@ -95,7 +95,7 @@ local function listenForKeypress()
         local isHidden = doors[currentDoorId] and doors[currentDoorId].hidden or false
 		print(currentDoorLockState)
         if not hasAccess and currentDoorLockState and not isHidden then
-            exports["np-ui"]:showInteraction('Locked', 'error')
+            exports["pw-interaction"]:showInteraction('Locked', 'error')
         end
 
         while listening do
@@ -111,7 +111,7 @@ local function listenForKeypress()
                 if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
                     newLockState = currentDoorLockState
                     if hasAccess and not isHidden then
-                        exports["np-ui"]:showInteraction(("[E] %s"):format(newLockState and 'Locked' or 'Unlocked'), newLockState and 'error' or 'success')
+                        exports["pw-interaction"]:showInteraction(("[E] %s"):format(newLockState and 'Locked' or 'Unlocked'), newLockState and 'error' or 'success')
                     else
                     end
                 else
@@ -131,7 +131,7 @@ local function listenForKeypress()
             Wait(idle)
         end
 
-        exports["np-ui"]:hideInteraction((not hasAccess or newLockState) and 'error' or 'success')
+        exports["pw-interaction"]:hideInteraction((not hasAccess or newLockState) and 'error' or 'success')
     end)
 end
 

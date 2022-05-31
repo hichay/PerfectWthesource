@@ -338,6 +338,23 @@ Entries[#Entries + 1] = {
 }
 
 Entries[#Entries + 1] = {
+    type = 'flag',
+    group = { 'isToolShopKeeper' },
+    data = {
+        {
+            id = "npc_toolshop_interact",
+            label = "Mua đồ",
+            icon = "circle",
+            event = "pw-npcs:ped:keeper",
+			parameters = { "4" }
+        }
+    },
+    options = {
+        distance = { radius = 2.5 }
+    }
+}
+
+Entries[#Entries + 1] = {
   type = 'flag',
   group = { 'isNPC' },
   data = {

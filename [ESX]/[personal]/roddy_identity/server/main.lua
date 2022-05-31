@@ -104,20 +104,20 @@ elseif not Config.UseDeferrals then
 		AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
 			deferrals.defer()
 			local playerId, identifier = source, ESX.GetIdentifier(source)
+			
 			Citizen.Wait(40)
-
 			if identifier then
-				MySQL.Async.fetchAll('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
+				MySQL.single('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
 					['@identifier'] = identifier
 				}, function(result)
-					if result[1] then
-						if result[1].firstname then
+					if result then
+						if result.firstname then
 							playerIdentity[identifier] = {
-								firstName = result[1].firstname,
-								lastName = result[1].lastname,
-								dateOfBirth = result[1].dateofbirth,
-								sex = result[1].sex,
-								height = result[1].height
+								firstName = result.firstname,
+								lastName = result.lastname,
+								dateOfBirth = result.dateofbirth,
+								sex = result.sex,
+								height = result.height
 							}
 
 							alreadyRegistered[identifier] = true
@@ -150,6 +150,7 @@ elseif not Config.UseDeferrals then
 				local xPlayers = ESX.GetExtendedPlayers()
 				for _, xPlayer in pairs(xPlayers) do
 					if xPlayer then	
+						
 						checkIdentity(xPlayer)
 					end
 				end
@@ -227,17 +228,18 @@ elseif not Config.UseDeferrals then
 	end)
 
 	function checkIdentity(xPlayer)
-		MySQL.Async.fetchAll('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
+		MySQL.single('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
 			['@identifier'] = xPlayer.identifier
 		}, function(result)
-			if result[1] then
-				if result[1].firstname then
+			print('check identiti')
+			if result then
+				if result.firstname then
 					playerIdentity[xPlayer.identifier] = {
-						firstName = result[1].firstname,
-						lastName = result[1].lastname,
-						dateOfBirth = result[1].dateofbirth,
-						sex = result[1].sex,
-						height = result[1].height
+						firstName = result.firstname,
+						lastName = result.lastname,
+						dateOfBirth = result.dateofbirth,
+						sex = result.sex,
+						height = result.height
 					}
 
 					alreadyRegistered[xPlayer.identifier] = true
@@ -428,7 +430,8 @@ function deleteIdentityFromDatabase(xPlayer)
 end
 
 function checkNameFormat(name)
-	if not checkAlphanumeric(name) then
+	--if not checkAlphanumeric(name) then
+		print('qua')
 		if not checkForNumbers(name) then
 			local stringLength = string.len(name)
 			if stringLength > 0 and stringLength < Config.MaxNameLength then
@@ -439,12 +442,13 @@ function checkNameFormat(name)
 		else
 			return false
 		end
-	else
-		return false
-	end
+	-- else
+		-- return false
+	-- end
 end
 
 function checkDOBFormat(dob)
+	
 	local date = tostring(dob)
 	if checkDate(date) then
 		return true
@@ -485,7 +489,8 @@ function convertFirstLetterToUpper(str)
 end
 
 function checkAlphanumeric(str)
-	return (string.match(str, "%W"))
+	return string.gmatch(str, "[%z\1-\127\192-\253][\128-\191]*")
+	
 end
 
 function checkForNumbers(str)
@@ -493,8 +498,8 @@ function checkForNumbers(str)
 end
 
 function checkDate(str)
-	if string.match(str, '(%d%d%d%d)/(%d%d)/(%d%d)') ~= nil then
-		local y, m, d = string.match(str, '(%d+)/(%d+)/(%d+)')
+	if string.match(str, '(%d%d)/(%d%d)/(%d%d%d%d)') ~= nil then
+		local d, m, y = string.match(str, '(%d+)/(%d+)/(%d+)')
 		y = tonumber(y)
 		m = tonumber(m)
 		d = tonumber(d)

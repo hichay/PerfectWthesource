@@ -7,7 +7,7 @@ Config.Accounts = {
 	money = _U('account_money')
 }
 
-Config.StartingAccountMoney 	= {money = 2000}
+Config.StartingAccountMoney 	= {money = 5000}
 
 Config.EnableSocietyPayouts 	= false -- pay from the society account that the player is employed at? Requirement: esx_society
 Config.EnableHud            	= false -- enable the default hud? Display current job and accounts (black, bank & cash)
@@ -17,7 +17,7 @@ Config.EnableDebug              = false -- Use Debug options?
 Config.EnableDefaultInventory   = false -- Display the default Inventory ( F2 )
 Config.EnableWantedLevel    	= false -- Use Normal GTA wanted Level?
 Config.EnablePVP                = true -- Allow Player to player combat
-Config.PrimaryIdentifier	= "steam"
+Config.PrimaryIdentifier		= "steam"
 
 
 Config.Multichar                = false -- Enable support for esx_multicharacter

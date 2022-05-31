@@ -7,7 +7,7 @@ Config = {
         diamond = math.random(50, 90),
         emerald = math.random(60, 110)
     },
-    ChanceToGetItem = 30, -- if math.random(0, 100) <= ChanceToGetItem then give item
+    ChanceToGetItem = 100, -- if math.random(0, 100) <= ChanceToGetItem then give item
     --Items = {'copper','iron','copper','iron','copper', 'iron', 'copper', 'iron', 'copper', 'iron', 'copper', 'iron', 'copper', 'iron', 'jadeite'},
     Items = {'rock'},
     --Sell = vector3(2832.6193, 2799.9738, 57.474582),
@@ -17,7 +17,7 @@ Config = {
         {coords = vector3(-530.677, 2935.8449, 14.362404)},
         {coords = vector3(-521.1026, 2926.6433, 14.044811)}
     },
-    NPC = vector3(2832.6193, 2799.9738, 57.474582),
+    NPC = vector3(2832.6193, 2799.9738, 56.474582),
     Objects = {
         ['pickaxe'] = 'prop_tool_pickaxe',
     },
