@@ -104,7 +104,7 @@ Citizen.CreateThread(function()
             inRange = true
             DrawMarker(2, Config.Cityhall.coords.x, Config.Cityhall.coords.y, Config.Cityhall.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.2, 155, 152, 234, 155, false, false, false, true, false, false, false)
             if dist < 20 then
-				PW.DrawText3Ds(Config.Cityhall.coords.x, Config.Cityhall.coords.y, Config.Cityhall.coords.z+1.3, 'Bạn cần hỗ trợ thêm đừng ngần ngại vào discord ~r~discord.gg/2VpDcC3~w~')
+				PW.DrawText3Ds(Config.Cityhall.coords.x, Config.Cityhall.coords.y, Config.Cityhall.coords.z+1.3, 'Bạn cần hỗ trợ thêm đừng ngần ngại vào discord ~r~discord.gg/VkMNdNGrFf~w~')
                 PW.DrawText3Ds(Config.Cityhall.coords.x, Config.Cityhall.coords.y, Config.Cityhall.coords.z+1.0, 'Để bật hướng dẫn Nhấn nút ~g~[T]~w~ sau đó gõ vào lệnh ~r~/help~w~')
 				PW.DrawText3Ds(Config.Cityhall.coords.x, Config.Cityhall.coords.y, Config.Cityhall.coords.z+0.5, 'Đứng tại đây và bấm ~g~[E]~w~ để xem video hướng dẫn nghề')
                 

@@ -1,9 +1,3 @@
---[[
-
-    Variables
-
-]]
-
 
 local currentVehicle = 0
 local currentVehicleIdentifier = nil
@@ -42,11 +36,6 @@ local slipperySurfaceMaterial = {
     [55] = "METAL_SOLID_SMALL", -- Train Track
 }
 
---[[
-
-    Functions
-
-]]
 
 function getVehicleHandling(pVehicleIdentifier, pCurrentVehicleHandle, pHandling)
     if pVehicleIdentifier and pHandling then

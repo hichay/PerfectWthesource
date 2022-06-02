@@ -6,6 +6,7 @@ shared_script {
 }
 
 server_scripts {
+	'@oxmysql/lib/MySQL.lua',
     "@pw-lib/server/sv_rpc.lua",
     "@pw-lib/server/sv_infinity.lua",
     "server/*",

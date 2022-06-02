@@ -38,7 +38,6 @@ Strings = {
     ['e_sell'] = 'Press ~INPUT_CONTEXT~ to sell goods',
     ['someone_close'] = 'There is another citizen nearby!',
     ['wood'] = 'Cây gỗ',
-    ['npc'] = 'Công ty chế biến gỗ',
     ['process'] = 'Tinh chế gỗ',
     ['sell_wood'] = 'Điểm bán gỗ',
 }

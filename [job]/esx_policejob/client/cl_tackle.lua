@@ -4,7 +4,7 @@ local TimerEnabled = false
 
 
 function plyTackel()
-	if not exports["pw-lib"]:getVar("handcuffed") and GetLastInputMethod(2) then
+	if not exports["pw-lib"]:getVar("handcuffed") and GetLastInputMethod(2) and ESX.GetPlayerData().job.name == 'police' then
 		local isInVeh = IsPedInAnyVehicle(PlayerPedId(), false)
 		if not isInVeh and GetEntitySpeed(PlayerPedId()) > 2.5 then
 			TryTackle()

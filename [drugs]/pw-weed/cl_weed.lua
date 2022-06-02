@@ -12,6 +12,7 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 local listening = false
+local CopOnline = 0
 Citizen.CreateThread(function()
     exports["pw-polyzone"]:AddBoxZone("weed_pickuplocation", vector3(2225.05, 5577.5278, 53.823883), 8.2, 20.2, {
         heading=0,
@@ -36,7 +37,7 @@ Citizen.CreateThread(function()
     exports['pw-interact']:AddPeekEntryByPolyTarget('weed_sellposition', {
         {
             id = "weed_sell",
-            event = "pw-weeds:weed_dry",
+            event = "pw-weed:makeSales",
             icon = "cannabis",
             label = "Bán cần sa"
         },
@@ -53,11 +54,58 @@ Citizen.CreateThread(function()
         {
             id = "weed_drylc",
             event = "pw-weeds:weed_dry",
-            icon = "sun-dust",
+            icon = "circle",
             label = "Sấy cần"
         }}, { distance = { radius = 4.5 } })
 end)
 
+local weed_listpack = {
+    { name = "smallbud", price = 5},
+}
+
+
+AddEventHandler('ListCopOnline', function(CopsInfo)
+    CopOnline = CopsInfo
+end)
+
+RegisterNetEvent("pw-weed:makeSales")
+AddEventHandler("pw-weed:makeSales",function()
+    if CopOnline >= Config.PoliceRequire then
+        local veh = GetVehiclePedIsIn(PlayerPedId())
+        if veh and veh ~= 0 then
+        local vehModel = GetEntityModel(veh)
+        if IsThisModelABike(vehModel) or IsThisModelAQuadbike(vehModel) or IsThisModelABicycle(vehModel) then
+            DeleteEntity(veh)
+        end
+        return
+        end
+        local cashroll = 0
+
+        for k, v in pairs(weed_listpack) do
+            local qty = exports["pw-inventory"]:getQuantity(v.name, true)
+
+            if qty > 0 then
+                cashroll = cashroll + (qty / 5)
+                TriggerEvent("inventory:removeItem", v.name, qty)      
+            end
+        end
+
+        if cashroll == 0 then
+            TriggerEvent("ESX:Notify","Không có gì để bán","error")
+        end
+
+        if cashroll > 0 then
+            TriggerEvent("player:receiveItem","cashroll",1)
+        end
+    else 
+        TriggerEvent('DoLongHudText',"Không có đủ cảnh sát online",2)
+    end
+
+end)
+
+RegisterCommand("wow", function(source, args, rawCommand)
+    TriggerServerEvent("inventory:RetreiveSettings")
+end, false)
 AddEventHandler('pw-weeds:weed_dry', function(pParameters, pEntity, pContext)
 
 	if JustPickedWeed or JustPackedWeed then
@@ -88,12 +136,12 @@ end)
 
 AddEventHandler("pw-polyzone:enter", function(pZoneName, pZoneData)
     if pZoneName == "weed_pickuplocation" then
-		--if ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance' then 
+		if ESX.GetPlayerData().job.name == 'police' or ESX.GetPlayerData().job.name == 'ambulance' then 
 
-		--else
+		else
 			exports["pw-interaction"]:showInteraction("Nhấn [E] để hái")
 			listenForKeypress(pZoneData.action)
-		--end
+		end
     end
 end)
 

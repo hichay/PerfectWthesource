@@ -38,9 +38,9 @@ AddEventHandler('esx_status:loaded', function(status)
 		return Config.Visible
 	end, function(status)
 		if exports["ps-buffs"]:HasBuff("super-hunger") then
-			status.remove(100)
+			status.remove(500)
 		else 
-			status.remove(200)
+			status.remove(1000)
 		end
 	end)
 
@@ -48,16 +48,16 @@ AddEventHandler('esx_status:loaded', function(status)
 		return Config.Visible
 	end, function(status)
 		if exports["ps-buffs"]:HasBuff("super-hunger") then
-			status.remove(75)
+			status.remove(500)
 		else 
-			status.remove(150)
+			status.remove(1000)
 		end
 	end)
 	
 	TriggerEvent('esx_status:registerStatus', 'stress', 0, '#0C98F1', function(status)
 		return false
 	end, function(status)
-		status.add(math.random(25,100))
+		status.add(math.random(350,1000))
 	end)
 end)
 

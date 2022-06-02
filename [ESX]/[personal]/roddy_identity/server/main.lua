@@ -185,7 +185,7 @@ elseif not Config.UseDeferrals then
 
 	ESX.RegisterServerCallback('esx_identity:registerIdentity', function(source, cb, data)
 		local xPlayer = ESX.GetPlayerFromId(source)
-		
+		TriggerClientEvent('chatMessage', -1,  "SYSTEM" , { 0, 141, 155 }, "Người chơi mới tên "..data.firstname.." "..data.lastname.." vừa tham gia. Hãy giúp đỡ bạn ấy", 'feed')	
 		if xPlayer then
 			if not alreadyRegistered[xPlayer.identifier] then
 				-- print(data.dateofbirth)

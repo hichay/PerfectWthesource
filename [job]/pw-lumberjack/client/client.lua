@@ -50,7 +50,6 @@ Citizen.CreateThread(function()
 	
         
 	ESX.PlayerData = ESX.GetPlayerData()
-	addBlip(Config.NPC, 79, 0.5, 25, Strings['npc'])
     local playerPed = PlayerPedId()
    
     local data = {

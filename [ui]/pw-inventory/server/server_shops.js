@@ -255,21 +255,22 @@ function Mechanic1() {
 // stores
 function ConvenienceStore() {
     var shopItems = [
-	{ item_id: "phone", id: 0, name: "Shop", information: "{}", slot: 1, amount: 50 },
+	{ item_id: "mobilephone", id: 0, name: "Shop", information: "{}", slot: 1, amount: 50 },
 	{ item_id: "umbrella", id: 0, name: "Shop", information: "{}", slot: 2, amount: 50 },
 	{ item_id: "bakingsoda", id: 0, name: "Shop", information: "{}", slot: 3, amount: 50 },
-	{ item_id: "sandwich", id: 0, name: "Shop", information: "{}", slot: 4, amount: 50 },
+	{ item_id: "donut", id: 0, name: "Shop", information: "{}", slot: 4, amount: 50 },
 	{ item_id: "hamburger", id: 0, name: "Shop", information: "{}", slot: 5, amount: 50 },
 	{ item_id: "cola", id: 0, name: "Shop", information: "{}", slot: 6, amount: 50 },
 	{ item_id: "water", id: 0, name: "Shop", information: "{}", slot: 7, amount: 50 },
-	{ item_id: "bandage", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
-	{ item_id: "foodingredient", id: 0, name: "Shop", information: "{}", slot: 9, amount: 10 },
-	{ item_id: "xienque", id: 0, name: "Shop", information: "{}", slot: 10, amount: 10 },
-	{ item_id: "redpack", id: 0, name: "Shop", information: "{}", slot: 11, amount: 50 },
-	{ item_id: "lighter", id: 0, name: "Shop", information: "{}", slot: 12, amount: 50 },
-	{ item_id: "rollingpaper", id: 0, name: "Shop", information: "{}", slot: 13, amount: 50 },
-	{ item_id: "oxy", id: 0, name: "Shop", information: "{}", slot: 14, amount: 50 },
-	{ item_id: "emptybaggies", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },
+	{ item_id: "coffee", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
+	{ item_id: "bandage", id: 0, name: "Shop", information: "{}", slot: 9, amount: 50 },
+	{ item_id: "foodingredient", id: 0, name: "Shop", information: "{}", slot: 10, amount: 10 },
+	{ item_id: "xienque", id: 0, name: "Shop", information: "{}", slot: 11, amount: 10 },
+	{ item_id: "redpack", id: 0, name: "Shop", information: "{}", slot: 12, amount: 50 },
+	{ item_id: "lighter", id: 0, name: "Shop", information: "{}", slot: 13, amount: 50 },
+	{ item_id: "rollingpaper", id: 0, name: "Shop", information: "{}", slot: 14, amount: 50 },
+	{ item_id: "oxystress", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },
+	{ item_id: "emptybaggies", id: 0, name: "Shop", information: "{}", slot: 16, amount: 50 },
 
     ];
     return JSON.stringify(shopItems);
@@ -281,12 +282,11 @@ function HardwareStore() {
 		{ item_id: "carradio", id: 0, name: "Shop", information: "{}", slot: 1, amount: 1 },
 		{ item_id: "binoculars", id: 0, name: "Shop", information: "{}", slot: 2, amount: 1 },
 		{ item_id: "lockpick", id: 0, name: "Shop", information: "{}", slot: 3, amount: 5 },
-		{ item_id: "radio", id: 0, name: "Shop", information: "{}", slot: 4, amount: 5 },
+		{ item_id: "civradio", id: 0, name: "Shop", information: "{}", slot: 4, amount: 5 },
         { item_id: "scuba_gear", id: 0, name: "Shop", information: "{}", slot: 5, amount: 5 },
 		{ item_id: "snorkelling_gear", id: 0, name: "Shop", information: "{}", slot: 6, amount: 5 },
 		{ item_id: "scuba_oxygen_tank", id: 0, name: "Shop", information: "{}", slot: 7, amount: 5 },
-		{ item_id: "qualityscales", id: 0, name: "Shop", information: "{}", slot: 8, amount: 5 }, 	
-		{ item_id: "smallscales", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 }, 			
+		{ item_id: "qualityscales", id: 0, name: "Shop", information: "{}", slot: 8, amount: 5 },			
         { item_id: "fertilizer", id: 0, name: "Shop", information: "{}", slot: 10, amount: 5 }, 
 		
 		

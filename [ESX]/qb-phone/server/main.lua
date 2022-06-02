@@ -12,7 +12,16 @@ local GeneratedPlates = {}
 local WebHook = "https://discord.com/api/webhooks/871842880799510578/B9ua40_BMwQ1wSZ2gMRUDTx8DgZKWY5_zE2pYNWkfXB2KElaLQatB70nmMdYAxIcnuI6"
 local bannedCharacters = {'%','$',';'}
 
--- Functions
+AddEventHandler('esx:playerLoaded',function(playerId, xPlayer)
+    local sourcePlayer = playerId
+    local identifier = xPlayer.getIdentifier()
+
+    getOrGeneratePhoneNumber(identifier, function(myPhoneNumber)
+    end)
+
+    getOrGenerateIBAN(identifier, function(iban)
+    end)
+end)
 
 function GetPlayerFromPhone(phone)
     local result = MySQL.Sync.fetchAll('SELECT * FROM users WHERE phone = @phone', {
@@ -73,6 +82,16 @@ function generateIBAN()
 	return num
 end
 
+function getNumberPhone(identifier)
+    local result = MySQL.Sync.fetchAll("SELECT users.phone FROM users WHERE users.identifier = @identifier", {
+        ['@identifier'] = identifier
+    })
+    if result[1] ~= nil then
+        return result[1].phone
+    end
+    return nil
+end
+
 function getIBAN(identifier)
     local result = MySQL.Sync.fetchAll("SELECT users.iban FROM users WHERE users.identifier = @identifier", {
         ['@identifier'] = identifier
@@ -112,6 +131,29 @@ function getOrGenerateIBAN(identifier, cb)
         end)
     else
         cb(myIBAN)
+    end
+end
+
+function getOrGeneratePhoneNumber(identifier, cb)
+    local identifier = identifier
+    local myPhoneNumber = getNumberPhone(identifier)
+
+    if myPhoneNumber == '0' or myPhoneNumber == nil then
+        repeat
+            myPhoneNumber = getPhoneRandomNumber()
+            local id = GetPlayerFromPhone(myPhoneNumber)
+
+        until id == nil
+
+        MySQL.Async.insert("UPDATE users SET phone = @myPhoneNumber WHERE identifier = @identifier", { 
+            ['@myPhoneNumber'] = myPhoneNumber,
+            ['@identifier'] = identifier
+
+        }, function()
+            cb(myPhoneNumber)
+        end)
+    else
+        cb(myPhoneNumber)
     end
 end
 

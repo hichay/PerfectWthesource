@@ -20,7 +20,6 @@ IsWeedProcessingFinished = false
 
 RegisterNetEvent('ProcessWeed')
 AddEventHandler('ProcessWeed', function()
-    print('xong')
     Citizen.Wait(1000)
 
     TriggerClientEvent('np-weed:weedReady',-1,true)
@@ -49,3 +48,17 @@ RPC.register('pw-weed:getInitialState',function(src)
     return data
 end)
 
+
+
+function CountCops()
+
+	local xPlayers = ESX.GetExtendedPlayers("job", "police")
+	CopsConnected = 0
+
+	for i=1, #xPlayers, 1 do	
+		CopsConnected = CopsConnected + 1
+	end
+    TriggerClientEvent('ListCopOnline'-1,CopsConnected)
+	SetTimeout(10000, CountCops)
+
+end

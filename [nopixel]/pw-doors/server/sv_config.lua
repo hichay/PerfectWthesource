@@ -17,9 +17,3 @@
 --     }
 --     ["keyFob"] = true,
 -- },
-
-Citizen.CreateThread(function()
-    Citizen.Wait(1000)
-
-    TriggerClientEvent("pw-doors:initial-lock-state", -1, DOOR_CONFIG)
-end)

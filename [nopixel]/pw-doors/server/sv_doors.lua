@@ -3,13 +3,22 @@
     Events
 
 ]]
+local doors = {}
 
--- RegisterNetEvent("pw-base:sessionStarted")
--- AddEventHandler("pw-base:sessionStarted", function()
-    -- local src = source
+Citizen.CreateThread(function()
+    for _,door in ipairs(DOOR_CONFIG) do
+        doors[#doors + 1] = door
+    end
+end)
 
-    -- TriggerClientEvent("pw-doors:initial-lock-state", -1, DOOR_CONFIG)
--- end)
+RegisterNetEvent("pw-doors:sessionStarted")
+AddEventHandler("pw-doors:sessionStarted", function()
+    local src = source
+
+    TriggerClientEvent("pw-doors:initial-lock-state", src, DOOR_CONFIG)
+end)
+
+
 
 RegisterNetEvent("pw-doors:change-lock-state")
 AddEventHandler("pw-doors:change-lock-state", function(pDoorId, pDoorLockState, pDoorForceUnlock)

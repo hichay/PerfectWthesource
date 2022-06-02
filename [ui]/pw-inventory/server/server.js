@@ -417,7 +417,7 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
 
       var targetinvname = targetName;
       var shopArray = ConvenienceStore();
-      var shopAmount = 15;
+      var shopAmount = 16;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
 
     } else if (secondInventory == "4") {
@@ -465,10 +465,10 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
       var shopArray = HuntingStore();
       var shopAmount = 4;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
-    } else if (secondInventory == "600") {
+    } else if (secondInventory == "6") {
       var targetinvname = targetName;
-      var shopArray = policeveding();
-      var shopAmount = 9;
+      var shopArray = VendingMachine();
+      var shopAmount = 5;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
     } else if (secondInventory == "27") {
       var targetinvname = targetName;

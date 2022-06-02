@@ -842,6 +842,8 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
 
     if (itemid == "coffee") then
         AttachPropAndPlayAnimation("amb@world_human_drinking@coffee@male@idle_a", "idle_c", 49,6000,"Drink","coffee:drink",true,itemid,playerVeh)
+		TriggerEvent('esx_status:add','thirst', 600000)
+		TriggerEvent('esx_status:remove','stress', 200000)
     end
 
     if (itemid == "fishtaco") then
@@ -862,6 +864,7 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
 
     if (itemid == "donut" or itemid == "eggsbacon") then
         AttachPropAndPlayAnimation("mp_player_inteat@burger", "mp_player_int_eat_burger", 49,6000,"Eating","food:Condiment",true,itemid,playerVeh)
+		TriggerEvent('esx_status:add','hunger', 600000)
     end
 
     if (itemid == "icecream" or itemid == "mshake") then
@@ -1418,13 +1421,6 @@ end
         end
     end
 	
-	-- if (itemid == "oxy") then
-        -- local finished = exports["pw-taskbar"]:taskBar(2000,"Uống thuốc",true,true,playerVeh)
-        -- if (finished == 100) then
-            -- Wait(300)
-			-- TriggerEvent('esx_status:remove','stress', 150000)
-        -- end
-    -- end
 
     if (itemid == "oxygentank") then
         local finished = exports["pw-taskbar"]:taskBar(30000,"Oxygen Tank",true,true,playerVeh)
@@ -1775,6 +1771,15 @@ end
 			TriggerEvent('esx_status:remove','stress', 700000)
         end
 		remove = true
+    end
+	
+	if (itemid == "oxystress") then
+        local finished = exports["pw-taskbar"]:taskBar(2000,"Uống thuốc",true,true,playerVeh)
+        if (finished == 100) then
+			TriggerEvent("animation:PlayAnimation","pill")
+            Wait(300)
+			TriggerEvent('esx_status:remove','stress', 150000)
+        end
     end
 
     if (itemid == "sandwich" or itemid == "hamburger") then

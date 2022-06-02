@@ -51,14 +51,7 @@ window.addEventListener('message', function(event) {
 									  </div>
 									</div>
 								</div>
-								<div class="col col-md-4" style="margin-left: 25px;">
-									<div class="card h-100">
-									  <div class="card-body text-center mainmenu-subcard" id="menuCreateInvoice" style="background-color: #eeeff3; color: #2f3037;">
-									    <span class="card-title" style="font-size: 30px;"><i class="fas fa-paper-plane"></i></span>
-									    <p class="card-text">Create Invoice</p>
-									  </div>
-									</div>
-								</div>
+								
 							</div>
 						  `
 				} else if(!event.data.create & !event.data.society){

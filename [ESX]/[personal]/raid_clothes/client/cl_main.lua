@@ -38,19 +38,19 @@ local passedClothing = true
 
 local MenuData = {
     clothing_shop = {
-        text = "To buy clothes",
+        text = "Để mua quần áo",
         displayName = "Clothing Store",
         basePrice = 200
     },
     barber_shop = {
-        text = "Fix your ugly mug",
+        text = "Để cắt tóc",
         displayName = "Barber Shop",
         basePrice = 200
     },
     tattoo_shop = {
-        text = "Become edgy",
+        text = "Để xăm",
         displayName = "Tattoo Parlor",
-        basePrice = 50
+        basePrice = 500
     }
 }
 

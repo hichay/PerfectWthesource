@@ -20,7 +20,8 @@ AddEventHandler('pw-doors:initial-lock-state', function(pDoors)
     for k, door in pairs(pDoors) do
       doors[k] = door
     end
-    -- doors = pDoors
+	print('trigger door')
+    --doors = pDoors
     setSecuredAccesses(doors, 'door')
     for doorId, door in ipairs(doors) do
         if doorId ~= door.id then
@@ -93,9 +94,8 @@ local function listenForKeypress()
 
         local hasAccess = hasSecuredAccess(currentDoorId, 'door')
         local isHidden = doors[currentDoorId] and doors[currentDoorId].hidden or false
-		print(currentDoorLockState)
         if not hasAccess and currentDoorLockState and not isHidden then
-            exports["pw-interaction"]:showInteraction('Locked', 'error')
+            exports["pw-interaction"]:showInteraction('Khóa', 'error')
         end
 
         while listening do
@@ -111,7 +111,7 @@ local function listenForKeypress()
                 if #(GetOffsetFromEntityGivenWorldCoords(PlayerPedId(), currentDoorCoords)) <= 1.2 then
                     newLockState = currentDoorLockState
                     if hasAccess and not isHidden then
-                        exports["pw-interaction"]:showInteraction(("[E] %s"):format(newLockState and 'Locked' or 'Unlocked'), newLockState and 'error' or 'success')
+                        exports["pw-interaction"]:showInteraction(("[E] %s"):format(newLockState and 'Mở khóa' or 'Khóa cửa'), newLockState and 'error' or 'success')
                     else
                     end
                 else
@@ -271,7 +271,7 @@ AddEventHandler("pw-doors:doorKeyFob", function()
 	print(hasSecuredAccess(doorId, 'door'))
     if (not hasSecuredAccess(doorId, 'door') or not AllowsKeyFob(doorId)) then
         PlaySoundFromEntity(-1, "Keycard_Fail", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0);
-        return TriggerEvent("DoLongHudText", "The key fob is not working for this door.",2)
+        return TriggerEvent("DoLongHudText", "Thẻ từ không dùng cho cửa này.",2)
     end
 
     local isLocked = (DoorSystemGetDoorState(doorId) ~= 0 and true or false)
@@ -294,7 +294,7 @@ Citizen.CreateThread(function()
         minZ=28.14,
         maxZ=32.14
     })
-   
+   TriggerServerEvent("pw-doors:sessionStarted")
 end)
 
 RegisterNetEvent("pw-doors:add")

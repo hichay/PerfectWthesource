@@ -1210,7 +1210,7 @@ function ExitBennys()
     TriggerEvent('vehicle:leftBennys')
     TriggerEvent('inmenu', isPlyInBennys)
     TriggerServerEvent("pw-bennys:removeFromInUse", currentBennys)
-    --[[ exports["np-ui"]:showInteraction("[E] Bennys")
+    --[[ exports["pw-interaction"]:showInteraction("[E] Bennys")
     listenForKeypress() ]]
     currentBennys = nil
 end
@@ -1225,7 +1225,7 @@ local function freezeVehicle(pVeh, pBennys)
 end
 
 local function finishEnterLocation()
-    exports["np-ui"]:hideInteraction()
+    exports["pw-interaction"]:hideInteraction()
     listening = false
     isPlyInBennys = true
     disableControls()
@@ -1464,7 +1464,7 @@ AddEventHandler("pw-polyzone:enter", function(zone, data)
     local plyVeh = GetVehiclePedIsIn(plyPed, false)
 
     if plyVeh ~= 0 and GetPedInVehicleSeat(plyVeh, -1) == plyPed then
-        exports["np-ui"]:showInteraction("[E] Bennys")
+        exports["pw-interaction"]:showInteraction("[E] Bennys")
         listenForKeypress()
     end ]]
 end)
@@ -1472,7 +1472,7 @@ end)
 AddEventHandler("pw-polyzone:exit", function(zone)
     if zone ~= "bennys" then return end
 
-    exports["np-ui"]:hideInteraction()
+    exports["pw-interaction"]:hideInteraction()
     listening = false
 end)
 

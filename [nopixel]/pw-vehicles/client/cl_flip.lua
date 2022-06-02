@@ -12,7 +12,7 @@ end)
 RegisterNetEvent("FlipVehicle")
 AddEventHandler("FlipVehicle", function(pDummy, pEntity)
     TriggerEvent("animation:PlayAnimation", "push")
-    local finished = exports["pw-taskbar"]:taskBar(30000, "Flipping Vehicle Over", false, true, nil, false, nil, 10)
+    local finished = exports["pw-taskbar"]:taskBar(30000, "Lật lại con xe...", false, true, nil, false, nil, 10)
     ClearPedTasks(PlayerPedId())
 
     if finished == 100 then

@@ -144,7 +144,19 @@ GeneralEntries[#GeneralEntries+1] = {
     event = "alert:AlertDeath",
   },
   isEnabled = function(pEntity, pContext)
-    return isDead and not (isPolice or isMedic)
+    return isDead and not (isPolice or isMedic) and MedicOnline > 0
+  end
+}
+
+GeneralEntries[#GeneralEntries+1] = {
+  data = {
+    id = "npccall",
+    title = "Gọi NPC",
+    icon = "#player-dead",
+    event = "pw-death:medicNPC",
+  },
+  isEnabled = function(pEntity, pContext)
+    return isDead and not (isPolice or isMedic) and MedicOnline == 0
   end
 }
 

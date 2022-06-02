@@ -72,17 +72,17 @@ Citizen.CreateThread(function()
         MenuItems[data.id] = {data = data}
     end
 
-    GeneralEntries[#GeneralEntries+1] = {
-        data = {
-            id = "clothing",
-            icon = "#clothing",
-            title = "Quần áo",
-            event = "pw-facewear:clothesMenu",
-        },
-        -- subMenus = SubMenu,
-        isEnabled = function()
-            return not isDead and not IsDisabled() and not IsPedInAnyVehicle(PlayerPedId(), false)
-        end,
-    }
+    -- GeneralEntries[#GeneralEntries+1] = {
+        -- data = {
+            -- id = "clothing",
+            -- icon = "#clothing",
+            -- title = "Quần áo",
+            -- event = "pw-facewear:clothesMenu",
+        -- },
+        -- -- subMenus = SubMenu,
+        -- isEnabled = function()
+            -- return not isDead and not IsDisabled() and not IsPedInAnyVehicle(PlayerPedId(), false)
+        -- end,
+    -- }
 end)
 

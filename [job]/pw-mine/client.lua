@@ -43,7 +43,6 @@ Citizen.CreateThread(function()
 	end
         
 	ESX.PlayerData = ESX.GetPlayerData()
-	addBlip(Config.NPC, 318, 0.8, 5, Strings['npc'])
     local playerPed = PlayerPedId()
 
     local createdPeds = {}
@@ -118,7 +117,7 @@ Citizen.CreateThread(function()
                         GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
                         Citizen.Wait(1250)                                                                                      
                         TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
-
+						
                         while mining and not exploded do
                             -- Wait(1000)
                             local time = 6

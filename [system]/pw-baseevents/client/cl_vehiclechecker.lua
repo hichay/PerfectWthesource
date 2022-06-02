@@ -58,7 +58,9 @@ Citizen.CreateThread(function()
 
                 CurrentVehicle = vehicle
                 CurrentSeat = GetPedVehicleSeat(PlayerPed)
-				TriggerEvent("attachedItems:block",true)
+				if class ~= '8' then 
+					TriggerEvent("attachedItems:block",true)
+				end
 				TriggerEvent('baseevents:enteredVehicle', vehicle, CurrentSeat, name, class, model)
 				TriggerServerEvent('baseevents:enteredVehicle', netId, CurrentSeat, name, class, model)
             end

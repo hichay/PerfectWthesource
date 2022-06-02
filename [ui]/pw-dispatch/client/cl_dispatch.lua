@@ -434,84 +434,84 @@ function addDispatchBlip(data)
 	end
 end
 
--- function clearBlip(item, forceClear)
-  -- if item == nil then
-    -- return
-  -- end
+function clearBlip(item, forceClear)
+  if item == nil then
+    return
+  end
 
-  -- -- If this is a boosting car or like a bank truck skip it unless manually /clear
-  -- if item.isTracker and not forceClear then
-    -- return
-  -- end
+  -- If this is a boosting car or like a bank truck skip it unless manually /clear
+  if item.isTracker and not forceClear then
+    return
+  end
 
-  -- local id = item.id
-  -- local pedb = item.blip
+  local id = item.id
+  local pedb = item.blip
 
-  -- if item.onRoute then
-    -- SetBlipRoute(pedb, false)
-  -- end
+  if item.onRoute then
+    SetBlipRoute(pedb, false)
+  end
 
-  -- if pedb ~= nil and DoesBlipExist(pedb) then
-    -- myBlips[id] = nil
-    -- SetBlipSprite(pedb, 2)
-    -- SetBlipDisplay(pedb, 3)
-    -- RemoveBlip(pedb)
-  -- end
--- end
+  if pedb ~= nil and DoesBlipExist(pedb) then
+    myBlips[id] = nil
+    SetBlipSprite(pedb, 2)
+    SetBlipDisplay(pedb, 3)
+    RemoveBlip(pedb)
+  end
+end
 
--- Citizen.CreateThread(function()
-  -- local timer = 0
-  -- local canPay = false
-  -- while true do
-    -- local ped = PlayerPedId()
-    -- local pos = GetEntityCoords(ped)
-    -- local curTime = GetGameTimer()
-    -- if timer >= 300 then canPay = true end -- Time limit ,300 = 5 min ,1000 ms * 300 = 5 min 
-    -- timer = timer +1
+Citizen.CreateThread(function()
+  local timer = 0
+  local canPay = false
+  while true do
+    local ped = PlayerPedId()
+    local pos = GetEntityCoords(ped)
+    local curTime = GetGameTimer()
+    if timer >= 300 then canPay = true end -- Time limit ,300 = 5 min ,1000 ms * 300 = 5 min 
+    timer = timer +1
 
-    -- for key, item in pairs(myBlips) do
-      -- if (key ~= nil and item ~= nil) then
-        -- -- If we are within 10 units of a blip that is not our own, clear the blip and message the server to clear for everyone
-        -- if #(vector2(pos.x, pos.y) - vector2(item.pos.x, item.pos.y)) < 50.0 then
-          -- if item.jobType == "ems" then
-            -- if ESX.GetPlayerData().job.name == "ambulance" then
-              -- clearBlip(item, false)
-              -- if GetTimeDifference(curTime, item.timestamp) > 2000 then
-                -- if canPay then
-                  -- canPay = false
-                  -- timer = 0
-                -- end
-              -- end
-            -- end
-          -- elseif item.jobType == "news" then 
-            -- if ESX.GetPlayerData().job.name == "news" then
-              -- clearBlip(item, false)
-              -- if GetTimeDifference(curTime, item.timestamp) > 2000 then
-                -- if canPay then
-                  -- canPay = false
-                  -- timer = 0
-                -- end
-              -- end
-            -- end
-          -- else
-              -- clearBlip(item, false)
-              -- if GetTimeDifference(curTime, item.timestamp) > 2000 then
-                -- if canPay then
-                  -- canPay = false
-                  -- timer = 0
-                -- end
-              -- end
-          -- end
-        -- elseif GetTimeDifference(curTime, item.timestamp) > 600000 and not item.onRoute then
-          -- -- If its been passed 10 minutes, clear the bip locally unless it's a blip we are on route to
-          -- clearBlip(item, false)
-        -- end
-      -- end
-    -- end
+    for key, item in pairs(myBlips) do
+      if (key ~= nil and item ~= nil) then
+        -- If we are within 10 units of a blip that is not our own, clear the blip and message the server to clear for everyone
+        if #(vector2(pos.x, pos.y) - vector2(item.pos.x, item.pos.y)) < 50.0 then
+          if item.jobType == "ems" then
+            if ESX.GetPlayerData().job.name == "ambulance" then
+              clearBlip(item, false)
+              if GetTimeDifference(curTime, item.timestamp) > 2000 then
+                if canPay then
+                  canPay = false
+                  timer = 0
+                end
+              end
+            end
+          elseif item.jobType == "news" then 
+            if ESX.GetPlayerData().job.name == "news" then
+              clearBlip(item, false)
+              if GetTimeDifference(curTime, item.timestamp) > 2000 then
+                if canPay then
+                  canPay = false
+                  timer = 0
+                end
+              end
+            end
+          else
+              clearBlip(item, false)
+              if GetTimeDifference(curTime, item.timestamp) > 2000 then
+                if canPay then
+                  canPay = false
+                  timer = 0
+                end
+              end
+          end
+        elseif GetTimeDifference(curTime, item.timestamp) > 600000 and not item.onRoute then
+          -- If its been passed 10 minutes, clear the bip locally unless it's a blip we are on route to
+          clearBlip(item, false)
+        end
+      end
+    end
 
-    -- Citizen.Wait(1000)
-  -- end
--- end)
+    Citizen.Wait(1000)
+  end
+end)
 
 function getCardinalDirectionFromHeading()
     local heading = GetEntityHeading(PlayerPedId())
@@ -962,7 +962,7 @@ function AlertFight()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Pertubação",
+        dispatchMessage = "Đánh nhau",
         blipSprite = 311,
         blipColor = 0,
         job = {"police"}
@@ -1131,7 +1131,7 @@ function AlertCheckLockpick(object)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Arrombamento",
+        dispatchMessage = "Cướp xe",
         blipSprite = 255,
         blipColor = 1,
         job = {"police"}
@@ -1142,7 +1142,7 @@ function AlertCheckLockpick(object)
         local model = GetDisplayNameFromVehicleModel(GetEntityModel(object))
         local firstColor, secondColor = GetVehicleColours(object)
 
-        _dispatchData.dispatchMessage = "Carjacking"
+        _dispatchData.dispatchMessage = "Cướp xe"
         _dispatchData.model = model
         _dispatchData.plate = plate
         _dispatchData.firstColor = firstColor

@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 
     Wait(200)
 end)
-
+local loadphone = false
 local PlayerJob = {}
 local patt = "[?!@#]"
 PhoneData = {
@@ -288,8 +288,11 @@ local function LoadPhone()
 end
 
 local function OpenPhone()
-    
-	if exports["pw-inventory"]:hasEnoughOfItem("phone",1,false) then
+    if not loadphone then 
+		LoadPhone()
+		loadphone = true
+	end
+	if exports["pw-inventory"]:hasEnoughOfItem("mobilephone",1,false) then
 		ESX.TriggerServerCallback('qb-phone:server:GetCharacterData', function(chardata)
 			PhoneData.PlayerData = ESX.GetPlayerData()
 			PhoneData.PlayerData.charinfo = chardata ~= nil and chardata or {}
@@ -1428,11 +1431,10 @@ RegisterCommand('ping', function(source, args)
 end)
 
 -- Handler Events
-
-AddEventHandler('playerSpawned', function()
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function()
 	Wait(500)
     LoadPhone()
-	print('load the fucking phoe')
 	
 end)
 

@@ -1,33 +1,45 @@
-// ----
-// Game
-// ----
+var fps = 60;
+var now;
+var then = Date.now();
+var interval = 1000/fps;
+var delta;
 
-
-  
-  
-  
 (function () {
   let gameOver = false;
   let fishspeedd = 1;
   document.addEventListener('DOMContentLoaded', function () {
     TweenMax.set(".game", { display: 'none' });
+
 	gameOver = true
 });	 
 
-  // --------------
-  // Animation loop
-  // --------------
-	
-
-    
   function animationLoop() {
     if (!gameOver) {
+      
+    /* setTimeout(function() {
+        requestAnimationFrame(animationLoop);
+        indicator.updatePosition();
+        indicator.detectCollision();
+        progressBar.updateUi();
+        progressBar.detectGameEnd();
+        fish.updateFishPosition();
+        // ... Code for Drawing the Frame ...
+ 
+    }, 1000 / 120);  */
+   
+    requestAnimationFrame(animationLoop);
+    now = Date.now();
+    delta = now - then;
+     
+    if (delta > interval) {
       indicator.updatePosition();
       indicator.detectCollision();
       progressBar.updateUi();
       progressBar.detectGameEnd();
       fish.updateFishPosition();
-      requestAnimationFrame(animationLoop);
+      then = now - (delta % interval);
+    }
+      
     }
   }
   
@@ -282,6 +294,7 @@
 	
 
     gameOver = false;
+    
     animationLoop();
 	// close the game
 	/* closeMain()
@@ -314,7 +327,7 @@
   // -------------
   // Initiate loop
   // -------------
-
+  
   animationLoop();
 
 })();

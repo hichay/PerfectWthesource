@@ -369,7 +369,7 @@ function CountMedic()
 			MedicConnected = MedicConnected + 1
 		end
 	end
-
+	TriggerClientEvent('MedicOnline',-1,MedicConnected)
 	SetTimeout(5000, CountMedic)
 
 end

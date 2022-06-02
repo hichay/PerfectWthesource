@@ -14,7 +14,7 @@ let cash = 0;
 let weaponsLicence = false
 let openedInv = false;
 let personalWeight = 0;
-let maxPlayerWeight = 250;
+let maxPlayerWeight = 150;
 let cid = 0;
 let hadBrought = [];
 let plySteam = false;
@@ -150,10 +150,13 @@ on('inventory-client-identifier', _0x3d372a => {
 RegisterNetEvent('esx:playerLoaded');
 on('esx:playerLoaded', async (plydata) => {
     cid = plydata.identifier
+	emitNet("inventory:RetreiveSettings");
+	TriggerServerEvent("inventory:RetreiveSettings") 
     emitNet('server-request-update', cid);
     SendNuiMessage(JSON.stringify({ response: 'SendItemList', list: await itemListWithTax() }));
     //Send updated settings
-    UpdateSettings();
+    /* UpdateSettings(); */
+	
 });
 
 
@@ -218,7 +221,7 @@ on('__cfx_nui:UpdateSettings', (data, cb) => {
     SetResourceKvpInt('inventorySettings-CtrlMovesHalf', ctrlMovesHalf ? 0 : 1);
     SetResourceKvpInt('inventorySettings-ShowTooltips', showTooltips ? 0 : 1);
     SetResourceKvpInt('inventorySettings-EnableBlur', enableBlur ? 0 : 1);
-    cb({});
+	emitNet("inventory:save:settings", data)
 });
 
 
@@ -251,10 +254,10 @@ on('player:receiveItem', async (id, amount, generateInformation, itemdata, retur
 
     let combined = parseFloat(itemList[id].weight) * parseFloat(amount);
     if ((parseFloat(personalWeight) > maxPlayerWeight || parseFloat(personalWeight) + combined > maxPlayerWeight) && !devItem) {
-        emit('DoLongHudText', 'Items fell on the ground because you are overweight', 2);
+        emit('DoLongHudText', 'Item đã rớt xuống đất vì túi đầy', 2);
         let droppedItem = { slot: 3, itemid: id, amount: amount, generateInformation: generateInformation, data: Object.assign({}, itemdata), returnData: returnData };
-        cid = exports.isPed.isPed("cid");
-        emitNet('server-inventory-open', GetEntityCoords(PlayerPedId()), cid, '42069', "Drop-Overweight", { "items": [droppedItem] });
+        
+        emitNet('server-inventory-open', GetEntityCoords(PlayerPedId()), plySteam, '42069', "Drop-Overweight", { "items": [droppedItem] });
         return;
     }
     SendNuiMessage(
@@ -1284,6 +1287,7 @@ function UpdateSettings() {
 }
 RegisterNetEvent('inventory:update:settings')
 on('inventory:update:settings', (Data) => {
+	
     SendNuiMessage(
         JSON.stringify({
             response: 'UpdateSettings',

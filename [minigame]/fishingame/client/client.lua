@@ -13,7 +13,9 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
-
+RegisterCommand("testfi", function(source, args, rawCommand)
+	FishingGame(math.random(1,2))
+end, false)
 
 local taskInProcess = false
 local activeTasks = 0
@@ -114,86 +116,55 @@ end)
 
 
 Citizen.CreateThread(function()
+	local data = {
+		id = "fisher_npc",
+		position = {coords = vector3(714.52294, 4101.8281, 34.785232), heading = 56.555},
+		pedType = 4,
+		model = "a_m_y_vinewood_01",
+		networked = false,
+		distance = 50.0,
+		settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+		flags = { ["isNPC"] = true, },
+		scenario = "WORLD_HUMAN_CLIPBOARD_FACILITY",
+	}
+	local npc = exports["pw-npcs"]:RegisterNPC(data, "fishername_npc")
+
+	local Interact = {
+	  data = {
+		{
+		  	id = 'sellfish',
+		  	label = 'Bán cá',
+		  	icon = 'fish-fins',
+		  	event = 'fishingame:banca',
+		  	parameters = {},
+		},
+		{
+			id = 'buyitem',
+			label = 'Mua đồ',
+			icon = 'circle',
+			event = 'pw-npcs:ped:keeper',
+			parameters = {"101"},
+		},
+		{
+			id = 'rentboat',
+			label = 'Thuê thuyền',
+			icon = 'sailboat',
+			event = 'fishingame:spawnboat',
+			parameters = {},
+		},
+	  },
+	  options = {
+		distance = { radius = 2.5 },
+		npcIds = { 'fisher_npc' },
+		--[[ isEnabled = function(pEntity, pContext)
+		  return isOnDeliveryTask()
+		end, ]]
+	  },
+	}
 	
-		local blip = AddBlipForCoord(713.88946, 4100.1982, 35.785232)
-		SetBlipSprite(blip, 317)
-		SetBlipScale(blip, 1.0)
-		SetBlipColour(blip, 28)
-		SetBlipAsShortRange(blip, true)
-		BeginTextCommandSetBlipName("CUSTOM_TEXT")
-		AddTextComponentString("Ngư dân")
-		EndTextCommandSetBlipName(blip)
-
-	
-end)
+	exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
 
 
-Citizen.CreateThread(function()
-   local playerPed = PlayerPedId()
-   
-   local createdPeds = {}
-   local pedcreated = false
-    while true do
-	local pos = GetEntityCoords(PlayerPedId())
-	local dst = #(pos - vector3(713.88946, 4100.1982, 35.785232))
-	Citizen.Wait(15)
-	    
-		if dst <= 5 then	
-			if IsControlJustPressed(1, 38) and IsPedInAnyVehicle(GetPlayerPed(-1), false) ~= 1 then
-				
-				TriggerEvent('pw:dialog:open',{
-					{text = "Bán cá", event = "fishingame:banca", server = false ,},
-					{text = "Mua đồ", event = 'server-inventory-open', server = false, args1 = "101", args2 = "Shop"  },
-					{text = "Thuê thuyền", event = 'fishingame:spawnboat', server = false  },
-					{text = "Không có việc gì", event = "pw:close:dialog", server = false, },    
-				},'Ngư dân', 'Với chúng tôi, biển cả là nhà.' )
-				
-					
-			end
-		end
-		if dst <= 50 and pedcreated == false then
-				pedcreated = true
-				local pedModel = "ig_josef"
-			
-				RequestModel(pedModel)
-				while not HasModelLoaded(pedModel) do
-					RequestModel(pedModel)
-					Wait(100)
-				end
-			
-				local createdPed1 = CreatePed(5, pedModel, 713.88946, 4100.1982, 35.785232 - 1.0, 150, false, false)
-				ClearPedTasks(createdPed1)
-				ClearPedSecondaryTask(createdPed1)
-				TaskSetBlockingOfNonTemporaryEvents(createdPed1, true)
-				SetPedFleeAttributes(createdPed1, 0, 0)
-				SetPedCombatAttributes(createdPed1, 17, 1)
-			
-				SetPedSeeingRange(createdPed1, 0.0)
-				SetPedHearingRange(createdPed1, 0.0)
-				SetPedAlertness(createdPed1, 0)
-				SetPedKeepTask(createdPed1, true)
-				Wait(1000) -- for better freeze (not in air)
-				FreezeEntityPosition(createdPed1, true)
-				SetEntityInvincible(createdPed1, true)
-				
-				createdPeds[1] = createdPed1
-			
-				
-
-		elseif dst > 50 and pedcreated == true then
-				pedcreated = false
-				if DoesEntityExist(createdPeds[1]) then 
-					local ped = createdPeds[1]
-					SetPedKeepTask(ped, false)
-					TaskSetBlockingOfNonTemporaryEvents(ped, false)
-					ClearPedTasks(ped)
-					TaskWanderStandard(ped, 10.0, 10)
-					SetPedAsNoLongerNeeded(ped)
-					DeleteEntity(ped)
-					createdPeds[1] = nil
-				end
-		end	
-	end
 end)
 
 
@@ -217,13 +188,6 @@ Citizen.CreateThread(function()
 						DeleteVehicle(GetVehiclePedIsIn(PlayerPedId()))
 					end
 				else
-					-- DrawText3Ds(Config.BoatDelete["vehicle"].x, Config.BoatDelete["vehicle"].y, Config.BoatDelete["vehicle"].z, '[E] Get Vehicle')
-					-- if IsControlJustPressed(0, 38) then
-						-- if IsControlJustPressed(0, 38) then
-							-- TriggerEvent('pw-mechanicjob:VehicleList')
-							-- Menu.hidden = not Menu.hidden
-						-- end
-					-- end
 					
 				end
 			end
@@ -241,9 +205,6 @@ AddEventHandler('fishingame:spawnboat', function()
         TriggerEvent("ESX:Notify", "Đã thuê thuyền thành công" ,"success") 		
 		end)
 	end
-	--TriggerServerEvent("fishing:lowmoney", 2500) 
-	--TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 2500)
-	--ESX.Game.SpawnVehicle("dinghy4", coords, heading, cb)
 	
 end)
 
@@ -284,15 +245,12 @@ AddEventHandler('fishingame:banca', function()
 				price = baseprice + diffrentlg * multipice						
 				TriggerEvent("inventory:removeItem", fishid, 1)
 				TriggerServerEvent('fishingGame:Banca', price )
-				--TriggerEvent("DoShortHudText","Bán thành công",1)
 				TriggerEvent("ESX:Notify", "Bán thành công", "success")
 				TriggerServerEvent("fishingame:sendlog",fishid,price)
 			else
 				price = baseprice
 				TriggerEvent("inventory:removeItem", fishid, 1)
 				TriggerServerEvent('fishingGame:Banca', price )
-				--TriggerEvent("inventory:removeItem", Config.fishTable[i].idname, 1)
-				--TriggerEvent("DoShortHudText","Bán thành công",1)
 				TriggerEvent("ESX:Notify" ,"Bán thành công", "success")
 				TriggerServerEvent("fishingame:sendlog",fishid,price)
 			end

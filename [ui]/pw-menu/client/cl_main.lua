@@ -24,6 +24,15 @@ end
 
 -- Menu state
 local showMenu = false
+local TotalMedicOnline = 0
+RegisterNetEvent("MedicOnline")
+AddEventHandler('MedicOnline', function(MedicInfo)
+    TotalMedicOnline = MedicInfo
+end)
+
+function MedicOnline()
+	return TotalMedicOnline
+end
 
 -- Keybind Lookup table
 local keybindControls = {
@@ -278,9 +287,6 @@ end
 --     exports["np-keybinds"]:registerKeyMapping("Menu", "Show Menu", "+showFastMenu", "-showFastMenu", "F1")
 -- end)
 
-RegisterCommand("vehcla", function(source, args, rawCommand)
-    print(GetVehicleClass(GetVehiclePedIsIn(PlayerPedId(),false)))
-end, false)
 
 Citizen.CreateThread(function()
     local keyBind = "~"

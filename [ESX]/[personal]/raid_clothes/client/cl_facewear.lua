@@ -45,7 +45,7 @@ function toggleFaceWear(pType, pRemove, pInfo, pSteal)
 
     if not pRemove then
         if pInfo.gender == "male" and not IsMale then
-            TriggerEvent("DoLongHudText", "Esta roupa só serve no sexo oposto. ", 2)
+            TriggerEvent("DoLongHudText", "Trang phục này chỉ hợp với người khác giới. ", 2)
             return
         end
     end

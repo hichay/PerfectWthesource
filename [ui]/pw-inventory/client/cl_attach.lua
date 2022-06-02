@@ -96,7 +96,6 @@ AddEventHandler("AttachWeapons", function()
 	local num, curw = GetCurrentPedWeapon(ped, false)
 	local sheathed = false
 	DeleteAttached()
-	print('attach')
 	for i = 1, #w do
 		if exports["pw-inventory"]:getQuantity(w[i]["id"]) > 0 then
 			local mdl = GetHashKey(w[i]["model"])

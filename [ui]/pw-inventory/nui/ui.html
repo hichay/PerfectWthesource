@@ -52,12 +52,12 @@
                 <div class="inventory-actions-wrapper">
                     <div class="inventory-actions" id="usearea">
                         <input tabindex="-1" type="number" id="move-amount" max="9999" min="0" readonly
-                            placeholder="Amount" class="i18n-replace-placeholder" />
+                            placeholder="Số lượng" class="i18n-replace-placeholder" />
                         <button class="use-btn" id="usearea" style="margin: 0.5rem 0;">
-                            <span class="i18n-replace" style="pointer-events: none;">Use</span>
+                            <span class="i18n-replace" style="pointer-events: none;">Sử dụng</span>
                         </button>
                         <button id="CloseInv" class="use-btn">
-                            <span class="i18n-replace" style="pointer-events: none;">Close</span>
+                            <span class="i18n-replace" style="pointer-events: none;">Đóng</span>
                         </button>
 
                         <input tabindex="1" type="number" id="price-amount" max="9999" min="0" readonly
@@ -72,7 +72,7 @@
                             name='craftSearch' placeholder='Search' class='craftSearch'>
                     </div>
                     <div class='cashcontainer'>
-                        <span class="i18n-replace">You have </span><span class='invShopMoney' id="invShopMoney"></span> <span class="i18n-replace">to spend</span>
+                        <span class="i18n-replace">Bạn có </span><span class='invShopMoney' id="invShopMoney"></span> <span class="i18n-replace">tiền trong người</span>
                     </div>
 
                     <!-- <div id="wrapSecondaryWeight" class="wrapSecondaryWeight"></div> -->
@@ -84,65 +84,59 @@
             <div id="draggedItem" class="item"></div>
 
             <div class="help-menu">
-                <h3><span class="i18n-replace">About</span>:</h3>
+                <h3><span class="i18n-replace">Thông tin:</span>:</h3>
                 <p>
-                    <span class="i18n-replace">To move a full stack, make sure the AMOUNT field is empty (shows AMOUNT)</span>
+                    <span class="i18n-replace">Để di chuyển toàn bộ stack đồ, Hãy chắc chắn ô số lương đang không để giá trị nào</span>
                     <br />
-                    <span class="i18n-replace">Using the numbers or mouse wheel you can set the amount you would like to move. You can do this
-                    while dragging or
-                    beforehand.</span>
+                    <span class="i18n-replace"> Sử dụng các con số hoặc con lăn chuột, bạn có thể đặt số tiền bạn muốn di chuyển. Bạn có thể làm điều này khi đang kéo.</span>
                     <br />
-                    <span class="i18n-replace">To USE an item, drag it into the middle area.</span>
+                    <span class="i18n-replace">Để sử dụng một món đồ, Kéo nó vô ô sử dụng..</span>
                     <br />
-                    <span class="i18n-replace">The AMOUNT field will not reset on close, so get used to clearing it!</span>
+                    <span class="i18n-replace">Ô số lượng sẽ không reset sau khi tắt túi đồ, vì thế hãy làm quen với điều này!</span>
                 </p>
-                <h3><span class="i18n-replace">Keybinds (defaults):</span></h3>
+                <h3><span class="i18n-replace">Phím tắt (mặc định):</span></h3>
                 <ul>
-                    <li><span class="i18n-replace">Shift + Click: Moves half of the stack to opposite inventory.</span></li>
-                    <li><span class="i18n-replace">Ctrl + Click: Moves amount inputted in AMOUNT to opposite inventory.</span></li>
-                    <li><span class="i18n-replace">Left Click: Normal Drag (configurable to be like Right Click in settings)</span></li>
-                    <li><span class="i18n-replace">Right Click: No Hold to Drag</span></li>
-                    <li><span class="i18n-replace">Middle Click: Uses Item</span></li>
+                    <li><span class="i18n-replace">Shift + Chuột trái: Chuyển một nửa stack tới bên túi đối diện.</span></li>
+                    <li><span class="i18n-replace">Ctrl + Chuột trá: Chuyển số lượng đúng với Số Lượng đã điền ở ô sang bên đối diện.</span></li>
+                    <li><span class="i18n-replace">Chuột trái: Kéo đồ thông thường (Chỉnh sửa không cần giữ nút khi kéo đồ trong cài đặt túi)</span></li>
+                    <li><span class="i18n-replace">Chuột phải: Không cần giữ nút khi kéo đồ</span></li>
+                    <li><span class="i18n-replace">Chuột giữa: Sử dụng đồ thay vì kéo vào ô giữa</span></li>
                     <hr />
-                    <li><span class="i18n-replace">Scroll Wheel: While hovering over AMOUNT will increase/decrease value</span></li>
-                    <li><span class="i18n-replace">Numbers 0 - 9: Will input the typed number.</span></li>
-                    <li><span class="i18n-replace">Any other key: Will set AMOUNT to blank/move entire stack.</span></li>
+                    <li><span class="i18n-replace">Lăn chuột: Khi chỉ vào ô Số lượng và lăn thì sẽ thay đổi số lượng lên xuống</span></li>
+                    <li><span class="i18n-replace">Số 0 - 9: Khi bấm vào ô số lượng sẽ ghi số cần.</span></li>
+                    <li><span class="i18n-replace">Bất cứ phím nào khác: Sẽ reset Số Lượng tương ứng với việc chuyển toàn bộ thay vì số lượng.</span></li>
                     <hr />
-                    <li><span class="i18n-replace">Pressing Ctrl + C while hoving over an item will copy the description, useful for getting
-                        evidence numbers.</span></li>
+                    <li><span class="i18n-replace">Nhấn Ctrl + C Khi đang chỉ trên một đồ thì nó sẽ copy toàn bộ thông tin của đồ đấy, Dùng cho những đồ có thông tin.</span></li>
                 </ul>
-                <h3><span class="i18n-replace">Shops</span>:</h3>
-                <p><span class="i18n-replace">Put in the amount you want to buy in the AMOUNT field and then drag the shop item into your
-                    inventory.</span></p>
-                <h3><span class="i18n-replace">Crafting</span>:</h3>
+                <h3><span class="i18n-replace">Cửa hàng:</span>:</h3>
+                <p><span class="i18n-replace">Đặt số lượng bạn muốn mua vào ô Số lượng và sau đó kéo đồ từ bên cửa hàng sang túi cá nhân của bạn.</span></p>
+                <h3><span class="i18n-replace">Chế tạo:</span>:</h3>
                 <p>
-                    <span class="i18n-replace">Make sure you know the requirements beforehand for any crafting menu that takes a long time to open.</span>
+                    <span class="i18n-replace"> Đảm bảo bạn biết trước các yêu cầu đối với bất kỳ menu chế tạo nào mất nhiều thời gian để mở.</span>
                     <br />
-                    <span class="i18n-replace">When crafting, you have to put in the exact amount you can craft.</span>
+                    <span class="i18n-replace">Khi chế tạo, bạn phải đặt số lượng chính xác mà bạn có thể chế tạo.</span>
                 </p>
-                <h3><span class="i18n-replace">Item Durability</span>:</h3>
+                <h3><span class="i18n-replace">Độ bền:</span>:</h3>
                 <p>
-                    <span class="i18n-replace">Almost all items will decay over time (including weapons) The bar under each item will slowly
-                    decrease in size as it
-                    decays more and more, then eventually fade to a reddish color. Once an item is fully destroyed, it
-                    will have a solid
-                    red bar.
+                    <span class="i18n-replace">Hầu hết tất cả các vật phẩm sẽ bị phân hủy theo thời gian (bao gồm cả vũ khí) Thanh bên dưới mỗi vật phẩm sẽ giảm dần kích thước khi nó
+                        phân hủy ngày càng nhiều, sau đó dần dần chuyển sang màu hơi đỏ. Sau khi một vật phẩm bị phá hủy hoàn toàn, nó sẽ có một thanh màu đỏ.
+
                     </span>
                 </p>
             </div>
             <div class="settings-menu">
-                <input type="checkbox" name="enableHoldToDrag" /> <span class="i18n-replace">Hold Left Click to Drag</span>
+                <input type="checkbox" name="enableHoldToDrag" /> <span class="i18n-replace">Giữ nhấn chuột trái để kéo</span>
                 <br />
-                <input type="checkbox" checked name="enableClickToClose" /> <span class="i18n-replace">Clicking Outside Inventory Closes</span>
+                <input type="checkbox" checked name="enableClickToClose" /> <span class="i18n-replace">Nhấn ra ngoài túi đồ để đóng túi đồ</span>
                 <br />
-                <input type="checkbox" name="enableCtrlMovesHalf" /> <span class="i18n-replace">Ctrl Moves Half (Unchecked makes Shift move half)</span>
+                <input type="checkbox" name="enableCtrlMovesHalf" /> <span class="i18n-replace">Ctrl chuyển một nữa stack (Không tích sẽ làm cho Shift chuyển một nửa</span>
                 <br />
-                <input type="checkbox" checked name="enableShowTooltips" /> <span class="i18n-replace">Show Tooltips</span>
+                <input type="checkbox" checked name="enableShowTooltips" /> <span class="i18n-replace">Hiển thị Tooltips</span>
                 <br />
-                <input type="checkbox" checked name="enableBlur" /> <span class="i18n-replace">Enable Background Blur</span>
+                <input type="checkbox" checked name="enableBlur" /> <span class="i18n-replace">Bật tính năng làm mờ nền</span>
                 <hr />
-                <button type="button" class="save-settings"><span class="i18n-replace">Save</span></button>
-                <button type="button" onclick="$('.settings-menu').fadeOut();"><span class="i18n-replace">Close</span></button>
+                <button type="button" class="save-settings"><span class="i18n-replace">Lưu</span></button>
+                <button type="button" onclick="$('.settings-menu').fadeOut();"><span class="i18n-replace">Đóng</span></button>
             </div>
         </div>
     </div>

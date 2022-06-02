@@ -46,11 +46,12 @@ if not Config.UseDeferrals then
 	end)
 
 	RegisterNUICallback('register', function(data, cb)
+		
 		ESX.TriggerServerCallback('esx_identity:registerIdentity', function(callback)
 			if callback then
 				ESX.ShowNotification(_U('thank_you_for_registering'))
 				EnableGui(false)
-				if data.sex == 0 then
+				if data.sex == 'f' then
 					SetSkin(`mp_f_freemode_01`, true)
 				else
 					SetSkin(`mp_m_freemode_01`, true)

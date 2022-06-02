@@ -460,7 +460,7 @@ Entries[#Entries + 1] = {
         }
     },
     options = {
-        distance = { radius = 0.9, boneId = 'misc_a' }
+        distance = { radius = 1.9, boneId = 'misc_a' }
     }
 }
 

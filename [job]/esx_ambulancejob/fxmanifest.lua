@@ -27,6 +27,7 @@ client_scripts {
 	'client/job.lua',
 	'client/vehicle.lua',
 	'client/cl_vehicles.lua',
+	'client/cl_npc.lua',
 }
 
 ui_page 'html/index.html'

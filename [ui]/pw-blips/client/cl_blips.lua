@@ -58,27 +58,6 @@ local Config = {
             { ["pos"] = vector3(-3170.07, 1075.05, 20.82) },
         },
     },
-    -- ["ammunation"] = {
-        -- ["text"] = "Ammunation",
-        -- ["sprite"] = 110,
-        -- ["scale"] = 0.7,
-        -- ["colour"] = 17,
-
-        -- ["default"] = true,
-
-        -- ["blips"] = {
-            -- { ["pos"] = vector3(-662.10, -935.30, 20.81) },
-            -- { ["pos"] = vector3(810.20, -2157.30, 28.61) },
-            -- { ["pos"] = vector3(1693.40, 3759.50, 33.71) },
-            -- { ["pos"] = vector3(-330.20, 6083.80, 30.41) },
-            -- { ["pos"] = vector3(252.30, -50.00, 68.91) },
-            -- { ["pos"] = vector3(22.00, -1107.20, 28.81) },
-            -- { ["pos"] = vector3(2567.60, 294.30, 107.71) },
-            -- { ["pos"] = vector3(-1117.50, 2698.60, 17.51) },
-            -- { ["pos"] = vector3(842.40, -1033.40, 27.11) },
-            -- { ["pos"] = vector3(-1306.20, -394.00, 35.61) },
-        -- },
-    -- },
     ["shop247"] = {
         ["text"] = "Cửa hàng tạp hóa",
         ["sprite"] = 52,
@@ -113,16 +92,31 @@ local Config = {
             { ["pos"] = vector3(-2195.55, 4289.7783, 49.17) },
             { ["pos"] = vector3(-679.541, 5837.4458, 17.34) },
             { ["pos"] = vector3(165.0545, 6642.217, 30.69) },
+			{ ["pos"] = vector3(161.89176, 6643.1494, 31.698944) },
+        },
+    },
+	["job"] = {
+        ["default"] = true,
+        ["custom"] = true,
+
+        ["blips"] = {
+            { ["text"] = "Công ty khoáng sản", ["sprite"] = 318, ["scale"] = 0.8, ["colour"] = 5, ["pos"] = vector3(2832.6193, 2799.9738, 56.474582) },
+            { ["text"] = "Công ty làm vườn", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 10, ["pos"] = vector3(-1753.25, -724.20, 10.40) },
+            { ["text"] = "Công ty chế biến gỗ", ["sprite"] = 79, ["scale"] = 0.5, ["colour"] = 25, ["pos"] = vector3(-559.7275, 5282.7309, 72.050994) },
+			{ ["text"] = "Ngư dân câu cá", ["sprite"] = 317, ["scale"] = 1.0, ["colour"] = 28, ["pos"] = vector3(713.88946, 4100.1982, 35.785232) },
+			
         },
     },
     ["misc"] = {
-        ["default"] = true,
+        ["default"] = false,
         ["custom"] = true,
 
         ["blips"] = {
             { ["text"] = "Cửa hàng thợ săn", ["sprite"] = 463, ["scale"] = 1.0, ["colour"] = 48, ["pos"] = vector3(-675.77, 5836.10, 17.33) },
             { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 10, ["pos"] = vector3(46.080375, -1749.123, 28.633472) },
             { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 10, ["pos"] = vector3(2748.6979, 3472.0498, 54.677799) },
+			{ ["text"] = "Nhà máy tái chế", ["sprite"] = 467, ["scale"] = 1.0, ["colour"] = 25, ["pos"] = vector3(51.408695, 6485.7788, 31.428194) },
+			{ ["text"] = "~y~Phi vụ rửa tiền", ["sprite"] = 431, ["scale"] = 1.0, ["colour"] = 69, ["pos"] = vector3(591.05664, 2744.7678, 42.043945) },
         },
     },
 }
@@ -134,7 +128,7 @@ AddEventHandler("pw-blips:update", function(pType, pInit)
 
     if pInit ~= true then
         blips[pType] = not blips[pType]
-        set(blips, "pw-blips")
+        Setstorage(blips, "pw-blips")
     end
 
     local show = blips[pType]
@@ -156,9 +150,11 @@ AddEventHandler("pw-blips:update", function(pType, pInit)
             BeginTextCommandSetBlipName("CUSTOM_TEXT")
             AddTextComponentString(typeData["text"])
             EndTextCommandSetBlipName(v["blip"])
+			TriggerEvent("DoLongHudText","Đã bật danh sách blip lên")
         else
             if v["blip"] ~= nil then
                 RemoveBlip(v["blip"])
+				TriggerEvent("DoLongHudText","Đã tắt danh sách blip",2)
             end
         end
     end
@@ -178,9 +174,11 @@ AddEventHandler("pw-blips:updateMisc", function(pType, show)
             BeginTextCommandSetBlipName("CUSTOM_TEXT")
             AddTextComponentString(v["text"])
             EndTextCommandSetBlipName(v["blip"])
+			TriggerEvent("DoLongHudText","Đã bật danh sách blip lên")
         else
             if v["blip"] ~= nil then
                 RemoveBlip(v["blip"])
+				TriggerEvent("DoLongHudText","Đã tắt danh sách blip",2)
             end
         end
     end

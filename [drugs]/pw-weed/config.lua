@@ -1,4 +1,5 @@
 Config = Config or {}
+Config.PoliceRequire = 2
 vector3(51.754016, 6486.0678, 31.428379)
 Config['delivery'] = {
 	outsideLocation = {x=51.754016,y=6486.0678,z=31.428379,a=230.732},

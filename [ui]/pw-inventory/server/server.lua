@@ -113,17 +113,18 @@ AddEventHandler("inventory:save:settings", function(data)
     MySQL.query('UPDATE users SET `inventory_settings` = @setting WHERE identifier = @identifier', {['setting'] = encode, ['identifier'] = indentifer})
 end)
 
+
 RegisterServerEvent("inventory:RetreiveSettings")
 AddEventHandler("inventory:RetreiveSettings", function()
     local src = source
     local xPlayer = ESX.GetPlayerFromId(source)
-	local indentifer = xPlayer.identifier
-	--print('ok thiss already load success')
-    MySQL.query("SELECT `inventory_settings` FROM users WHERE identifier = @hex_id", {['hex_id'] = indentifer}, function(result)
-        if (result[1]) then
-            TriggerClientEvent('inventory:update:settings', src, result[1].inventory_settings)
+	local identifier = xPlayer.getIdentifier()
+	MySQL.single('SELECT inventory_settings FROM users WHERE identifier = ?', {identifier}, function(result)
+        if (result) then
+			local data = json.decode(result.inventory_settings)
+            TriggerClientEvent('inventory:update:settings', src, data)
         end
-    end)
+	end)
 end)
 
 

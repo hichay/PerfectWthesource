@@ -2316,6 +2316,23 @@ itemList['oxy'] = {
   friskable: 2,
 };
 
+itemList['oxystress'] = {
+  fullyDegrades: true,
+  illegal: true,
+  decayrate: 0.75,
+  displayname: 'Thuốc đau đầu',
+  price: 150,
+  weight: 3,
+  nonStack: false,
+  model: '',
+  image: 'np_Oxy.png',
+  information: '',
+  contraband: true,
+  friskable: 2,
+};
+
+
+
 itemList['oxybettalife'] = {
   fullyDegrades: true,
   illegal: true,
@@ -2398,13 +2415,13 @@ itemList['wetbud'] = {
   fullyDegrades: true,
   illegal: true,
   decayrate: 0.3,
-  displayname: 'Wet Bud (100 grams)',
+  displayname: 'Cần tươi (100 grams)',
   price: 30,
   weight: 35,
   nonStack: true,
   model: '',
   image: 'wet.png',
-  information: 'Needs to be stored somewhere dry.',
+  information: 'Cần phơi khô.',
   contraband: true,
 };
 
@@ -2412,13 +2429,13 @@ itemList['driedbud'] = {
   fullyDegrades: true,
   illegal: true,
   decayrate: 0.3,
-  displayname: 'Dried Bud (100 Grams)',
+  displayname: 'Cần khô (100 Grams)',
   price: 30,
   weight: 10,
   nonStack: true,
   model: '',
   image: 'buddry2.png',
-  information: 'Pack It?',
+  information: 'Đóng gói?',
   contraband: true,
 };
 
@@ -2426,13 +2443,13 @@ itemList['smallbud'] = {
   fullyDegrades: true,
   illegal: true,
   decayrate: 0.3,
-  displayname: 'Packed Bud (20 Grams)',
+  displayname: 'Cần đã gói (20 Grams)',
   price: 30,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'buddry.png',
-  information: 'Sell It?',
+  information: 'Bán?',
   contraband: true,
   friskable: 2,
 };
@@ -3987,21 +4004,21 @@ itemList['torta'] = {
 itemList['coffee'] = {
   fullyDegrades: true,
   decayrate: 0.01,
-  displayname: 'Coffee',
+  displayname: 'Cà phê',
   craft: [[{ itemid: 'foodingredient', amount: 2 }]],
   price: 50,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_coffee.png',
-  information: 'Wow, its strong.',
+  information: 'Uống phát mất ngủ luôn.',
 };
 
 itemList['cola'] = {
   fullyDegrades: true,
   decayrate: 0.01,
   displayname: 'Cola',
-  price: 5,
+  price: 15,
   weight: 1,
   nonStack: false,
   model: '',
@@ -4045,7 +4062,7 @@ itemList['donut'] = {
   nonStack: false,
   model: '',
   image: 'np_donut.png',
-  information: 'Powered by Francisâ„¢',
+  information: 'Bánh vòng',
 };
 
 itemList['applepie'] = {
@@ -4075,7 +4092,7 @@ itemList['foodgoods'] = {
 itemList['foodingredient'] = {
   fullyDegrades: true,
   decayrate: 0.01,
-  displayname: 'Ingredients',
+  displayname: 'Thành phần',
   price: 10,
   weight: 5,
   nonStack: false,
@@ -4161,14 +4178,14 @@ itemList['bleederburger'] = {
 itemList['water'] = {
   fullyDegrades: true,
   decayrate: 0.01,
-  displayname: 'Water',
-  price: 5,
+  displayname: 'Nước',
+  price: 15,
   weight: 1,
   craft: [[{ itemid: 'foodingredient', amount: 1 }]],
   nonStack: false,
   model: '',
   image: 'np_water.png',
-  information: 'Sates Thirst',
+  information: '',
 };
 
 itemList['kdragonwater'] = {
@@ -4275,7 +4292,7 @@ itemList['hamburger'] = {
   fullyDegrades: true,
   decayrate: 0.01,
   displayname: 'Hamburger',
-  price: 5,
+  price: 15,
   weight: 1,
   nonStack: false,
   model: '',
@@ -4702,13 +4719,13 @@ itemList['bikearmor'] = {
 itemList['armor'] = {
   fullyDegrades: true,
   decayrate: 0.25,
-  displayname: 'Chest Armor',
+  displayname: 'Áo chống đạn',
   craft: [[
     { itemid: 'aluminium', amount: 5 },
     { itemid: 'plastic', amount: 5 },
     { itemid: 'rubber', amount: 5 },
   ]],
-  price: 400,
+  price: 500,
   weight: 37,
   nonStack: false,
   model: '',
@@ -4719,13 +4736,13 @@ itemList['armor'] = {
 itemList['pdarmor'] = {
   fullyDegrades: true,
   decayrate: 0.25,
-  displayname: '(PD) Chest Armor',
+  displayname: '(PD) Áo chống đạn',
   craft: [[
     { itemid: 'aluminium', amount: 1 },
     { itemid: 'plastic', amount: 1 },
     { itemid: 'rubber', amount: 1 },
   ]],
-  price: 50,
+  price: 100,
   weight: 37,
   nonStack: false,
   model: '',
@@ -4736,13 +4753,13 @@ itemList['pdarmor'] = {
 itemList['bandage'] = {
   fullyDegrades: true,
   decayrate: 0.25,
-  displayname: 'First Aid Kit',
-  price: 50,
+  displayname: 'Bộ sơ cứu',
+  price: 75,
   weight: 3,
   nonStack: false,
   model: 'prop_ld_health_pack',
   image: 'np_bandage.png',
-  information: 'Heals Wounds and Reduces Bleeding',
+  information: 'Băng bó tạm thời vết thương',
 };
 
 itemList['bandagelarge'] = {
@@ -5295,13 +5312,13 @@ itemList['carhood'] = {
 itemList['cashroll'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Roll of Cash',
+  displayname: 'Cuộn tiền',
   price: 1,
   weight: 0,
   nonStack: false,
   model: '',
   image: 'np_cash-roll.png',
-  information: 'Whats the count..',
+  information: 'Tiền không rõ nguồn gốc..',
 };
 
 itemList['cashstack'] = {
@@ -7084,7 +7101,7 @@ itemList['lighter'] = {
 itemList['lockpick'] = {
   fullyDegrades: false,
   decayrate: 2.0,
-  displayname: 'Lockpick Set',
+  displayname: 'Bộ Lockpick',
   craft: [
     [
       { itemid: 'aluminium', amount: 5 },
@@ -7099,7 +7116,7 @@ itemList['lockpick'] = {
   weight: 1,
   nonStack: false,
   model: '',
-  information: 'Unlocks things, if you have the skill!',
+  information: 'Bộ công cụ để bẻ khóa!',
   image: 'np_lockpick-set.png',
 };
 
@@ -7574,8 +7591,8 @@ itemList['mk2usbdevice'] = {
 itemList['mobilephone'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Mobile Phone',
-  price: 100,
+  displayname: 'Điện thoại',
+  price: 300,
   craft: [
     [
       { itemid: 'electronics', amount: 10 },
@@ -8277,7 +8294,7 @@ itemList['redpack'] = {
   fullyDegrades: false,
   decayrate: 0.0,
   displayname: 'Redwood Pack',
-  price: 1,
+  price: 100,
   weight: 0,
   nonStack: false,
   model: '',
@@ -10451,159 +10468,62 @@ itemList['curvyelephant'] = {
   information: 'Pretty curvy',
 };
 
-// Start Of Fishing Items
-itemList['illegalhook'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Illegal Hook',
-  craft: [],
-  price: 500,
-  weight: 5,
-  nonStack: true,
-  model: '',
-  image: 'np_illegal_hook.png',
-  information: 'Hmm maybe fish will like this more?',
+// FISHING
+itemList['fishingrod']	    = {fullyDegrades: true, decayrate: 0.4, displayname: 'Fishing Rod', price: 100, weight: 10, nonStack: true, model: '', image: 'np_fishing-rod.png', information: 'Cần câu thông dụng', deg: false,
 };
 
-itemList['fishingrod'] = {
-  fullyDegrades: false,
-  decayrate: 0.0,
-  displayname: 'Fishing Rod',
-  price: 100,
-  weight: 10,
-  nonStack: true,
-  model: '',
-  image: 'np_fishing-rod.png',
-  information: 'Lets fish',
-};
+itemList["fishingherring"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá trích", price: 1, weight: 3, nonStack: true, model:  "", image: "np-fishing-herring.png", information: "Một loại cá bé ở biển", deg: false }
+
+itemList["fishinghalibut"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá bơn", price: 1, weight: 3, nonStack: true, model:  "", image: "np-fishing-halibut.png", information: "", deg: false }
+
+itemList["fishingminnow"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá tuế", price: 1, weight: 3, nonStack: true, model:  "", image: "np-fishing-minnow.png", information: "", deg: false }
+
+itemList["fishingredfish"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá da đỏ", price: 1, weight: 4, nonStack: true, model:  "", image: "np-fishing-redfish.png", information: "", deg: false }
+
+itemList["fishingsalmon"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá hồi Alaska", price: 1, weight: 4, nonStack: true, model:  "", image: "np-fishing-salmon.png", information: "", deg: false }
+
+itemList["fishingbarbel"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Barbel", price: 1, weight: 4, nonStack: true, model:  "", image: "np-fishing-barbel.png", information: "", deg: false }
+
+itemList["fishingtigerfish"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Hổ", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishing-tigerfish.png", information: "", deg: false }
+
+itemList["fishingmahseer"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Mahseer", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishing-mahseer.png", information: "", deg: false }
+
+itemList["fishinghake"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Hake", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishing-hake.png", information: "", deg: false }
+
+itemList["fishingbillfish"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Kiếm", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishing-billfish.png", information: "", deg: false }
+
+itemList["fishingredcod"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Tuyết Đỏ", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishing-redcod.png", information: "Một loại cá kiếm trong các loại cá hiếm", deg: false }
+
+itemList["fishbait"]	    = {fullyDegrades: true, decayrate: 0.5, displayname: "Mồi câu", price: 3, weight: 1.5, nonStack: false, model:  "", image: "pw_fishbait.png", information: "Mồi câu thông dụng trong câu cá", deg: false }
+
+itemList["fishingeel"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Lươn biển", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishingeel.png", information: "Môt con lươn", deg: false }
+
+itemList["fishingtuna"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Cá Ngừ đại dương", price: 1, weight: 5, nonStack: true, model:  "", image: "np-fishsingtuna.png", information: "Cá ngừ sống ở vùng biển lớn", deg: false }
 
 itemList['fishingbass'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Bass',
+  decayrate: 1.0,
+  displayname: 'Cá vược',
   price: 1,
-  weight: 1,
+  weight: 5,
   nonStack: false,
   model: '',
   image: 'np_fishing-bass.png',
   information: 'Striped Bass. Bass like the fish, not the officer',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  deg: false,
 };
-
-itemList['fishingcarp'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Carp',
-  price: 1,
-  weight: 1,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-carp.png',
-  information: 'Carp. Carpe diem!',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingcatfish'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Catfish',
-  price: 1,
-  weight: 1,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-cat.png',
-  information: 'Catfish. Did you just get done catfish noodlin?',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingyellowperch'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Yellow Perch',
-  price: 1,
-  weight: 1,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-yellowperch.png',
-  information: 'Yellow Perch. Did they tell you not to perch or not to poach?',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingalligatorturtle'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Alligator Snapping Turtle',
-  price: 1,
-  weight: 75,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-alligator-snapping-turtle.png',
-  information: 'Alligator Snapping Turtle. This thing could snap your fingers off like twigs.',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingsockeyesalmon'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Sockeye Salmon',
-  price: 1,
-  weight: 75,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-sockeye-salmon.png',
-  information: 'Sockeye Salmon. It looks like you caught this one before it could reach its spawning grounds...',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingsturgeon'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Sturgeon',
-  price: 1,
-  weight: 75,
-  nonStack: false,
-  model: '',
-  image: 'np_fishing-sturgeon.png',
-  information: 'Green Sturgeon. It looks prehistoric and rare. Maybe it has caviar? ',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
 
 itemList['fishingbluefish'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Bluegill',
+  decayrate: 1.0,
+  displayname: 'Bluefish',
   price: 1,
-  weight: 1,
+  weight: 5,
   nonStack: false,
   model: '',
   image: 'np_fishing-bluefish.png',
-  information: 'Bluegill. Catching this took no skill.',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  information: 'Whoever coined this name was a genius',
+  deg: false,
 };
 
 itemList['fishingflounder'] = {
@@ -10611,195 +10531,132 @@ itemList['fishingflounder'] = {
   decayrate: 0.02,
   displayname: 'Flounder',
   price: 1,
-  weight: 1,
+  weight: 4,
   nonStack: false,
   model: '',
   image: 'np_fishing-flounder.png',
   information: 'I went fishing and all I got was this lousy flounder',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  deg: false,
 };
 
 itemList['fishingmackerel'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
+  decayrate: 1.0,
   displayname: 'Mackerel',
   price: 1,
-  weight: 1,
+  weight: 6,
   nonStack: false,
   model: '',
   image: 'np_fishing-mackerel.png',
   information: 'Sometimes holy',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  deg: false,
 };
 
 itemList['fishingcod'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
+  decayrate: 1.0,
   displayname: 'Cod',
   price: 1,
-  weight: 1,
+  weight: 7,
   nonStack: false,
   model: '',
   image: 'np_fishing-cod.png',
   information: 'Modern Warfare',
-  fishes: true,
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  deg: false,
 };
 
 itemList['fishingwhale'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Baby Whale',
+  decayrate: 1.0,
+  displayname: 'Cá voi (Con non)',
   price: 1,
-  weight: 100,
+  weight: 15,
   nonStack: true,
   model: '',
   image: 'np_fishing-whale.png',
-  information: 'A fucking whale! Someone might be interested in buying it? Lol, jk. Throw it back. Unless..?',
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  information: 'Đây là cá voi. Chỉ một số ít người mới dám mua nó...?',
+  deg: false,
 };
 
 itemList['fishingdolphin'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Baby Dolphin',
+  decayrate: 1.0,
+  displayname: 'Cá heo (Con non)',
   price: 1,
-  weight: 100,
+  weight: 10,
   nonStack: true,
   model: '',
   image: 'np_fishing-dolphin.png',
-  information: 'A fucking dolphin! Someone might be interested in buying it? Lol, jk. Throw it back. Unless..?',
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
+  information: 'Đây là cá heo. Chỉ một số ít người mới dám mua nó...?',
+  deg: false,
 };
 
 itemList['fishingshark'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Baby Shark',
+  decayrate: 1.0,
+  displayname: 'Cá mập (Con non)',
   price: 1,
-  weight: 100,
+  weight: 10,
   nonStack: true,
   model: '',
   image: 'np_fishing-shark.png',
-  information: 'A fucking shark! Someone might be interested in buying it? Lol, jk. Throw it back. Unless..?',
-  foodCategory: ['protein'],
-  foodEnhancement: 1.0,
-  foodEnhancementFromMeta: false,
-};
-
-itemList['fishingnet'] = {
-  fullyDegrades: false,
-  decayrate: 0.02,
-  displayname: 'Gill Net',
-  price: 250,
-  craft: [],
-  weight: 15,
-  nonStack: true,
-  model: '',
-  image: 'np_fishnet.png',
-  weapon: false,
+  information: 'Đây là cá mập. Chỉ một số ít người mới dám mua nó...?',
+  deg: false,
 };
 
 // FISHING JUNK
 
 itemList['fishingboot'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Boot',
+  decayrate: 0.2,
+  displayname: 'Ủng rách',
   price: 1,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_fishingboot.png',
-  information: 'insert shit here',
+  information: 'Vật này nhìn trông khá vô dụng',
+  deg: false,
 };
 
 itemList['fishinglog'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Log',
+  decayrate: 0.2,
+  displayname: 'Khúc gỗ',
   price: 1,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_fishinglog.png',
-  information: 'insert shit here',
+  information: 'Vật này nhìn trông khá vô dụng',
+  deg: false,
 };
 
 itemList['fishingtin'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Tincan',
+  decayrate: 0.2,
+  displayname: 'Hộp thiếc',
   price: 1,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_fishingtin.png',
-  information: 'insert shit here',
+  information: 'Vật này nhìn trông khá vô dụng',
+  deg: false,
 };
 
-itemList['fishingtacklebox'] = {
+itemList['-102323637'] = {
   fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Tackle box',
+  decayrate: 0.2,
+  displayname: 'Chai bị vỡ',
   price: 1,
   weight: 1,
   nonStack: false,
   model: '',
-  image: 'np_fishingtacklebox.png',
+  image: 'np_glass-bottle.png',
   information: 'insert shit here',
+  deg: false,
 };
-
-itemList['fishingchest'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Treasure chest',
-  price: 1,
-  weight: 25,
-  nonStack: false,
-  model: '',
-  image: 'np_fishingchest.png',
-  information: 'insert shit here',
-};
-
-itemList['fishinglockbox'] = {
-  fullyDegrades: true,
-  decayrate: 0.02,
-  displayname: 'Lockbox',
-  price: 1,
-  weight: 1,
-  nonStack: false,
-  model: '',
-  image: 'np_fishinglockbox.png',
-  information: 'insert shit here',
-};
-
-itemList['fishingtunac'] = {
-  fullyDegrades: true,
-  decayrate: 0.1,
-  displayname: 'Tuna Chip',
-  craft: [[{ itemid: 'electronics', amount: 100 }]],
-  price: 500,
-  weight: 0,
-  nonStack: false,
-  model: '',
-  image: 'np_tuner.png',
-  information: 'Works better on boats.',
-};
-
-// FISHING END
 // HUNTING
 
 itemList['3648318199'] = {
@@ -21237,3 +21094,183 @@ itemList["huntingcarcass3"]	    = {fullyDegrades: true, decayrate: 1.0, displayn
 itemList["huntingcarcass4"]	    = {fullyDegrades: true, decayrate: 0.90, displayname: "Thịt thú rừng loại 4", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass4.png", information: "Đây là động vật quý hiếm ư?", deg: false}
 
 
+/*
+
+  CLOTHES START
+
+*/
+
+itemList['mask'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Mặt nạ',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_mask.png',
+  information: '',
+};
+
+itemList['googles'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Mắt kính',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_oakley-sunglasses.png',
+  information: '',
+};
+
+itemList['hat'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Mũ',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_hat.png',
+  information: '',
+};
+
+itemList['chain'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Dây chuyền',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_5ct-gold-chain.png',
+  information: '',
+};
+
+itemList['vest'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Áo vest',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_vest.png',
+  information: '',
+};
+
+itemList['jacket'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Áo khoác',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_jacket.png',
+  information: '',
+};
+
+itemList['shirt'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Camisa',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_shirt.png',
+  information: '',
+};
+
+itemList['backpack'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Mochila',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_backpack.png',
+  information: '',
+};
+
+itemList['pants'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Calça',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_pants.png',
+  information: '',
+};
+
+itemList['shoes'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Tênis',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_stolenshoes.png',
+  information: '',
+};
+
+itemList['watch'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Relógio',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_casio-watch.png',
+  information: '',
+};
+
+itemList['braclets'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Pulseira',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_braclets.png',
+  information: '',
+};
+
+itemList['earrings'] = {
+  fullyDegrades: false,
+  decayrate: 0.0,
+  displayname: 'Brincos',
+  craft: [],
+  price: 10,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'pw_earrings.png',
+  information: '',
+};
+
+/*
+
+  CLOTHES END
+
+*/

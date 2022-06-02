@@ -17,11 +17,13 @@ AddEventHandler('pw-contractveh:GetVehicleInfo', function(source_playername, dat
 	target = GetPlayerServerId(closestPlayer)
 
 	if closestPlayer ~= -1 and playerDistance <= 3.0 then
-		local vehicle = ESX.Game.GetClosestVehicle(coords)
-		local vehiclecoords = GetEntityCoords(vehicle)
+		--local vehicle = ESX.Game.GetClosestVehicle(coords)
+		local currentTarget = exports['pw-interact'].GetCurrentEntity()
+		local vehicleFound = IsModelAVehicle(GetEntityModel(currentTarget))
+		local vehiclecoords = GetEntityCoords(currentTarget)
 		local vehDistance = GetDistanceBetweenCoords(coords, vehiclecoords, true)
-		if DoesEntityExist(vehicle) and (vehDistance <= 3) then
-			local vehProps = ESX.Game.GetVehicleProperties(vehicle)
+		if DoesEntityExist(currentTarget) and (vehDistance <= 3) then
+			local vehProps = ESX.Game.GetVehicleProperties(currentTarget)
 			ESX.TriggerServerCallback("pw-contractveh:GetTargetName", function(targetName)
 				SetNuiFocus(true, true)
 				SendNUIMessage({

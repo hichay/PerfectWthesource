@@ -15,9 +15,7 @@ server_scripts {
 
 client_scripts {
 	'@pw-lib/client/cl_rpc.lua',
-	'@pw-lib/client/cl_rpc.lua',
 	'@pw-lib/client/cl_ui.lua',
-    "@pw-lib/client/cl_rpc.lua",
     "@pw-lib/client/cl_polyhooks.lua",
     "client/*",
 }

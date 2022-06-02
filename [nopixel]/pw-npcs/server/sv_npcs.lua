@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
             -- scenario = "WORLD_HUMAN_GUARD_STAND",
         -- }
     -- end
-	for i, v in ipairs(Generic.ShopKeeperLocations) do
+	for i, v in ipairs(Generic.ToolshopLocation) do
         Generic.NPCS[#Generic.NPCS + 1] = {
             id = "toolshop_npc_" .. i,
             name = "Tool Shops",
