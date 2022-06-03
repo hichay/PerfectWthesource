@@ -57,31 +57,31 @@ Config.WhitelistedWeaponStress = {
 }
 
 Config.Intensity = {
-    ["blur"] = {
+    ["shake"] = {
         [1] = {
             min = 50,
             max = 60,
-            intensity = 1500,
+            intensity = 0.12,
         },
         [2] = {
             min = 60,
             max = 70,
-            intensity = 2000,
+            intensity = 0.17,
         },
         [3] = {
             min = 70,
             max = 80,
-            intensity = 2500,
+            intensity = 0.22,
         },
         [4] = {
             min = 80,
             max = 90,
-            intensity = 2700,
+            intensity = 0.28,
         },
         [5] = {
             min = 90,
             max = 100,
-            intensity = 3000,
+            intensity = 0.32,
         },
     }
 }

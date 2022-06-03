@@ -1026,8 +1026,8 @@ end) ]]
 
 -- Stress Screen Effects
 
-local function GetBlurIntensity(stresslevel)
-    for k, v in pairs(config.Intensity['blur']) do
+local function GetShakeIntensity(stresslevel)
+    for k, v in pairs(config.Intensity['shake']) do
         if stresslevel >= v.min and stresslevel <= v.max then
             return v.intensity
         end
@@ -1044,37 +1044,37 @@ local function GetEffectInterval(stresslevel)
     return 60000
 end
 
-CreateThread(function()
-    while true do
-        local waitTime = 120000
-        if ESX.TriggerServerCallback then
-            if stress > 75 then
-                waitTime = 10000
-            elseif stress > 45 then
-                waitTime = 30000
-            elseif stress > 20 then
-                waitTime = 60000
-            end
-            if stress > 10 then
-              	TriggerScreenblurFadeIn(1000.0)
-              	Wait(1100)
-              	TriggerScreenblurFadeOut(1000.0)
-            end
-        end 
-        Wait(waitTime)
-    end
-end)
+-- CreateThread(function()
+    -- while true do
+        -- local waitTime = 120000
+        -- if ESX.TriggerServerCallback then
+            -- if stress > 75 then
+                -- waitTime = 10000
+            -- elseif stress > 45 then
+                -- waitTime = 30000
+            -- elseif stress > 20 then
+                -- waitTime = 60000
+            -- end
+            -- if stress > 10 then
+              	-- TriggerScreenblurFadeIn(1000.0)
+              	-- Wait(1100)
+              	-- TriggerScreenblurFadeOut(1000.0)
+            -- end
+        -- end 
+        -- Wait(waitTime)
+    -- end
+-- end)
 
 -- CreateThread(function()
 --     while true do
 --         local ped = PlayerPedId()
 --         local effectInterval = GetEffectInterval(stress)
 --         if stress >= 100 then
---             local BlurIntensity = GetBlurIntensity(stress)
+--             local ShakeIntensity  = GetShakeIntensity(stress)
 --             local FallRepeat = math.random(2, 4)
 --             local RagdollTimeout = FallRepeat * 1750
 --             TriggerScreenblurFadeIn(1000.0)
---             Wait(BlurIntensity)
+--             Wait(ShakeIntensity )
 --             TriggerScreenblurFadeOut(1000.0)
 
 --             if not IsPedRagdoll(ped) and IsPedOnFoot(ped) and not IsPedSwimming(ped) then
@@ -1092,7 +1092,7 @@ end)
 --                 TriggerScreenblurFadeOut(1000.0)
 --             end
 --         elseif stress >= config.MinimumStress then
---             local BlurIntensity = GetBlurIntensity(stress)
+--             local BlurIntensity = GetShakeIntensity(stress)
 --             TriggerScreenblurFadeIn(1000.0)
 --             Wait(BlurIntensity)
 --             TriggerScreenblurFadeOut(1000.0)
@@ -1100,6 +1100,39 @@ end)
 --         Wait(effectInterval)
 --     end
 -- end)
+Citizen.CreateThread(function()
+    while true do
+        local ped = GetPlayerPed(-1)
+        local Wait = GetEffectInterval(stress)
+        if stress >= 100 then
+            local ShakeIntensity = GetShakeIntensity(stress)
+            local FallRepeat = math.random(2, 4)
+            local RagdollTimeout = (FallRepeat * 1750)
+            ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+            SetFlash(0, 0, 500, 3000, 500)
+
+            if not IsPedRagdoll(ped) and IsPedOnFoot(ped) and not IsPedSwimming(ped) then
+                local player = PlayerPedId()
+                SetPedToRagdollWithFall(player, RagdollTimeout, RagdollTimeout, 1, GetEntityForwardVector(player), 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            end
+
+            Citizen.Wait(500)
+            for i = 1, FallRepeat, 1 do
+                Citizen.Wait(750)
+                DoScreenFadeOut(200)
+                Citizen.Wait(1000)
+                DoScreenFadeIn(200)
+                ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+                SetFlash(0, 0, 200, 750, 200)
+            end
+        elseif stress >= config.MinimumStress then
+            local ShakeIntensity = GetShakeIntensity(stress)
+            ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+            SetFlash(0, 0, 500, 2500, 500)
+        end
+        Citizen.Wait(Wait)
+    end
+end)
 
 -- Minimap update
 CreateThread(function()

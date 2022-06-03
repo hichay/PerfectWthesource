@@ -124,7 +124,7 @@ Citizen.CreateThread(function()
 							time = time - 1
 						end
 						
-						AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 2.0, true, false, 5.0)
+						AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 2.0, true, false, 1.0)
 						exploded = true
 						local rock = GetHashKey("prop_rock_4_c")
 						rock1 = CreateObject(rock, closeTo.coords.x, closeTo.coords.y , closeTo.coords.z + 3.5, true, true, true)                           
