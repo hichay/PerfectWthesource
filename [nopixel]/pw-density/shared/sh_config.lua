@@ -1,5 +1,5 @@
 Config = {}
-Config.populationDensity = 0.8
+Config.populationDensity = 0.5
 Config.antiGhostDebug = false
 Config.antiGhostYeetVehicles = true
 Config.antiGhostScaleX = 10.0

@@ -90,7 +90,6 @@ end)
 
 
 AddEventHandler("pw-vehicles:refuelVehicle",function(params)
-    print(params.isJerryCan)
     if not params.isJerryCan then 
         local vehicle = NetToVeh(params.vehicle)
 
@@ -138,6 +137,7 @@ AddEventHandler("pw-vehicles:refuelVehicle",function(params)
             return
         end
         local curFuel = math.floor(GetFuel(vehicle))
+        
         if not curFuel or curFuel == 100 then return end
         ClearPedSecondaryTask(PlayerPedId())
         LoadAnimDict("weapon@w_sp_jerrycan")
@@ -152,15 +152,10 @@ AddEventHandler("pw-vehicles:refuelVehicle",function(params)
                 return
             end
         end
-
+        local decrease = (100 - curFuel) * 45
         if finished == 100 then
             SetFuel(vehicle, 100)
-        else
-            local curFuel = GetVehicleFuelLevel(vehicle)
-            local endFuel = (100 - curFuel)
-            endFuel = math.ceil(endFuel * (finished / 100) + curFuel)
-
-            SetFuel(vehicle, endFuel)
+            TriggerEvent("actionbar:ammo", -899475295, decrease, false)
         end
 
         ClearPedTasksImmediately(PlayerPedId())

@@ -8,7 +8,7 @@ DecorRegister("ScriptedPed", 2)
 
 local Densitities = {}
 
-local density = 0.8
+local density = 0.5
 local pedDensity = 1.0
 local IsSpeeding = false
 local IsDriver = false
