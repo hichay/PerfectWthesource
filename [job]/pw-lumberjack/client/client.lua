@@ -326,7 +326,7 @@ loadDict = function(dict, anim)
 end
 
 helpText = function(msg)
-    BeginTextCommandDisplayHelp('CUSTOM_TEXT1')
+    BeginTextCommandDisplayHelp('CUSTOM_TEXT')
     AddTextComponentSubstringPlayerName(msg)
     EndTextCommandDisplayHelp(0, false, true, -1)
 end
