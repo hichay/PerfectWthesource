@@ -43,7 +43,7 @@ $(document).on('click', '.goto', function(e) {
         $('.waiting-hoster').fadeOut();
         $('.welcome-container').fadeOut();
         $('.settings-container').fadeOut();
-        $.post('http://pw-bossmenu/closeNUI');
+        $.post('https://pw-bossmenu/closeNUI');
     } else {
         $('.' + from).fadeOut(0);
         $('.' + to).fadeIn();
@@ -60,7 +60,7 @@ $(document).on('click', '.fireemployee', function(e) {
     var fullid = $(this).attr('id');
     var playerid = fullid;
 
-    $.post('http://pw-bossmenu/fireEmployee', JSON.stringify({
+    $.post('https://pw-bossmenu/fireEmployee', JSON.stringify({
         source: playerid,
     }));
 });
@@ -80,19 +80,19 @@ $(document).on('click', '.grade-box', function(e) {
 
 $(document).on('click', '#option-recruit', function(e) {
 
-    $.post('http://pw-bossmenu/openRecruit', JSON.stringify({}));
+    $.post('https://pw-bossmenu/openRecruit', JSON.stringify({}));
 });
 
 $(document).on('click', '#option-bosstash', function(e) {
 
-    $.post('http://pw-bossmenu/openStash', JSON.stringify({}));
+    $.post('https://pw-bossmenu/openStash', JSON.stringify({}));
 });
 
 $(document).on('click', '.givejob', function(e) {
     var fullid = $(this).attr('id');
     var playerid = fullid;
 
-    $.post('http://pw-bossmenu/giveJob', JSON.stringify({
+    $.post('https://pw-bossmenu/giveJob', JSON.stringify({
         source: playerid,
     }));
 });
@@ -136,7 +136,7 @@ $(document).on('click', '.deposit', function(e) {
 });
 
 $(document).on('click', '.withdraw', function(e) {
-    $.post('http://pw-bossmenu/withdraw', JSON.stringify({
+    $.post('https://pw-bossmenu/withdraw', JSON.stringify({
         amount: currentWithdrawAmount,
     }));
 });

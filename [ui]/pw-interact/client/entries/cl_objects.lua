@@ -78,9 +78,9 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = 'jerrycan_refill',
-            label = "Refill Can",
-            icon = "circle",
-            event = "vehicle:refuel:showMenu",
+            label = "Đổ đầy bình xăng",
+            icon = "gas-pump",
+            event = "pw-vehicles:refuel",
             parameters = { isJerryCan = true }
         }
     },
@@ -88,6 +88,25 @@ Entries[#Entries + 1] = {
         distance = { radius = 1.5 },
         isEnabled = function(pEntity, pContext)
             return HasWeaponEquipped(GetHashKey('WEAPON_PetrolCan'))
+        end
+    }
+}
+
+Entries[#Entries + 1] = {
+    type = 'flag',
+    group = { 'isFuelPump' },
+    data = {
+        {
+            id = 'buy_petrolcan',
+            label = "Mua bình xăng",
+            icon = "gas-pump",
+            event = "pw-gasSations:buyPetrolCan"
+        }
+    },
+    options = {
+        distance = { radius = 1.5 },
+        isEnabled = function(pEntity, pContext)
+            return not exports['pw-inventory']:hasEnoughOfItem("883325847", 1)
         end
     }
 }

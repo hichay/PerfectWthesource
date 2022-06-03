@@ -114,8 +114,8 @@ Citizen.CreateThread(function()
 					mining = true
 					--GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
 					Citizen.Wait(1250)                                                                                      
-					TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
-					TriggerEvent("DoLongHudText", "Chạy
+					--TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
+					TriggerEvent("DoLongHudText", "Bom đã đặt - Chạy ngay đi trước khi quá trễ",1)
 					while mining and not exploded do
 						-- Wait(1000)
 						local time = 6
@@ -124,7 +124,7 @@ Citizen.CreateThread(function()
 							time = time - 1
 						end
 						
-						AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 4.0, true, false, 20.0)
+						AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 2.0, true, false, 5.0)
 						exploded = true
 						local rock = GetHashKey("prop_rock_4_c")
 						rock1 = CreateObject(rock, closeTo.coords.x, closeTo.coords.y , closeTo.coords.z + 3.5, true, true, true)                           

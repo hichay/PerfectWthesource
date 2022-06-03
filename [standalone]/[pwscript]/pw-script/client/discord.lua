@@ -10,7 +10,7 @@ cfg.smallHoverText = 'Monke'
 
 cfg.button1 = {
     text = 'Discord',
-    url = 'https://discord.gg/2VpDcC3'
+    url = 'fivem://connect/23dym8'
 }
 
 cfg.button2 = {

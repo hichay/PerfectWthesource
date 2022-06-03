@@ -237,9 +237,9 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_refuel_station",
-            label = "Refuel Vehicle",
+            label = "Đổ xăng",
             icon = "gas-pump",
-            event = "caue-vehicles:refuel",
+            event = "pw-vehicles:refuel",
             parameters = {}
         }
     },
@@ -256,9 +256,9 @@ Entries[#Entries + 1] = {
   data = {
       {
           id = "vehicle_refuel_station_plane",
-          label = "Refuel Vehicle",
+          label = "Đổ xăng",
           icon = "gas-pump",
-          event = "vehicle:refuel:showMenu",
+          event = "pw-vehicles:refuel",
           parameters = {}
       }
   },
@@ -278,9 +278,9 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_refuel_station_boat",
-            label = "Refuel Vehicle",
+            label = "Đổ xăng",
             icon = "gas-pump",
-            event = "vehicle:refuel:showMenu",
+            event = "pw-vehicles:refuel",
             parameters = {}
         }
     },
@@ -300,9 +300,9 @@ Entries[#Entries + 1] = {
   data = {
       {
           id = "vehicle_refuel_station_chopter",
-          label = "Refuel Vehicle",
+          label = "Đổ xăng",
           icon = "gas-pump",
-          event = "vehicle:refuel:showMenu",
+          event = "pw-vehicles:refuel",
           parameters = {}
       }
   },
@@ -322,10 +322,10 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_refuel_jerrycan",
-            label = "Refuel Vehicle",
+            label = "Đổ xăng từ bình",
             icon = "gas-pump",
-            event = "vehicle:refuel:jerryCan",
-            parameters = {}
+            event = "pw-vehicles:refuelVehicle",
+            parameters = {isJerryCan = true}
         }
     },
     options = {

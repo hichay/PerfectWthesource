@@ -326,9 +326,7 @@ AddEventHandler("stress:timed",function(alteredValue,scenario)
 	Wait(1000)
 
 	
-	--TriggerEvent("DoShortHudText",'Stress is being relieved',6)
-	TriggerEvent("ESX:Notify",'Stress đang giảm','info')
-	--SetPlayerMaxArmour(PlayerId(), 60 )
+	TriggerEvent("DoLongHudText",'Stress đang giảm',1)
 	while true do
 		removedStress = removedStress + 10000
 		if removedStress >= alteredValue then

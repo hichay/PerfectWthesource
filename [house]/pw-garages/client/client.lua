@@ -380,7 +380,7 @@ AddEventHandler('pw-garages:client:releaseVehicle', function(data, typ, name)
 							fuelLevel = stats.fuel,
 							dirtLevel = stats.dirty
 						})
-						exports['legacyfuel']:SetFuel(v, stats.fuel)
+						exports['pw-fuel']:SetFuel(v, stats.fuel)
                         NetworkRequestControlOfEntity(v)
                         
                         -- SetVehicleFuelLevel(v, stats.fuel)
@@ -431,7 +431,7 @@ AddEventHandler('pw-garages:client:releaseVehicle', function(data, typ, name)
                         -- SetVehicleEngineHealth(vehicle, stats.engine_damage)
                         -- SetVehicleBodyHealth(vehicle, stats.body_damage)
                         -- SetVehicleDirtLevel(vehicle, stats.dirty)
-                        exports['legacyfuel']:SetFuel(vehicle, stats.fuel)
+                        exports['pw-fuel']:SetFuel(vehicle, stats.fuel)
 						ESX.Game.SetVehicleProperties(vehicle,{
 							bodyHealth = stats.body_damage,
 							engineHealth = stats.engine_damage,

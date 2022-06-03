@@ -71,6 +71,7 @@ body::-webkit-scrollbar {
     width: 100%;
     max-width: 100%;
     display: flex;
+	left: 1.2vw;
     align-items: center;
     position: relative;
     justify-content: left;
@@ -90,6 +91,21 @@ body::-webkit-scrollbar {
     right: 3.5%;
     transform: translate(-50%, -50%);
 }
+
+.button>.iconmini {
+    width: 50%;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    color: rgb(232, 229, 229);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.0rem;
+    overflow: hidden;
+    font-weight: 100;
+}
+
+
 
 .place-image {
     display:none;

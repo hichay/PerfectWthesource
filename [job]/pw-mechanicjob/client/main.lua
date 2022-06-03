@@ -284,7 +284,7 @@ AddEventHandler('pw-mechanicjob:SpawnListVehicle', function(data)
     ESX.Game.SpawnVehicleqb(model, function(veh)
         SetVehicleNumberPlateText(veh, "ACBV"..tostring(math.random(1000, 9999)))
         SetEntityHeading(veh, coords.h)
-        exports['legacyfuel']:SetFuel(veh, 100.0)
+        exports['pw-fuel']:SetFuel(veh, 100.0)
         --Menu.hidden = true
         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
@@ -765,17 +765,17 @@ function ApplyEffects(vehicle)
             end
 
             if VehicleStatus[plate]["fuelinjector"] <= 80 and (chance >= 60 and chance <= 100) then
-                local fuel = exports['legacyfuel']:GetFuel(vehicle)
+                local fuel = exports['pw-fuel']:GetFuel(vehicle)
                 if VehicleStatus[plate]["fuelinjector"] <= 80 and VehicleStatus[plate]["fuelinjector"] >= 60 then
-                    exports['legacyfuel']:SetFuel(vehicle, fuel - 2.0)
+                    exports['pw-fuel']:SetFuel(vehicle, fuel - 2.0)
                 elseif VehicleStatus[plate]["fuelinjector"] <= 59 and VehicleStatus[plate]["fuelinjector"] >= 40 then
-                    exports['legacyfuel']:SetFuel(vehicle, fuel - 4.0)
+                    exports['pw-fuel']:SetFuel(vehicle, fuel - 4.0)
                 elseif VehicleStatus[plate]["fuelinjector"] <= 39 and VehicleStatus[plate]["fuelinjector"] >= 20 then
-                    exports['legacyfuel']:SetFuel(vehicle, fuel - 6.0)
+                    exports['pw-fuel']:SetFuel(vehicle, fuel - 6.0)
                 elseif VehicleStatus[plate]["fuelinjector"] <= 19 and VehicleStatus[plate]["fuelinjector"] >= 6 then
-                    exports['legacyfuel']:SetFuel(vehicle, fuel - 8.0)
+                    exports['pw-fuel']:SetFuel(vehicle, fuel - 8.0)
                 else
-                    exports['legacyfuel']:SetFuel(vehicle, fuel - 10.0)
+                    exports['pw-fuel']:SetFuel(vehicle, fuel - 10.0)
                 end
             end
 			

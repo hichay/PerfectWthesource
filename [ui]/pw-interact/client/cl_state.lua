@@ -252,8 +252,8 @@ function hasKeys(pEntity)
 
     --local hasKeys = exports['pw-vehicles']:HasVehicleKey(pEntity)
 	local plate = GetVehicleNumberPlateText(pEntity)
-	print(plate)
-	local hasKeys = RPC.execute('pw-garages:HasVehicleKey',plate)
+	--print(plate)
+	--local hasKeys = RPC.execute('pw-garages:HasVehicleKey',plate)
 	
 	-- ESX.TriggerServerCallback('vehiclekeys:CheckHasKey', function(result)
 		-- if result then

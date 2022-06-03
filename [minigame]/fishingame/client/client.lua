@@ -233,27 +233,35 @@ AddEventHandler('fishingame:banca', function()
 	end
 
 
-	if fouFish then 
-			-- infofish = exports["pw-inventory"]:GetItemInfoName(Config.fishTable[i].idname)			
-			local info = string.sub(infofish,12)
-												
-			--fishpriceup = (Config.fishTable[i].sizeMin + Config.fishTable[i].sizeMax) / 2 /10
-								
-			if tonumber(info) > fishpriceup then
-				diffrentlg = info - fishpriceup
-		   
-				price = baseprice + diffrentlg * multipice						
-				TriggerEvent("inventory:removeItem", fishid, 1)
-				TriggerServerEvent('fishingGame:Banca', price )
-				TriggerEvent("ESX:Notify", "Bán thành công", "success")
-				TriggerServerEvent("fishingame:sendlog",fishid,price)
-			else
+	if fouFish then 	
+			
+			local info = json.decode(infofish)
+			local infonumber = info["Độ dài"]
+			if tonumber(infonumber) == nil then 
 				price = baseprice
 				TriggerEvent("inventory:removeItem", fishid, 1)
 				TriggerServerEvent('fishingGame:Banca', price )
 				TriggerEvent("ESX:Notify" ,"Bán thành công", "success")
 				TriggerServerEvent("fishingame:sendlog",fishid,price)
+			else 
+				if tonumber(infonumber) > fishpriceup then
+					diffrentlg = infonumber - fishpriceup
+					price = baseprice + diffrentlg * multipice						
+					TriggerEvent("inventory:removeItem", fishid, 1)
+					TriggerServerEvent('fishingGame:Banca', price )
+					TriggerEvent("ESX:Notify", "Bán thành công", "success")
+					TriggerServerEvent("fishingame:sendlog",fishid,price)
+				else
+					price = baseprice
+					TriggerEvent("inventory:removeItem", fishid, 1)
+					TriggerServerEvent('fishingGame:Banca', price )
+					TriggerEvent("ESX:Notify" ,"Bán thành công", "success")
+					TriggerServerEvent("fishingame:sendlog",fishid,price)
+				end
 			end
+			
+			
+			
 	else
 		
 			TriggerEvent("ESX:Notify","Phải có cá mới có thể bản","info")
@@ -468,27 +476,19 @@ function fishingStart()
 						--end
 					end
 				until foundFish
-				--[[ if rnd <= 5 then 
-					finished = FishingGame(math.random(1,2))		
-				end
-				if rnd >= 5 and rnd < 10 then 
-					finished = FishingGame(math.random(1,2))				
-				end	
-				if rnd >= 10 and rnd < 14 then
-					finished = FishingGame(math.random(1,2))					
-				end
-				if rnd >= 14 and rnd < 18 then
-					finished = FishingGame(math.random(1,2))				
-				end ]]
 
-				finished = FishingGame(fishspeed)
+					finished = FishingGame(fishspeed)
 
 					if finished == 100 then 
 						local fishsize = math.random(sizeMin,sizeMax)
 						TriggerEvent("DoLongHudText","Bạn vừa bắt được "..name.." độ dài " .. (fishsize / 10) .. "cm.",3)
 						Citizen.Wait(100)
 						TriggerServerEvent('fishingame:sendlogcauduoc',idname)
-						TriggerEvent("player:receiveItem",idname,1,true,true,"Độ dài "..(fishsize / 10))
+
+						local data = {
+							["Độ dài"] = 	(fishsize / 10),
+						}
+						TriggerEvent("player:receiveItem",idname,1,false,data)
 					end
 				
 			end

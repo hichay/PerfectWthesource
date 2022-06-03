@@ -98,13 +98,13 @@ AddEventHandler("clothing:checkIfNew", function()
     local user = ESX.GetPlayerFromId(src)
     local steamid = user.identifier
 
-    MySQL.Async.fetchAll("SELECT id FROM users WHERE identifier = @identifier LIMIT 1", {
+    MySQL.query("SELECT id FROM users WHERE identifier = @identifier LIMIT 1", {
         ['identifier'] = steamid
     }, function(result)
         local isService = false;
         if user.job.name == "police" or user.job.name == "ambulance" then isService = true end
 
-        if result[1] == nil then
+        if result == nil then
             MySQL.Async.fetchAll("SELECT skin FROM users WHERE identifier = @identifier", {["identifier"] = steamid}, function(result)
                 if result[1].skin then
                     TriggerClientEvent('raid_clothes:setclothes',src,{},json.decode(result[1].skin))

@@ -245,3 +245,23 @@ RegisterNetEvent('pw-mechanicjob:Check', function()
   --exports["np-ui"]:showContextMenu(data)
 exports["pw-context"]:showContext(data)
 end)
+
+RegisterNetEvent('pw-mechanicjob:VehicleList', function()
+	for k, v in pairs(Config.Vehicles) do
+		local data = {}
+		TriggerEvent('pw-context:sendMenu', {
+			{
+				id = k,
+				header = ""..v,
+				txt = "",
+				params = {
+					event = "pw-mechanicjob:SpawnListVehicle",
+					args = {
+					model = k
+					}
+				}
+			},
+
+		})
+	end
+end)

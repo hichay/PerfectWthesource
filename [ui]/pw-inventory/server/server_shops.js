@@ -286,8 +286,9 @@ function HardwareStore() {
         { item_id: "scuba_gear", id: 0, name: "Shop", information: "{}", slot: 5, amount: 5 },
 		{ item_id: "snorkelling_gear", id: 0, name: "Shop", information: "{}", slot: 6, amount: 5 },
 		{ item_id: "scuba_oxygen_tank", id: 0, name: "Shop", information: "{}", slot: 7, amount: 5 },
-		{ item_id: "qualityscales", id: 0, name: "Shop", information: "{}", slot: 8, amount: 5 },			
-        { item_id: "fertilizer", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 }, 
+		{ item_id: "qualityscales", id: 0, name: "Shop", information: "{}", slot: 8, amount: 5 },	
+		{ item_id: "smallscales", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 },		
+        { item_id: "fertilizer", id: 0, name: "Shop", information: "{}", slot: 10, amount: 5 }, 
 		
 		
 		

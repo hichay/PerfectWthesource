@@ -12,8 +12,23 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
+RegisterCommand("sellzone", function(source, args, rawCommand)
+	print(GetNameOfZone(GetEntityCoords(PlayerPedId())))
+end, false)
+
+
+function isSellZone()
+    local zoneInH = GetNameOfZone(GetEntityCoords(PlayerPedId()))
+	
+    for _, zone in pairs(Config.SellZone) do
+        if zoneInH == zone then
+            return true
+        end
+    end
+end
+
 local Config = {
-    CallCopsPercent = 5,
+    CallCopsPercent = 10,
     randomReject = 3,
     randomRobGang = 2,
     PercentBargain = 3,
@@ -51,7 +66,8 @@ local Config = {
 		959218238,
 		-472287501,
 		-1337836896,
-	}
+	},
+	SellZone = {'DAVIS', 'STRAW', "EAST_V"} ,
 }
 
 local Keys = {
@@ -270,7 +286,7 @@ function OfferStart(ped, item, price, labels, amount)
 				sell = false
 				IsSell = false
                 ShowingNotification = false
-                exports["np-ui"]:hideInteraction()
+                exports["pw-interaction"]:hideInteraction()
 				SetPedAsNoLongerNeeded(oldped)
 				selling = false
 				FreezeEntityPosition(ped, false)
@@ -280,7 +296,7 @@ function OfferStart(ped, item, price, labels, amount)
             if ped ~= 0 and not IsPedDeadOrDying(ped) and not IsPedInAnyVehicle(ped) then
 			    if not ShowingNotification then
                     ShowingNotification = true
-                    exports["np-ui"]:showInteraction("[N] Chấp nhận [L] Đàm phán [G] Từ chối")
+                    exports["pw-interaction"]:showInteraction("[N] Chấp nhận [L] Đàm phán [G] Từ chối")
                 end
 			    local playerX, playerY, playerZ = table.unpack(GetEntityCoords(ped))
 			    ESX.ShowFloatingHelpNotification(("Tôi sẽ đưa bạn " .. price .. "$ để lấy " .. amount .. " "  .. labels), vector3(playerX, playerY, playerZ))
@@ -300,7 +316,7 @@ function OfferStart(ped, item, price, labels, amount)
 		            FreezeEntityPosition(oldped, false)
 		            IsSell = false
                     ShowingNotification = false
-                    exports["np-ui"]:hideInteraction()
+                    exports["pw-interaction"]:hideInteraction()
 		            bargain = true
 		            break
 	            end
@@ -315,7 +331,7 @@ function OfferStart(ped, item, price, labels, amount)
 				sell = false
 				IsSell = false
                 ShowingNotification = false
-                exports["np-ui"]:hideInteraction()
+                exports["pw-interaction"]:hideInteraction()
 				FreezeEntityPosition(oldped, false)
 				bargain = true
 				break
@@ -326,7 +342,7 @@ function OfferStart(ped, item, price, labels, amount)
 				FreezeEntityPosition(oldped, false)
 				IsSell = false
                 ShowingNotification = false
-                exports["np-ui"]:hideInteraction()
+                exports["pw-interaction"]:hideInteraction()
 				bargain = true
 				break
 			end
@@ -367,7 +383,7 @@ function robStart(ped, item, amount)
 			    ClearPedTasks(ped)
 			    IsSell = false
                 ShowingNotification = false
-                exports["np-ui"]:hideInteraction()
+                exports["pw-interaction"]:hideInteraction()
 			    bargain = true
 			    Citizen.Wait(2000)
 			    TaskShootAtEntity(ped, player, 5000, "FIRING_PATTERN_FULL_AUTO")
@@ -377,10 +393,10 @@ function robStart(ped, item, amount)
 
 		        if not ShowingNotification then
                     ShowingNotification = true
-                    exports["np-ui"]:showInteraction("[N] Đưa [G] Bỏ chạy")
+                    exports["pw-interaction"]:showInteraction("[N] Đưa [G] Bỏ chạy")
                 end
 
-                ESX.ShowFloatingHelpNotification("Give me those drugs, fuck!", vector3(playerX, playerY, playerZ))
+                ESX.ShowFloatingHelpNotification("Đưa hàng đây hoặc tao bắn bỏ!", vector3(playerX, playerY, playerZ))
 
                 if IsControlJustPressed(1, 306) then
 				    local x,y,z = table.unpack(GetEntityCoords(playerPed))
@@ -402,7 +418,7 @@ function robStart(ped, item, amount)
 				    selling = false
 				    IsSell = false
                     ShowingNotification = false
-                    exports["np-ui"]:hideInteraction()
+                    exports["pw-interaction"]:hideInteraction()
 				    bargain = true
 				    break
 			    elseif IsControlJustPressed(1, 113) then
@@ -417,7 +433,7 @@ function robStart(ped, item, amount)
 					    ClearPedTasks(ped)
 					    IsSell = false
                         ShowingNotification = false
-                        exports["np-ui"]:hideInteraction()
+                        exports["pw-interaction"]:hideInteraction()
 					    bargain = true
 					    Citizen.Wait(3000)
 					    TaskShootAtEntity(ped, player, 6000, "FIRING_PATTERN_FULL_AUTO")
@@ -430,7 +446,7 @@ function robStart(ped, item, amount)
 				        selling = false
 				        IsSell = false
                         ShowingNotification = false
-                        exports["np-ui"]:hideInteraction()
+                        exports["pw-interaction"]:hideInteraction()
 				        bargain = true
 				        FreezeEntityPosition(ped, false)
 				        ClearPedTasks(ped)
@@ -475,7 +491,7 @@ AddEventHandler("pw-drugs:startSell", function()
 			sell = false
 			IsSell = false
             ShowingNotification = false
-            exports["np-ui"]:hideInteraction()
+            exports["pw-interaction"]:hideInteraction()
 			checkdistance = false
 			bargain = true
 			FreezeEntityPosition(oldped, false)
@@ -531,16 +547,27 @@ AddEventHandler("pw-drugs:c_startoffers", function(ped, item, price, labels, amo
 
                 playerAnim(ped,"random@countryside_gang_fight","biker_02_stickup_loop", -1)
 			    robStart(ped, item, amount)
-		    else
-			    thief = true
-			    price = math.floor(price * 1.1)
-			    OfferStart(ped, item, price, labels, amount)
+		    else 
+				if isSellZone() then 
+					thief = true
+					price = math.floor(price * 2.0)
+					OfferStart(ped, item, price, labels, amount)
+				else 
+					thief = true
+					price = math.floor(price * 2.0)
+					OfferStart(ped, item, price, labels, amount)
+				end
 		    end
 	    end
     end
 
     if thief == false then
-	    OfferStart(ped, item, price, labels, amount)
+		if isSellZone() then 
+			price = math.floor(price * 1.2)
+	    	OfferStart(ped, item, price, labels, amount)
+		else
+			OfferStart(ped, item, price, labels, amount)
+		end
 	end
 end)
 
@@ -551,7 +578,7 @@ AddEventHandler("pw-drugs:canceloffers", function(ped)
 	Citizen.Wait(3000)
 	IsSell = false
     ShowingNotification = false
-    exports["np-ui"]:hideInteraction()
+    exports["pw-interaction"]:hideInteraction()
     FreezeEntityPosition(ped, false)
     ClearPedTasks(ped)
     SetPedAsNoLongerNeeded(ped)
@@ -604,7 +631,7 @@ AddEventHandler("pw-drugs:client:sell", function(ped)
 	    FreezeEntityPosition(oldped, false)
 	    IsSell = false
         ShowingNotification = false
-        exports["np-ui"]:hideInteraction()
+        exports["pw-interaction"]:hideInteraction()
 	else
 	    IsSell = true
 	    local xh, yh, zh   = table.unpack(playerCoords + playerlocation * 1.0)
@@ -644,7 +671,7 @@ AddEventHandler("pw-drugs:client:sell", function(ped)
 		FreezeEntityPosition(oldped, false)
 		IsSell = false
         ShowingNotification = false
-        exports["np-ui"]:hideInteraction()
+        exports["pw-interaction"]:hideInteraction()
 	end
 end)
 

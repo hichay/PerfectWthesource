@@ -55,6 +55,7 @@ exports{
   'getQuantity',
   'GetCurrentWeapons',
   'GetItemInfo',
+  'GetItemInfoName',
   'GetInfoForFirstItemOfName',
   'getFullItemList',
 }

@@ -1,47 +1,7 @@
-let savelist = [
-    "huntingammo",
-    "subammo",
-    "heavyammo",
-    "1mgammo",
-    "shotgunammo",
-    "pistolammo",
-    "tuner",
-    "1gcocaine",
-    "1gcrack",
-    "coke50g",
-    "coke5g",
-    "joint",
-    "joint2",
-    "maleseed",
-    "femaleseed",
-    "methbag",
-    "oxy",
-    "weed12oz",
-    "weed5oz",
-    "weedoz",
-    "weedq",
-    "aluminium",
-    "plastic",
-    "copper",
-    "electronics",
-    "rubber",
-    "scrapmetal",
-    "steel",
-    "advlockpick",
-    "armor",
-    "bandage",
-    "coffee",
-    "cola",
-    "burrito",
-    "eggsbacon",
-    "donut",
-    'foodingredient',
-    "bakingsoda",
-    "water",
-    "hotdog"				
+let savelist = [				
 ]
-const TimeAllowed = 1000 * 60 * 40320; // 28 days,
-function DeleteOld() {
+const TimeAllowed = 1000 * 60 * 20320; // 28 days,
+/* function DeleteOld() {
     let dateNow = Date.now()
         for (let i = savelist.lengh - 1; i >= 0; i++) {
             let ItemID = savelist[i]
@@ -58,7 +18,20 @@ function DeleteOld() {
 
         }
         console.log("Inventory: Delete old items")
+} */
+
+function DeleteOld() {
+    let dateNow = Date.now()
+    for (let i = savelist.lengh - 1; i >= 0; i++) {
+        let ItemID = savelist[i]
+        let TimeExtra = (TimeAllowed * ItemList[ItemID].decayrate)
+        let DeleteTime = dateNow - TimeExtra
+        if (itemList[itemID].fullyDegrades) {
+            db(`DELETE FROM inventory WHERE user_inventory2 = "${ItemID}" AND ${DeleteTime} > creationDate`);
+        }
+    }
 }
+
 
 
 function CleanDroppedInventories() {

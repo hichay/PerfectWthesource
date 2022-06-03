@@ -32,7 +32,7 @@ const DrawButtons = (data, back) => {
     if (back != undefined) {
         let element = `
             <div class="button" id=` + 69420 + `>
-                <div class="header" id=` + 69420 + `>` + "Go Back" + `</div>
+                <div class="header" id=` + 69420 + `>` + "Quay lại" + `</div>
                 <div class="txt" id=` + 69420 + `>` + "" + `</div>
                 <div class="icon"><i class="fas fa-chevron-left"></i></div>
             </div>`
@@ -49,15 +49,23 @@ const DrawButtons = (data, back) => {
 
         let id = i
         let element
-
-        element = `
+		if (ButtonsData[i].icon) {
+			element = `
         <div class="button" id=` + id + `>
             <div class="header" id=` + id + `>` + ButtonsData[i].title + `</div>
             <div class="txt" id=` + id + `>` + ButtonsData[i].description + `</div>`
             if (ButtonsData[i].children) {
                 element += `<div class="icon"><i class="fas fa-chevron-right"></i></div>`
             }
+			if (ButtonsData[i].icon) {
+                element += `<div class="iconmini"><i class='fas fa-`+ButtonsData[i].icon+`'></i></div>`
+            }
+			
+			
         `</div>`
+		}else{
+			
+		}
 
         $("#buttons").append(element);
 

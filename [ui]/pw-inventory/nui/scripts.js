@@ -1400,7 +1400,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         });
                     meta = newMeta.join(' | ');
                 } catch (err) {
-                    console.log(err)
+                    /* console.log(err) */
                 }
 
                 let quality = inventory[i].quality;
@@ -2170,7 +2170,6 @@ function CompileStacks(
     var isWeapon = false;
     if (itemList[itemidsent].weapon != null && !exluded[itemidsent] && !isCop && targetInventory !== originInventory) {
         brought = true;
-		console.log("check point")
         isWeapon = itemList[itemidsent].weapon;
     }
 

@@ -7089,13 +7089,13 @@ itemList['lbpapers'] = {
 itemList['lighter'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Lighter',
+  displayname: 'Bật lửa',
   price: 100,
   weight: 0,
   nonStack: false,
   model: '',
   image: 'np_lighter.png',
-  information: 'Dont start a fire with this. ',
+  information: '',
 };
 
 itemList['lockpick'] = {
@@ -7598,7 +7598,7 @@ itemList['mobilephone'] = {
       { itemid: 'electronics', amount: 10 },
     ]
   ],
-  weight: 5,
+  weight: 1,
   nonStack: true,
   model: '',
   image: 'np_mobile-phone.png',
@@ -8121,7 +8121,7 @@ itemList['qhearts'] = {
 itemList['qualityscales'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'High Quality Scales',
+  displayname: 'Cân điện tử',
   craft: [[
     { itemid: 'aluminium', amount: 25 },
     { itemid: 'plastic', amount: 10 },
@@ -8132,7 +8132,7 @@ itemList['qualityscales'] = {
   nonStack: false,
   model: '',
   image: 'np_high-quality-scales.png',
-  information: 'Weighs Baggies with no loss',
+  information: 'Không có sai số',
 };
 itemList["shortradio"] = {
   fullyDegrades: false,
@@ -8405,13 +8405,13 @@ itemList['rolexwatch'] = {
 itemList['rollingpaper'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Rolling Paper',
+  displayname: 'Giấy cuốn',
   price: 1,
   weight: 0,
   nonStack: false,
   model: '',
   image: 'np_rolling-paper.png',
-  information: 'Required to roll joints!',
+  information: 'Dùng để cuốn cái gì đó!',
 };
 
 itemList['rooster'] = {
@@ -8838,7 +8838,7 @@ itemList['slushy'] = {
 itemList['smallscales'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Small Scales',
+  displayname: 'Cân tiểu li',
   craft: [[
     { itemid: 'aluminium', amount: 25 },
     { itemid: 'plastic', amount: 1 },
@@ -8849,7 +8849,7 @@ itemList['smallscales'] = {
   nonStack: false,
   model: '',
   image: 'np_small-scale.png',
-  information: 'Weighs Baggies with minimal loss',
+  information: 'Có sai số mất số lượng',
 };
 
 itemList['smirror'] = {

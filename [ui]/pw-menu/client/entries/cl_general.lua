@@ -205,7 +205,7 @@ local hasDrugs = function()
     return exports["pw-inventory"]:hasEnoughOfItem("joint", 1, false) or
         exports["pw-inventory"]:hasEnoughOfItem("1gcocaine", 1, false) or
         exports["pw-inventory"]:hasEnoughOfItem("1gmeta", 1, false) or
-        exports["pw-inventory"]:hasEnoughOfItem("lean", 1, false)
+        exports["pw-inventory"]:hasEnoughOfItem("lean", 1, false) or exports["pw-inventory"]:hasEnoughOfItem("joint2", 1, false)
 end
 GeneralEntries[#GeneralEntries+1] = {
     data = {

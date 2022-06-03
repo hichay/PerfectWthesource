@@ -11,6 +11,12 @@ Config = {
             minamount = 1,
             maxamount = 3
         },
+		["joint2"] = {
+            minprice = 20,
+            maxprice = 40,
+            minamount = 1,
+            maxamount = 3
+        },
         ["1gcocaine"] = {
             minprice = 40,
             maxprice = 70,

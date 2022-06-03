@@ -232,7 +232,7 @@ RegisterUICallback('pw-police:handler', function (data, cb)
         end
     end
 end)
---[[ 
+ 
 AddEventHandler("pw-police:handler", function(eventData)
     local job = ESX.GetPlayerData().job.name
 
@@ -243,7 +243,7 @@ AddEventHandler("pw-police:handler", function(eventData)
         TriggerEvent("server-inventory-open", "1", ("personalStorage-%s-%s"):format(location, cid))
         TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "LockerOpen", 0.4)
     elseif eventData == EVENTS.CLOTHING then
-        exports["np-ui"]:hideInteraction()
+        exports["pw-interaction"]:hideInteraction()
         Wait(500)
         TriggerEvent("raid_clothes:openClothing", true, true)
     elseif eventData == EVENTS.EVIDENCE and job == 'police' then
@@ -271,7 +271,7 @@ AddEventHandler("pw-police:handler", function(eventData)
             TriggerEvent("server-inventory-open", "10", "Shop")
         end
     end
-end) ]]
+end)
 
 AddEventHandler("pw-polce:changewhiteboardurl", function(pParams)
     

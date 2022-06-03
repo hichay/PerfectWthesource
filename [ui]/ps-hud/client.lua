@@ -728,7 +728,7 @@ local function getFuelLevel(vehicle)
     local updateTick = GetGameTimer()
     if (updateTick - lastFuelUpdate) > 2000 then
         lastFuelUpdate = updateTick
-        lastFuelCheck = math.floor(exports['legacyfuel']:GetFuel(vehicle))
+        lastFuelCheck = math.floor(exports['pw-fuel']:GetFuel(vehicle))
     end
     return lastFuelCheck
 end
@@ -906,7 +906,7 @@ CreateThread(function()
         if isLoggedIn then
             local ped = PlayerPedId()
             if IsPedInAnyVehicle(ped, false) and not IsThisModelABicycle(GetEntityModel(GetVehiclePedIsIn(ped, false))) then
-                if exports['legacyfuel']:GetFuel(GetVehiclePedIsIn(ped, false)) <= 20 then -- At 20% Fuel Left
+                if exports['pw-fuel']:GetFuel(GetVehiclePedIsIn(ped, false)) <= 20 then -- At 20% Fuel Left
                     if Menu.isLowFuelChecked then
                         TriggerServerEvent("InteractSound_SV:PlayOnSource", "pager", 0.10)
                         TriggerEvent('DoLongHudText',"Fuel Level Low!",2)
@@ -1238,4 +1238,31 @@ CreateThread(function()
 	        end
 		    lastHeading = heading
 	    end
+end)
+
+
+
+RegisterNetEvent("stress:timed")
+AddEventHandler("stress:timed",function(alteredValue,scenario)
+	local removedStress = 0
+	Wait(1000)
+
+	
+	TriggerEvent("DoLongHudText",'Stress đang giảm',1)
+	while true do
+		removedStress = removedStress + 10000
+		if removedStress >= alteredValue then
+			break
+		end
+        --local armor = GetPedArmour(PlayerPedId())
+        --SetPedArmour(PlayerPedId(),armor+3)
+		if scenario ~= "None" then
+			if not IsPedUsingScenario(PlayerPedId(),scenario) then
+				TriggerEvent("animation:cancel")
+				break
+			end
+		end
+		Citizen.Wait(1000)
+	end
+	TriggerEvent('esx_status:remove','stress', removedStress)
 end)

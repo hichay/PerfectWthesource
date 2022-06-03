@@ -13,6 +13,10 @@ Citizen.CreateThread(function()
 end)
 local listening = false
 local CopOnline = 0
+local JustPickedWeed = false
+local JustDriedWeed = false
+local JustPackedWeed = false
+
 Citizen.CreateThread(function()
     exports["pw-polyzone"]:AddBoxZone("weed_pickuplocation", vector3(2225.05, 5577.5278, 53.823883), 8.2, 20.2, {
         heading=0,
@@ -41,12 +45,13 @@ Citizen.CreateThread(function()
             icon = "cannabis",
             label = "Bán cần sa"
         },
-        {
-            id = "weed_shops",
-            event = "pw-weeds:weed_dry",
-            icon = "cannabis",
-            label = "Smoke on the Water"
-        }
+        -- {
+            -- id = "weed_shops",
+            -- event = "pw-weeds:weed_dry",
+            -- icon = "cannabis",
+            -- label = "Smoke on the Water",
+			
+        -- }
     
     }, { distance = { radius = 4.5 } })
 
@@ -103,13 +108,10 @@ AddEventHandler("pw-weed:makeSales",function()
 
 end)
 
-RegisterCommand("wow", function(source, args, rawCommand)
-    TriggerServerEvent("inventory:RetreiveSettings")
-end, false)
 AddEventHandler('pw-weeds:weed_dry', function(pParameters, pEntity, pContext)
 
 	if JustPickedWeed or JustPackedWeed then
-        TriggerEvent("DoLongHudText","Bạn quá mệt khi đã làm một công việc khác, Quay lại sau 15p!")
+        TriggerEvent("DoLongHudText","Bạn quá mệt khi đã làm một công việc khác, Quay lại sau 5p!")
     else
         if not JustDriedWeed then
             TriggerEvent("weed:spam-prevent","drying")
@@ -159,9 +161,10 @@ function listenForKeypress()
         while listening do
             if IsControlJustPressed(0, 38) and IsPedInAnyVehicle(PlayerPedId(), false) ~= 1 then         
 				if JustDriedWeed or JustPackedWeed then
-					TriggerEvent("DoLongHudText","Bạn quá mệt khi đã làm một công việc khác, Quay lại sau 15p!")
+					TriggerEvent("DoLongHudText","Bạn quá mệt khi đã làm một công việc khác, Quay lại sau 5p!")
 				else
 					if not JustPickedWeed then
+                        print('pick')
 						JustPickedWeed = true
 						TriggerEvent("weed:spam-prevent","picking")
 					end
@@ -228,22 +231,18 @@ AddEventHandler('pw-weeds:ToggleBlips', function()
     end
 end)
 
-local JustPickedWeed = false
-local JustDriedWeed = false
-local JustPackedWeed = false
-
 
 
 RegisterNetEvent('weed:spam-prevent')
 AddEventHandler('weed:spam-prevent', function(prevent)
 	if prevent == "picking" then
-		Wait(900000)
+		Citizen.Wait(300000)
 		JustPickedWeed = false
 	elseif prevent == "drying" then
-		Wait(900000)
+		Citizen.Wait(300000)
 		JustDriedWeed = false
 	else
-		Wait(900000)
+		Citizen.Wait(300000)
 		JustPackedWeed = false
 	end
 end)
@@ -298,7 +297,10 @@ local gramsPerJoint = 2
   
 AddEventHandler('pw-inventory:itemUsed', function(item, passedItemInfo, inventoryName, slot)
     if item == 'driedbud' then
-      local finished = exports['pw-taskbar']:taskBar(10000, "Chia nhỏ ra"), false, true, false, false, nil, 5.0, PlayerPedId()
+	  loadanimdict(rollAnimDict)
+      TaskPlayAnim(PlayerPedId(), rollAnimDict, rollAnim, 8.0, 1.0, -1, 17, 0, 0, 0, 0)	
+      local finished = exports['pw-taskbar']:taskBar(25000, "Chia nhỏ ra"), false, true, false, false, nil, 5.0, PlayerPedId()
+	  ClearPedTasks(PlayerPedId())
       if finished == 100 and exports['pw-inventory']:hasEnoughOfItem(item, 1, false, true) then
         TriggerEvent("inventory:removeItem", item, 1)
         TriggerEvent('player:receiveItem', 'smallbud', 5, false)
@@ -322,7 +324,7 @@ AddEventHandler('pw-inventory:itemUsed', function(item, passedItemInfo, inventor
         return
       end
   
-      loadAnimDict(rollAnimDict)
+      loadanimdict(rollAnimDict)
       TaskPlayAnim(PlayerPedId(), rollAnimDict, rollAnim, 8.0, 1.0, -1, 17, 0, 0, 0, 0)
       local finished = exports['pw-taskbar']:taskBar(15000, "Cuốn cần", false, true, false, false, nil, 5.0, PlayerPedId())
       ClearPedTasks(PlayerPedId())
@@ -338,7 +340,7 @@ AddEventHandler('pw-inventory:itemUsed', function(item, passedItemInfo, inventor
         TriggerEvent('DoLongHudText', "Không có đủ giấy cuốn", 2)
         return
       end
-      loadAnimDict(rollAnimDict)
+      loadanimdict(rollAnimDict)
       TaskPlayAnim(PlayerPedId(), rollAnimDict, rollAnim, 8.0, 1.0, -1, 17, 0, 0, 0, 0)
       local finished = exports['pw-taskbar']:taskBar(5000, "Cuốn cần", false, true, false, false, nil, 5.0, PlayerPedId())
       ClearPedTasks(PlayerPedId())
@@ -348,3 +350,11 @@ AddEventHandler('pw-inventory:itemUsed', function(item, passedItemInfo, inventor
     end
 end)
   
+function loadanimdict(dictname)
+	if not HasAnimDictLoaded(dictname) then
+		RequestAnimDict(dictname) 
+		while not HasAnimDictLoaded(dictname) do 
+			Citizen.Wait(1)
+		end
+	end
+end

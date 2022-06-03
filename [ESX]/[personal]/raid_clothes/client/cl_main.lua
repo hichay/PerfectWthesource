@@ -985,9 +985,9 @@ AddEventHandler('esx:playerLoaded', function()
 end)
 
 
--- RegisterCommand("loadpl", function(source, args, rawCommand)
-	-- TriggerServerEvent("clothing:checkIfNew")
--- end, false)
+RegisterCommand("loadskin", function(source, args, rawCommand)
+	TriggerServerEvent("clothing:checkIfNew")
+end, false)
 
 
 

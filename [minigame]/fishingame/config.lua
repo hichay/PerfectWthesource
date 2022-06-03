@@ -1,5 +1,5 @@
 Config                            = {}
-Config.FishingZone = {'PALCOV', 'OCEANA', "ALAMO"} -- add or remove hunting zones here
+Config.FishingZone = {'PALCOV', 'OCEANA', "ALAMO"} 
 
 
 Config.ALAMO = {

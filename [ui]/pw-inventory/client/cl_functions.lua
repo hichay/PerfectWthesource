@@ -718,12 +718,12 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
         
     end
 
-    if ( itemid == "smallbud" and hasEnoughOfItem("qualityscales",1,false) ) then
-        local finished = exports["pw-taskbar"]:taskBar(1000,"Đóng gói",true,true,playerVeh)
-        if (finished == 100) then
-            CreateCraftOption("joint2", 80, true)    
-        end
-    end
+    -- if ( itemid == "smallbud" and hasEnoughOfItem("qualityscales",1,false) ) then
+        -- local finished = exports["pw-taskbar"]:taskBar(1000,"Đóng gói",true,true,playerVeh)
+        -- if (finished == 100) then
+            -- CreateCraftOption("joint2", 80, true)    
+        -- end
+    -- end
 
     if (itemid == "weedq") then
         local finished = exports["pw-taskbar"]:taskBar(1000,"Cuốn cần",true,true,playerVeh)
@@ -2036,6 +2036,10 @@ end
 	TriggerEvent("sm-radio:openRadio")
 	
     end	
+	
+	if itemid == "carradio" then 
+		TriggerEvent("MusicEverywhere:ShowNui")
+	end
 	
     TriggerEvent("pw-inventory:itemUsed", itemid, passedItemInfo, inventoryName, slot)
     TriggerServerEvent("pw-inventory:itemUsed", itemid, passedItemInfo, inventoryName, slot)	
