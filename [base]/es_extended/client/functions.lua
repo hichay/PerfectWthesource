@@ -1230,7 +1230,7 @@ end)
 
 -- SetTimeout
 Citizen.CreateThread(function()
-
+	
 	RegisterFontFile("fontnew")
    	ESX.FontId = RegisterFontId("Reaver-SemiBold")	
 	AddTextEntry('CUSTOM_TEXT', "<FONT FACE='Reaver-SemiBold'>~a~</FONT>")

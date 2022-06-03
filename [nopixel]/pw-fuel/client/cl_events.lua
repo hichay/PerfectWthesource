@@ -1,3 +1,17 @@
+
+	ESX = nil
+    
+	RegisterFontFile("font")
+    fontId = RegisterFontId("Oswald")
+	
+	Citizen.CreateThread(function()
+		while not ESX do
+			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+			Citizen.Wait(100)
+		end
+	end)
+
+
 local fuelSynced = false
 
 function ManageFuelUsage(vehicle)
