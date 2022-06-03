@@ -1,6 +1,5 @@
 local fuelSynced = false
 
-
 function ManageFuelUsage(vehicle)
 	if not DecorExistOn(vehicle, Config.FuelDecor) then
 		SetFuel(vehicle, math.random(200, 800) / 10)

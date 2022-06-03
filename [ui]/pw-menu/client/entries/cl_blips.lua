@@ -49,13 +49,13 @@ local Blips = {
         -- event = "pw-blips:update",
         -- parameters = "bank",
     -- },
-    -- {
-        -- id = "blips:gas",
-        -- title = "Postos",
-        -- icon = "#blips-gas",
-        -- event = "pw-blips:update",
-        -- parameters = "gas",
-    -- },
+    {
+        id = "blips:gas",
+        title = "Trạm Xăng",
+        icon = "#blips-gas",
+        event = "pw-blips:update",
+        parameters = "gas",
+    },
     -- {
         -- id = "blips:pd",
         -- title = "Departamento Policial",
