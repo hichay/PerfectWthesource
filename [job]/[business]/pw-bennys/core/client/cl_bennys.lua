@@ -38,16 +38,6 @@ local listening = false
 local isBennysInterfaceOpen = false
 
 local bennysLocations = {
-    ["bennyspdm"] = {
-        pos = vector3(-211.55, -1324.55, 30.90),
-        heading = 320.0,
-        access = "bennys"
-    },
-    ["bennyspdm2"] = {
-        pos = vector3(-221.93, -1329.93, 30.29),
-        heading = 270.0,
-        access = "bennys"
-    },
     ["bennystuner"] = {
         pos = vector3(938.37, -970.82, 39.76),
         heading = 320.0,
@@ -100,7 +90,23 @@ local bennysLocations = {
     },
     ["bennyshub"] = {
         pos = vector3(-34.24, -1053.31, 28.4),
-        heading = 36.52
+        heading = 36.52,
+		repairOnly = true
+    },
+	["bennymotor"] = {
+        pos = vector3(-210.2312, -1320.825, 30.89),
+        heading = 36.52,
+		repairOnly = true
+    },
+	["pdmbennys"] = {
+        pos = vector3(-36.62351, -1051.757, 28.39649),
+        heading = 36.52,
+		repairOnly = true
+    },
+	["pauchubennys"] = {
+        pos = vector3(548.47753, -198.3701, 54.493362),
+        heading = 358.52,
+		repairOnly = true
     },
 }
 
@@ -1190,8 +1196,8 @@ function ExitBennys()
         RestoreOriginalWindowTint()
         RestoreOldLivery()
         RestorePlateIndex()
-        exports['np-vehiclesync']:SetEngineSound(plyVeh)
-        TriggerServerEvent('np-vehicleSync:updateSyncState', NetworkGetNetworkIdFromEntity(plyVeh), 'engineSound')
+        exports['pw-vehiclesync']:SetEngineSound(plyVeh)
+        TriggerServerEvent('pw-vehicleSync:updateSyncState', NetworkGetNetworkIdFromEntity(plyVeh), 'engineSound')
 
         originalParts = {}
     end
@@ -1263,7 +1269,7 @@ function enterLocation(pBennys, needsRepair)
     InitiateMenus(isMotorcycle, GetVehicleBodyHealth(plyVeh))
 
     SetTimeout(100, function()
-        if needsRepair then
+        if needsRepair or isAtRepairsOnlyBennys and not isAtEmployedBennys then 
             DisplayMenu(true, "repairMenu")
             DisplayMenuContainer(true)
         else
@@ -1417,7 +1423,7 @@ AddEventHandler("bennys:enter", function()
     end
 
     ::hasAccess::
-
+	print(bennysAccess)
     if vehclass == 18 and (bennysAccess ~= "police" and bennysAccess ~= "ems") then
         TriggerEvent("DoLongHudText", "This Benny's does not service Emergency Vehicles", 2)
         return

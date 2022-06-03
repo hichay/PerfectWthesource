@@ -205,35 +205,7 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
                 end)
             end
         end)
-    else 
-        if xPlayer.getMoney() >= vehicleModel.sale then
-            xPlayer.removeMoney(vehicleModel.sale)
-            MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
-                ['@model'] = vehicleModel.modelcar
-            }, function(result)
-                
-                if result[1].stock ~= nil then
-                    print('thisw')
-                    local sendToDiscord = "Người chơi "..xPlayer.getName().." vừa bỏ ra "..vehicleModel.sale.."$ để mua "..vehicleModel.modelcar..""
-                    TriggerEvent('moon_discordlogs:sendToDiscord','BuyVehicle', sendToDiscord, source, '^1') 
-                    if result[1].stock >= 1 then
-                        local restock = result[1].stock - 1
-                        MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
-                            ['@model'] = vehicleModel.modelcar,
-                            ['@stock'] = restock
-                        })
-                    cb(true)	
-                    end
-                else
-                    cb(false)
-                end
-            end)
-            
-        else
-            cb(false)
-        end  
-
-    end
+	end
 
     if vehicleModel.modelcar == 'raptor150'  then 
         MySQL.single('SELECT id FROM owned_vehicles WHERE model = @model AND owner = @owner', {
@@ -254,7 +226,7 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
                     else
                         if xPlayer.getMoney() >= vehicleModel.sale then
                             xPlayer.removeMoney(vehicleModel.sale)
-							exports["pw-balance"].addTaxFromValue("Vehicles", vehicleModel.sale)
+							
                             MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
                                 ['@model'] = vehicleModel.modelcar
                             }, function(result)
@@ -283,34 +255,6 @@ ESX.RegisterServerCallback('vehicleshop:buyVehicle', function (source, cb, vehic
                 end)
             end
         end)
-
-    else 
-        if xPlayer.getMoney() >= vehicleModel.sale then
-            xPlayer.removeMoney(vehicleModel.sale)
-            MySQL.query('SELECT stock FROM vehicles WHERE model = @model', {
-                ['@model'] = vehicleModel.modelcar
-            }, function(result)
-                
-                if result[1].stock ~= nil then
-                    print('thisw')
-                    local sendToDiscord = "Người chơi "..xPlayer.getName().." vừa bỏ ra "..vehicleModel.sale.."$ để mua "..vehicleModel.modelcar..""
-                    TriggerEvent('moon_discordlogs:sendToDiscord','BuyVehicle', sendToDiscord, source, '^1') 
-                    if result[1].stock >= 1 then
-                        local restock = result[1].stock - 1
-                        MySQL.query('UPDATE vehicles SET stock = @stock WHERE model = @model', {
-                            ['@model'] = vehicleModel.modelcar,
-                            ['@stock'] = restock
-                        })
-                    cb(true)	
-                    end
-                else
-                    cb(false)
-                end
-            end)
-            
-        else
-            cb(false)
-        end  
     end
 
 end)

@@ -70,6 +70,17 @@ AddEventHandler("police:checkInventory", function(pArgs, pEntity)
     end
 end)
 
+RegisterNetEvent("police:SearchInventory")
+AddEventHandler("police:SearchInventory", function(pArgs, pEntity)
+	TriggerEvent("animation:PlayAnimation", "push")
+    local finished = exports["pw-taskbar"]:taskBar(5000, pArgs and "Đang lục soát" , false, true, nil, false, nil, 5)
+	TriggerEvent("animation:PlayAnimation", "c")
+
+    if finished == 100 then
+        TriggerServerEvent("police:targetCheckInventory", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), pArgs)
+    end
+end)
+
 --[[ RegisterNetEvent("police:rob")
 AddEventHandler("police:rob", function(pArgs, pEntity)
     RequestAnimDict("random@shop_robbery")

@@ -119,7 +119,7 @@ local function listenForKeypress(pZone, pAction)
         while listening do
             if IsControlJustReleased(0, 38) then
                 if pAction == "context" then
-                    exports["np-ui"]:showContextMenu(zoneData[pZone].menuData)
+                    exports["pw-context"]:showContextMenu(zoneData[pZone].menuData)
                 elseif pAction == "armory"  then
                     TriggerEvent("server-inventory-open", "10", "Shop")
                 elseif pAction == "trash" then
@@ -142,13 +142,13 @@ AddEventHandler("pw-polyzone:enter", function(pZoneName, pZoneData)
     if pZoneName == "pw-police:zone" then
         if ESX.GetPlayerData().job.name == pZoneData.job then
             currentPrompt = pZoneData.zone
-            exports["np-ui"]:showInteraction(zoneData[pZoneData.zone].promptText)
+            exports["pw-interaction"]:showInteraction(zoneData[pZoneData.zone].promptText)
             listenForKeypress(pZoneData.zone, pZoneData.action)
         end
     elseif pZoneName == 'pw-police:bossaction' then 
         if ESX.GetPlayerData().job.name == pZoneData.job and ESX.GetPlayerData().job.grade >= 10 then
             currentPrompt = pZoneData.zone
-            exports["np-ui"]:showInteraction(zoneData[pZoneData.zone].promptText)
+            exports["pw-interaction"]:showInteraction(zoneData[pZoneData.zone].promptText)
             listenForKeypress(pZoneData.zone, pZoneData.action)
         end
     elseif pZoneName == "mrpd_classroom" then
@@ -172,7 +172,7 @@ end)
 
 AddEventHandler("pw-polyzone:exit", function(pZoneName, pZoneData)
     if pZoneName == "pw-police:zone" then
-        exports["np-ui"]:hideInteraction()
+        exports["pw-interaction"]:hideInteraction()
         listening = false
         currentPrompt = nil
     elseif pZoneName == "mrpd_classroom" then
@@ -203,7 +203,7 @@ RegisterUICallback('pw-police:handler', function (data, cb)
         TriggerEvent("server-inventory-open", "1", ("personalStorage-%s-%s"):format(location, cid))
         TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "LockerOpen", 0.4)
     elseif eventData == EVENTS.CLOTHING then
-        exports["np-ui"]:hideInteraction()
+        exports["pw-interaction"]:hideInteraction()
         Wait(500)
         TriggerEvent("raid_clothes:openClothing", true, true)
     elseif eventData == EVENTS.EVIDENCE and job == 'police' then

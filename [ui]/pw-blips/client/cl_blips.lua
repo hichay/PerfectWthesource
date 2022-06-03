@@ -113,8 +113,8 @@ local Config = {
 
         ["blips"] = {
             { ["text"] = "Cửa hàng thợ săn", ["sprite"] = 463, ["scale"] = 1.0, ["colour"] = 48, ["pos"] = vector3(-675.77, 5836.10, 17.33) },
-            { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 10, ["pos"] = vector3(46.080375, -1749.123, 28.633472) },
-            { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 10, ["pos"] = vector3(2748.6979, 3472.0498, 54.677799) },
+            { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 81, ["pos"] = vector3(46.080375, -1749.123, 28.633472) },
+            { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 81, ["pos"] = vector3(2748.6979, 3472.0498, 54.677799) },
 			{ ["text"] = "Nhà máy tái chế", ["sprite"] = 467, ["scale"] = 1.0, ["colour"] = 25, ["pos"] = vector3(51.408695, 6485.7788, 31.428194) },
 			{ ["text"] = "~y~Phi vụ rửa tiền", ["sprite"] = 431, ["scale"] = 1.0, ["colour"] = 69, ["pos"] = vector3(591.05664, 2744.7678, 42.043945) },
         },

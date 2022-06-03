@@ -4,7 +4,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 ESX.RegisterServerCallback("okokBanking:GetPlayerInfo", function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {
+	MySQL.query('SELECT * FROM users WHERE identifier = @identifier', {
 		['@identifier'] = xPlayer.identifier
 	}, function(result)
 		local db = result[1]
@@ -23,7 +23,7 @@ end)
 ESX.RegisterServerCallback("okokBanking:IsIBanUsed", function(source, cb, iban)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	
-	MySQL.Async.fetchAll('SELECT * FROM users WHERE iban = @iban', {
+	MySQL.query('SELECT * FROM users WHERE iban = @iban', {
 		['@iban'] = iban
 	}, function(result)
 		local db = result[1]
@@ -31,7 +31,7 @@ ESX.RegisterServerCallback("okokBanking:IsIBanUsed", function(source, cb, iban)
 			
 			cb(db, true)
 		else
-			MySQL.Async.fetchAll('SELECT * FROM banking_societies WHERE iban = @iban', {
+			MySQL.query('SELECT * FROM banking_societies WHERE iban = @iban', {
 				['@iban'] = iban
 			}, function(result2)
 				local db2 = result2[1]
@@ -45,17 +45,17 @@ end)
 ESX.RegisterServerCallback("okokBanking:GetPIN", function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	
-	MySQL.Async.fetchAll('SELECT pincode FROM users WHERE identifier = @identifier', {
+	MySQL.single('SELECT pincode FROM users WHERE identifier = @identifier', {
 		['@identifier'] = xPlayer.identifier,
 	}, function(result)
-		local pin = result[1]
+		local pin = result
 
 		cb(pin.pincode)
 	end)
 end)
 
 ESX.RegisterServerCallback("okokBanking:SocietyInfo", function(source, cb, society)
-	MySQL.Async.fetchAll('SELECT * FROM banking_societies WHERE society = @society', {
+	MySQL.query('SELECT * FROM banking_societies WHERE society = @society', {
 		['@society'] = society
 	}, function(result)
 		local db = result[1]
@@ -65,7 +65,7 @@ end)
 
 RegisterServerEvent("okokBanking:CreateSocietyAccount")
 AddEventHandler("okokBanking:CreateSocietyAccount", function(society, society_name, value, iban)
-	MySQL.Async.insert('INSERT INTO banking_societies (society, society_name, value, iban) VALUES (@society, @society_name, @value, @iban)', {
+	MySQL.query('INSERT INTO banking_societies (society, society_name, value, iban) VALUES (@society, @society_name, @value, @iban)', {
 		['@society'] = society,
 		['@society_name'] = society_name,
 		['@value'] = value,
@@ -78,7 +78,7 @@ RegisterServerEvent("okokBanking:SetIBAN")
 AddEventHandler("okokBanking:SetIBAN", function(iban)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	MySQL.Async.execute('UPDATE users SET iban = @iban WHERE identifier = @identifier', {
+	MySQL.query('UPDATE users SET iban = @iban WHERE identifier = @identifier', {
 		['@identifier'] = xPlayer.identifier,
 		['@iban'] = iban,
 	}, function (result)
@@ -155,7 +155,7 @@ AddEventHandler("okokBanking:TransferMoney", function(amount, ibanNumber, target
 				TriggerClientEvent('okokBanking:updateTransactions', source, xPlayer.getAccount('bank').money, xPlayer.getMoney())
 				TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..targetName, 5000, 'success')
 
-				MySQL.Async.execute('UPDATE users SET accounts = @playerAccount WHERE identifier = @target', {
+				MySQL.query('UPDATE users SET accounts = @playerAccount WHERE identifier = @target', {
 					['@playerAccount'] = playerAccount,
 					['@target'] = targetIdentifier
 				}, function(changed)
@@ -176,7 +176,7 @@ AddEventHandler("okokBanking:DepositMoneyToSociety", function(amount, society, s
 	local playerMoney = xPlayer.getMoney()
 
 	if amount <= playerMoney then
-		MySQL.Async.execute('UPDATE banking_societies SET value = value + @value WHERE society = @society AND society_name = @society_name', {
+		MySQL.query('UPDATE banking_societies SET value = value + @value WHERE society = @society AND society_name = @society_name', {
 			['@value'] = amount,
 			['@society'] = society,
 			['@society_name'] = societyName,
@@ -199,14 +199,14 @@ AddEventHandler("okokBanking:WithdrawMoneyToSociety", function(amount, society, 
 	local db
 	local hasChecked = false
 
-	MySQL.Async.fetchAll('SELECT * FROM banking_societies WHERE society = @society', {
+	MySQL.query('SELECT * FROM banking_societies WHERE society = @society', {
 		['@society'] = society
 	}, function(result)
 		db = result[1]
 		hasChecked = true
 	end)
 
-	MySQL.Async.execute('UPDATE banking_societies SET is_withdrawing = 1 WHERE society = @society AND society_name = @society_name', {
+	MySQL.query('UPDATE banking_societies SET is_withdrawing = 1 WHERE society = @society AND society_name = @society_name', {
 		['@value'] = amount,
 		['@society'] = society,
 		['@society_name'] = societyName,
@@ -222,7 +222,7 @@ AddEventHandler("okokBanking:WithdrawMoneyToSociety", function(amount, society, 
 			TriggerClientEvent('okokNotify:Alert', _source, "BANK", "Someone is already withdrawing", 5000, 'error')
 		else
 
-			MySQL.Async.execute('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
+			MySQL.query('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
 				['@value'] = amount,
 				['@society'] = society,
 				['@society_name'] = societyName,
@@ -239,7 +239,7 @@ AddEventHandler("okokBanking:WithdrawMoneyToSociety", function(amount, society, 
 		TriggerClientEvent('okokNotify:Alert', _source, "BANK", "Your society doesn't have that much money on the bank", 5000, 'error')
 	end
 
-	MySQL.Async.execute('UPDATE banking_societies SET is_withdrawing = 0 WHERE society = @society AND society_name = @society_name', {
+	MySQL.query('UPDATE banking_societies SET is_withdrawing = 0 WHERE society = @society AND society_name = @society_name', {
 		['@value'] = amount,
 		['@society'] = society,
 		['@society_name'] = societyName,
@@ -253,7 +253,7 @@ AddEventHandler("okokBanking:TransferMoneyToSociety", function(amount, ibanNumbe
 	local playerMoney = xPlayer.getAccount('bank').money
 
 		if amount <= playerMoney then
-			MySQL.Async.execute('UPDATE banking_societies SET value = value + @value WHERE iban = @iban', {
+			MySQL.query('UPDATE banking_societies SET value = value + @value WHERE iban = @iban', {
 				['@value'] = amount,
 				['@iban'] = ibanNumber
 			}, function(changed)
@@ -274,13 +274,13 @@ AddEventHandler("okokBanking:TransferMoneyToSocietyFromSociety", function(amount
 	local xPlayers = ESX.GetPlayers()
 
 	if amount <= societyMoney then
-		MySQL.Async.execute('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
+		MySQL.query('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
 			['@value'] = amount,
 			['@society'] = society,
 			['@society_name'] = societyName,
 		}, function(changed)
 		end)
-		MySQL.Async.execute('UPDATE banking_societies SET value = value + @value WHERE society = @society AND society_name = @society_name', {
+		MySQL.query('UPDATE banking_societies SET value = value + @value WHERE society = @society AND society_name = @society_name', {
 			['@value'] = amount,
 			['@society'] = societyTarget,
 			['@society_name'] = societyNameTarget,
@@ -301,7 +301,7 @@ AddEventHandler("okokBanking:TransferMoneyToPlayerFromSociety", function(amount,
 	local xPlayers = ESX.GetPlayers()
 
 	if amount <= societyMoney then
-		MySQL.Async.execute('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
+		MySQL.query('UPDATE banking_societies SET value = value - @value WHERE society = @society AND society_name = @society_name', {
 			['@value'] = amount,
 			['@society'] = society,
 			['@society_name'] = societyName,
@@ -335,7 +335,7 @@ AddEventHandler("okokBanking:TransferMoneyToPlayerFromSociety", function(amount,
 			TriggerClientEvent('okokBanking:updateTransactionsSociety', source, xPlayer.getMoney())
 			TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..targetName, 5000, 'success')
 
-			MySQL.Async.execute('UPDATE users SET accounts = @playerAccount WHERE identifier = @target', {
+			MySQL.query('UPDATE users SET accounts = @playerAccount WHERE identifier = @target', {
 				['@playerAccount'] = playerAccount,
 				['@target'] = targetIdentifier
 			}, function(changed)
@@ -356,10 +356,10 @@ ESX.RegisterServerCallback("okokBanking:GetOverviewTransactions", function(sourc
 	local totalIncome = 0
 	local day1_total, day2_total, day3_total, day4_total, day5_total, day6_total, day7_total = 0, 0, 0, 0, 0, 0, 0
 
-	MySQL.Async.fetchAll('SELECT * FROM transactions WHERE receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
+	MySQL.query('SELECT * FROM transactions WHERE receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
 		['@identifier'] = playerIdentifier
 	}, function(result)
-		MySQL.Async.fetchAll('SELECT *, DATE(date) = CURDATE() AS "day1", DATE(date) = CURDATE() - INTERVAL 1 DAY AS "day2", DATE(date) = CURDATE() - INTERVAL 2 DAY AS "day3", DATE(date) = CURDATE() - INTERVAL 3 DAY AS "day4", DATE(date) = CURDATE() - INTERVAL 4 DAY AS "day5", DATE(date) = CURDATE() - INTERVAL 5 DAY AS "day6", DATE(date) = CURDATE() - INTERVAL 6 DAY AS "day7" FROM `transactions` WHERE DATE(date) >= CURDATE() - INTERVAL 7 DAY', {
+		MySQL.query('SELECT *, DATE(date) = CURDATE() AS "day1", DATE(date) = CURDATE() - INTERVAL 1 DAY AS "day2", DATE(date) = CURDATE() - INTERVAL 2 DAY AS "day3", DATE(date) = CURDATE() - INTERVAL 3 DAY AS "day4", DATE(date) = CURDATE() - INTERVAL 4 DAY AS "day5", DATE(date) = CURDATE() - INTERVAL 5 DAY AS "day6", DATE(date) = CURDATE() - INTERVAL 6 DAY AS "day7" FROM `transactions` WHERE DATE(date) >= CURDATE() - INTERVAL 7 DAY', {
 
 		}, function(result2)
 			for k, v in pairs(result2) do
@@ -517,10 +517,10 @@ ESX.RegisterServerCallback("okokBanking:GetSocietyTransactions", function(source
 	local totalIncome = 0
 	local day1_total, day2_total, day3_total, day4_total, day5_total, day6_total, day7_total = 0, 0, 0, 0, 0, 0, 0
 
-	MySQL.Async.fetchAll('SELECT * FROM transactions WHERE receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
+	MySQL.query('SELECT * FROM transactions WHERE receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
 		['@identifier'] = society
 	}, function(result)
-		MySQL.Async.fetchAll('SELECT *, DATE(date) = CURDATE() AS "day1", DATE(date) = CURDATE() - INTERVAL 1 DAY AS "day2", DATE(date) = CURDATE() - INTERVAL 2 DAY AS "day3", DATE(date) = CURDATE() - INTERVAL 3 DAY AS "day4", DATE(date) = CURDATE() - INTERVAL 4 DAY AS "day5", DATE(date) = CURDATE() - INTERVAL 5 DAY AS "day6", DATE(date) = CURDATE() - INTERVAL 6 DAY AS "day7" FROM `transactions` WHERE DATE(date) >= CURDATE() - INTERVAL 7 DAY AND receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
+		MySQL.query('SELECT *, DATE(date) = CURDATE() AS "day1", DATE(date) = CURDATE() - INTERVAL 1 DAY AS "day2", DATE(date) = CURDATE() - INTERVAL 2 DAY AS "day3", DATE(date) = CURDATE() - INTERVAL 3 DAY AS "day4", DATE(date) = CURDATE() - INTERVAL 4 DAY AS "day5", DATE(date) = CURDATE() - INTERVAL 5 DAY AS "day6", DATE(date) = CURDATE() - INTERVAL 6 DAY AS "day7" FROM `transactions` WHERE DATE(date) >= CURDATE() - INTERVAL 7 DAY AND receiver_identifier = @identifier OR sender_identifier = @identifier ORDER BY id DESC', {
 			['@identifier'] = society
 		}, function(result2)
 			for k, v in pairs(result2) do
@@ -846,7 +846,7 @@ AddEventHandler("okokBanking:UpdateIbanDB", function(iban, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if Config.IBANChangeCost <= xPlayer.getAccount('bank').money then
-		MySQL.Async.execute('UPDATE users SET iban = @iban WHERE identifier = @identifier', {
+		MySQL.query('UPDATE users SET iban = @iban WHERE identifier = @identifier', {
 			['@iban'] = iban,
 			['@identifier'] = xPlayer.identifier,
 		}, function(changed)
@@ -865,8 +865,8 @@ RegisterServerEvent("okokBanking:UpdatePINDB")
 AddEventHandler("okokBanking:UpdatePINDB", function(pin, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	if Config.PINChangeCost <= xPlayer.getAccount('bank').money then
-		MySQL.Async.execute('UPDATE users SET pincode = @pin WHERE identifier = @identifier', {
+	if Config.PINChangeCost <= xPlayer.getAccount('money').money then
+		MySQL.query('UPDATE users SET pincode = @pin WHERE identifier = @identifier', {
 			['@pin'] = pin,
 			['@identifier'] = xPlayer.identifier,
 		}, function(changed)
@@ -874,8 +874,8 @@ AddEventHandler("okokBanking:UpdatePINDB", function(pin, amount)
 
 		TriggerEvent('okokBanking:AddTransferTransactionToSociety', amount, source, "bank", "Bank (PIN)")
 		TriggerClientEvent('okokBanking:updateIbanPinChange', source)
-		TriggerClientEvent('okokNotify:Alert', source, "BANK", "PIN successfully changed to "..pin, 5000, 'success')
+		TriggerClientEvent("DoLongHudText",-1, "Bạn đã đổi mã pin thành  "..pin)
 	else
-		TriggerClientEvent('okokNotify:Alert', source, "BANK", "You need to have "..Config.PINChangeCost.."€ in order to change your PIN", 5000, 'error')
+		TriggerClientEvent("DoLongHudText",-1, "Bạn cần phải có " ..Config.PINChangeCost.."$ để đổi mã pin", 2)
 	end
 end)

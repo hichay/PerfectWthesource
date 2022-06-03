@@ -75,3 +75,4 @@ VehicleEntries[#VehicleEntries+1] = {
         return not IsDisabled() and pContext.distance <= 2.5 and not IsPedInAnyVehicle(PlayerPedId(), false)
     end
 } 
+

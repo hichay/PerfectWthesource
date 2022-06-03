@@ -22,10 +22,12 @@ Config = {
         ['pickaxe'] = 'prop_tool_pickaxe',
     },
     MiningPositions = {
-        {coords = vector3(2992.77, 2750.64, 42.78), heading = 209.29},
+        {coords = vector3(2980.56, 2825.31, 46.09), heading = 209.29},
         {coords = vector3(2983.03, 2750.9, 42.02), heading = 214.08},
-        {coords = vector3(2976.74, 2740.94, 43.63), heading = 246.21},
+        {coords = vector3(3003.86, 2784.83, 44.463), heading = 246.21},
         {coords = vector3(2934.265, 2742.695, 43.1), heading = 96.1},
+		{coords = vector3(2968.27, 2847.44, 47.11), heading = 209.29},
+		{coords = vector3(2951.40, 2852.84, 49.03), heading = 209.29},
         {coords = vector3(2907.25, 2788.27, 45.4), heading = 109.39}
     },
 }

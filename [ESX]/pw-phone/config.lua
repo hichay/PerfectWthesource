@@ -6,7 +6,6 @@ Config.Linux = false -- True if linux
 Config.TweetDuration = 48 -- How many hours to load tweets (12 will load the past 12 hours of tweets)
 Config.RepeatTimeout = 2000
 Config.CallRepeats = 10
-Config.OpenPhone = 244
 Config.PhoneApplications = {
     ["phone"] = {
         app = "phone",

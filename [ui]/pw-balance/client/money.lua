@@ -69,3 +69,7 @@ end)
 -- RegisterCommand("health", function(source, args, rawCommand)
 	-- exports['ps-buffs']:AddHealthBuff(10000, 10)
 -- end, false)
+
+--[[ RegisterCommand("giveitm", function(source, args, rawCommand)
+	TriggerEvent("player:receiveItem", "water", 1, false,"320")
+end, false) ]]

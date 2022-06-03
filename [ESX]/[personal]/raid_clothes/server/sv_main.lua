@@ -161,7 +161,7 @@ AddEventHandler("raid_clothes:get_character_face",function(pSrc)
     local characterId = xPlayer.getIdentifier()
 
     if not characterId then return end
-    MySQL.Async.fetchAll('SELECT hairColor, headBlend, headOverlay, headStructure, drawables, props, drawtextures, proptextures, sex FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
+    MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
     --MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
         local temp_data = {
             hairColor = json.decode(result[1].hairColor),

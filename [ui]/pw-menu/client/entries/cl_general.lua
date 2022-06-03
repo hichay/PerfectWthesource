@@ -86,6 +86,18 @@ GeneralEntries[#GeneralEntries+1] = {
     -- end
 -- }
 
+GeneralEntries[#GeneralEntries+1] = {
+    data = {
+        id = "lock-unlock-carveh",
+        title = "Khóa/Mở xe",
+        icon = "#general-keys-give",
+        event = "pw-garage:LockVehicle",
+        parameters = {}
+    },
+    isEnabled = function(pEntity, pContext)
+        return not IsDisabled() and IsPedInAnyVehicle(PlayerPedId(), false)
+    end
+} 
 
 GeneralEntries[#GeneralEntries+1] = {
     data = {
@@ -95,9 +107,11 @@ GeneralEntries[#GeneralEntries+1] = {
         event = "vehiclekeys:client:GiveKeys"
     },
     isEnabled = function(pEntity, pContext)
-        return not IsDisabled() and IsPedInAnyVehicle(PlayerPedId(), false) and exports["pw-garages"]:HasVehicleKey(GetVehiclePedIsIn(PlayerPedId(), false))
+        return not IsDisabled() and exports["pw-garages"]:HasVehicleKey(GetVehiclePedIsIn(PlayerPedId(), false))
     end
 }
+
+
 
 GeneralEntries[#GeneralEntries+1] = {
   data = {
@@ -144,7 +158,7 @@ GeneralEntries[#GeneralEntries+1] = {
     event = "alert:AlertDeath",
   },
   isEnabled = function(pEntity, pContext)
-    return isDead and not (isPolice or isMedic) and MedicOnline > 0
+    return isDead and not (isPolice or isMedic) and MedicOnline() > 0
   end
 }
 
@@ -156,7 +170,7 @@ GeneralEntries[#GeneralEntries+1] = {
     event = "pw-death:medicNPC",
   },
   isEnabled = function(pEntity, pContext)
-    return isDead and not (isPolice or isMedic) and MedicOnline == 0
+    return isDead and not (isPolice or isMedic) and MedicOnline() == 0
   end
 }
 

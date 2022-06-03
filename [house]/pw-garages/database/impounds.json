@@ -16,7 +16,7 @@
                 "y": -1312.237060546875,
                 "z": 29.209421157836915
             },
-            "type": -567724045,
+            "type": "csb_trafficwarden",
             "heading": 285.38,
             "created": false
         },
@@ -46,7 +46,7 @@
                 "y": 3581.7216796875,
                 "z": 35.62080764770508
             },
-            "type": -567724045,
+            "type": "csb_trafficwarden",
             "heading": 203.65,
             "created": false
         },
@@ -76,7 +76,7 @@
                 "y": 590.05078125,
                 "z": 7.77649879455566
             },
-            "type": -567724045,
+            "type": "csb_trafficwarden",
             "heading": 23.32,
             "created": false
         },
@@ -106,7 +106,7 @@
                 "y": 6613.5361328125,
                 "z": 32.397
             },
-            "type": -567724045,
+            "type": "csb_trafficwarden",
             "heading": 223.89,
             "created": false
         },
@@ -135,7 +135,7 @@
                 "y": -3185.179,
                 "z": 6.0349535
             },
-            "type": -567724045,
+            "type": "csb_trafficwarden",
             "heading": 0.62,
             "created": false
         },

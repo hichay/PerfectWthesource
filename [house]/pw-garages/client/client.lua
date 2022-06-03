@@ -118,13 +118,34 @@ Citizen.CreateThread(function()
                                   options = {
                                     distance = { radius = 3.0 },
                                     npcIds = { 'npc_garage_'..name },
-                                    --[[ isEnabled = function(pEntity, pContext)
-                                      return isOnDeliveryTask()
-                                    end, ]]
+                                    isEnabled = function(pEntity, pContext)
+                                      return not IsPedSittingInAnyVehicle(PlayerPedId())
+                                    end,
                                   },
                                 }
                                 
                                 exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.datait, Interact.options)
+
+                                local VehicleInteract = {
+                                    datait = {
+                                      {
+                                        id = 'npc_interactveh_'..name,
+                                        label = 'Mở garage trên xe',
+                                        icon = 'hand-holding',
+                                        event = 'pw-garages:client:TriggerNUi',
+                                        parameters = {true,name,data,key},
+                                      },
+                                    },
+                                    options = {
+                                      distance = { radius = 3.0 },
+                                      npcIds = { 'npc_garage_'..name },
+                                      isEnabled = function(pEntity, pContext)
+                                        return IsPedSittingInAnyVehicle(PlayerPedId())
+                                      end,
+                                    },
+                                  }
+                                  
+                                  exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, VehicleInteract.datait, VehicleInteract.options)
                                 --[[ if data['ped']['enable'] == true then
                                     -- ped
                                     
@@ -764,19 +785,18 @@ RegisterNUICallback('park', function(data)
         body_damage = ESX.Game.GetVehicleProperties(veh).bodyHealth
         Citizen.Wait(500)
         ESX.TriggerServerCallback('pw-garages:server:GetVehicleStatus', function(statsvalue)
-                
             stats = {
                 ["engine_damage"] = ESX.Math.Round(engine_damage), 
                 ["body_damage"] = ESX.Math.Round(body_damage), 
                 ["fuel"] = ESX.Math.Round(fuelvehicle),
-                ["fuelinjector"] = ESX.Math.Round(statsvalue.fuelinjector), 
+                ["injector"] = ESX.Math.Round(statsvalue.injector), 
                 ["dirty"] = ESX.Math.Round(dirtylevel),
                 ["radiator"] = ESX.Math.Round(statsvalue.radiator),
                 ["axle"] = ESX.Math.Round(statsvalue.axle), 
-                ["brakes"] = ESX.Math.Round(statsvalue.brakes),
+                ["brake"] = ESX.Math.Round(statsvalue.brake),
                 ["clutch"] = ESX.Math.Round(statsvalue.clutch),
                 ["tire"] = ESX.Math.Round(statsvalue.tire),
-                ["electronic"] = ESX.Math.Round(statsvalue.electronic),
+                ["electronics"] = ESX.Math.Round(statsvalue.electronics),
                 ["transmission"] = ESX.Math.Round(statsvalue.transmission),
             }
             TriggerServerEvent('pw-garages:server:parkVehicle', garage, typ, freeSlots, plate, stats)    

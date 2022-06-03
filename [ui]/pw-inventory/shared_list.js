@@ -5826,14 +5826,14 @@ itemList['ctrophy'] = {
 itemList['cuffs'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Hand Cuffs',
+  displayname: 'Còng tay',
   craft: [[{ itemid: 'scrapmetal', amount: 500 }]],
   price: 250,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_hand-cuffs.png',
-  information: 'Marked for Police Seizure',
+  information: 'Sử dụng để còng tay người khác',
 };
 
 itemList['cultneck'] = {
@@ -20944,19 +20944,19 @@ itemList["logofull"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "
 itemList["goldbar"]	   = {fullyDegrades: false, illegal: true, decayrate: 0.0, displayname: "Thỏi Vàng", craft: [{itemid: "goldmate", amount: 2 } , {itemid: "coal", amount: 1 } ], price: 550, weight: 2, nonStack: false, model: "", image: "np_gold-bar.png" , information: "Vàng nguyên chất thường thấy ở các tiệm trang sức", deg: false}
 
 
-itemList["rock"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Cục đá", price: 1, weight: 5, nonStack: true, model:  "", image: "np_rock.png", information: "", deg: false }
+itemList["rock"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Cục đá", price: 1, weight: 5, nonStack: false, model:  "", image: "np_rock.png", information: "", deg: false }
 
-itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 1, weight: 1, nonStack: true, model:  "", image: "np_coal.png", information: "", deg: false }
+itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 1, weight: 1, nonStack: false, model:  "", image: "np_coal.png", information: "", deg: false }
 
-itemList["goldmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng vàng", price: 1, weight: 5, nonStack: true, model:  "", image: "np_goldmaterial.png", information: "", deg: false }
+itemList["goldmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng vàng", price: 1, weight: 5, nonStack: false, model:  "", image: "np_goldmaterial.png", information: "", deg: false }
 
-itemList["ironmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng sắt", price: 1, weight: 5, nonStack: true, model:  "", image: "np_ironmaterial.png", information: "", deg: false }
+itemList["ironmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng sắt", price: 1, weight: 5, nonStack: false, model:  "", image: "np_ironmaterial.png", information: "", deg: false }
 
-itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 1, nonStack: true, model:  "", image: "np_mercury.png", information: "", deg: false }
+itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 1, nonStack: false, model:  "", image: "np_mercury.png", information: "", deg: false }
 
 itemList["jadeite"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Jadeite Stone", price: 1, weight: 10, nonStack: false, model:  "", image: "np_jadeite-stone.png", information: "", deg: false }
 
-itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 5, nonStack: true, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
+itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 5, nonStack: false, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
 
 
 itemList["motelkey"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Chìa khoá phòng", price: 1, weight: 1, nonStack: true, model:  "", image: "np_bankboxkey.png", information: "", deg: false, esxuse: true }
@@ -21181,7 +21181,7 @@ itemList['jacket'] = {
 itemList['shirt'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Camisa',
+  displayname: 'Áo thun',
   craft: [],
   price: 10,
   weight: 1,
@@ -21194,7 +21194,7 @@ itemList['shirt'] = {
 itemList['backpack'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Mochila',
+  displayname: 'Balo',
   craft: [],
   price: 10,
   weight: 1,
@@ -21207,7 +21207,7 @@ itemList['backpack'] = {
 itemList['pants'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Calça',
+  displayname: 'Quần',
   craft: [],
   price: 10,
   weight: 1,
@@ -21220,7 +21220,7 @@ itemList['pants'] = {
 itemList['shoes'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Tênis',
+  displayname: 'Giày',
   craft: [],
   price: 10,
   weight: 1,
@@ -21233,7 +21233,7 @@ itemList['shoes'] = {
 itemList['watch'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Relógio',
+  displayname: 'Đồng hồ',
   craft: [],
   price: 10,
   weight: 1,
@@ -21246,7 +21246,7 @@ itemList['watch'] = {
 itemList['braclets'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Pulseira',
+  displayname: 'Vòng tay',
   craft: [],
   price: 10,
   weight: 1,
@@ -21259,7 +21259,7 @@ itemList['braclets'] = {
 itemList['earrings'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Brincos',
+  displayname: 'Khuyên tai',
   craft: [],
   price: 10,
   weight: 1,

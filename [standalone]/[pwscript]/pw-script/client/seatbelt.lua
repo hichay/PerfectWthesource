@@ -183,14 +183,14 @@ CreateThread(function()
             if GetVehicleEngineHealth(currentVehicle) < 0.0 then
                 SetVehicleEngineHealth(currentVehicle, 0.0)
             end
-            if (GetVehicleHandbrake(currentVehicle) or (GetVehicleSteeringAngle(currentVehicle)) > 25.0 or (GetVehicleSteeringAngle(currentVehicle)) < -25.0) then
-                if handbrake == 0 then
-                    handbrake = 100
-                    ResetHandBrake()
-                else
-                    handbrake = 100
-                end
-            end
+            -- if (GetVehicleHandbrake(currentVehicle) or (GetVehicleSteeringAngle(currentVehicle)) > 25.0 or (GetVehicleSteeringAngle(currentVehicle)) < -25.0) then
+                -- if handbrake == 0 then
+                    -- handbrake = 100
+                    -- ResetHandBrake()
+                -- else
+                    -- handbrake = 100
+                -- end
+            -- end
 
             thisFrameVehicleSpeed = GetEntitySpeed(currentVehicle) * 3.6
             currentvehicleBodyHealth = GetVehicleBodyHealth(currentVehicle)
@@ -205,7 +205,6 @@ CreateThread(function()
                                 if not harnessOn then
                                     EjectFromVehicle()
                                 else
-                                    print('hu')
                                     --[[ harnessHp = harnessHp - 1
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData) ]]
                                     TriggerEvent("inventory:DegenItemType",5,"harness")
@@ -214,16 +213,14 @@ CreateThread(function()
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 60 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
+                            if lastFrameVehiclespeed > 150 then
+                                if math.random(math.ceil(lastFrameVehiclespeed)) > 150 then
                                     if not harnessOn then
                                         EjectFromVehicle()
                                     else
-                                        print('hu2')
                                         --[[ harnessHp = harnessHp - 1
                                         TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData) ]]
                                         TriggerEvent("inventory:DegenItemType",10,"harness")
-                                        print(infoquality)
                                         local quality = infoquality.quality - 10
                                         TriggerEvent('hud:client:UpdateHarness', quality)
                                     end
@@ -236,7 +233,6 @@ CreateThread(function()
                                 if not harnessOn then
                                     EjectFromVehicle()
                                 else
-                                    print('hu3')
                                     --[[ harnessHp = harnessHp - 1
                                     TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData) ]]
                                     TriggerEvent("inventory:DegenItemType",5,"harness")
@@ -245,12 +241,11 @@ CreateThread(function()
                                 end
                             end
                         elseif (seatbeltOn or harnessOn) and not IsThisModelABike(currentVehicle) then
-                            if lastFrameVehiclespeed > 60 then
-                                if math.random(math.ceil(lastFrameVehiclespeed)) > 60 then
+                            if lastFrameVehiclespeed > 120 then
+                                if math.random(math.ceil(lastFrameVehiclespeed)) > 200 then
                                     if not harnessOn then
                                         EjectFromVehicle()
                                     else
-                                        print('hu4')
                                         --[[ harnessHp = harnessHp - 1
                                         TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData) ]]
                                         TriggerEvent("inventory:DegenItemType",5,"harness")

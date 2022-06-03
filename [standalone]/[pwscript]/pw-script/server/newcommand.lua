@@ -18,7 +18,7 @@ end)
 
 
 ESX.RegisterCommand('duatien1', 'user', function(xPlayer, args)
-	TriggerClientEvent("pw-scripts:client:Duatien",source, args.id, args.money)
+	TriggerClientEvent("pw-scripts:client:Duatien",xPlayer.source, args.id, args.money)
 end, false, {help = "add thêm garage nhà", validate = true, arguments = {
     {name = 'id', help = "Id người chơi", type = 'idcard'},
     {name = 'money', help = "số tiền", type = 'number'}

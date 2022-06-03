@@ -24,6 +24,18 @@ PedEntries[#PedEntries+1] = {
     end
 }
 
+PedEntries[#PedEntries+1] = {
+    data = {
+        id = "peds-givephone",
+        title = "Đưa số liên lạc",
+        icon = "#ped-givephone",
+        event = "qb-phone:client:GiveContactDetails"
+    },
+    isEnabled = function(pEntity, pContext)
+        return not IsDisabled() and not isEscorting and pEntity and pContext.flags['isPlayer']
+    end
+}
+
 
 PedEntries[#PedEntries+1] = {
     data = {

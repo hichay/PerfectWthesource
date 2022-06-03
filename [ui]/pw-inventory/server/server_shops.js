@@ -7,7 +7,7 @@ function PoliceArmory() {
         { item_id: "radio", id: 0, name: "Shop", information: "{}", slot: 2, amount: 50 },
         { item_id: "camera", id: 0, name: "Shop", information: "{}", slot: 3, amount: 50 },
 		{ item_id: "keyfob", id: 0, name: "Shop", information: "{}", slot: 4, amount: 50 },
-        { item_id: "dashcamstaticpd", id: 0, name: "Shop", information: "{}", slot: 5, amount: 50 },
+        { item_id: "cuffs", id: 0, name: "Shop", information: "{}", slot: 5, amount: 50 },
         { item_id: "pdevidencebag", id: 0, name: "Shop", information: "{}", slot: 6, amount: 50 },
         { item_id: "detcord", id: 0, name: "Shop", information: "{}", slot: 7, amount: 50 },
         { item_id: "IFAK", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
@@ -287,7 +287,7 @@ function HardwareStore() {
 		{ item_id: "snorkelling_gear", id: 0, name: "Shop", information: "{}", slot: 6, amount: 5 },
 		{ item_id: "scuba_oxygen_tank", id: 0, name: "Shop", information: "{}", slot: 7, amount: 5 },
 		{ item_id: "qualityscales", id: 0, name: "Shop", information: "{}", slot: 8, amount: 5 },			
-        { item_id: "fertilizer", id: 0, name: "Shop", information: "{}", slot: 10, amount: 5 }, 
+        { item_id: "fertilizer", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 }, 
 		
 		
 		

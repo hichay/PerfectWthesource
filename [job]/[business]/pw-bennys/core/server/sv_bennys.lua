@@ -46,7 +46,7 @@ AddEventHandler("pw-bennys:attemptPurchase", function(cheap, type, upgradeLevel)
 
     local price = 0
     if type == "repair" then
-        price = repairPrices[src]
+        price = 0
     elseif type == "performance" then
         price = vehicleCustomisationPrices.performance.prices[tonumber(upgradeLevel)]
     else
@@ -57,7 +57,7 @@ AddEventHandler("pw-bennys:attemptPurchase", function(cheap, type, upgradeLevel)
         price = math.ceil(price / 2)
     end
 
-    local cash = xPlayer.getAccount('money').money
+    local cash = xPlayer.getMoney()
 
     if price > cash then
         TriggerClientEvent("pw-bennys:purchaseFailed", src)

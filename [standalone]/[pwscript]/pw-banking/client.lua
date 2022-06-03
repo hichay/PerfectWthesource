@@ -178,6 +178,9 @@ end)
 
 RegisterNetEvent('pw-banking:OpenUI')
 AddEventHandler('pw-banking:OpenUI', function()
+	local dict = 'anim@amb@prop_human_atm@interior@male@enter'
+	local anim = 'enter'
+	local ped = PlayerPedId()
 	ESX.TriggerServerCallback("okokBanking:GetPIN", function(pin)
 		if pin then
 			if not isBankOpened then
@@ -191,7 +194,6 @@ AddEventHandler('pw-banking:OpenUI', function()
 				TaskPlayAnim(ped, dict, anim, 8.0, 8.0, -1, 0, 0, 0, 0, 0)
 				Citizen.Wait(Config.AnimTime)
 				ClearPedTasks(ped)
-
 				SetNuiFocus(true, true)
 				SendNUIMessage({
 					action = 'atm',

@@ -110,30 +110,25 @@ Citizen.CreateThread(function()
                 local counter = 0
                 Wait(0)
                 helpText(Strings['press_mine'])
-                if IsControlJustReleased(0, 38) then
-                    local player, distance = ESX.Game.GetClosestPlayer()
-                    if distance == -1 or distance >= 4.0 then
-                        mining = true
-                        GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
-                        Citizen.Wait(1250)                                                                                      
-                        TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
+                if IsControlJustReleased(0, 38) then                 
+					mining = true
+					--GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
+					Citizen.Wait(1250)                                                                                      
+					TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
+					TriggerEvent("DoLongHudText", "Chạy
+					while mining and not exploded do
+						-- Wait(1000)
+						local time = 6
+						while time > 0 do 
+							Citizen.Wait(1000)
+							time = time - 1
+						end
 						
-                        while mining and not exploded do
-                            -- Wait(1000)
-                            local time = 6
-							while time > 0 do 
-								Citizen.Wait(1000)
-								time = time - 1
-							end
-                            
-							AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 4.0, true, false, 20.0)
-                            exploded = true
-                            local rock = GetHashKey("prop_rock_4_c")
-                            rock1 = CreateObject(rock, closeTo.coords.x, closeTo.coords.y , closeTo.coords.z + 2.5, true, true, true)                           
-                        end
-                    else
-                        TriggerEvent("DoLongHudText","Chỗ này đã có người làm", 2)
-                    end
+						AddExplosion(closeTo.coords.x, closeTo.coords.y, closeTo.coords.z, EXPLOSION_STICKYBOMB, 4.0, true, false, 20.0)
+						exploded = true
+						local rock = GetHashKey("prop_rock_4_c")
+						rock1 = CreateObject(rock, closeTo.coords.x, closeTo.coords.y , closeTo.coords.z + 3.5, true, true, true)                           
+					end              
                 end
             end
         end

@@ -61,11 +61,25 @@ Citizen.CreateThread(function()
       minZ=6.04,
       maxZ=9.24
     })
-    --pdm preview bennys
-    exports["pw-polyzone"]:AddBoxZone("bennys", vector3(840.87, -814.2, 26.31), 10.0, 4.8, {
+    --bennys motor
+    exports["pw-polyzone"]:AddBoxZone("bennys", vector3(-210.2312, -1320.825, 30.89), 10.0, 4.8, {
       heading=359,
-      minZ=24.51,
-      maxZ=29.11
+      minZ=29.51,
+      maxZ=32.11
+    })
+	
+	--pdm bennys
+    exports["pw-polyzone"]:AddBoxZone("bennys", vector3(-36.62351, -1051.757, 28.39649), 20.0, 10.8, {
+      heading=359,
+      minZ=27.51,
+      maxZ=32.11
+    })
+	
+	--pauchu bennys
+    exports["pw-polyzone"]:AddBoxZone("bennys", vector3(548.47753, -198.3701, 54.493362), 10.0, 4.8, {
+      heading=359,
+      minZ=53.51,
+      maxZ=55.11
     })
 
     -- tuner catalog

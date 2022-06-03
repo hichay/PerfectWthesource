@@ -1,19 +1,12 @@
 fx_version 'adamant'
 games { 'gta5' }
-lua54 'yes'
 
-shared_scripts { 
-	'config.lua'
-}
+description 'QB-SmallResources'
+version '1.0.0'
 
-client_scripts {
-	"client/*.lua"
-}
-
-server_scripts {
-	"server/*.lua",
-	"server/newcommand.lua"
-}
+shared_script 'config.lua'
+server_script 'server/*.lua'
+client_script 'client/*.lua'
 
 data_file 'FIVEM_LOVES_YOU_4B38E96CC036038F' 'events.meta'
 data_file 'FIVEM_LOVES_YOU_341B23A2F0E0F131' 'popgroups.ymt'

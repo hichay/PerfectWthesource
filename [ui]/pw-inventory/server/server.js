@@ -102,6 +102,31 @@ onNet("server-request-update", async (player) => {
   }
 });
 
+onNet("server-remove-item-kv", async (pCid, pItemID, pAmount, pMetaKey, pMetaValue) => {
+	let src = source
+    let playerInventoryName = pCid
+
+    let inventory = await exports.oxmysql.query_async(`SELECT id, information FROM user_inventory2 WHERE item_id='${pItemID}' AND name='${playerInventoryName}'`);
+
+    if (inventory) {
+        let itemids = "0"
+
+        for (let i = 0; i < inventory.length; i++) {
+            let meta = JSON.parse(inventory[i].information)
+
+            if (meta[pMetaKey] == pMetaValue) {
+                itemids = itemids + "," + inventory[i].id
+            }
+        }
+
+        exports.oxmysql.query(`DELETE FROM user_inventory2 WHERE id IN (${itemids}) LIMIT ${pAmount}`, {}, function () {
+            if (src != 0) {
+                emit("server-request-update-src", pCid, src)
+            }
+        });
+    }
+});
+
 
 RegisterServerEvent("inventory:degItem")
 onNet("inventory:degItem", async (itemID, Percent, pItemClass, pCid) => {
@@ -142,11 +167,12 @@ function makeid(length) {
   return result;
 }
 
-function GenerateInformation(player, itemid, itemdata) {
-  let data = Object.assign({}, itemdata);
-  return new Promise((resolve, reject) => {
+async function GenerateInformation(source, player, itemid, itemdata) {
+	let data = Object.assign({}, itemdata);
+	return new Promise((resolve, reject) => {
         if (itemid == "") return resolve("{}");
-
+ 
+	
         let returnInfo = "{}"
 
 	if (!isNaN(itemid)) {
@@ -233,9 +259,12 @@ function GenerateInformation(player, itemid, itemdata) {
           }
           break;
         default:
-          timeout = 1
-          clearTimeout(timeout)
-          return resolve(returnInfo);
+           if (itemdata === undefined) {
+			   itemdata = {}
+			}
+			returnInfo = JSON.stringify(itemdata);
+
+			return resolve(returnInfo);
       }
     } else {
       return resolve(returnInfo);
@@ -253,44 +282,26 @@ RegisterServerEvent("server-inventory-give")
 onNet("server-inventory-give", async (player, itemid, slot, amount, generateInformation, itemdata, openedInv) => {
   let src = source
   let playerinvname = player
-  let information = 0
+  let information = "{}"
   /* console.log(typeof itemdata) */
   let creationDate = Date.now()
 
-  if ((typeof itemdata) === "object") {
+  /* if ((typeof itemdata) === "object") {
    information = JSON.stringify(itemdata)
   }else{
    information = itemdata
-  }	 
-
+  }	  */
 	if (generateInformation || itemdata) {
 		information = await GenerateInformation(src, player, itemid, itemdata)
 	}
 
-  if (itemid == "idcard") {
-    information = await GenerateInformation(player, itemid, itemdata)
-  }
-  
 
-  
-  if (itemid == "3219281620") {
-    information = await GenerateInformation(player, itemid, itemdata)
-  }
-
-  if (information == null) {
-    information = await "{}"
-  }
-
-  if (itemid == "evidence") {
-    information = await GenerateInformation(player, itemid, itemdata)
-  }
   let values = `('${playerinvname}','${itemid}','${information}','${slot}','${creationDate}')`
   if (amount > 1) {
     for (let i = 2; i <= amount; i++) {
         values = values + `,('${playerinvname}','${itemid}','${information}','${slot}','${creationDate}')`      
     }
   }          
-  
   let query = `INSERT INTO user_inventory2 (name,item_id,information,slot,creationDate) VALUES ${values};`
     exports.oxmysql.query(query,{},function() {
         emit("server-request-update-src",player,src)
@@ -423,7 +434,7 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
     } else if (secondInventory == "4") {
       var targetinvname = targetName;
       var shopArray = HardwareStore();
-      var shopAmount = 10;
+      var shopAmount = 9;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
     } else if (secondInventory == "5") {
       var targetinvname = targetName;

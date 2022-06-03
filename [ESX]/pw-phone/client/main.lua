@@ -490,7 +490,8 @@ RegisterCommand('phone', function()
          
 end)
 
-RegisterKeyMapping('phone', 'Open Phone', 'keyboard', 'F1')
+exports["pw-keybinds"]:registerKeyMapping("", "Player", "Open Phone", "+OpenPhone",, "F1")
+RegisterCommand('+OpenPhone', OpenPhone(), false)
 
 -- NUI Callbacks
 
@@ -1738,22 +1739,18 @@ RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, Ano
     for i = 1, Config.CallRepeats + 1, 1 do
         if not PhoneData.CallData.AnsweredCall then
             if RepeatCount + 1 ~= Config.CallRepeats + 1 then
-                if PhoneData.CallData.InCall then
-                    ESX.TriggerServerCallback('qb-phone:server:HasPhone', function(HasPhone)
-                        if HasPhone then
-                            RepeatCount = RepeatCount + 1
-                            TriggerServerEvent("InteractSound_SV:PlayOnSource", "ringing", 0.2)
+                if PhoneData.CallData.InCall then                  
+					RepeatCount = RepeatCount + 1
+					TriggerServerEvent("InteractSound_SV:PlayOnSource", "ringing", 0.2)
 
-                            if not PhoneData.isOpen then
-                                SendNUIMessage({
-                                    action = "IncomingCallAlert",
-                                    CallData = PhoneData.CallData.TargetData,
-                                    Canceled = false,
-                                    AnonymousCall = AnonymousCall,
-                                })
-                            end
-                        end
-                    end)
+					if not PhoneData.isOpen then
+						SendNUIMessage({
+							action = "IncomingCallAlert",
+							CallData = PhoneData.CallData.TargetData,
+							Canceled = false,
+							AnonymousCall = AnonymousCall,
+						})
+					end              
                 else
                     SendNUIMessage({
                         action = "IncomingCallAlert",
@@ -2073,7 +2070,7 @@ RegisterNetEvent('qb-phone:client:GiveContactDetails', function()
         local PlayerId = GetPlayerServerId(player)
         TriggerServerEvent('qb-phone:server:GiveContactDetails', PlayerId)
     else
-        QBCore.Functions.Notify("No one nearby!", "error")
+        TriggerEvent("DoLongHudText","Không có ai ở gần",2)
     end
 end)
 

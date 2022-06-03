@@ -366,13 +366,14 @@ end
 AddEventHandler("pw-inventory:itemUsed", function(item, info)
     if has_value(items, item) == -1 then return end
 
-    if removing then
-        TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
-        return
-    end
+    -- if removing then
+		-- print('this')
+        -- TriggerEvent("DoLongHudText", "Chậm hơn được không?", 2)
+        -- return
+    -- end
 
     if antispam >= GetCloudTimeAsInt() then
-        TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
+        TriggerEvent("DoLongHudText", "Chậm hơn được không?", 2)
         return
     end
 

@@ -202,7 +202,6 @@ on('__cfx_nui:GiveItem', (data, cb) => {
     let generateInformation = data[2];
     let nonStacking = data[4];
     let itemdata = data[5];
-
     emit('hud-display-item', id, 'Nhận', amount);
     GiveItem(id, amount, generateInformation, nonStacking, itemdata, data[6]);
     cb({});
@@ -304,9 +303,19 @@ function RemoveItem(id,amount) {
 	emitNet("server-remove-item",plySteam,id, amount, openedInv)
 }
 
+function RemoveItemKV(id, amount, metaKey, metaValue) {
+    emitNet('server-remove-item-kv', plySteam, id, amount, metaKey, metaValue);
+}
+
 function UpdateItem(id, slot, data) {
 	emitNet("server-update-item",plySteam, id, slot, data,)
 }
+
+RegisterNetEvent('inventory:removeItemByMetaKV');
+on('inventory:removeItemByMetaKV', (id, amount, metaKey, metaValue) => {
+    RemoveItemKV(id, amount, metaKey, metaValue);
+    emit('hud-display-item', id, 'Xóa bỏ', amount);
+});
 
 RegisterNetEvent('inventory:updateItem');
 on('inventory:updateItem', (id, slot, data) => {
@@ -984,6 +993,7 @@ let timeFunction = false;
 
 
 function GiveItem(itemid, amount, generateInformation, nonStacking, itemdata, returnData = '{}') {
+	/* console.log(itemdata) */
     const metadata = JSON.stringify(itemdata) !== "{}" ? itemdata : JSON.parse(returnData);
     let slot = findSlot(itemid, amount, nonStacking, metadata);
     if (!isNaN(itemid)) {
