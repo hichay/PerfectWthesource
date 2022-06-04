@@ -86,6 +86,41 @@ Citizen.CreateThread(function()
     
     exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
 
+
+    local datamenu = {
+        id = "lumber_jacksell",
+        position = {coords = Config.Sell, heading = 158.20},
+        pedType = 4,
+        model = "mp_m_counterfeit_01",
+        networked = false,
+        distance = 25.0,
+        settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+        flags = { ["isNPC"] = true, },
+    }
+
+    local npc = exports["pw-npcs"]:RegisterNPC(datamenu, "lumb_jacknpcsell")
+
+    local InteractNPC = {
+      data = {
+        {
+          id = 'lumb_interact',
+          label = 'Bán thành phẩm',
+          icon = 'hand-holding',
+          event = 'pw-lumberjack:makeSales',
+          parameters = {},
+        },
+      },
+      options = {
+        distance = { radius = 2.5 },
+        npcIds = { 'lumber_jacksell' },
+        --[[ isEnabled = function(pEntity, pContext)
+          return isOnDeliveryTask()
+        end, ]]
+      },
+    }
+    
+    exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, InteractNPC.data, InteractNPC.options)
+
     while true do
         Citizen.Wait(15)
         local pos = GetEntityCoords(PlayerPedId())
@@ -175,8 +210,38 @@ Citizen.CreateThread(function()
             end
               
         end
+        
 end) 
 
+function SellWood()
+    local veh = GetVehiclePedIsIn(PlayerPedId())
+    if veh and veh ~= 0 then
+      local vehModel = GetEntityModel(veh)
+      if IsThisModelABike(vehModel) or IsThisModelAQuadbike(vehModel) or IsThisModelABicycle(vehModel) then
+        DeleteEntity(veh)
+      end
+      return
+    end
+    local totalCash = 0
+
+    local qty = exports["pw-inventory"]:getQuantity('refinedwood', true)
+
+    if qty > 0 then
+        totalCash = totalCash + (math.random(30,45) * qty)
+        TriggerEvent("inventory:removeItem", 'refinedwood', qty)      
+    end
+
+    if totalCash == 0 then
+		TriggerEvent("ESX:Notify","Không có gì để bán","error")
+    end
+
+    if totalCash > 0 then
+        TriggerServerEvent("pw-lumber:Payout",totalCash)
+    end
+end
+
+RegisterNetEvent("pw-lumberjack:makeSales")
+AddEventHandler("pw-lumberjack:makeSales", SellWood)
 
 local procesX = -584.66
 local procesY = 5285.63
@@ -240,71 +305,6 @@ function Catgo()
     
     
     end
-end
-
-
-local sellX = 1210.0
-local sellY = -1318.51
-local sellZ = 35.23
-Citizen.CreateThread(function()
-    while true do
-    Citizen.Wait(7)
-	local plyCoords = GetEntityCoords(PlayerPedId(), false)
-    local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, sellX, sellY, sellZ)
-	
-	if dist <= 20.0 and isWorking  then
-	    DrawMarker(27, sellX, sellY, sellZ-0.96, 0, 0, 0, 0, 0, 0, 2.20, 2.20, 2.20, 255, 255, 255, 200, 0, 0, 0, 0)
-	else
-	    Citizen.Wait(1000)
-	end
-	local hasBagd7 = false
-	local s1d7 = false
-	if dist <= 2.0 and isWorking then
-	DrawText3D2(sellX, sellY, sellZ+0.1, "[E] Bán")
-		if IsControlJustPressed(0, Keys['E']) then 
-            local hasBagd7 = exports["pw-inventory"]:hasEnoughOfItem("refinedwood",5,false)
-		    if (hasBagd7) then
-		        Bantamphan()
-		    else
-		        ESX.Notify('Không có đủ gỗ tinh chế.', 'error')
-		    end
-		end	
-	end
-	
-end
-end)
-function Bantamphan()
-    local playerPed = PlayerPedId()
-    local coords = GetEntityCoords(playerPed)
-    if exports["pw-inventory"]:hasEnoughOfItem("refinedwood",5,false) then
-
-        ESX.Progressbar("search_register", "Đang bán..", 35000, false, true, {disableMovement = true,
-                disableCarMovement = true,
-                disableMouse = false,
-                disableCombat = true,
-                disableInventory = true,
-            }, {}, {}, {}, function()end, function()
-                
-        end)
-
-        local x,y,z = table.unpack(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.9, -0.98))
-        prop = CreateObject(GetHashKey('hei_prop_heist_box'), x, y, z,  true,  true, true)
-        SetEntityHeading(prop, GetEntityHeading(PlayerPedId()))
-        LoadDict('amb@medic@standing@tendtodead@idle_a')
-        TaskPlayAnim(PlayerPedId(), 'amb@medic@standing@tendtodead@idle_a', 'idle_a', 8.0, -8.0, -1, 1, 0.0, 0, 0, 0)
-        Citizen.Wait(35000)
-        LoadDict('amb@medic@standing@tendtodead@exit')
-        TaskPlayAnim(PlayerPedId(), 'amb@medic@standing@tendtodead@exit', 'exit', 8.0, -8.0, -1, 1, 0.0, 0, 0, 0)
-        ClearPedTasks(PlayerPedId())
-        DeleteEntity(prop)
-        TriggerServerEvent('wood:sell')
-    else
-       ESX.Notify("Không hề có gỗ phản","info") 
-    end
-
-    
-    
-
 end
 
 function LoadDict(dict)

@@ -46,8 +46,13 @@ AddEventHandler('wood:sell', function()
 	xPlayer.addAccountMoney("money", math.random(120,155))
 
 	
-		
 	
+end)
+
+RegisterServerEvent('pw-lumber:Payout')
+AddEventHandler('pw-lumber:Payout', function(cash)	
+	local xPlayer = ESX.GetPlayerFromId(source)
+	xPlayer.addMoney(cash)
 end)
 
 

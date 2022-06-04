@@ -978,7 +978,7 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
     if (targetinvName.indexOf('Drop') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 30;
-        displayName = 'Ground';
+        displayName = 'Mặt Đất';
     } else if (targetinvName.indexOf('PlayerStore') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 2;
@@ -1010,9 +1010,9 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         slotLimitTarget = 5;
         displayName = 'Glovebox';
     } else if (targetinvName.indexOf('Trunk') > -1) {
-        secondaryMaxWeight = 650.0;
+        secondaryMaxWeight = 500.0;
         slotLimitTarget = 65;
-        displayName = 'Trunk';
+        displayName = 'Cốp xe';
     } else if (targetinvName.indexOf('Craft') > -1) {
         slotLimitTarget = 100;
         displayName = 'Crafting';
@@ -1053,13 +1053,13 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 2000.0;
         slotLimitTarget = 400;
     } else if (targetinvName.indexOf('Shop') > -1) {
-        displayName = 'Shop';
+        displayName = 'Cửa hàng';
         secondaryMaxWeight = 50000.0;
         slotLimitTarget = 50;
     } else if (targetinvName.startsWith('ply')) {
         secondaryMaxWeight = 250.0;
         slotLimitTarget = 40;
-        displayName = 'Other Player';
+        displayName = 'Túi người khác';
     } else if (targetinvName.indexOf('rifle-rack') > -1) {
         secondaryMaxWeight = 250.0;
         slotLimitTarget = 10;

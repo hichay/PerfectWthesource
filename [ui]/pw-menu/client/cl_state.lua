@@ -159,6 +159,7 @@ AddEventHandler("pw-polyzone:enter", function(zone, data)
     if zone == "np-jobs:impound:dropOff" then IsImpoundDropOff = true end
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = true, polyData = data } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = true, polyData = data } end
+	if zone == "scrap_yard" then polyChecks.scrapYard = { isInside = true, polyData = data } end
     if zone == "bennys" then
         local plyPed = PlayerPedId()
 
@@ -179,6 +180,7 @@ end)
 AddEventHandler("pw-polyzone:exit", function(zone)
     if zone == "vanilla_unicorn_stage" then polyChecks.vanillaUnicorn = { isInside = false, polyData = nil } end
     if zone == "gas_station" then polyChecks.gasStation = { isInside = false, polyData = nil } end
+	if zone == "scrap_yard" then polyChecks.scrapYard = { isInside = false, polyData = data } end
     if zone == "bennys" then polyChecks.bennys = { isInside = false, polyData = nil } end
     if zone == "townhall_court_gavel" then polyChecks.townhallCourtGavel = { isInside = false, polyData = nil } end
     if zone == "np-jail:prison" then polyChecks.prison = { isInside = false, polyData = nil } end

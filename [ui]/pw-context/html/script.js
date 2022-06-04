@@ -23,7 +23,6 @@ const CloseMenu = () => {
 
 const DrawButtons = (data, back) => {
     let ButtonsData = data
-
     $("#buttons").empty();
     $("#images").empty();
 
@@ -32,7 +31,7 @@ const DrawButtons = (data, back) => {
     if (back != undefined) {
         let element = `
             <div class="button" id=` + 69420 + `>
-                <div class="header" id=` + 69420 + `>` + "Quay lại" + `</div>
+                <div class="header" id=` + 69420 + `>` + "Quay L?i" + `</div>
                 <div class="txt" id=` + 69420 + `>` + "" + `</div>
                 <div class="icon"><i class="fas fa-chevron-left"></i></div>
             </div>`
@@ -49,7 +48,7 @@ const DrawButtons = (data, back) => {
 
         let id = i
         let element
-		if (ButtonsData[i].icon) {
+		
 			element = `
         <div class="button" id=` + id + `>
             <div class="header" id=` + id + `>` + ButtonsData[i].title + `</div>
@@ -58,14 +57,10 @@ const DrawButtons = (data, back) => {
                 element += `<div class="icon"><i class="fas fa-chevron-right"></i></div>`
             }
 			if (ButtonsData[i].icon) {
-                element += `<div class="iconmini"><i class='fas fa-`+ButtonsData[i].icon+`'></i></div>`
+                element += `<div class="iconmini"><i class='fa-solid fa-`+ButtonsData[i].icon+`'></i></div>`
             }
-			
-			
         `</div>`
-		}else{
-			
-		}
+		
 
         $("#buttons").append(element);
 
@@ -107,10 +102,9 @@ $(document).click(function (event) {
     let $target = $(event.target);
     if ($target.closest(".button").length && $(".button").is(":visible")) {
         let id = event.target.id;
-
         if (Buttons[id].action && Buttons[id].disabled !== true) {
             PostData(Buttons[id])
-        } else if (Buttons[id].children && Buttons[id].disabled !== true) {
+		}else if (Buttons[id].children && Buttons[id].disabled !== true) {
             Menus.push(Buttons[id].children)
             DrawButtons(Buttons[id].children, MenuCurrent)
             MenuCurrent = Menus.length - 1

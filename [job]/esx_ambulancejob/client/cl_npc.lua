@@ -1,6 +1,7 @@
 npcComing = false
 local entityVehicle = nil
 local entityPed = nil
+local lastPing = 0
 
 function DoctorNPC()
 	RequestAnimDict("mini@cpr@char_a@cpr_str")
@@ -18,7 +19,7 @@ function DoctorNPC()
 	TriggerEvent("DoLongHudText", "Bạn đã được điều trị bạn sẽ phải chi trả: $" .. 500)
 
     if entityVehicle then
-        TaskVehicleDriveToCoord(entityPed, entityVehicle, 307.93, -594.99, 43.29, 20.0, 0, GetEntityModel(entityVehicle), 786603, 2.0)
+        TaskVehicleDriveToCoord(entityPed, entityVehicle, 307.93, -594.99, 43.29, 20.0, 0, GetEntityModel(entityVehicle), 524863, 2.0)
     else
         RemovePedElegantly(entityPed)
     end
@@ -35,14 +36,13 @@ function DoctorNPC()
     end
 end
 
---[[
-
-    Events
-
-]]
 
 RegisterNetEvent("pw-death:medicNPC")
 AddEventHandler("pw-death:medicNPC", function()
+	if GetGameTimer() - lastPing < 180 * 1000 then
+        return
+    end
+    lastPing = GetGameTimer()
     npcComing = true
     TriggerEvent("DoLongHudText", "Xin chờ, nhân viên y tế đang trên đường đến")
 
@@ -73,7 +73,7 @@ AddEventHandler("pw-death:medicNPC", function()
     SetDriverAbility(npcPed, 1.0)
     SetDriverAggressiveness(npcPed, 0.0)
     TaskVehicleDriveWander(npcPed, npcVehicle, 20.0, 786603)
-    SetDriveTaskDrivingStyle(npcPed, 786603)
+    SetDriveTaskDrivingStyle(npcPed, 263043)
 	
     SetEntityVisible(PlayerPedId(), true)
 
@@ -105,7 +105,7 @@ AddEventHandler("pw-death:medicNPC", function()
         local dist1 = #(vector3(loc.x, loc.y, loc.z) - vector3(ld.x, ld.y, ld.z))
 
         if insideVehicle then
-            TaskVehicleDriveToCoord(entityPed, entityVehicle, loc.x, loc.y, loc.z, 20.0, 0, GetEntityModel(entityVehicle), 786603, 2.0)
+            TaskVehicleDriveToCoord(entityPed, entityVehicle, loc.x, loc.y, loc.z, 20.0, 0, GetEntityModel(entityVehicle), 263043, 2.0)
         else
             TaskGoToCoordAnyMeans(entityPed, loc.x, loc.y, loc.z, 1.0, 0, 0, 786603, 0xbf800000)
         end

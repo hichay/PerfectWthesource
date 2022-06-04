@@ -12,20 +12,13 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
-RegisterCommand("sellzone", function(source, args, rawCommand)
-	print(GetNameOfZone(GetEntityCoords(PlayerPedId())))
+RegisterCommand("huybancan", function(source, args, rawCommand)
+	IsSell = false
+	exports["pw-interaction"]:hideInteraction()
 end, false)
 
 
-function isSellZone()
-    local zoneInH = GetNameOfZone(GetEntityCoords(PlayerPedId()))
-	
-    for _, zone in pairs(Config.SellZone) do
-        if zoneInH == zone then
-            return true
-        end
-    end
-end
+
 
 local Config = {
     CallCopsPercent = 10,
@@ -69,6 +62,16 @@ local Config = {
 	},
 	SellZone = {'DAVIS', 'STRAW', "EAST_V"} ,
 }
+
+function isSellZone()
+    local zoneInH = GetNameOfZone(GetEntityCoords(PlayerPedId()))
+	
+    for _, zone in pairs(Config.SellZone) do
+        if zoneInH == zone then
+            return true
+        end
+    end
+end
 
 local Keys = {
 	["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168,["F11"] = 344, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57,
@@ -323,7 +326,7 @@ function OfferStart(ped, item, price, labels, amount)
             end
 
             if IsControlJustPressed(1, 306) and GetGameTimer() > SellCooldown then
-				SellCooldown = GetGameTimer() + 60000
+				SellCooldown = GetGameTimer() + 30000
 				SetEntityAsMissionEntity(ped)
 				TaskStandStill(ped, 100.0)
 				TriggerServerEvent("pw-drugs:selling", item, price, amount, ped)
@@ -675,11 +678,6 @@ AddEventHandler("pw-drugs:client:sell", function(ped)
 	end
 end)
 
---[[
-
-    Threads
-
-]]
 
 Citizen.CreateThread(function()
     while true do
@@ -710,7 +708,7 @@ Citizen.CreateThread(function()
 					if pedType ~= 28 and not IsPedAPlayer(ped) and not has_value(Config.BlacklistNpc, pedRelationship) then
 						currentped = pos
 
-                        if GetGameTimer() > SellCooldown and distance <= 3 and not selling and ped ~= playerPed and ped ~= oldped or IsPedInVehicle(playerPed, vehicle, true) and distance <= 7 and not selling and ped ~= playerPed and ped ~= oldped then
+                        if GetGameTimer() > SellCooldown and distance <= 3 and not selling and ped ~= playerPed and ped ~= oldped or IsPedInVehicle(playerPed, vehicle, true) and GetGameTimer() > SellCooldown and distance <= 7 and not selling and ped ~= playerPed and ped ~= oldped then
 						    local playerX, playerY, playerZ = table.unpack(GetEntityCoords(ped))
 
                             ESX.ShowFloatingHelpNotification("~INPUT_CONTEXT~ Chào hàng", vector3(playerX, playerY, playerZ))

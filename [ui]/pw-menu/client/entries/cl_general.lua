@@ -88,6 +88,19 @@ GeneralEntries[#GeneralEntries+1] = {
 
 GeneralEntries[#GeneralEntries+1] = {
     data = {
+        id = "chopchopthevehicle",
+        title = "Rã xe này",
+        icon = "#vehicle-options-vehicle",
+        event = "pw-chopshop:ChopChop",
+        parameters = {}
+    },
+    isEnabled = function(pEntity, pContext)
+        return not IsDisabled() and polyChecks.scrapYard.isInside and not IsPedInAnyVehicle(PlayerPedId(), false)
+    end
+} 
+
+GeneralEntries[#GeneralEntries+1] = {
+    data = {
         id = "lock-unlock-carveh",
         title = "Khóa/Mở xe",
         icon = "#general-keys-give",

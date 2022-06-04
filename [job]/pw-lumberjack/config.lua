@@ -7,7 +7,7 @@ Config = {
     },
     ChanceToGetItem = 30, -- if math.random(0, 100) <= ChanceToGetItem then give item
     Items = {'wood_cut','wood_cut','wood_cut','wood_cut','wood_cut'},
-    Sell = vector3(1210.0, -1318.51, 35.23),
+    Sell = vector3(1210.0, -1318.51, 34.23),
     Process = vector3(-584.66, 5285.63, 70.26),
     NPC = vector3(-559.7275, 5282.7309, 72.050994),
     Objects = {
@@ -37,7 +37,7 @@ Strings = {
     ['wood_info'] = 'Nhan ~INPUT_ATTACK~ , ~INPUT_FRONTEND_RRIGHT~ Stop.',
     ['e_sell'] = 'Press ~INPUT_CONTEXT~ to sell goods',
     ['someone_close'] = 'There is another citizen nearby!',
-    ['wood'] = 'Cây gỗ',
-    ['process'] = 'Tinh chế gỗ',
-    ['sell_wood'] = 'Điểm bán gỗ',
+    ['wood'] = '[1] - Cây gỗ',
+    ['process'] = '[2] - Tinh chế gỗ',
+    ['sell_wood'] = '[3] - Điểm bán gỗ',
 }

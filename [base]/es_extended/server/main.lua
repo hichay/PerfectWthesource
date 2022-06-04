@@ -313,6 +313,7 @@ function loadESXPlayer(identifier, playerId, isNew)
 		loadout = xPlayer.getLoadout(),
 		maxWeight = xPlayer.getMaxWeight(),
 		money = xPlayer.getMoney(),
+		bank = xPlayer.getAccount('bank').money,
 		firstname = userData.firstname,
 		phone = result.phone,
 		lastname = userData.lastname,

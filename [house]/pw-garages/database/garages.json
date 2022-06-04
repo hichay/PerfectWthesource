@@ -1126,7 +1126,7 @@
     "GarageM": {
       "payment": {
         "price": 50,
-        "onetime": true
+        "onetime": false
       },
       "ped": {
         "coords": {
@@ -2110,7 +2110,7 @@
     "GarageT": {
       "payment": {
         "price": 50,
-        "onetime": true
+        "onetime": false
       },
       "ped": {
         "coords": {

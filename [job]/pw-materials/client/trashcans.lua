@@ -11,7 +11,7 @@ end
 
 RegisterNetEvent('pw-materials:client:search:trash')
 AddEventHandler('pw-materials:client:search:trash', function()
-    local _, coords, entity2 = exports["bt-target"]:raycast()
+    local entity2 = exports['pw-interact'].GetCurrentEntity()
     local BinModel = 0
     GotHit = false
     if entity2 then
@@ -20,7 +20,6 @@ AddEventHandler('pw-materials:client:search:trash', function()
             if v['Model'] == BinModel then
             GotHit = true
             CurrentBin = GetHashKey(entity2)
-            print(CurrentBin)
             end
         end
     end

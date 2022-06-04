@@ -8,7 +8,7 @@ HiveConfig = {
     -- Bee Growing time in minutes
     GrowthTime = 180,
     -- Plant total lifetime (minutes) from planted -> destroyed
-    LifeTime = 1560,
+    LifeTime = 1560, 
     -- How much faster does a harvest go with a queen
     QueenFactor = 1.3,
     -- Chance of getting a queen bee

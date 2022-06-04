@@ -908,8 +908,8 @@ CreateThread(function()
             if IsPedInAnyVehicle(ped, false) and not IsThisModelABicycle(GetEntityModel(GetVehiclePedIsIn(ped, false))) then
                 if exports['pw-fuel']:GetFuel(GetVehiclePedIsIn(ped, false)) <= 20 then -- At 20% Fuel Left
                     if Menu.isLowFuelChecked then
-                        TriggerServerEvent("InteractSound_SV:PlayOnSource", "pager", 0.10)
-                        TriggerEvent('DoLongHudText',"Fuel Level Low!",2)
+                        TriggerServerEvent("InteractSound_SV:PlayOnSource", "Alarm3", 0.50)
+                        TriggerEvent('DoLongHudText',"Xe gần hết xăng!",2)
                         Wait(60000) -- repeats every 1 min until empty
                     end
                 end

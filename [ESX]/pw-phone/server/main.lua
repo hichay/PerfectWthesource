@@ -1072,40 +1072,48 @@ RegisterNetEvent('qb-phone:server:UpdateMessages', function(ChatMessages, ChatNu
         local TargetData = ESX.GetPlayerFromIdentifier(Player[1].identifier)
 		local TargetCharacter = GetTargetCharacter(Player[1].identifier)
         if TargetData ~= nil then
-            local Chat = MySQL.Sync.fetchAll('SELECT * FROM phone_messages WHERE citizenid = ? AND number = ?', {SenderData.identifier, ChatNumber})
+            local Chat = MySQL.Sync.fetchAll('SELECT * FROM phone_messages WHERE citizenid = ? AND number = ?', {SenderData.getIdentifier(), ChatNumber})
             if Chat[1] ~= nil then
+				print('122')
                 -- Update for target
                 MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), TargetData.identifier, SenderCharacter.phone})
                 -- Update for sender
-                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), SenderData.identifier, TargetCharacter.phone})
+                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), SenderData.getIdentifier(), TargetCharacter.phone})
                 -- Send notification & Update messages for target
-                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderCharacter.phone, false)
+                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.source, ChatMessages, SenderCharacter.phone, false)
             else
+				print('okok444')
                 -- Insert for target
                 MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {TargetData.identifier, SenderCharacter.phone, json.encode(ChatMessages)})
                 -- Insert for sender
-                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {SenderData.identifier, TargetCharacter.phone, json.encode(ChatMessages)})
+                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {SenderData.getIdentifier(), TargetCharacter.phone, json.encode(ChatMessages)})
                 -- Send notification & Update messages for target
-                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderCharacter.phone, true)
+                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.source, ChatMessages, SenderCharacter.phone, true)
             end
         else
-            local Chat = MySQL.Sync.fetchAll('SELECT * FROM phone_messages WHERE citizenid = ? AND number = ?', {SenderData.identifier, ChatNumber})
+            local Chat = MySQL.Sync.fetchAll('SELECT * FROM phone_messages WHERE citizenid = ? AND number = ?', {SenderData.getIdentifier(), ChatNumber})
             if Chat[1] ~= nil then
+				print('okok')
                 -- Update for target
-                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), Player[1].citizenid, SenderCharacter.phone})
+                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), Player[1].identifier, SenderCharacter.phone})
                 -- Update for sender
                 Player[1].charinfo = json.decode(Player[1].charinfo)
-                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), SenderData.identifier, Player[1].charinfo.phone})
+                MySQL.Async.execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), SenderData.getIdentifier(), Player[1].phone})
             else
+				print('okok321')
                 -- Insert for target
-                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {Player[1].citizenid, SenderCharacter.phone, json.encode(ChatMessages)})
+                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {Player[1].identifier, SenderCharacter.phone, json.encode(ChatMessages)})
                 -- Insert for sender
                 Player[1].charinfo = json.decode(Player[1].charinfo)
-                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {SenderData.identifier, Player[1].charinfo.phone, json.encode(ChatMessages)})
+                MySQL.Async.insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {SenderData.getIdentifier(), Player[1].phone, json.encode(ChatMessages)})
             end
         end
     end
 end)
+
+
+
+
 
 RegisterNetEvent('qb-phone:server:AddRecentCall', function(type, data)
     local src = source

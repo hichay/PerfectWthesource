@@ -71,7 +71,6 @@ AddEventHandler("pw-drugs:offer", function(ped)
 		local Price = math.random(PriceMin, PriceMax) * Amount
 
         local Label = exports["pw-inventory"]:getItem(itemId, "displayname")
-		print(Label)
         TriggerClientEvent("pw-drugs:c_startoffers", src, ped, itemId, Price, Label, Amount)
     else
         TriggerClientEvent("pw-drugs:canceloffers", src, ped)

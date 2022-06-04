@@ -10,12 +10,12 @@ cfg.smallHoverText = 'Monke'
 
 cfg.button1 = {
     text = 'Discord',
-    url = 'fivem://connect/23dym8'
+    url = 'discord.gg/VkMNdNGrFf'
 }
 
 cfg.button2 = {
-    text = 'Tham gia',
-    url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    text = 'Tham gia vào',
+    url = 'fivem://connect/23dym8'
 }
 -- Just to clarify something, you can only have 2 buttons
 

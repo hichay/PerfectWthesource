@@ -490,8 +490,7 @@ RegisterCommand('phone', function()
          
 end)
 
-exports["pw-keybinds"]:registerKeyMapping("", "Player", "Open Phone", "+OpenPhone",, "F1")
-RegisterCommand('+OpenPhone', OpenPhone(), false)
+RegisterKeyMapping("phone", "Mo Dien Thoai", "keyboard", "F1")	
 
 -- NUI Callbacks
 
@@ -1195,9 +1194,9 @@ end)
 RegisterNUICallback('CanTransferMoney', function(data, cb)
     local amount = tonumber(data.amountOf)
     local iban = data.sendTo
-    local PlayerData = QBCore.Functions.GetPlayerData()
+    local PlayerData = ESX.GetPlayerData()
 
-    if (PlayerData.money.bank - amount) >= 0 then
+    if (PlayerData.bank - amount) >= 0 then
         ESX.TriggerServerCallback('qb-phone:server:CanTransferMoney', function(Transferd)
             if Transferd then
                 cb({TransferedMoney = true, NewBalance = (PlayerData.money.bank - amount)})
@@ -2065,7 +2064,8 @@ RegisterNetEvent('qb-phone:client:addPoliceAlert', function(alertData)
 end)
 
 RegisterNetEvent('qb-phone:client:GiveContactDetails', function()
-    local player, distance = GetClosestPlayer()
+	local ped = PlayerPedId()
+    local player, distance = ESX.Game.GetClosestPlayer()
     if player ~= -1 and distance < 2.5 then
         local PlayerId = GetPlayerServerId(player)
         TriggerServerEvent('qb-phone:server:GiveContactDetails', PlayerId)

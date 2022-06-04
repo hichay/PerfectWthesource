@@ -1,6 +1,22 @@
 
 local beehive = {}
 
+function DestroyOldBeeHive()
+    local beekep = MySQL.query.await('SELECT * FROM beekeep')
+    local CurrentOStime = os.time()
+    
+    if beekep then 
+        for k,v in pairs(beekep) do 
+            local timestampchange = CurrentOStime - v.timeinstall
+            if timestampchange >= (HiveConfig.LifeTime * 60) then 
+                print('xóa tổ ong')
+            end
+        end
+    end
+end
+--setInterval(DestroyOldBeeHive, HiveConfig.UpdateTimer)
+
+
 RPC.register('np-beekeeping:removeHive',function(src, dataid, ready)
     if ready then 
         local beekep = MySQL.single.await('SELECT * FROM beekeep WHERE id = ?', {dataid})
@@ -23,6 +39,7 @@ RPC.register('np-beekeeping:removeHive',function(src, dataid, ready)
     end
     return false
 end)
+
 RPC.register('np-beekeeping:harvestHive',function(src, dataid)
     MySQL.Async.execute('UPDATE beekeep SET last_harvest = ? WHERE id = ?', {os.time(), dataid})
 
@@ -78,8 +95,10 @@ RPC.register('np-beekeeping:getBeehives',function(src)
                 heading = beehivecoord.h,
             }
         end
+        
         TriggerClientEvent('np-beekeeping:trigger_zone',-1, 1, beehive)
     end
+    return beehive
 
 end)
 
@@ -89,7 +108,7 @@ RPC.register('np-beekeeping:installHive',function(src , pCoords , pHeading)
     local thecoords = {}
     local xcor,ycor,zcor = table.unpack(pCoords)
     thecoords = {x = xcor,y=ycor,z=zcor,h=pHeading}
-    MySQL.query("INSERT INTO `beekeep` (`coords`, `last_harvest`, `timestamp`, `has_queen`) VALUES ('" .. json.encode(thecoords) .. "', '" .. os.time() .. "','" .. GetGameTimer() .. "',false)")
+    MySQL.query("INSERT INTO `beekeep` (`coords`, `last_harvest`, `timestamp`, `timeinstall`, `has_queen`) VALUES ('" .. json.encode(thecoords) .. "', '" .. os.time() .. "','" .. GetGameTimer() .. "', '" .. os.time() .. "', false)")
 
     TriggerEvent('pw-beekeep:Sync')
 end)

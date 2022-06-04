@@ -100,7 +100,7 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
     },
 
     --exports["np-ui"]:showContextMenu(data)
-	exports["pw-context"]:showContext(data)
+	exports["pw-context"]:showContextMenu(data)
 end)
 
 
@@ -242,26 +242,26 @@ RegisterNetEvent('pw-mechanicjob:Check', function()
       },
   },
 
-  --exports["np-ui"]:showContextMenu(data)
-exports["pw-context"]:showContext(data)
+exports["pw-context"]:showContextMenu(data)
 end)
 
-RegisterNetEvent('pw-mechanicjob:VehicleList', function()
-	for k, v in pairs(Config.Vehicles) do
-		local data = {}
-		TriggerEvent('pw-context:sendMenu', {
-			{
-				id = k,
-				header = ""..v,
-				txt = "",
-				params = {
-					event = "pw-mechanicjob:SpawnListVehicle",
-					args = {
-					model = k
-					}
-				}
-			},
 
-		})
-	end
+RegisterNetEvent('pw-mechanicjob:VehicleList', function()
+ 
+	--for k, v in pairs(Config.Vehicles) do
+  local data = {}
+  for k, v in pairs(Config.Vehicles) do
+     data[#data+1] = {
+          icon = "taxi",
+          title = v,
+          description = "",
+          action = "pw-mechanicjob:SpawnListVehicle",
+          key = {
+              model = k,
+          },
+      
+    }
+  end
+		
+  exports["pw-context"]:showContextMenu(data)
 end)

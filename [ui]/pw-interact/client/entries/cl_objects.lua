@@ -152,6 +152,23 @@ Entries[#Entries + 1] = {
 }
 
 Entries[#Entries + 1] = {
+    type = 'flag',
+    group = { 'isDumpbin' },
+    data = {
+        {
+            id = 'search_dumpbin',
+            label = "Lục lọi",
+            icon = "dumpster",
+            event = "pw-materials:client:search:trash",
+            parameters = {}
+        }
+    },
+    options = {
+        distance = { radius = 1.5 }
+    }
+}
+
+Entries[#Entries + 1] = {
   type = 'flag',
   group = { 'isChair' },
   data = {

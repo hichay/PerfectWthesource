@@ -134,6 +134,7 @@ AddEventHandler("pw-polyzone:enter", function(zone, data)
     if zone == "np-beekeeping:bee_zone" then
         inZone = inZone + 1
         if inZone == 1 then
+            print(result)
             local result = RPC.execute("np-beekeeping:getBeehives")
         end
     end

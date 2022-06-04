@@ -216,7 +216,24 @@ ModelFlags = {
   [`a_c_cormorant`] = { 'isAnimal' },
   [`a_c_chickenhawk`] = { 'isAnimal' },
 
-
+  [666561306] = { 'isDumpbin' },	
+  [218085040] = { 'isDumpbin' },
+  [-58485588] = { 'isDumpbin' },
+  [682791951] = { 'isDumpbin' },
+  [-206690185] = { 'isDumpbin' },
+  [364445978] = { 'isDumpbin' },
+  [143369] = { 'isDumpbin' },
+  [-2140438327] = { 'isDumpbin' },
+  [-1851120826] = { 'isDumpbin' },
+  [-1543452585] = { 'isDumpbin' },
+  [-1207701511] = { 'isDumpbin' },
+  [-918089089] = { 'isDumpbin' },
+  [1511880420] = { 'isDumpbin' },
+  [1329570871] = { 'isDumpbin' },
+  [-1940238623] = { 'isDumpbin' },
+  [2108567945] = { 'isDumpbin' },
+  
+  
   [`mp_f_freemode_01`] = { 'isPlayerModel' },
   [`mp_m_freemode_01`] = { 'isPlayerModel' },
 }

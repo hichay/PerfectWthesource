@@ -273,7 +273,6 @@ end)
 RegisterNetEvent('pw-mechanicjob:SpawnListVehicle')
 AddEventHandler('pw-mechanicjob:SpawnListVehicle', function(data)
     local model = data.model
-
     local coords = {
         x = Config.Locations["vehicle"].x,
         y = Config.Locations["vehicle"].y,
