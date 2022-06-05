@@ -104,9 +104,12 @@ end)
 
 
 AddEventHandler("pw-vehicles:refuelVehicle",function(params)
+    local gasProp = 0
+	local gasNozzle = "prop_cs_fuel_nozle"
+    
     if not params.isJerryCan then 
         local vehicle = NetToVeh(params.vehicle)
-
+        local vehicleCoords = GetEntityCoords(vehicle)
         if not vehicle or not DoesEntityExist(vehicle) or GetEntityType(vehicle) ~= 2 or #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(vehicle)) > 5 then
             return
         end
@@ -119,27 +122,35 @@ AddEventHandler("pw-vehicles:refuelVehicle",function(params)
         if not refuel then return end
 
         ClearPedSecondaryTask(PlayerPedId())
-        LoadAnimDict("weapon@w_sp_jerrycan")
-        TaskPlayAnim(PlayerPedId(), "weapon@w_sp_jerrycan", "fire", 8.0, 1.0, -1, 1, 0, 0, 0, 0)
+
+        RequestAnimDict("amb@world_human_security_shine_torch@male@base")
+		while not HasAnimDictLoaded('amb@world_human_security_shine_torch@male@base') do Wait(100) end
+		TaskPlayAnim(PlayerPedId(), "amb@world_human_security_shine_torch@male@base", "base", 8.0, 1.0, -1, 1, 0, 0, 0, 0 )
+        gasProp = CreateObject(gasNozzle, 1.0, 1.0, 1.0, 1, 1, 0)
+		local bone = GetPedBoneIndex(PlayerPedId(), 60309)
+		AttachEntityToEntity(gasProp, PlayerPedId(), bone, 0.0, 0.0, 0.05, 350.0, 350.0, 250.0, 1, 1, 0, 0, 2, 1)
 
         local finished = exports["pw-taskbar"]:taskBar((100 - curFuel) * 700, "Đổ xăng")
-
         if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
             local Chance = math.random(1, 100)
-        if Chance <= Config.BlowUpChance then
-            AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
+            if Chance <= Config.BlowUpChance then
+                AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
                 return
             end
         end
 
         if finished == 100 then
             SetFuel(vehicle, 100)
+            PlaySound(-1, "5_SEC_WARNING", "HUD_MINI_GAME_SOUNDSET", 0, 0, 1)
+            DeleteObject(gasProp)
         else
             local curFuel = GetVehicleFuelLevel(vehicle)
             local endFuel = (100 - curFuel)
             endFuel = math.ceil(endFuel * (finished / 100) + curFuel)
 
             SetFuel(vehicle, endFuel)
+            PlaySound(-1, "5_SEC_WARNING", "HUD_MINI_GAME_SOUNDSET", 0, 0, 1)
+            DeleteObject(gasProp)
         end
 
         ClearPedTasksImmediately(PlayerPedId())
@@ -151,29 +162,51 @@ AddEventHandler("pw-vehicles:refuelVehicle",function(params)
             return
         end
         local curFuel = math.floor(GetFuel(vehicle))
-        
+        local ammo = math.floor(GetPedAmmoByType(PlayerPedId(),-899475295)/45)
+
         if not curFuel or curFuel == 100 then return end
-        ClearPedSecondaryTask(PlayerPedId())
-        LoadAnimDict("weapon@w_sp_jerrycan")
-        TaskPlayAnim(PlayerPedId(), "weapon@w_sp_jerrycan", "fire", 8.0, 1.0, -1, 1, 0, 0, 0, 0)
+        if ammo >= (100 - curFuel) then
+            ClearPedSecondaryTask(PlayerPedId())
+            LoadAnimDict("weapon@w_sp_jerrycan")
+            TaskPlayAnim(PlayerPedId(), "weapon@w_sp_jerrycan", "fire", 8.0, 1.0, -1, 1, 0, 0, 0, 0)
 
-        local finished = exports["pw-taskbar"]:taskBar(10000, "Đổ xăng vào xe")
+            local finished = exports["pw-taskbar"]:taskBar(10000, "Đổ xăng vào xe")
 
-        if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
-            local Chance = math.random(1, 100)
-        if Chance <= Config.BlowUpChance then
-            AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
-                return
+            if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
+                local Chance = math.random(1, 100)
+            if Chance <= Config.BlowUpChance then
+                AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
+                    return
+                end
             end
-        end
-        local decrease = (100 - curFuel) * 45
-        if finished == 100 then
-            SetFuel(vehicle, 100)
-            TriggerEvent("actionbar:ammo", -899475295, decrease, false)
-        end
+            local decrease = (100 - curFuel) * 45
+            if finished == 100 then
+                SetFuel(vehicle, 100)
+                TriggerEvent("actionbar:ammo", -899475295, decrease, false)
+            end
 
-        ClearPedTasksImmediately(PlayerPedId())
+            ClearPedTasksImmediately(PlayerPedId())
+        else
+            ClearPedSecondaryTask(PlayerPedId())
+            LoadAnimDict("weapon@w_sp_jerrycan")
+            TaskPlayAnim(PlayerPedId(), "weapon@w_sp_jerrycan", "fire", 8.0, 1.0, -1, 1, 0, 0, 0, 0)
+            TriggerEvent("actionbar:ammo", -899475295, GetPedAmmoByType(PlayerPedId(),-899475295), false)
+            local finished = exports["pw-taskbar"]:taskBar(10000, "Đổ xăng vào xe")
 
+            if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
+                local Chance = math.random(1, 100)
+                if Chance <= Config.BlowUpChance then
+                    AddExplosion(vehicleCoords, 5, 50.0, true, false, true)
+                    return
+                end
+            end
+            if finished == 100 then
+                SetFuel(vehicle, curFuel + ammo)
+            end
+
+            ClearPedTasksImmediately(PlayerPedId())
+            
+        end
     end
 end)
 

@@ -31,7 +31,7 @@ addEventListener("message", function(event){
         $('.welcome-container').fadeOut();
         $('.employees-container').fadeOut();
         
-        $.post('http://pw-bossmenu/closeNUI');
+        $.post('https://pw-bossmenu/closeNUI');
     }
 });
 
@@ -69,7 +69,7 @@ $(document).on('click', '.grade-box', function(e) {
     var fullid = $(this).attr('id');
     var gradeid = fullid;
 
-    $.post('http://pw-bossmenu/changeGrade', JSON.stringify({
+    $.post('https://pw-bossmenu/changeGrade', JSON.stringify({
         grade: gradeid,
         source: choosingGrade,
     }));
@@ -130,7 +130,7 @@ $(document).on('click', '.deposit-up', function(e) {
 });
 
 $(document).on('click', '.deposit', function(e) {
-    $.post('http://pw-bossmenu/deposit', JSON.stringify({
+    $.post('https://pw-bossmenu/deposit', JSON.stringify({
         amount: currentDepositAmount,
     }));
 });

@@ -230,8 +230,9 @@ ModelFlags = {
   [-918089089] = { 'isDumpbin' },
   [1511880420] = { 'isDumpbin' },
   [1329570871] = { 'isDumpbin' },
-  [-1940238623] = { 'isDumpbin' },
-  [2108567945] = { 'isDumpbin' },
+  
+  [-1940238623] = { 'isParkingMeter' },
+  [2108567945] = { 'isParkingMeter' },
   
   
   [`mp_f_freemode_01`] = { 'isPlayerModel' },

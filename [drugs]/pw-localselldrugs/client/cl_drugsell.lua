@@ -14,6 +14,8 @@ end)
 
 RegisterCommand("huybancan", function(source, args, rawCommand)
 	IsSell = false
+	bargain = false
+	selling = false
 	exports["pw-interaction"]:hideInteraction()
 end, false)
 
@@ -25,7 +27,7 @@ local Config = {
     randomReject = 3,
     randomRobGang = 2,
     PercentBargain = 3,
-    thiefshooting = 1,
+    thiefshooting = 10,
 	SellInCar = false,
 
     ThiefNpc = {

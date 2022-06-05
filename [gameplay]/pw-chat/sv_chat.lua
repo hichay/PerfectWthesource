@@ -282,14 +282,15 @@ AddEventHandler('playerJoining', function()
     if GetConvarInt('chat_showJoins', 1) == 0 then
         return
     end
-    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. GetPlayerName(source) .. ' vừa connect.', { 158, 71, 158 } )
+    TriggerClientEvent('chatMessage', -1, '', { 158, 71, 158 }, '^2* ' .. GetPlayerName(source) .. ' vừa connect.' )
 end)
 
 AddEventHandler('playerDropped', function(reason)
     if GetConvarInt('chat_showQuits', 1) == 0 then
         return
     end
-    TriggerClientEvent('chatMessage', -1, '', '^2* ' .. GetPlayerName(source) ..' vừa thoát (' .. reason .. ')', { 158, 71, 158 })
+	
+    TriggerClientEvent('chatMessage', -1, '', { 158, 71, 158 } ,'^2* ' .. GetPlayerName(source) ..' vừa thoát (' .. reason .. ')')
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)

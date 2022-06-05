@@ -75,7 +75,7 @@ AddEventHandler('pw-materials:server:get:reward', function()
     local RandomItems = Config.BinItems[math.random(#Config.BinItems)]
     if RandomValue <= 55 then
      --Player.Functions.AddItem(RandomItems, math.random(8, 20))
-	 TriggerClientEvent("player:receiveItem",source,RandomItems,math.random(1, 3))
+	 TriggerClientEvent("player:receiveItem",source,RandomItems,math.random(1, 1))
      --TriggerClientEvent('fw-inventory:client:ItemBox', Player.PlayerData.source, Framework.Shared.Items[RandomItems], 'add')
     -- elseif RandomValue >= 87 and RandomValue <= 89 then
         -- local SubValue = math.random(1, 3)
@@ -94,19 +94,4 @@ AddEventHandler('pw-materials:server:get:reward', function()
     end
 end)
 
-RegisterServerEvent('pw-materials:server:recycle:reward')
-AddEventHandler('pw-materials:server:recycle:reward', function()
-  local Player = ESX.GetPlayerFromId(source)
-  for i = 1, math.random(2, 5), 1 do
-      local Items = Config.CarItems[math.random(1, #Config.CarItems)]
-      local RandomNum = math.random(10, 15)
-      --Player.Functions.AddItem(Items, RandomNum)
-      --TriggerClientEvent('fw-inventory:client:ItemBox', Player.PlayerData.source, Framework.Shared.Items[Items], 'add')
-      Citizen.Wait(500)
-  end
-  if math.random(1, 100) <= 20 then
-    --Player.Functions.AddItem('rubber', math.random(20, 30))
-    --TriggerClientEvent('fw-inventory:client:ItemBox', Player.PlayerData.source, Framework.Shared.Items['rubber'], 'add')
-  end
-end)
 

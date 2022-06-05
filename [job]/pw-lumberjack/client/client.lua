@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
     local playerPed = PlayerPedId()
    
     local data = {
-        id = "lumber_jack",
+        id = "lumber_jackdanpc",
         position = {coords = Config.NPC, heading = 158.20},
         pedType = 4,
         model = "mp_m_counterfeit_01",
@@ -77,7 +77,7 @@ Citizen.CreateThread(function()
       },
       options = {
         distance = { radius = 2.5 },
-        npcIds = { 'lumber_jack' },
+        npcIds = { 'lumber_jackdanpc' },
         --[[ isEnabled = function(pEntity, pContext)
           return isOnDeliveryTask()
         end, ]]
@@ -85,9 +85,9 @@ Citizen.CreateThread(function()
     }
     
     exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
-
-
-    local datamenu = {
+	
+	
+	local datamenu = {
         id = "lumber_jacksell",
         position = {coords = Config.Sell, heading = 158.20},
         pedType = 4,
@@ -98,12 +98,12 @@ Citizen.CreateThread(function()
         flags = { ["isNPC"] = true, },
     }
 
-    local npc = exports["pw-npcs"]:RegisterNPC(datamenu, "lumb_jacknpcsell")
+    local npc2 = exports["pw-npcs"]:RegisterNPC(datamenu, "lumb_jacknpcsell")
 
     local InteractNPC = {
       data = {
         {
-          id = 'lumb_interact',
+          id = 'lumb_interactsell',
           label = 'Bán thành phẩm',
           icon = 'hand-holding',
           event = 'pw-lumberjack:makeSales',
@@ -197,7 +197,8 @@ end)
 
 
 Citizen.CreateThread(function()
-   
+  
+	
         while true do
             Citizen.Wait(1000)
             if isWorking and not blipCreated then

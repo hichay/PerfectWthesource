@@ -43,6 +43,7 @@ end)
 polyChecks = {
     vanillaUnicorn = { isInside = false, data = nil },
     gasStation = { isInside = false, data = nil },
+	scrapYard = { isInside = false, data = nil },
     bennys = { isInside = false, data = nil },
     townhallCourtGavel = { isInside = false, data = nil },
     prison = { isInside = false, data = nil },

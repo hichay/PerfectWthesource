@@ -1,6 +1,6 @@
 body { margin: 0px; font-size: 1rem; font-weight: 400; line-height: 1.5; color: rgb(33, 37, 41); text-align: left; background-color: rgba(0, 0, 0, 0) !important; }
 .container { }
-.joblist-table { background-color: rgb(236, 236, 236); padding-left: 0px; padding-right: 0px; border-radius: 25px; width: 900px; display: visible; }
+.joblist-table { background-color: rgb(236, 236, 236); padding-left: 0px; padding-right: 0px; border-radius: 25px; width: 900px; display: none; }
 .joblist-header { width: 100%; background-color: rgb(236, 236, 236); color: white; font-weight: 500; font-size: 20px; border-top-right-radius: 25px; border-top-left-radius: 25px; }
 .joblist-body { overflow-y: scroll; border-radius: 25px; }
 .joblist-container { background-color: rgba(21, 21, 21, 0.92); border-radius: 25px; }

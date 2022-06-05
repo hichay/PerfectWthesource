@@ -33,21 +33,8 @@ Config.BinItems = {
  'scrapmetal',  
  'copper', 
  'iron',
- 'steel',
- 'electronics',
  'rubber',
  'glass',
-}
-
-Config.CarItems = {
-  'plastic',  
-  'metalscrap',  
-  'copper', 
-  'aluminum',
-  'iron',
-  'steel',
-  'rubber',
-  'glass',
 }
 
 Config['delivery'] = {

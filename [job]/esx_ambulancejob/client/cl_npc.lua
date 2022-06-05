@@ -40,6 +40,8 @@ end
 RegisterNetEvent("pw-death:medicNPC")
 AddEventHandler("pw-death:medicNPC", function()
 	if GetGameTimer() - lastPing < 180 * 1000 then
+		TriggerEvent("DoLongHudText","Đừng cố spam nữa, xin hãy chờ NPC tới",2)
+		TriggerEvent('ESX:Notify','Đừng cố spam nữa, xin hãy chờ NPC tới', 'error')
         return
     end
     lastPing = GetGameTimer()
@@ -59,7 +61,7 @@ AddEventHandler("pw-death:medicNPC", function()
     end
 
     local loc = GetEntityCoords(PlayerPedId())
-    local spawnRadius = 100
+    local spawnRadius = 50
     local found, spawnPos, spawnHeading = GetClosestVehicleNodeWithHeading(loc.x + math.random(-spawnRadius, spawnRadius), loc.y + math.random(-spawnRadius, spawnRadius), loc.z, 0, 3, 0)
 
     local npcVehicle = CreateVehicle(vehhash, spawnPos, spawnHeading, true, false)

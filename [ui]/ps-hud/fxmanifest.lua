@@ -1,28 +1,22 @@
 fx_version 'cerulean'
 game 'gta5'
+lua54 'yes'
+use_fxv2_oal 'yes'
 
-description 'qb-hud'
+description 'ps-hud'
 version '2.1.0'
 
 shared_scripts {
-    'config.lua'
+	'locales/en.lua',
+	'config.lua',
+	'uiconfig.lua'
 }
 
-client_script {
-	'client.lua'
-}
-server_script {
-	'server.lua'
-}
-
-lua54 'yes'
+client_script 'client.lua'
+server_script 'server.lua'
 
 ui_page 'html/index.html'
 
 files {
 	'html/*',
-	'html/index.html',
-	'html/styles.css',
-	'html/responsive.css',
-	'html/app.js',
 }

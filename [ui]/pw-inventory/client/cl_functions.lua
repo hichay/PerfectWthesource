@@ -1780,6 +1780,7 @@ end
             Wait(300)
 			TriggerEvent('esx_status:remove','stress', 150000)
         end
+		remove = true
     end
 
     if (itemid == "sandwich" or itemid == "hamburger") then
