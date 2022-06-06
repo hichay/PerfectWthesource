@@ -45,4 +45,5 @@ const VehicleWeightOverrides = {
 	"bison2": 300,
 	"raptor150": 150,
 	"sh350": 150,
+	"coquette": 50,
 }

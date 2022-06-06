@@ -876,7 +876,21 @@ local function getFuelLevel(vehicle)
     end
     return lastFuelCheck
 end
+CreateThread(function()
+	while true do 
+		Citizen.Wait(5000)
+		TriggerEvent('esx_status:getStatus', 'hunger', function(status)
+			hunger = status.getPercent()
+		end)
+		TriggerEvent('esx_status:getStatus', 'thirst', function(status)
+			thirst = status.getPercent()
+		end)
+		TriggerEvent('esx_status:getStatus', 'stress', function(status)
+			stress = status.getPercent()
+		end)	
+	end
 
+end)
 -- HUD Update loop
 
 CreateThread(function()
@@ -928,15 +942,15 @@ CreateThread(function()
                 show = false
             end
 
-            TriggerEvent('esx_status:getStatus', 'hunger', function(status)
-			    hunger = status.getPercent()
-			end)
-            TriggerEvent('esx_status:getStatus', 'thirst', function(status)
-			    thirst = status.getPercent()
-			end)
-            TriggerEvent('esx_status:getStatus', 'stress', function(status)
-				stress = status.getPercent()
-			end)
+            -- TriggerEvent('esx_status:getStatus', 'hunger', function(status)
+			    -- hunger = status.getPercent()
+			-- end)
+            -- TriggerEvent('esx_status:getStatus', 'thirst', function(status)
+			    -- thirst = status.getPercent()
+			-- end)
+            -- TriggerEvent('esx_status:getStatus', 'stress', function(status)
+				-- stress = status.getPercent()
+			-- end)
 
             local vehicle = GetVehiclePedIsIn(player)
             if not (IsPedInAnyVehicle(player) and not IsThisModelABicycle(vehicle)) then

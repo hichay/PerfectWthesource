@@ -11,7 +11,6 @@ local function processScope(freeAiming)
 	end  
   elseif isFreeAiming and not freeAiming then
     isFreeAiming = false
-    --exports["np-ui"]:sendAppEvent("sniper-scope", { show = false })
 	SendNUIMessage({
         display = false,
       })
@@ -47,7 +46,7 @@ local function blockShooting()
 end
 
 Citizen.CreateThread(function()
-    local huntinghash = 'weapon_sniperrifle2'
+    local huntinghash = '3648318199'
 
     while true do
         if GetSelectedPedWeapon(PlayerPedId()) == huntingRifleHash then

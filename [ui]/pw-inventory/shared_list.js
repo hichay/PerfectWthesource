@@ -21022,8 +21022,6 @@ itemList["-646649097"] = {fullyDegrades: true, decayrate: 2.0, displayname: "Su�
 
 itemList["huntingscope"] = {fullyDegrades: true, decayrate: 2.0, displayname: "Ống nhòm súng săn", price: 500, craft: [ {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 5, nonStack: true, model:  "", image: "np_tscope.png", weapon: false, information: "Scope súng săn",deg: true} //'Hunting Rifle'
 
-itemList["huntingammo"] = {fullyDegrades: false, decayrate: 2.0, displayname: "Đạn súng săn", price: 800, craft: [ {itemid: "aluminium", amount: 50 }, {itemid: "plastic", amount: 80 }, {itemid: "rubber", amount: 1 } ],  weight: 5, nonStack: true, model:  "", image: "np_223ammo.png", weapon: false, deg: true} //'Hunting Rifle'
-
 itemList["leatherboard1"] 		= {fullyDegrades: false,  decayrate: 0.0, displayname: "Da heo rừng", price: 1, weight: 7, nonStack: false, model: "", image: "leather_boar_bad.png", information: "", deg: false }
 
 itemList["leatherboard2"] 		= {fullyDegrades: false,  decayrate: 0.0, displayname: "Da heo rừng", price: 1, weight: 7, nonStack: false, model: "", image: "leather_boar_good.png", information: "", deg: false }
@@ -21074,7 +21072,6 @@ itemList["dhide"] 		= {fullyDegrades: false,  decayrate: 0.0, displayname: "Deer
 
 itemList["antlers"] 	= {fullyDegrades: false,  decayrate: 0.0, displayname: "Antlers", price: 1, weight: 0, nonStack: false, model: "", image: "np_antlers.png", information: "A fine prize", deg: false }
 
-itemList["cpelt"] 		= {fullyDegrades: false,  decayrate: 0.0, displayname: "Cougar Pelt", price: 1, weight: 0, nonStack: false, model: "", image: "np_cougar-pelt.png", information: "The hunter becomes the hunted", deg: false }
 
 itemList["ctooth"] 		= {fullyDegrades: false,  decayrate: 0.0, displayname: "Cougar Tooth", price: 1, weight: 0, nonStack: false, model: "", image: "np_cougar-tooth.png", information: "Stalks its prey", deg: false }
 
@@ -21084,14 +21081,6 @@ itemList["hpelt"] = {fullyDegrades: false,  decayrate: 0.0, displayname: "Da thu
 
 itemList["snakeskin"] = {fullyDegrades: false,  decayrate: 0.0, displayname: "Snakeskin", price: 1, weight: 0, nonStack: false, model: "", image: "np_snakeskin.png", information: "Sssss", deg: false }
 
-
-itemList["huntingcarcass1"]	    = {fullyDegrades: true, decayrate: 20.0, displayname: "Thịt thú rừng loại 1", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass1.png", information: "Loại thịt chất lượng kém", deg: false}
-
-itemList["huntingcarcass2"]	    = {fullyDegrades: true, decayrate: 20.0, displayname: "Thịt thú rừng loại 2", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass2.png", information: "Loại thịt thông thường", deg: false}
-
-itemList["huntingcarcass3"]	    = {fullyDegrades: true, decayrate: 1.0, displayname: "Thịt thú rừng loại 3", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass3.png", information: "Loại thịt đỉnh cấp cắt rất gọn gàng", deg: false}
-
-itemList["huntingcarcass4"]	    = {fullyDegrades: true, decayrate: 0.90, displayname: "Thịt thú rừng loại 4", craft: [{itemid: "foodingredient", amount: 1 } ], price: 10, weight: 12, nonStack: false, model: "", image: "np_huntingcarcass4.png", information: "Đây là động vật quý hiếm ư?", deg: false}
 
 
 /*

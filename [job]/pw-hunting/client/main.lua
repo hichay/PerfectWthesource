@@ -414,6 +414,16 @@ Citizen.CreateThread(function()
 						SetPedCombatAbility(entity,2)
 						
                         table.insert(search, entity)
+                        if Config.BlipOnEntity then
+                            local blip = AddBlipForEntity(entity)
+                            SetBlipSprite(blip,442)
+                            SetBlipColour(blip,1)
+                            SetBlipScale(blip, 0.8)
+                            BeginTextCommandSetBlipName("STRING")
+                            AddTextComponentString("Thú")
+                            EndTextCommandSetBlipName(blip)
+                        end
+
                     end
                 end
             else
@@ -535,7 +545,6 @@ if Config.EnableCampfire then
      
             end
         else
-            --exports['mythic_notify']:DoHudText('error', Config.Text['cant_place_camp'], 10000)
 			TriggerEvent("ESX:Notify",Config.Text['cant_place_camp'],"error")
         end
         
@@ -576,7 +585,7 @@ end
 
 
 -----------------------------------------------------------[BAITS]------------------------------------------------------------
-AddEventHandler("np:target:changed", function(pEntity)
+AddEventHandler("pw:target:changed", function(pEntity)
     targetedEntity = pEntity
 end)
 
@@ -585,7 +594,7 @@ end)
     while not HasModelLoaded('a_c_deer') do
         Citizen.Wait(0)
     end
-    CreatePed(28, 'a_c_deer', -604.3114, 5674.976, 37.71714, 326.64, false, false)
+    CreatePed(28, 'a_c_deer', -1213.069, 5175.1337, 103.13581, 256.76654, false, false)
 end, false) ]]
 
 
@@ -593,11 +602,11 @@ end, false) ]]
 
 RegisterNetEvent('pw-hunting:client:lamthit')
 AddEventHandler('pw-hunting:client:lamthit', function()
+        --local currentTarget = exports['pw-interact'].GetCurrentEntity()
         local isAnimal = GetPedType(targetedEntity) == 5
 		local model = GetEntityModel(targetedEntity)
         local myAnimal = targetedEntity
         local animal = getAnimalMatch(model)
-		local player = PlayerPedId(-1)
 		
         --if GetPedSourceOfDeath(targetedEntity) == player then  
 			for k, v in pairs(Config.Animals) do
@@ -619,7 +628,6 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 				WasPedShootedInHead = false
 			end
 			local groupH = GetWeapontypeGroup(GetPedCauseOfDeath(targetedEntity))
-			
 			local groupName = WeaponGroups[groupH]
 			for k, v in pairs(Config.WeaponDamages) do
 				if v.category == groupName then
@@ -634,25 +642,24 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 			if leatherToGive ~= nil and groupName ~= nil and not lamthit then
 					
 					lamthit = true
-					SetCurrentPedWeapon(player, -1569615261, true)
-					TaskTurnPedToFaceEntity(player, targetedEntity, -1)
+					SetCurrentPedWeapon(PlayerPedId(), -1569615261, true)
+					TaskTurnPedToFaceEntity(PlayerPedId(), targetedEntity, -1)
 					ensureAnimDict("amb@medic@standing@kneel@base")
-					TaskPlayAnim(player, "amb@medic@standing@kneel@base", "base", 1.0, -1.0, -1, 1, 0, false, false, false)
+					TaskPlayAnim(PlayerPedId(), "amb@medic@standing@kneel@base", "base", 1.0, -1.0, -1, 1, 0, false, false, false)
 					ensureAnimDict("anim@gangops@facility@servers@bodysearch@")
-					TaskPlayAnim(player, "anim@gangops@facility@servers@bodysearch@", "player_search" ,1.0, -1.0, -1, 1, 0, false, false, false)
+					TaskPlayAnim(PlayerPedId(), "anim@gangops@facility@servers@bodysearch@", "player_search" ,1.0, -1.0, -1, 1, 0, false, false, false)
 					FreezeEntityPosition(PlayerPedId(), true)		
-					--exports['progressBars']:startUI(Config.TimeToHarvest, Config.Text['harvesting'])
+
 					local finished = exports["pw-taskbar"]:taskBar(Config.TimeToHarvest, "Đang làm thịt", false, true, false, false, nil, 5.0)
 
 					
 					--Citizen.Wait(Config.TimeToHarvest)
 						if finished == 100 then
-							ClearPedTasksImmediately(player)
+							ClearPedTasksImmediately(PlayerPedId())
 							FreezeEntityPosition(PlayerPedId(), false)
 							SetEntityCoords(myAnimal, -7763.0, 8610.0, -100.0)
 							DecorRemove(myAnimal,"HuntingMySpawn")
 							
-							--deletePed(targetedEntity, i)
 							Sync.DeleteEntity(myAnimal)
 							SetEntityAsNoLongerNeeded(myAnimal)
 							SetModelAsNoLongerNeeded(myAnimal)
@@ -660,7 +667,6 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 							
 						end	
 				
-				--exports["mythic_notify"]:DoHudText("inform", Config.Text['receved_leather'], 10000)
 				TriggerServerEvent('pw-hunting:server:giveReward', leatherToGive, r)
 				if Config.CanDropSpecial and not leatherIsBad then
 					DropSpecialItem(specialItem)
@@ -672,12 +678,9 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 						end
 					end
 					local rMeat = math.random(Config.MinMeat,Config.MaxMeat)
-					--print(meatToGive)
 					TriggerServerEvent('pw-hunting:server:giveReward', meatToGive, 1)
-					--exports["mythic_notify"]:DoHudText("inform", Config.Text['receved_meat'], 10000)
 				end
 			elseif leatherToGive == nil or groupName == nil then
-				--exports["mythic_notify"]:DoHudText("error", Config.Text['ruined_leather'], 10000)
 				TriggerEvent("ESX:Notify",Config.Text['ruined_leather'],"error")
 				Citizen.Wait(2000)
 			end
@@ -687,33 +690,6 @@ AddEventHandler('pw-hunting:client:lamthit', function()
 		--end
 		
 end)
-
--- AddEventHandler("pw-inventory:itemUsed", function(item)
-	-- local baitUsable = true
-	-- local baitTime = Config.TimeBetween
-	-- local isEntityInWater = false
-	
-	-- if Config.EnableBait then
-        -- Citizen.CreateThread(function()
-            -- while true do
-                -- Citizen.Wait(1000)
-                -- if not baitUsable then
-                    -- if baitTime == 0 then
-                        -- baitUsable = true
-                        -- baitTime = Config.TimeBetween
-                    -- else
-                        -- baitTime = baitTime - 1
-                    -- end
-                -- end
-            -- end
-        -- end)
-        -- if item == "huntingbait" then			
-            -- TriggerEvent('pw-hunting:client:bait')
-            -- TriggerEvent("inventory:removeItem", item, 1)
-        -- end	
-	
-    -- end
--- end)
 
 
 local trapSpawned = nil

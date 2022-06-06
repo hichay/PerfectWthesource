@@ -16,6 +16,15 @@ function DestroyOldBeeHive()
 end
 --setInterval(DestroyOldBeeHive, HiveConfig.UpdateTimer)
 
+Citizen.CreateThread(function()
+
+    while true do 
+        DestroyOldBeeHive()
+
+        Citizen.Wait(HiveConfig.UpdateTimer)
+    end
+
+end)
 
 RPC.register('np-beekeeping:removeHive',function(src, dataid, ready)
     if ready then 
@@ -115,6 +124,7 @@ end)
 
 RegisterNetEvent("pw-beekeep:Sync")
 AddEventHandler("pw-beekeep:Sync", function()
+    Wait()
     local beekep = MySQL.query.await('SELECT * FROM beekeep')
     if beekep then 
         for k,v in pairs(beekep) do 

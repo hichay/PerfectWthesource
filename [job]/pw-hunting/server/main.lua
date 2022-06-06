@@ -30,11 +30,9 @@ if Config.EnableBait then
                 TriggerClientEvent('pw-hunting:client:bait', source)
                 baitUsable = false
             else
-                --TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = Config.Text['between_bait']})
 				TriggerClientEvent("ESX:Notify",source, Config.Text['between_bait'],"info")
             end
         else
-            --TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = Config.Text['cant_place_bait']})
 			TriggerClientEvent("ESX:Notify",source, Config.Text['cant_place_bait'],"error")
         end
         
@@ -59,41 +57,9 @@ AddEventHandler('pw-hunting:server:giveReward', function(itemName, count)
     local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	
-    -- xPlayer.addInventoryItem(itemName, count)
-	TriggerClientEvent("player:receiveItem",source,itemName,count,true,true,"S?n ph?m t? th? r?ng")
+    TriggerClientEvent("player:receiveItem",source,itemName,count)
 end)
 
--- RegisterServerEvent('pw-hunting:server:sell')
--- AddEventHandler('pw-hunting:server:sell', function(itemName, price, count, blackMoney)
-    -- local _source = source
-	-- local xPlayer = ESX.GetPlayerFromId(_source)
-	-- local itemN = nil
-	-- for i=1, #xPlayer.inventory, 1 do
-		-- local item = xPlayer.inventory[i]
-
-		-- if item.name == itemName then
-			-- itemN = item.count
-		-- end
-	-- end
-    -- if itemN >= count then
-        -- xPlayer.removeInventoryItem(itemName, count)
-        -- if blackMoney then
-            -- xPlayer.addAccountMoney('black_money', price*count)
-        -- else
-            -- xPlayer.addMoney(price*count)
-        -- end
-        -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Succesfully sold' })
-    -- else
-        -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = Config.Text['no_material'] })
-    -- end
--- end)
-
--- RegisterServerEvent('pw-hunting:server:giveMoney')
--- AddEventHandler('pw-hunting:server:giveMoney', function(count, blackMoney)
-    -- local _source = source
-	-- local xPlayer = ESX.GetPlayerFromId(_source)
-    -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Success', text = Config.Text['sold'] })
--- end)
 
 ESX.RegisterServerCallback('pw-hunting:server:cook',function(source, cb, meatName, count)
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -111,7 +77,6 @@ ESX.RegisterServerCallback('pw-hunting:server:cook',function(source, cb, meatNam
         xPlayer.removeInventoryItem(meatName, count)
         cb(true)
     else
-        --TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = Config.Text['no_material']})
 		TriggerClientEvent("ESX:Notify",source, Config.Text['no_material'],"error")
         cb(false)
     end
@@ -137,22 +102,8 @@ ESX.RegisterServerCallback('pw-hunting:server:campfire',function(source, cb, coa
         xPlayer.removeInventoryItem(woodName, woodCount)
         cb(true)
     else 
-        --TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = Config.Text['no_material'] })
 		TriggerClientEvent("ESX:Notify",source, Config.Text['no_material'],"error")
         cb(false)
     end
 end)
 
--- ESX.RegisterServerCallback('pw-hunting:server:giveLicense', function(source, id)
-	-- --local xPlayer = ESX.GetPlayerFromId(source)
-
-    -- local xPlayer = ESX.GetPlayerFromId(id)
-
-	-- if xPlayer then
-		-- TriggerEvent('esx_license:addLicense', source, 'hunt', function()
-            -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Inform', text = 'Success' })
-        -- end)
-	-- else
-        -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'Error', text = 'No player nearby' })
-	-- end
--- end)

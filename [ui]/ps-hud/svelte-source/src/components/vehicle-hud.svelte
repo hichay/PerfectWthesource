@@ -281,7 +281,7 @@
 
 @media (width: 1600px) and (height: 900px) {
   .responsive {
-    margin-left: 20vw!important;
+    margin-left: 19vw!important;
     transform: scale(1, 1);
     bottom: 5.8vh!important;
   }

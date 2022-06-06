@@ -12,14 +12,6 @@ Citizen.CreateThread(function()
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
-RegisterCommand("huybancan", function(source, args, rawCommand)
-	IsSell = false
-	bargain = false
-	selling = false
-	exports["pw-interaction"]:hideInteraction()
-end, false)
-
-
 
 
 local Config = {
@@ -102,11 +94,15 @@ local ShowingNotification = false
 local SellCooldown = GetGameTimer()
 local AntiSpam = GetGameTimer()
 
---[[
+RegisterCommand("huybancan", function(source, args, rawCommand)
+	IsSell = false
+	bargain = false
+	selling = false
+	sell = false
+	exports["pw-interaction"]:hideInteraction()
+	
+end, false)
 
-    Functions
-
-]]
 
 function ShowFloatingHelpNotification(msg, coords)
     AddTextEntry("FloatingHelpNotification", msg)
@@ -555,11 +551,11 @@ AddEventHandler("pw-drugs:c_startoffers", function(ped, item, price, labels, amo
 		    else 
 				if isSellZone() then 
 					thief = true
-					price = math.floor(price * 2.0)
+					price = math.floor(price * 1.5)
 					OfferStart(ped, item, price, labels, amount)
 				else 
 					thief = true
-					price = math.floor(price * 2.0)
+					price = math.floor(price * 1.5)
 					OfferStart(ped, item, price, labels, amount)
 				end
 		    end

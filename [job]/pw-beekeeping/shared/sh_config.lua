@@ -8,7 +8,8 @@ HiveConfig = {
     -- Bee Growing time in minutes
     GrowthTime = 180,
     -- Plant total lifetime (minutes) from planted -> destroyed
-    LifeTime = 1560, 
+    LifeTime = 10, 
+    --[[ LifeTime = 1560,  ]]
     -- How much faster does a harvest go with a queen
     QueenFactor = 1.3,
     -- Chance of getting a queen bee
@@ -20,7 +21,7 @@ HiveConfig = {
     -- Time between plant harvests (minutes)
     TimeBetweenHarvest = 180,
     -- How often should the server update growth from DB, expensive (ms) Set to -1 to disable
-    UpdateTimer = 10 * 60 * 1000, -- 10 minutes
+    UpdateTimer = 1 * 60 * 1000, -- 10 minutes
 }
 
 -- Map material hash -> material type
