@@ -1,7 +1,7 @@
 let savelist = [				
 ]
 const TimeAllowed = 1000 * 60 * 20320; // 28 days,
-/* function DeleteOld() {
+function DeleteOld() {
     let dateNow = Date.now()
         for (let i = savelist.lengh - 1; i >= 0; i++) {
             let ItemID = savelist[i]
@@ -18,9 +18,9 @@ const TimeAllowed = 1000 * 60 * 20320; // 28 days,
 
         }
         console.log("Inventory: Delete old items")
-} */
+}
 
-function DeleteOld() {
+/* function DeleteOld() {
     let dateNow = Date.now()
     for (let i = savelist.lengh - 1; i >= 0; i++) {
         let ItemID = savelist[i]
@@ -30,7 +30,7 @@ function DeleteOld() {
             db(`DELETE FROM inventory WHERE user_inventory2 = "${ItemID}" AND ${DeleteTime} > creationDate`);
         }
     }
-}
+} */
 
 
 

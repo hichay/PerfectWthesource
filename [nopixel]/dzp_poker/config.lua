@@ -19,10 +19,10 @@ Config.BlipColor = 49
 Config.BlipScale = 0.0
 
 -- Amount that automatically gets placed on blind call
-Config.BigBlindAmount = 100
+Config.BigBlindAmount = 50
 
 -- Amount of money player has to have in cash to sit at poker table
-Config.AmountToStartPlaying = 1000
+Config.AmountToStartPlaying = 50
 
 -- Time for player to make decision (in seconds)
 Config.MoveTimer = 30 -- seconds
@@ -31,16 +31,15 @@ Config.MoveTimer = 30 -- seconds
 Config.DisableCinematicCamera = true
 
 -- Marker to sit at the poker table
-Config.MarkerCoords = vector3(974.36688, 41.080852, 70.23291)
+Config.MarkerCoords = vector3(244.8433, -757.114, 29.825378)
 
 -- Hash keys for table and chair objects
-Config.ChairHash = GetHashKey('prop_sol_chair')
-Config.TableHash = GetHashKey('prop_table_02')
+Config.ChairHash = GetHashKey('prop_table_02_chr')
+Config.TableHash = GetHashKey('prop_proxy_chateau_table')
 
 -- Table position
-Config.Table = {x = 975.54833, y = 37.157531, z = 69.832839}
+Config.Table = {x = 244.8433, y = -757.114, z = 29.825378}
 -- Config.Table = {x = 1608.24, y = 3607.0, z = 34.16}
-vector3(112.59153, -1284.238, 28.260229)
 
 
 -- Set chairs position depending on table by using offsets
@@ -65,12 +64,12 @@ Config.Language = 'en'
 Config.Strings = {
     ['en'] = {
         ['blip_name'] = 'Poker Table',
-        ['poker_title'] = 'Poker',
-        ['pot_title'] = 'Pot: {1}{0}', -- {0:amount}{1:currency}
-        ['player_turn_title'] = '{0}\'s Turn', -- {0:player's name}
+        ['poker_title'] = 'Bàn chơi poker',
+        ['pot_title'] = 'Tổng Pot: {1}{0}', -- {0:amount}{1:currency}
+        ['player_turn_title'] = 'Lượt của: {0}', -- {0:player's name}
         ['player_list_title'] = 'Player',
-        ['winning_announcement'] = '{0} Won', -- {0:player's name}
-        ['winning_status'] = 'Won',
+        ['winning_announcement'] = '{0} Thắng', -- {0:player's name}
+        ['winning_status'] = 'Thắng',
         ['currency'] = '$',
         ['no_space'] = 'All seats are taken at the table',
         ['leave_table'] = 'You left Poker table',
@@ -78,14 +77,14 @@ Config.Strings = {
         ['not_enough_money'] = 'You must have at least %d%s if you want to start playing poker',
         ['wrong_amount'] = 'Invalid bet amount',
         ['too_low_bet'] = 'Bet is to small. Current bet - %d',
-        ['player_status_title'] = 'Player {0}: ', -- {0:table slot}
-        ['player_list_fold'] = 'Folded',
-        ['default_player_status'] = ' Not at the table',
-        ['check-button_title'] = 'Check',
-        ['call-button_title'] = 'Call {1}{0}', -- {0:amount}{1:currency}
-        ['bet-button_title'] = 'Bet',
-        ['fold-button_title'] = 'Fold',
-        ['exit-button_title'] = 'Exit',
+        ['player_status_title'] = 'Người chơi {0}: ', -- {0:table slot}
+        ['player_list_fold'] = 'Đã bỏ bài',
+        ['default_player_status'] = ' Trống',
+        ['check-button_title'] = 'Xem',
+        ['call-button_title'] = 'Theo {1}{0}', -- {0:amount}{1:currency}
+        ['bet-button_title'] = 'Cược',
+        ['fold-button_title'] = 'Bỏ bài',
+        ['exit-button_title'] = 'Thoát',
     },
     ['lt'] = {
         ['blip_name'] = 'Pokerio stalas',
@@ -144,10 +143,10 @@ MySQL.ready = function() end
 -- Note: script author does not take any responsibility for issues caused by functions below
 
 Config.GetPlayerMoney = function(playerId)
-    if type(playerId) == "number" then
-        local xPlayer = QBCore.Functions.GetPlayer(playerId)
+    if type(playerId) == "number" then 
+        local xPlayer = ESX.GetPlayerFromId(playerId)
         if xPlayer then
-            return xPlayer.PlayerData.money["cash"]
+            return xPlayer.getMoney()
         end
     else -- if player is debug player
         return 10000
@@ -155,20 +154,20 @@ Config.GetPlayerMoney = function(playerId)
     return 0
 end
 Config.AddPlayerMoney = function(playerId, amount)
-    local xPlayer = QBCore.Functions.GetPlayer(playerId)
+    local xPlayer = ESX.GetPlayerFromId(playerId)
     if xPlayer then
-        xPlayer.Functions.AddMoney("cash", amount)
+        xPlayer.addAccountMoney('money', amount)
     end
 end
 Config.RemovePlayerMoney = function(playerId, amount)
-    local xPlayer = QBCore.Functions.GetPlayer(playerId)
+    local xPlayer = ESX.GetPlayerFromId(playerId)
     if xPlayer then
-        xPlayer.Functions.RemoveMoney("cash", amount)
+        xPlayer.removeAccountMoney('money', amount)
     end
 end
 Config.GetPlayerName = function(playerId)
-    local xPlayer = QBCore.Functions.GetPlayer(playerId)
-    local name = xPlayer.PlayerData.charinfo.firstname .. " " .. xPlayer.PlayerData.charinfo.lastname
+    local xPlayer = ESX.GetPlayerFromId(playerId)
+    local name = xPlayer.getName()
     if xPlayer then
         return name
     end

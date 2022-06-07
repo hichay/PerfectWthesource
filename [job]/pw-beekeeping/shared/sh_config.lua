@@ -6,9 +6,9 @@ HiveConfig = {
         {hash = `np_beehive03`, zOffset = 0.0},
     },
     -- Bee Growing time in minutes
-    GrowthTime = 180,
+    GrowthTime = 1,
     -- Plant total lifetime (minutes) from planted -> destroyed
-    LifeTime = 10, 
+    LifeTime = 5, 
     --[[ LifeTime = 1560,  ]]
     -- How much faster does a harvest go with a queen
     QueenFactor = 1.3,
@@ -19,7 +19,7 @@ HiveConfig = {
     -- Percent at which the plant becomes harvestable
     HarvestPercent = 100.0,
     -- Time between plant harvests (minutes)
-    TimeBetweenHarvest = 180,
+    TimeBetweenHarvest = 1,
     -- How often should the server update growth from DB, expensive (ms) Set to -1 to disable
     UpdateTimer = 1 * 60 * 1000, -- 10 minutes
 }

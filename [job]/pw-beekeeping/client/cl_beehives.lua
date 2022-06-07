@@ -76,7 +76,6 @@ end)
 
 AddEventHandler("pw-beekeeping:checkBeehive", function(pContext, pEntity)
     local hiveId = getHiveId(pEntity)
-    print(hiveId)
     if not hiveId then return end
     showHiveMenu(hiveId)
 end)
@@ -134,7 +133,6 @@ AddEventHandler("pw-polyzone:enter", function(zone, data)
     if zone == "np-beekeeping:bee_zone" then
         inZone = inZone + 1
         if inZone == 1 then
-            print(result)
             local result = RPC.execute("np-beekeeping:getBeehives")
         end
     end
@@ -189,6 +187,8 @@ AddEventHandler('np-beekeeping:trigger_zone', function (type, pData)
     --hive being removed
     if type == 4 then
         for idx, hive in ipairs(BeeHives) do
+            print(hive)
+            print(pData.id)
             if hive.id == pData.id then
                 table.remove(BeeHives, idx)
                 removeBeehive(hive.id)
@@ -275,23 +275,24 @@ function showHiveMenu(pHiveId)
     local harvest = getHiveReadyPercent(hive)
     local context = {}
     context[#context+1] = {
-        title = 'Ready to harvest' .. ': ' .. string.format("%.2f", harvest) .. '%',
-        description = (hive.has_queen and "Has Queen" or "No Queen"),
+        icon = 'honey-pot',
+        title = 'Thu hoạch' .. ': ' .. string.format("%.2f", harvest) .. '%',
+        description = (hive.has_queen and "Có ong chúa" or "Không ong chúa"),
     }
     --Only allow changing gender in the first 2~ stages
     if getStageFromPercent(harvest) < 2 and not hive.has_queen then
         context[#context+1] = {
-            title = 'Add Queen bee',
+            title = 'Thêm ong chúa',
             key = { id = pHiveId },
             action = 'np-beekeeping:addQueen',
-            description = 'Make the hive happy.',
+            description = 'Giúp đàn ong vui hơn.',
             disabled = not exports["pw-inventory"]:hasEnoughOfItem("beequeen", 1, false)
         }
     end
 
     if harvest >= 95 or myjob == "police" or myjob == "judge" then
         context[#context+1] = {
-            title = 'Destroy Hive',
+            title = 'Phá hủy tổ',
             key = { id = pHiveId },
             action = 'np-beekeeping:removeHive',
         }

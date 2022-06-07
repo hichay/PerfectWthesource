@@ -78,6 +78,8 @@ local Keys = {
 
 ESX = nil
 QBCore = nil
+local isOnwer = false
+local ShowingNotification = false
 
 Citizen.CreateThread(function()
     if Config.Framework == 'esx' then
@@ -213,34 +215,7 @@ AddEventHandler('dzp_poker:addCard', function(cardNum, cardId)
     setCard(cardNum, cardId)
 end)
 
--- Adds player to poker table
--- slot         -   slot at which player is seated.
-RegisterNetEvent('dzp_poker:addToPoker')
-AddEventHandler('dzp_poker:addToPoker', function(slot, timesRotated)
-    if timesRotated > 0 then
-        for i = 1, timesRotated do
-            local temp = Chairs[1]
-            table.remove(Chairs, 1)
-            table.insert(Chairs, 6, temp)
-        end
-    end
-    if slot then
-        SetNuiFocus(true, true)
-        sit(Chairs[slot])
-        joinGame()
-    else
-        ShowNotificationMsg(Config.Strings[Config.Language]['no_space'])
-    end
-end)
 
--- Leaves poker table
-RegisterNetEvent('dzp_poker:leavePoker')
-AddEventHandler('dzp_poker:leavePoker', function()
-    leaveSit()
-    leaveGame()
-    hideCards()
-    ShowNotificationMsg(Config.Strings[Config.Language]['leave_table'])
-end)
 
 -- Sets player NUI turn phase on/off (enables/disables buttons)
 -- isInTurn         -   toggle (bool)
@@ -310,28 +285,9 @@ end)
 -- Variables manipulation
 ------------------------
 -- Rotates chairs in array. Used to rotate dealer and blinds
-RegisterNetEvent('dzp_poker:rotateChairs')
-AddEventHandler('dzp_poker:rotateChairs', function()
-    local temp = Chairs[1]
-    table.remove(Chairs, 1)
-    table.insert(Chairs, 6, temp)
-    -- print(json.encode(Chairs))
-end)
 
--- Syncs chairs on server join
-RegisterNetEvent('dzp_poker:syncChairs')
-AddEventHandler('dzp_poker:syncChairs', function(timesRotated)
-    while not chairsSpawned do
-        Citizen.Wait(100)
-    end
-    if timesRotated > 0 then
-        for i = 1, timesRotated do
-            local temp = Chairs[1]
-            table.remove(Chairs, 1)
-            table.insert(Chairs, 6, temp)
-        end
-    end
-end)
+
+
 
 ------------------------
 -- Stuff needed for game
@@ -433,6 +389,76 @@ function leaveSit()
     FreezeEntityPosition(playerPed, false)
 end
 
+AddEventHandler("pw-inventory:itemUsed", function(item)
+    if not isPlacing and item == "ace" then
+        isPlacing = true
+        placeObject("prop_proxy_chateau_table", function(pPlaced, pCoords, pHeading)
+            if pPlaced then
+                --TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_HAMMERING", 0, true)
+                TriggerEvent("inventory:removeItem","ace",1)
+                local finished = exports["pw-taskbar"]:taskBar(2000, "Đặt bàn", false, true, false, false, nil, 5.0, PlayerPedId())
+                ClearPedTasks(PlayerPedId())
+                
+            else
+                TriggerEvent("DoLongHudText", "Ko thể đặt hoặc bạn đã hủy")
+            end
+            isPlacing = false
+        end)
+    end    
+end)    
+
+RegisterNetEvent('dzp_poker:updateState')
+AddEventHandler('dzp_poker:updateState', function(state)
+    isOnwer = state
+end)
+print(isOnwer)
+function isOwner()
+    return isOnwer
+end
+local Inte = {
+  data = {
+    {
+        id = 'Remove_tabale',
+        label = 'Thu hồi bàn',
+        icon = 'hand-holding',
+        event = 'dzp_poker:takeTableBack',
+        parameters = {},
+    },
+  },
+  options = {
+    distance = { radius = 2.5 },
+    isEnabled = function(pEntity, pContext)
+      return isOwner()
+    end,
+  },
+}
+exports["pw-interact"]:AddPeekEntryByModel({`prop_proxy_chateau_table`}, Inte.data, Inte.options)
+
+local Interact = {
+    data = {
+      {
+          id = 'Pokce_play',
+          label = 'Chơi poker',
+          icon = 'hand',
+          event = 'dzp_poker:playPoker',
+          parameters = {},
+      },
+    },
+    options = {
+      distance = { radius = 2.5 },
+    },
+}
+
+
+exports["pw-interact"]:AddPeekEntryByModel({`prop_proxy_chateau_table`}, Interact.data, Interact.options)
+
+
+RegisterNetEvent('dzp_poker:playPoker')
+AddEventHandler('dzp_poker:playPoker', function()
+
+    TriggerServerEvent('dzp_poker:joinPoker')
+end)
+
 -- Creates chairs and table
 Citizen.CreateThread(function()
     for i = 1, #Config.ChairsData do
@@ -461,26 +487,37 @@ Citizen.CreateThread(function()
         SetEntityAsMissionEntity(table, true, false)
         SetEntityCollision(table, true, true)
     end, false)
-end)
+end) 
 
 -- Thread for button
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(100)
         local ped = GetPlayerPed(-1)
         local coords = GetEntityCoords(ped)
-        DrawMarker(1, Config.MarkerCoords.x, Config.MarkerCoords.y, Config.MarkerCoords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 200, 255, 200, 200)
-        if #(coords - Config.MarkerCoords) < 1.5 then
-            ShowHelpNotification(Config.Strings[Config.Language]['join_table'])
+        --DrawMarker(1, Config.MarkerCoords.x, Config.MarkerCoords.y, Config.MarkerCoords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 200, 255, 200, 200)
+        if #(coords - Config.MarkerCoords) < 5.5 then
+            --ShowHelpNotification(Config.Strings[Config.Language]['join_table'])
+            if not ShowingNotification then
+                ShowingNotification = true
+                exports["pw-interaction"]:showInteraction("[E] để ngồi vào bàn")
+            end
             if IsControlJustReleased(0, 38) then
+                exports["pw-interaction"]:hideInteraction()
+				ShowingNotification = false
                 TriggerServerEvent('dzp_poker:joinPoker')
+            end
+        else
+            if ShowingNotification then
+                exports["pw-interaction"]:hideInteraction()
+			    ShowingNotification = false
             end
         end
     end
 end)
 
 -- Thread for blip
-Citizen.CreateThread(function()
+--[[ Citizen.CreateThread(function()
 	pokerBlip = AddBlipForCoord(Config.BlipCoords)
 	SetBlipDisplay(pokerBlip, Config.BlipDisplay or 4)
 	SetBlipSprite(pokerBlip, Config.BlipSprite or 267)
@@ -490,7 +527,7 @@ Citizen.CreateThread(function()
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString(Config.Strings[Config.Language]['blip_name'])
 	EndTextCommandSetBlipName(pokerBlip)
-end)
+end) ]]
 
 function PokerRequestModel(model, cb)
 	if not HasModelLoaded(model) and IsModelInCdimage(model) then
@@ -539,12 +576,13 @@ end
 -- 2) add your own
 RegisterNetEvent('dzp:Notification')
 AddEventHandler('dzp:Notification', function(msg)
-    ShowNotificationMsg(msg)
+    TriggerEvent('DoLongHudText',msg)
 end)
 
 -- If you want to switch ESX.ShowNotification with something else:
 -- 1) Comment out the function
 -- 2) add your own
 function ShowNotificationMsg(msg)
-	ShowNotification(msg)
+	--ShowNotification(msg)
+    TriggerEvent('DoLongHudText',msg)
 end

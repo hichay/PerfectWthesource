@@ -1528,11 +1528,11 @@ span.tag-input[contenteditable]:empty::before {
 }
 
 span.weapon-input[contenteditable]:empty::before {
-    content: 'Número de Série';
+    content: 'Số Seri súng';
 }
 
 span.missing-input[contenteditable]:empty::before {
-    content: 'Número de Série';
+    content: 'Số Seri súng';
 }
 
 .weapon-input {

@@ -215,6 +215,7 @@ ModelFlags = {
   [`a_c_rabbit_01`] = { 'isAnimal' },
   [`a_c_cormorant`] = { 'isAnimal' },
   [`a_c_chickenhawk`] = { 'isAnimal' },
+  [`a_c_panther`] = { 'isAnimal' },
 
   [666561306] = { 'isDumpbin' },	
   [218085040] = { 'isDumpbin' },

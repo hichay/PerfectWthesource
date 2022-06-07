@@ -52,7 +52,7 @@ TotalStake = 0
 MySQL.ready(function()
     if Config.Framework == 'esx' then
         MySQL.ready(function()
-            MySQL.Async.execute('CREATE TABLE IF NOT EXISTS poker_stats (' ..
+            MySQL.query('CREATE TABLE IF NOT EXISTS poker_stats (' ..
             'id int(11) NOT NULL AUTO_INCREMENT,' ..
             'winner_name varchar(255) DEFAULT NULL,' ..
             'winner_id varchar(255) DEFAULT NULL,' ..
@@ -61,7 +61,7 @@ MySQL.ready(function()
             function()
             end)
             Citizen.Wait(500)
-            MySQL.Async.fetchScalar('SELECT MAX(id) FROM poker_stats', {}, function(id)
+            MySQL.query('SELECT MAX(id) FROM poker_stats', {}, function(id)
                 GameId = id or 0
             end)
         end)

@@ -1,8 +1,6 @@
 
 itemList = {}
 
-
-
 function getItem(pClass, pInfo)
     local infoReturn = nil
 	

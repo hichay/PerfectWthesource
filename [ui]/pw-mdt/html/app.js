@@ -435,7 +435,7 @@ $(document).ready(() => {
             $(".manage-incidents-title-holder").empty();
             $(".manage-incidents-title-holder").prepend(
                 `
-                <div class="manage-incidents-title">Incidente</div>
+                <div class="manage-incidents-title">Sự cố</div>
                 <div class="manage-incidents-create"> <span class="fas fa-plus" style="margin-top: 3.5px;"></span></div>
                 <div class="manage-incidents-save"><span class="fas fa-save" style="margin-top: 3.5px;"></span></div>
                 `

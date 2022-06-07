@@ -1,7 +1,7 @@
 Config = {}
 
 -- [GENERAL]:
-Config.EnableFootprints     = true
+Config.EnableFootprints     = false
 Config.PNearAnimalToEscape  = 40      -- if the distance between a player and the animal is less than this value, it will run away (not for native animals)
 
 -- [HARVESTING]:

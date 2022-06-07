@@ -13,21 +13,109 @@ Citizen.CreateThread(function()
 	PlayerLoaded = true
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
+local BeeHives = {}
+local ActiveBeehives = {}
+
+Citizen.CreateThread(function()
+  while true do
+      local plyCoords = GetEntityCoords(PlayerPedId())
+      if BeeHives == nil then BeeHives = {} end
+      for idx, hive in ipairs(BeeHives) do
+          if idx % 100 == 0 then
+              Wait(0) --Process 100 per frame
+          end
+          --convert timestamp -> growth percent
+          --local harvestPercent = getHiveReadyPercent(hive)
+          if #(plyCoords - hive.coords) < (50.0 + harvestPercent) and not setDeleteAll then
+              local curStage = getStageFromPercent(harvestPercent)
+              local isChanged = (ActiveBeehives[hive.id] and ActiveBeehives[hive.id].stage ~= curStage)
+
+              if isChanged then
+                  removeBeehive(hive.id)
+              end
+
+              if not ActiveBeehives[hive.id] or isChanged then
+                  local beeHive = createBeehiveStageAtCoords(curStage, hive.coords, hive.heading)
+                  ActiveBeehives[hive.id] = {
+                      object = beeHive,
+                      stage = curStage
+                  }
+              end
+          else
+              removeBeehive(hive.id)
+          end
+      end
+      if setDeleteAll then
+          BeeHives = {}
+          setDeleteAll = false
+      end
+      Wait(2000)
+  end
+end)
+
+RegisterNetEvent('pw-vineyard:trigger_zone')
+AddEventHandler('pw-vineyard:trigger_zone', function (type, pData)
+    --Update all hives
+    if type == 1 then
+        for _, hive in ipairs(BeeHives) do
+            local keep = false
+            for _, newhive in ipairs(pData) do
+                if hive.id == newhive.id then
+                    keep = true
+                    break
+                end
+            end
+
+            if not keep then
+                removeBeehive(hive.id)
+            end
+        end
+        BeeHives = pData
+    end
+
+    --New hive being added
+    if type == 2 then
+        BeeHives[#BeeHives+1] = pData
+    end
+
+    --hive being harvested/updated
+    if type == 3 then
+        for idx, hive in ipairs(BeeHives) do
+            if hive.id == pData.id then
+                BeeHives[idx] = pData
+                break
+            end
+        end
+    end
+  
+    --hive being removed
+    if type == 4 then
+        for idx, hive in ipairs(BeeHives) do
+            if hive.id == pData.id then
+                table.remove(BeeHives, idx)
+                removeBeehive(hive.id)
+                break
+            end
+        end
+    end
+end)
 
 function isGrapeBarrel(p2)
   return p2 and p2.meta and p2.meta.data and p2.meta.data.metadata and p2.meta.data.metadata.type == "vinewood_grape_barrel"
 end
 
-AddEventHandler("pw-inventory:itemUsed", function(item)
-  if not isPlacing and item == "beehive" then
-      if inZone > 0 then
+AddEventHandler("pw-inventory:itemUsed", function(pItem, pData)
+  if pItem ~= "vineyardbarrel" then return end
+  local meta = json.decode(pData)
+  if not meta then
+      if not isPlacing and pItem == "vineyardbarrel" then
           isPlacing = true
           if not hasShownMessage then
               local message = "\n" .. "Rotate with arrow keys" .. "\n" .. "Press [Enter] to place when hive is visible" .. "\n" .. "Press [Escape] to cancel."
               TriggerEvent('chatMessage','Instructions' .. ' ',3,message,"feed",false);
               hasShownMessage = true
           end
-          placeObject("np_beehive", function(pPlaced, pCoords, pHeading)
+          placeObject("prop_wooden_barrel", function(pPlaced, pCoords, pHeading)
               if pPlaced then
                   TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_HAMMERING", 0, true)
                   local finished = exports["pw-taskbar"]:taskBar(10, "Installing beehive", false, true, false, false, nil, 5.0, PlayerPedId())
@@ -41,11 +129,14 @@ AddEventHandler("pw-inventory:itemUsed", function(item)
               end
               isPlacing = false
           end)
-      else
-          TriggerEvent("DoLongHudText", "I should find a better area to install this in.")
       end
+
+      
   end
+  --[[ if not meta.id then return end ]]
 end)
+
+
 
 AddEventHandler("np-inventory:itemUsed", function(pItem, pData)
   if pItem ~= "vineyardbarrel" then return end

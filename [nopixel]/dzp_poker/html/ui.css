@@ -148,8 +148,15 @@ img {
     font-size: 20px;
     font-family: sans-serif;
     font: bold;
-    color: #ffffff;
+    color: #000000;
     margin-bottom: -10px;
+    border-radius: 100px;
+    border-width: 2em;
+    border-color: #000000;
+	border: calc(8px + 0.2vw) solid transparent;
+    background-image: linear-gradient(rgb(230, 230, 230), #e7e7e7);
+    padding: 1em 2em;
+    
 }
 
 .players img {

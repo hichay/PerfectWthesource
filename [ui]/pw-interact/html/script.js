@@ -16,7 +16,7 @@ window.addEventListener("message", function(event) {
         $.each(arraydatainteract, function (index1, item1) {
             $.each(payload.options, function (index2, item2) {
                 if(index1 == index2 && item2 == true){
-                    $(".target-label").append("<div id='target-"+index1+"'<li><span class='target-icon'><i class='fas fa-"+item1.icon+"'></i></span>&nbsp"+item1.label+"</li></div>");
+                    $(".target-label").append("<div id='target-"+index1+"'<li><span class='target-icon'><i class='fa-solid fa-"+item1.icon+"'></i></span>&nbsp"+item1.label+"</li></div>");
                     $("#target-"+index1).hover((e)=> {
                         $("#target-"+index1).css("color",e.type === "mouseenter"?"#f8b900":"white")
                     })

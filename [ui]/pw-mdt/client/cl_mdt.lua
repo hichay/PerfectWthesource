@@ -11,7 +11,7 @@ Citizen.CreateThread(function()
 	end
 
 	PlayerLoaded = true
-	ESX.PlayerData = ESX.PlayerData
+	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
 local isOpen = false
@@ -1124,7 +1124,6 @@ end)
 
 RegisterNUICallback("getAllVehicles", function(data, cb)
     local sentData = RPC.execute("pw-mdt:searchVehicles", "")
-	TriggerEvent('table',sentData)
     for i, v in ipairs(sentData) do
         sentData[i].color = ColorInformation[v.color1]
         sentData[i].colorName = ColorNames[v.color1]

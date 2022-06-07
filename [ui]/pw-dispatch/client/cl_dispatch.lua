@@ -639,7 +639,7 @@ function DrugSale()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Venda de Narcoticos",
+        dispatchMessage = "Bán chất cấm",
         blipSprite = 514,
         blipColor = 0,
         job = {"police"}
@@ -668,7 +668,7 @@ function DrugSale()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga Veicular " .. dispatchCode,
+            dispatchMessage = " " .. dispatchCode,
             job = {"police"}
         })
     end

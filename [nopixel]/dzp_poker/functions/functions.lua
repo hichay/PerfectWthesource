@@ -405,7 +405,7 @@ function saveData(winner, pot)
     -- DebugPrint(j)
     DebugPrint(json.encode(data))
     if Config.Framework == 'esx' then
-        MySQL.Async.insert('INSERT INTO poker_stats (winner_name, winner_id, pot) VALUES (@winnerName, @winnerId, @pot)', {
+        MySQL.query('INSERT INTO poker_stats (winner_name, winner_id, pot) VALUES (@winnerName, @winnerId, @pot)', {
             ['@winnerName'] = json.encode(data.winnerNames),
             ['@winnerId'] = json.encode(data.winnerIds),
             ['@pot'] = pot
@@ -438,7 +438,7 @@ function saveDataPlayer(pokerPlayer, isWinner)
     end
     pokerStats.numberOfGames = pokerStats.numberOfGames + 1
     DebugPrint(json.encode(pokerStats))
-    MySQL.Async.execute('UPDATE users SET poker_stats = @poker_stats WHERE identifier = @identifier', {
+    MySQL.query('UPDATE users SET poker_stats = @poker_stats WHERE identifier = @identifier', {
         ['identifier'] = 'steam:11000010e0f64d2',
         ['poker_stats'] = json.encode(pokerStats),
     })

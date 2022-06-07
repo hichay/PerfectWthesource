@@ -5,10 +5,10 @@ Config = {
     Prices = {
         ['wood_proc'] = {20, 64}
     },
-    ChanceToGetItem = 30, -- if math.random(0, 100) <= ChanceToGetItem then give item
+    ChanceToGetItem = 20, -- if math.random(0, 100) <= ChanceToGetItem then give item
     Items = {'wood_cut','wood_cut','wood_cut','wood_cut','wood_cut'},
     Sell = vector3(1210.0, -1318.51, 34.23),
-    Process = vector3(-584.66, 5285.63, 70.26),
+    Process = vector3(-590.8409, 5291.3095, 70.214485),
     NPC = vector3(-559.7275, 5282.7309, 72.050994),
     Objects = {
         ['pickaxe'] = 'w_me_hatchet',

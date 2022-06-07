@@ -130,7 +130,7 @@ AddEventHandler("pw-vehicles:refuelVehicle",function(params)
 		local bone = GetPedBoneIndex(PlayerPedId(), 60309)
 		AttachEntityToEntity(gasProp, PlayerPedId(), bone, 0.0, 0.0, 0.05, 350.0, 350.0, 250.0, 1, 1, 0, 0, 2, 1)
 
-        local finished = exports["pw-taskbar"]:taskBar((100 - curFuel) * 700, "Đổ xăng")
+        local finished = exports["pw-taskbar"]:taskBar((100 - curFuel) * 400, "Đổ xăng")
         if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
             local Chance = math.random(1, 100)
             if Chance <= Config.BlowUpChance then

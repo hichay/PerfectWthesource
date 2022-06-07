@@ -17,6 +17,7 @@ local textDel = Config.textDel
 local canve = Config.canve
 local textgar = Config.textgar
 local ClosestBerth = 1
+local ShowingNotification = false
 isWorking = false
 blipCreated = false
 
@@ -159,9 +160,15 @@ Citizen.CreateThread(function()
                         while cutting do
                             Wait(0)
                             SetCurrentPedWeapon(PlayerPedId(), GetHashKey('WEAPON_UNARMED'))
-                            helpText(Strings['wood_info'])
+                            --helpText(Strings['wood_info'])
+							if not ShowingNotification then
+								ShowingNotification = true
+								exports["pw-interaction"]:showInteraction("[RMB] Chặt [BACKSPACE] Dừng làm")
+							end
                             DisableControlAction(0, 24, true)
                             if IsDisabledControlJustReleased(0, 24) then
+								exports["pw-interaction"]:hideInteraction()
+								ShowingNotification = false
                                 local dict = loadDict('melee@hatchet@streamed_core')
                                 TaskPlayAnim(PlayerPedId(), dict, 'plyr_rear_takedown_b', 8.0, -8.0, -1, 2, 0, false, false, false)
                                 local timer = GetGameTimer() + 800
@@ -180,6 +187,8 @@ Citizen.CreateThread(function()
                                 end
 
                             elseif IsControlJustReleased(0, 194) then
+								exports["pw-interaction"]:hideInteraction()
+								ShowingNotification = false
                                 break
                             end
                         end
@@ -228,7 +237,7 @@ function SellWood()
     local qty = exports["pw-inventory"]:getQuantity('refinedwood', true)
 
     if qty > 0 then
-        totalCash = totalCash + (math.random(30,45) * qty)
+        totalCash = totalCash + (math.random(30,35) * qty)
         TriggerEvent("inventory:removeItem", 'refinedwood', qty)      
     end
 
@@ -244,9 +253,9 @@ end
 RegisterNetEvent("pw-lumberjack:makeSales")
 AddEventHandler("pw-lumberjack:makeSales", SellWood)
 
-local procesX = -584.66
-local procesY = 5285.63
-local procesZ = 70.26
+local procesX = -590.84
+local procesY = 5291.30
+local procesZ = 70.21
 ------------------------------------
 Citizen.CreateThread(function()
     while true do
@@ -255,15 +264,20 @@ Citizen.CreateThread(function()
     local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, procesX, procesY, procesZ)
 	
 	if dist <= 20.0 and isWorking then
-	    DrawMarker(27, procesX, procesY, procesZ-0.96, 0, 0, 0, 0, 0, 0, 2.20, 2.20, 2.20, 255, 255, 255, 200, 0, 0, 0, 0)
+	    DrawMarker(27, procesX, procesY, procesZ-0.96, 0, 0, 0, 0, 0, 0, 5.20, 5.20, 5.20, 255, 255, 255, 200, 0, 0, 0, 0)
 	else
 	    Citizen.Wait(1000)
 	end
 	local hasBagd7 = false
 	local s1d7 = false
-	if dist <= 2.0 and isWorking then
-	DrawText3D2(procesX, procesY, procesZ+0.1, "[E] Chuẩn bị gỗ")
+	if dist <= 6.0 and isWorking then
+		if not ShowingNotification then
+			ShowingNotification = true
+			exports["pw-interaction"]:showInteraction("[E] Chuẩn bị gỗ")
+		end
 		if IsControlJustPressed(0, Keys['E']) then 
+			ShowingNotification = false
+			exports["pw-interaction"]:hideInteraction()
             local hasBagd7 = exports["pw-inventory"]:hasEnoughOfItem("fishinglog",1,false)
 		
 			if (hasBagd7) then
@@ -272,6 +286,11 @@ Citizen.CreateThread(function()
 		        ESX.Notify('Không đủ gỗ để làm việc này.', 'error')
 		    end
 		end	
+	else 
+		if ShowingNotification then
+			ShowingNotification = false
+			exports["pw-interaction"]:hideInteraction()
+		end
 	end
 	
 end

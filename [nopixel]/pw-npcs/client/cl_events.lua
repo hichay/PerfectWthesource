@@ -46,13 +46,28 @@ AddEventHandler("pw-npcs:ped:keeper", function(pArgs, pEntity, pEntityFlags, pEn
     if pArgs[1] == "5" then
         local hasLicense = RPC.execute("pw-licenses:hasLicense", "weapon")
         if not hasLicense then
-            TriggerEvent("DoLongHudText", "Você não tem permissão para falar comigo.", 2)
+            TriggerEvent("DoLongHudText", "Bạn không được phép nói chuyện với tôi.", 2)
             return
         end
     end
 
     TriggerEvent("server-inventory-open", pArgs[1], "Shop")
 end)
+
+RegisterNetEvent("pw-npcs:ped:craft")
+AddEventHandler("pw-npcs:ped:craft", function(pArgs, pEntity, pEntityFlags, pEntityCoords)
+    if pArgs[1] == "5" then
+        local hasLicense = RPC.execute("pw-licenses:hasLicense", "weapon")
+        if not hasLicense then
+            TriggerEvent("DoLongHudText", "Bạn không được phép nói chuyện với tôi.", 2)
+            return
+        end
+    end
+
+    TriggerEvent("server-inventory-open", pArgs[1], "Craft")
+end)
+
+
 
 
 TriggerServerEvent("pw-npcs:location:fetch")

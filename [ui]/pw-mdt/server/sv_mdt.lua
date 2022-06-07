@@ -1175,15 +1175,16 @@ RPC.register("pw-mdt:searchVehicles", function(src, pPlate)
 
     local vehicles = {}
     for i, v in ipairs(result) do
+	
 		--TriggerClientEvent('table',-1,result)
-        local xPlayer = ESX.GetPlayerFromIdentifier(v.owner)
-		print(i,v)
+        --local xPlayer = ESX.GetPlayerFromIdentifier(v.owner)
+		local beekep = MySQL.single.await('SELECT firstname, lastname FROM users WHERE identifier = ?', {v.owner})
         local _vehicle = {
             id = v.id,
             dbid = v.id,
             plate = v.plate,
             model = v.model,
-            owner = xPlayer.getName(),
+            owner = beekep.firstname .." "..beekep.lastname,
             image = "img/not-found.jpg",
             color1 = 0,
             color2 = 0,
@@ -1219,10 +1220,15 @@ RPC.register("pw-mdt:searchVehicles", function(src, pPlate)
             _vehicle.bolo = true
         end
 
-        table.insert(vehicles, _vehicle)
+        --table.insert(vehicles, _vehicle)
+		vehicles[#vehicles +1] = _vehicle
+		
     end
+	
+	
+	return vehicles
 
-    return vehicles
+    
 end)
 
 RPC.register("pw-mdt:getVehicleData", function(src, pPlate)

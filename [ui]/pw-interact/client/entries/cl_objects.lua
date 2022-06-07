@@ -267,7 +267,7 @@ Entries[#Entries + 1] = {
   data = {
       {
           id = 'beehive1',
-          label = "Check",
+          label = "Kiểm tra",
           icon = "archive",
           event = "pw-beekeeping:checkBeehive",
           parameters = {}
@@ -284,7 +284,7 @@ Entries[#Entries + 1] = {
   data = {
       {
           id = 'beehive2',
-          label = "Harvest",
+          label = "Thu hoạch",
           icon = "hand-holding-water",
           event = "pw-beekeeping:harvestHive",
           parameters = {}

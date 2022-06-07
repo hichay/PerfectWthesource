@@ -8,7 +8,7 @@ const VehicleWeightModifiers = {
     3: [3.0, 25, 150], //Coupes
     4: [3.0, 25, 100], //Muscle
     5: [1.0, 20, 50], //Sports Classics
-    6: [1.0, 20, 50], //Sports
+    6: [2.0, 20, 100], //Sports
     7: [1.0, 25, 50], //Super
     8: [0.0, 0, 0], //Motorcycles
     9: [1.0, 50, 150], //Off-road
@@ -45,5 +45,4 @@ const VehicleWeightOverrides = {
 	"bison2": 300,
 	"raptor150": 150,
 	"sh350": 150,
-	"coquette": 50,
 }

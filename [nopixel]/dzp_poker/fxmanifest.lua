@@ -8,11 +8,12 @@ version '1.0.2'
 
 client_scripts {
     'config.lua',
+    'ultil.lua',
     'client.lua'
 }
 
 server_scripts {
-    '@mysql-async/lib/MySQL.lua',
+    '@oxmysql/lib/MySQL.lua',
     'config.lua',
     'classes/player.lua',
     'functions/functions.lua',
