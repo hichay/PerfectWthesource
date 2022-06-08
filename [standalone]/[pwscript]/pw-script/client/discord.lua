@@ -9,7 +9,7 @@ cfg.smallDiscordImageName = 'monke'
 cfg.smallHoverText = 'Monke'
 
 cfg.button1 = {
-    text = 'Discord',
+    text = 'Vào discord',
     url = 'discord.gg/VkMNdNGrFf'
 }
 

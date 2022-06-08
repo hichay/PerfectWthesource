@@ -1,7 +1,7 @@
 local carcasses = {
-    { name = "huntingcarcass1", price = 20, illegal = false },
-    { name = "huntingcarcass2", price = 40, illegal = false },
-    { name = "huntingcarcass3", price = 50, illegal = false },
+    { name = "huntingcarcass1", price = math.random(100,300), illegal = false },
+    { name = "huntingcarcass2", price = math.random(200,300), illegal = false },
+    { name = "huntingcarcass3", price = math.random(400,700), illegal = false },
 	{ name = "leathercormorant1", price = 30, illegal = false },
 	{ name = "leathercormorant2", price = 50, illegal = false },
 	{ name = "leathercormorant3", price = 60, illegal = false },

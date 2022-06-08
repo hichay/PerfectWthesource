@@ -27,8 +27,8 @@ Config.VehicleValueList = { -- custom cars that are not exist in vehicles table 
 	[1] = {model = 'zentorno', value = 100000},
 }
 Config.FreeUpgradeToClass = { -- want to have a free upgrade for a selected vehicles class?
-	[18] = true, -- emergency class , ex. police, ambulance vehicle.
-	[19] = true, -- military class
+	[18] = false, -- emergency class , ex. police, ambulance vehicle.
+	[19] = false, -- military class
 }
 Config.EnableDiscounts = false -- discount for all jobs and per mods
 Config.JobDiscounts = { -- global discount jobs
@@ -83,6 +83,7 @@ Config.Customs = { -- Multiple Shop Start
 		},
 		garage_inventory = {coord = vector4(-200.8703918457,-1317.6979980469,31.089340209961,267.89974975586), grade = 0},
 		shopcoord = vector3(-212.58630371094,-1325.0119628906,30.89038848877),
+		bossmenu = {coord = vector3(-212.58630371094,-1325.0119628906,30.89038848877), grade = 2, radius= 1.0, options = {useZ = true}},
 		mod = {
 			{coord = vector4(-224.20236206055,-1329.8156738281,30.21583366394,87.278968811035), taken = false},
 			{coord = vector4(-213.22569274902,-1331.546875,30.215799331665,356.6969909668), taken = false},
@@ -105,11 +106,37 @@ Config.Customs = { -- Multiple Shop Start
 		},
 		garage_inventory = {coord = vector4(807.99078369141,-979.44848632812,26.308683395386,165.16065979004), grade = 0},
 		shopcoord = vector3(818.54309082031,-953.44543457031,26.108730316162),
+		bossmenu = {coord = vector3(818.54309082031,-953.44543457031,26.108730316162), grade = 2, radius= 1.0, options = {useZ = true}},
 		mod = {
 			{coord = vector4(823.82153320312,-944.92102050781,25.440004348755,94.50008392334), taken = false},
 			{coord = vector4(830.01727294922,-953.10614013672,25.440238952637,97.936683654785), taken = false},
 		},
 		Blips = {sprite = 446, color = 68, scale = 0.8},
+    },
+
+	['Horse Brother'] = { -- Shop id -- Custom Map Tuner Garage (2372 Build only, canary and release) IPL and Int https://forum.cfx.re/t/free-mlo-tuner-auto-shop/4247145
+		job = 'tuner', -- job name permmision for this shop
+		min_grade = 0, -- min grade to access the whole shop feature
+		radius = 30, -- radius for whole shop
+		stockroom = {coord = vector4(818.46160888672,-969.87396240234,26.10876083374,269.27597045898), grade = 0},
+		paintmenu = {
+			coord = vector3(916.32482, -2101.158, 30.459947), 
+			grade = 0,
+			radius = 1.50,
+			options = {
+				useZ = true,
+			},
+		},
+		garage_inventory = {coord = vector4(901.68389, -2098.534, 30.459957, 355.85058), grade = 0},
+		shopcoord = vector3(874.06835, -2112.907, 30.459953),
+		bossmenu = {coord = vector3(887.96673, -2100.03, 34.888851), grade = 2, radius= 1.0, options = {useZ = true}},
+		mod = {
+			{coord = vector4(875.84912, -2125.162, 30.200323, 354.88568), taken = false},
+			{coord = vector4(887.11309, -2126.153, 30.200904, 353.76403), taken = false},
+			{coord = vector4(897.82049, -2127.013, 30.200092, 355.54483), taken = false},
+			{coord = vector4(909.13366, -2128.183, 30.201152, 354.05645), taken = false},
+		},
+		Blips = {sprite = 446, color = 59, scale = 0.8},
     },
 
 }
@@ -255,6 +282,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 1.0, -- 20%
@@ -276,6 +304,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -297,6 +326,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -318,6 +348,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -339,6 +370,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -359,6 +391,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -381,6 +414,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -402,6 +436,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -423,6 +458,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -444,6 +480,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -464,6 +501,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -486,6 +524,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -506,6 +545,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -527,6 +567,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -548,6 +589,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -569,6 +611,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -590,6 +633,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -610,6 +654,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -630,6 +675,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -650,6 +696,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -670,6 +717,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -690,6 +738,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -712,6 +761,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -732,6 +782,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -753,6 +804,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -775,6 +827,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -796,6 +849,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -817,6 +871,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -838,6 +893,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -858,6 +914,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -878,6 +935,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -900,6 +958,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -922,6 +981,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -944,6 +1004,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -965,6 +1026,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -986,6 +1048,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1008,6 +1071,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1029,6 +1093,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1051,6 +1116,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1073,6 +1139,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1094,6 +1161,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 			--['all'] = 0, -- all jobs?
 		},
 		discount = {
@@ -1118,6 +1186,7 @@ Config.VehicleMod = {
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
 			['ambulance'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 			--['all'] = 0, -- all jobs?
 		},
 		discount = {
@@ -1141,6 +1210,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1162,6 +1232,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1182,6 +1253,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1202,6 +1274,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1239,6 +1312,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1260,6 +1334,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1281,6 +1356,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1310,6 +1386,7 @@ Config.VehicleMod = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1341,6 +1418,7 @@ if Config.UseCustomTurboUpgrade then
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1374,6 +1452,7 @@ if Config.UseCustomEngineUpgrade then
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%
@@ -1408,6 +1487,7 @@ if Config.UseCustomTireUpgrade then
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
 			['mechanic'] = 0,
 			['police'] = 0,-- police is sample only change this!
+			['tuner'] = 0,
 		},
 		discount = {
 			['mechanic'] = 0.2, -- 20%

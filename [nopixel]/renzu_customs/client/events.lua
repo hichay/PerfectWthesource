@@ -4,6 +4,10 @@ AddEventHandler('renzu_customs:Solo', function(garage,garage_id)
     for k,v in pairs(Config.Customs) do
         local paintmenu = v.paintmenu
         exports['pw-polytarget']:AddCircleZone("mechanic_paintmenu", paintmenu.coord, paintmenu.radius, paintmenu.options)
+        local bossmenu = v.bossmenu
+        
+        exports["pw-polytarget"]:AddCircleZone("tuner_bossmenu", bossmenu.coord, bossmenu.radius, bossmenu.options)
+
     end
 
     local peek = {
@@ -12,7 +16,7 @@ AddEventHandler('renzu_customs:Solo', function(garage,garage_id)
             {
                 id = "paintcustommenu",
                 label = "Tủ sơn",
-                icon = "chevron-circle-up",
+                icon = "spray-can-sparkles",
                 event = "renzu_customs:openpaintmenu",
                 parameters = {k,v},
             }
@@ -26,7 +30,30 @@ AddEventHandler('renzu_customs:Solo', function(garage,garage_id)
     }
 
     exports["pw-interact"]:AddPeekEntryByPolyTarget(peek.group, peek.data, peek.options)
+
+    exports['pw-interact']:AddPeekEntryByPolyTarget('tuner_bossmenu', {
+        {
+            id = "tuner_bossmenuaction",
+            event = "renzu_customs:OpenBossMenu",
+            icon = "people-group",
+            label = "Mở boss menu"
+        },
+        
+    }, 
+
+    {
+        distance = { radius = 2.5 },
+        isEnabled = function(pEntity, pContext)
+          return ShopPermmision(currentprivate,'bossmenu')
+        end,
+    })
 end)
+
+RegisterNetEvent('renzu_customs:OpenBossMenu')
+AddEventHandler('renzu_customs:OpenBossMenu', function()
+    TriggerServerEvent('pw-bossmenu:server:openMenu')
+end)
+
 
 
 RegisterNetEvent('renzu_customs:ingarage')
@@ -40,7 +67,7 @@ AddEventHandler('renzu_customs:ingarage', function(garage,garage_id)
         local stats_show = nil
         while insidegarage do
             for k,v in pairs(Config.Customs) do
-                local distance = #(GetEntityCoords(PlayerPedId()) - vector3(v.paintmenu.coord.x,v.paintmenu.coord.y,v.paintmenu.coord.z))
+                --local distance = #(GetEntityCoords(PlayerPedId()) - vector3(v.paintmenu.coord.x,v.paintmenu.coord.y,v.paintmenu.coord.z))
                 --[[ if Config.InteractiveFeature['paintmenu'] and distance < 30 and ShopPermmision(currentprivate,'paintmenu') and Config.showmarker then
                     DrawMarkerInput(vector3(v.paintmenu.coord.x,v.paintmenu.coord.y,v.paintmenu.coord.z),'Spray Paint Menu','renzu_customs:openpaintmenu',false,'spray_paint')
                 end
@@ -717,7 +744,7 @@ AddEventHandler('renzu_customs:openpaintmenu', function(garage,garage_id)
         end ]]
         
         localmultimenu[#localmultimenu+1] = {
-            icon = "check",
+            icon = "spray-can-sparkles",
             title = 'Màu '..name,
             description = "",
             action = "renzu_customs:paint",
@@ -728,7 +755,7 @@ AddEventHandler('renzu_customs:openpaintmenu', function(garage,garage_id)
         
     end
 
-    exports["np-ui"]:showContextMenu(localmultimenu)
+    exports["pw-context"]:showContextMenu(localmultimenu)
     --[[ if openmenu then
         TriggerEvent('renzu_contextmenu:insertmulti',localmultimenu,"Vehicle Parts",false,"<i class='fas fa-spray-can'></i> Spray Paints")
         TriggerEvent('renzu_contextmenu:show')

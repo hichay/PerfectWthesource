@@ -39,12 +39,12 @@ Config.empresas = {
 Config.contratos = {
 	['cancel_contrato'] = 167,					-- Key to cancel the active job (178 = DEL) [Hold key 2 seconds]
 	['cooldown'] = 0.2, 							-- Cooldown time (in minutes) to generate a new contract
-	['preco_por_km_min'] = 40,					-- Minimum price per kilometer of the contract
-	['preco_por_km_max'] = 55,					-- Maximum price per kilometer of the contract
+	['preco_por_km_min'] = 80,					-- Minimum price per kilometer of the contract
+	['preco_por_km_max'] = 110,					-- Maximum price per kilometer of the contract
 	['probabilidade_ser_carga_urgente'] = 30,	-- The urgent load is generated randomly, here you can configure the probability (%)
 	['max_contratos_ativos'] = 100,				-- Maximum of contracts that can be active, this means that when generating a contact that exceeds this number, the oldest contract will be deleted
 	['caminhoes'] = {							-- List of trucks that are generated in contracts
-		"actros","man","daf","t680","vnl780","w900"
+		"bcls","bchauler","foxanthem1","t680","vnl780","w900"
 		
 	},
 	['cargas'] = {
@@ -186,12 +186,12 @@ Config.motoristas = {
 		{img = "https://bootdey.com/img/Content/avatar/avatar1.png", nomes = {"Bennett Stevens","Mcmillan Calhoun","Paula Blanchard","Roberson Holman","Frost Woods","Drake Boyd","Maricela Long","Hess Guerrero","Martha Adams","Simmons Ramsey","Medina Pitts","Hazel Tyson","Mia Nguyen","Clare Shannon","Kristy Dorsey","Hilda Cochran","Sandy Zimmerman","Petra Lowery","Opal Collier","Velez Terry","Mccormick Hewitt","Weeks Garner","Ashley Byers","Guzman Blackburn","Ramona Stanley","Delia Ratliff","Talley Rodriquez","Ochoa Hayden","Thelma Stout","Lloyd Clarke","Gordon Gould","Aida Noel","Corinne Richmond","Malone Walls","Shields Bowen","Howell Harper","Figueroa Schwartz","Rachel Delgado","Debora Chaney","Chen Avery","Kidd Fitzgerald","Aguirre Park","Combs Cruz","Huff Thompson","Munoz Crosby","Whitaker Mason","Oneil York","Francis Houston","Prince White","Cornelia Bell"}}
 	},
 	['max_motoristas_ativos'] = 30,				-- Maximum number of drivers that can be active, this means that when generating a driver that exceeds this number, the oldest driver will be deleted
-	['max_motoristas_por_player'] = 1			-- Maximum number of drivers the player can hire
+	['max_motoristas_por_player'] = 2			-- Maximum number of drivers the player can hire
 }
 
 -- Here is the definition of the contracts that are generated for drivers to carry out
 Config.trabalhos = {
-	['cooldown'] = 0.1,						-- Cooldown time (in minutes) for drivers to make contracts and generate money for the company
+	['cooldown'] = 30,						-- Cooldown time (in minutes) for drivers to make contracts and generate money for the company
 
 	-- It is recommended to keep the initial profit and the percentage higher than the values ​​configured for drivers in the above config
 	['valor_inicial_min'] = 100,			-- Minimum initial contract profit
@@ -202,29 +202,29 @@ Config.trabalhos = {
 Config.multiplicador_venda = 0.7	-- Value you receive when selling the used truck
 Config.concessionaria = {			-- Truck dealership vehicles
 	-- Here you can configure the vehicles of the dealership
-	['actros'] = { 								-- This must be the vehicle's spawn name
-		['name'] = 'Mercedes-Benz Actros',		-- Truck name
+	['bcls'] = { 								-- This must be the vehicle's spawn name
+		['name'] = 'International Lone Star',		-- Truck name
 		['price'] = 180000,						-- Value
 		['engine'] = "12.0 L MB OM 457 LA I6",	-- Engine configuration
 		['transmission'] = "12-Speed",			-- Transmission configuration
-		['hp'] = '401',							-- Horsepower
-		['img'] = 'img/actros.jpg'				-- Vehicle image
+		['hp'] = '400',							-- Horsepower
+		['img'] = 'https://media.discordapp.net/attachments/974185293982879755/975677435326660648/Lone_Star.png'				-- Vehicle image
 	},
 	-- The other vehicles follow the same pattern as the vehicle above
-	['man'] = {
-		['name'] = 'MAN TGX',
-		['price'] = 280000,
+	['bchauler'] = {
+		['name'] = 'Peterbit',
+		['price'] = 240000,
 		['engine'] = "16.2 L D2868 V8",
 		['transmission'] = "12-Speed",
-		['hp'] = '680',
-		['img'] = 'img/man.jpg'
+		['hp'] = '480',
+		['img'] = 'https://media.discordapp.net/attachments/974185293982879755/975684483976134686/peterbit.png?width=683&height=683'
 	},
 	['t680'] = {
 		['name'] = 'Kenworth T680',
-		['price'] = 300000,
+		['price'] = 280000,
 		['engine'] = "12.9 PACCAR MX-13 I6",
 		['transmission'] = "10-Speed",
-		['hp'] = '480',
+		['hp'] = '455',
 		['img'] = 'img/t680.jpg'
 	},
 	['w900'] = {
@@ -237,19 +237,19 @@ Config.concessionaria = {			-- Truck dealership vehicles
 	},
 	['vnl780'] = {
 		['name'] = 'Volvo VNL 780',
-		['price'] = 350000,
+		['price'] = 300000,
 		['engine'] = "13.0 D13TC I6",
 		['transmission'] = "12-Speed",
-		['hp'] = '455',
+		['hp'] = '500',
 		['img'] = 'img/vnl780.jpg'
 	},
-	['daf'] = {
-		['name'] = 'DAF XF Euro 6',
-		['price'] = 240000,
+	['foxanthem1'] = {
+		['name'] = 'Mack Anthem',
+		['price'] = 350000,
 		['engine'] = "12.9 PACCAR MX-13 I6",
 		['transmission'] = "12-Speed",
 		['hp'] = '530',
-		['img'] = 'img/daf.jpg'
+		['img'] = 'https://media.discordapp.net/attachments/974185293982879755/975689109865656360/Mack_Anthem.png?width=683&height=683'
 	}
 }
 Config.valor_reparo = { -- Value to repair 1% of each part (Example: if 40% of the part is damaged, the value to repair will be multiplied by 40)
@@ -298,7 +298,83 @@ Config.exp_por_level = {
 	[27] = 20500,
 	[28] = 31500,
 	[29] = 32500,
-	[30] = 33500, -- Max
+	[30] = 33500,
+	[31] = 34500,
+	[32] = 35500,
+	[33] = 36500,
+	[34] = 37500,
+	[35] = 38500,
+	[36] = 39500,
+	[37] = 40500,
+	[38] = 41500,
+	[39] = 42500,
+	[40] = 43500,
+	[41] = 44500,
+	[42] = 45500,
+	[43] = 46500,
+	[44] = 47500,
+	[45] = 48500,
+	[46] = 49500,
+	[47] = 50500,
+	[48] = 51500,
+	[49] = 52500,
+	[50] = 53500,
+	[51] = 54500,
+	[52] = 55500,
+	[53] = 56500,
+	[54] = 57500,
+	[55] = 58500,
+	[56] = 59500,
+	[57] = 60500,
+	[58] = 61500,
+	[59] = 62500,
+	[60] = 63500,
+	[61] = 64500,
+	[62] = 65500,
+	[63] = 66500,
+	[64] = 67500,
+	[65] = 68500,
+	[66] = 69500,
+	[67] = 70500,
+	[68] = 71500,
+	[69] = 72500,
+	[70] = 73500,
+	[71] = 74500,
+	[72] = 75500,
+	[73] = 76500,
+	[74] = 77500,
+	[75] = 78500,
+	[76] = 79500,
+	[77] = 80500,
+	[78] = 81500,
+	[79] = 82500,
+	[80] = 83500,
+	[81] = 84500,
+	[82] = 85500,
+	[83] = 86500,
+	[84] = 87500,
+	[85] = 88500,
+	[86] = 89500,
+	[87] = 90500,
+	[88] = 91500,
+	[89] = 92500,
+	[90] = 93500,
+	[91] = 94500,
+	[92] = 95500,
+	[93] = 96500,
+	[94] = 97500,
+	[95] = 98500,
+	[96] = 99500,
+	[97] = 100500,
+	[98] = 101500,
+	[99] = 102500,
+	[100] = 103500,
+	[101] = 104500,
+	[102] = 105500,
+	[103] = 106500,
+	[104] = 107500,
+	[105] = 108500,
+	[106] = 110000,-- Max
 }
 
 --[[
@@ -345,12 +421,12 @@ Config.emprestimos = {
 	Level 6 is the maximum
 ]]
 Config.habilidade_distancia = {
-	[0] = 7.5,
-	[1] = 8.5,
-	[2] = 10,
-	[3] = 13,
-	[4] = 15,
-	[5] = 19,
+	[0] = 6,
+	[1] = 6.5,
+	[2] = 7,
+	[3] = 7.5,
+	[4] = 8,
+	[5] = 8.5,
 	[6] = 99 -- Max
 }
 

@@ -103,7 +103,7 @@ Config.MeatCost = 20
 
 
 -- [BLIPS]:
-Config.BlipOnEntity = true  -- if not using native animals 
+Config.BlipOnEntity = false  -- if not using native animals 
 Config.Blips = {
     {coords = vector3(-1133.44, 4605.55, 144.96), name = "Hunting", sprite = 161, colour = 27},
     {coords = vector3(-1133.44, 4605.55, 144.96), name = "Hunting Zone", sprite = 442, colour = 27}

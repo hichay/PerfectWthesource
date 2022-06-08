@@ -373,7 +373,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_keysgive",
-            label = "give key",
+            label = "Đưa chìa khóa xe",
             icon = "key",
             event = "vehiclekeys:client:GiveKeys",
             parameters = {}

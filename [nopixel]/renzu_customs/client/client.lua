@@ -8,12 +8,13 @@ Citizen.CreateThread(function()
         SetBlipScale  (blip, v.Blips.scale)
         SetBlipColour (blip, v.Blips.color)
         SetBlipAsShortRange(blip, true)
-        BeginTextCommandSetBlipName('STRING')
-        AddTextComponentSubstringPlayerName("Mechanic Shop: "..k.."")
+        BeginTextCommandSetBlipName('CUSTOM_TEXT')
+        AddTextComponentSubstringPlayerName("Xưởng độ: "..k.."")
         EndTextCommandSetBlipName(blip)
     end
     TriggerServerEvent('renzu_customs:loaded')
 end)
+
 
 CreateThread(function()
     Wait(500)
