@@ -117,10 +117,10 @@ Config.Customs = { -- Multiple Shop Start
 	['Horse Brother'] = { -- Shop id -- Custom Map Tuner Garage (2372 Build only, canary and release) IPL and Int https://forum.cfx.re/t/free-mlo-tuner-auto-shop/4247145
 		job = 'tuner', -- job name permmision for this shop
 		min_grade = 0, -- min grade to access the whole shop feature
-		radius = 30, -- radius for whole shop
+		radius = 50, -- radius for whole shop
 		stockroom = {coord = vector4(818.46160888672,-969.87396240234,26.10876083374,269.27597045898), grade = 0},
 		paintmenu = {
-			coord = vector3(916.32482, -2101.158, 30.459947), 
+			coord = vector3(917.09265, -2100.952, 30.459957), 
 			grade = 0,
 			radius = 1.50,
 			options = {
@@ -128,7 +128,7 @@ Config.Customs = { -- Multiple Shop Start
 			},
 		},
 		garage_inventory = {coord = vector4(901.68389, -2098.534, 30.459957, 355.85058), grade = 0},
-		shopcoord = vector3(874.06835, -2112.907, 30.459953),
+		shopcoord = vector3(892.78033, -2114.959, 30.458971),
 		bossmenu = {coord = vector3(887.96673, -2100.03, 34.888851), grade = 2, radius= 1.0, options = {useZ = true}},
 		mod = {
 			{coord = vector4(875.84912, -2125.162, 30.200323, 354.88568), taken = false},

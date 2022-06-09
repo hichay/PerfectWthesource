@@ -373,7 +373,6 @@ end)
 RegisterNetEvent('renzu_customs:syncdel')
 AddEventHandler('renzu_customs:syncdel', function(net)
     local ent = NetworkGetEntityFromNetworkId(net)
-    print(ent)
     ReqAndDelete(ent)
 end)
 
@@ -692,12 +691,10 @@ AddEventHandler('renzu_customs:restoremod', function(net,prop)
     local ent = NetworkGetEntityFromNetworkId(net)
     SetModable(ent)
     SetVehicleProp(ent, prop)
-    print('restoring mod')
 end)
 
 RegisterNetEvent('renzu_customs:paint')
 AddEventHandler('renzu_customs:paint', function(color,spray)
-    
     if not spray then
         spraying = true
         tospray = true
@@ -710,9 +707,9 @@ AddEventHandler('renzu_customs:paint', function(color,spray)
             if nearveh ~= 0 then
                 local dist = #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(nearveh))
                 if dist < 4  then
-                    --ShowFloatingHelpNotification('Nhấn [E] để sơn xe này', GetEntityCoords(nearveh)+vec3(0,0,1.0))
+                    ShowFloatingHelpNotification('Nhấn [E] để sơn xe này', GetEntityCoords(nearveh)+vec3(0,0,1.0))
                     if IsControlPressed(0, 38) then
-                        PaintCar(color,nearveh)
+                        PaintCar(color[1],nearveh)
                         TriggerServerEvent('renzu_customs:syncdel',NetworkGetNetworkIdFromEntity(spraycan))
                     end     
                 end
@@ -726,7 +723,6 @@ end)
 
 RegisterNetEvent('renzu_customs:openpaintmenu')
 AddEventHandler('renzu_customs:openpaintmenu', function(garage,garage_id)
-    print(garage,garage_id)
     local openmenu = false
     local localmultimenu = {}
     for name,color in pairs(Config.Pilox) do
@@ -762,11 +758,11 @@ AddEventHandler('renzu_customs:openpaintmenu', function(garage,garage_id)
     end ]]
 end)
 
-RegisterUICallback('renzu_customs:paint', function (data, cb)
+--[[ RegisterUICallback('renzu_customs:paint', function (data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
     TriggerEvent('renzu_customs:paint', data.key[1])
 end)
-
+ ]]
 Playerloaded()
 
 RegisterNetEvent('renzu_customs:receivedata')
