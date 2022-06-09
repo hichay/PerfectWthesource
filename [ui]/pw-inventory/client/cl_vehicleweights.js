@@ -4,17 +4,17 @@ const VehicleWeightModifiers = {
     //A higher base weight will mean vehicle # of seats matter more
     0: [1.0, 25, 150], //Compacts
     1: [2.0, 25, 100], //Sedans
-    2: [5.0, 50, 200], //SUVs
+    2: [5.0, 100, 250], //SUVs
     3: [3.0, 25, 150], //Coupes
     4: [3.0, 25, 100], //Muscle
     5: [1.0, 20, 50], //Sports Classics
     6: [2.0, 20, 100], //Sports
     7: [1.0, 25, 50], //Super
     8: [0.0, 0, 0], //Motorcycles
-    9: [1.0, 50, 150], //Off-road
+    9: [1.0, 100, 300], //Off-road
     10: [4.0, 50, 200], //Industrial
     11: [5.0, 10, 10], //Utility
-    12: [5.0, 100, 200], //Vans
+    12: [5.0, 100, 300], //Vans
     13: [0.0, 0, 0], //Cycles
     14: [2.0, 0, 0], //Boats
     15: [1.0, 100, 400], //Helicopters
@@ -30,6 +30,10 @@ const VehicleWeightOverrides = {
     //Enter Model then overrided weight
     //ex. "nptaco": 0,
 	/* "t20": 3000, */
+	"sandking": 300.0,
+    "sandking2": 300.0,
+	"bobcatxl": 300.0,
+	"caracara2": 250.0,
 	"G632021": 200,
 	"mcjcw20": 150,
 	"BMWM5CS": 150,
@@ -41,8 +45,8 @@ const VehicleWeightOverrides = {
 	"db11": 150,
 	"sadler": 300,
 	"scrap": 300,
-	"bison": 300,
-	"bison2": 300,
+	"bison": 200,
+	"bison2": 200,
 	"raptor150": 150,
 	"sh350": 150,
 }

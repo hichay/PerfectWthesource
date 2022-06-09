@@ -39,7 +39,6 @@ Citizen.CreateThread(function()
 end)
 
 
-
 RegisterNetEvent('truck_logistics:open')
 AddEventHandler('truck_logistics:open', function(dados,update)
 	-- Calcula a distancia e recompensa para cada contrato

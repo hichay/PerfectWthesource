@@ -92,7 +92,7 @@ Config.Customs = { -- Multiple Shop Start
     },
 
 	['Custom Garage'] = { -- Shop id -- Custom Map Tuner Garage (2372 Build only, canary and release) IPL and Int https://forum.cfx.re/t/free-mlo-tuner-auto-shop/4247145
-		job = 'police', -- job name permmision for this shop
+		job = 'tunner2', -- job name permmision for this shop
 		min_grade = 0, -- min grade to access the whole shop feature
 		radius = 30, -- radius for whole shop
 		stockroom = {coord = vector4(818.46160888672,-969.87396240234,26.10876083374,269.27597045898), grade = 0},

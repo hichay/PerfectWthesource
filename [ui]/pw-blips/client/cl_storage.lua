@@ -157,4 +157,4 @@ end
 
 exports("tryGet", tryGet)
 exports("remove", remove)
-exports("set", set)
+exports("Setstorage", Setstorage)

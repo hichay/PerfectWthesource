@@ -23,9 +23,9 @@ AddEventHandler('renzu_customs:Solo', function(garage,garage_id)
         },
         options = {
             distance = { radius = 1.5 },
-            isEnabled = function(pEntity, pContext)
+            --[[ isEnabled = function(pEntity, pContext)
                 return ShopPermmision(currentprivate,'paintmenu')
-            end, 
+            end,  ]]
         }
     }
 

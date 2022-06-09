@@ -167,9 +167,9 @@ MenuItems['police:frisk'] = {
 MenuItems['police:search'] = {
   data = {
       id = "peds-search",
-      title = "Kiểm tra",
+      title = "Kiểm tra túi đồ",
       icon = "#cuffs-check-inventory",
-      event = "police:checkInventory"
+      event = "esx_policejob:peoplesearch"
   }
 }
 

@@ -486,6 +486,11 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
       var shopArray = Mechanic();
       var shopAmount = 70;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
+	} else if (secondInventory == "28") {
+      var targetinvname = targetName;
+      var shopArray = Mechanic1();
+      var shopAmount = 7;
+      emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);  
 	} else if (secondInventory == "29") {
 	  var targetinvname = targetName;
 	  var shopArray = Barpub();
@@ -516,7 +521,7 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
       var shopArray = assphone();
       var shopAmount = 1;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
-    } else if (secondInventory == "28") {
+    } else if (secondInventory == "30") {
       var targetinvname = targetName;
       var shopArray = Tuner();
       var shopAmount = 4;

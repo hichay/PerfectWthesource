@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 end)
 local ServerDataDisplay = {}
 local truck,truck_blip,trailer,trailer_blip
-local empresaAtual = nil
+local empresaAtual
 local blipAtual = nil
 
 RegisterNetEvent('pw-dealership:client:syncConfig')
@@ -30,25 +30,69 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
 	TriggerServerEvent('pw-dealership:server:setFirstData')
 end)
-
 Citizen.CreateThread(function()
-	local timer = 1
-	local spawnveh = false
+	for k,v in pairs(Config.dealership_locations) do
+		local x,y,z = table.unpack(v.coord)
+		exports['pw-polytarget']:AddCircleZone("dealership_mainmenu", vector3(x,y,z), 1.0, {useZ = true})
+
+		for kk,mark in pairs(v.sell_blip_coords) do
+			local x,y,z = table.unpack(mark.dealer)
+			exports['pw-polytarget']:AddCircleZone("dealership_show", vector3(x,y,z), 1.0, {useZ = true})
+		end
+	end
+
+
+	local dealer = {
+        group = { "dealership_mainmenu" },
+        data = {
+            {
+                id = "dealership_mainmenuinteract",
+                label = "Quản lý",
+                icon = "car",
+                event = "pw-dealership:OpenDealerShip",
+                parameters = {1,empresaAtual},
+            }
+        },
+        options = {
+            distance = { radius = 1.5 },
+            --[[ isEnabled = function(pEntity, pContext)
+                return ShopPermmision(currentprivate,'paintmenu')
+            end,  ]]
+        }
+    }
+
+    exports["pw-interact"]:AddPeekEntryByPolyTarget(dealer.group, dealer.data, dealer.options)
+
+	local show = {
+        group = { "dealership_show" },
+        data = {
+            {
+                id = "dealership_showinteract",
+                label = "Xem danh sách xe",
+                icon = "car",
+                event = "pw-dealership:OpenDealerShip",
+                parameters = {2,empresaAtual},
+            }
+        },
+        options = {
+            distance = { radius = 1.5 },
+            --[[ isEnabled = function(pEntity, pContext)
+                return ShopPermmision(currentprivate,'paintmenu')
+            end,  ]]
+        }
+    }
+
+	exports["pw-interact"]:AddPeekEntryByPolyTarget(show.group, show.data, show.options)
+
 	while true do
-		timer = 2000
+		timer = 5000
 		for k,v in pairs(Config.dealership_locations) do
 			local x,y,z = table.unpack(v.coord)
 			local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
-			
 			if not menuactive and distance <= 20.0 then
-				timer = 4
-				DrawMarker_blip(x,y,z)
+				timer = 1000
 				if distance <= 1.0 then
-					DrawText3D(x,y,z-0.6, Lang[Config.lang]['open'], 0.40)
-					if IsControlJustPressed(0,Config.hotkeys.openNui) then
-						empresaAtual = k
-						TriggerServerEvent("lc_dealership:getData",empresaAtual)
-					end
+					empresaAtual = k
 				end
 
 			end
@@ -57,31 +101,46 @@ Citizen.CreateThread(function()
 				local x,y,z = table.unpack(mark.dealer)
 				local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
 				if not menuactive and distance <= 10.0 then
-					timer = 4
-					DrawMarker_blip(x,y,z)
+					timer = 1000
 					if distance <= 1.0 then
-						DrawText3D(x,y,z-0.6, Lang[Config.lang]['open_dealership'], 0.40)
-						if IsControlJustPressed(0,Config.hotkeys.openNui) then
-							empresaAtual = k
-							blipAtual = kk
-							TriggerServerEvent("lc_dealership:openDealership",empresaAtual) 
-						end
+						empresaAtual = k
+						blipAtual = kk
 					end
 				end				
 			end
-			
 		end
 		Citizen.Wait(timer)
+		
 	end
 end)
+
+RegisterNetEvent('pw-dealership:OpenDealerShip')
+AddEventHandler('pw-dealership:OpenDealerShip', function(data)
+	if data[1] == 1 then 
+		TriggerServerEvent("lc_dealership:getData",empresaAtual)
+	elseif data[1] == 2 then 
+		TriggerServerEvent("lc_dealership:openDealership",empresaAtual)
+	end
+
+end)
+
 
 Citizen.CreateThread(function()
 	while true do
 		for k,v in pairs(Config.dealership_locations) do
 			local x,y,z = table.unpack(v.coord)
 			local distance = #(GetEntityCoords(PlayerPedId()) - vector3(x,y,z))
-			if distance <= 30 and not spawnveh then 
+			if distance <= 100 and not spawnveh then 
 				Wait(1000)
+				--[[ local Spawnlist = RPC.execute('ExportSpawnList') 
+				if Spawnlist[k] ~= nil then
+					for i=1, #v.sell_blip_coords do
+						slotveh = 'slot_'..i
+						DeleteEntity(NetToVeh(Spawnlist[k][slotveh]))
+					end
+				end	
+				 ]]
+
 				local slotveh = 'slot_'
 				for i=1, #v.sell_blip_coords do
 					if not spawnveh then 
@@ -91,8 +150,8 @@ Citizen.CreateThread(function()
 				
 				end
 				spawnveh = true
-					
-			elseif distance > 30 and spawnveh == true then 
+				
+			elseif distance > 100 and spawnveh == true then 
 				local Spawnlist = RPC.execute('ExportSpawnList')
 				if Spawnlist[k] ~= nil then
 					for i=1, #v.sell_blip_coords do
@@ -106,6 +165,21 @@ Citizen.CreateThread(function()
 		Citizen.Wait(100)
 	end
 end)
+
+RegisterCommand("spawnta", function(source, args, rawCommand)
+	local Spawnlist = RPC.execute('ExportSpawnList')
+	--[[ if Spawnlist['dealer_1'] ~= nil then
+		print('spawn')
+		for i=1, #v.sell_blip_coords do
+			slotveh = 'slot_'..i
+			DeleteEntity(NetToVeh(Spawnlist[k][slotveh]))
+		end
+		spawnveh = false
+	end	 ]]
+	print(NetToVeh(Spawnlist['dealer_1']['slot_1']))
+	DeleteEntity(NetToVeh(Spawnlist['dealer_1']['slot_1']))
+	--TriggerEvent('table',Spawnlist)
+end, false)
 
 RegisterNetEvent('lc_dealership:open')
 AddEventHandler('lc_dealership:open', function(dados,update,isCustomer,isEmployee)
@@ -639,13 +713,31 @@ end)
 RegisterNetEvent('lc_dealership:getSpawnedDisplayVehicles')
 AddEventHandler('lc_dealership:getSpawnedDisplayVehicles', function(key,k,veh,vehicle,slotveh)
 
+	local vehicles = ESX.Game.GetVehiclesInArea({ x = k.x, y = k.y, z = k.z }, 1)
+
+	for k,entity in ipairs(vehicles) do
+		local attempt = 0
+
+		while not NetworkHasControlOfEntity(entity) and attempt < 100 and DoesEntityExist(entity) do
+			Wait(100)
+			NetworkRequestControlOfEntity(entity)
+			attempt = attempt + 1
+		end
+
+		if DoesEntityExist(entity) and NetworkHasControlOfEntity(entity) then
+			ESX.Game.DeleteVehicle(entity)
+		end
+	end
+	
 	if veh ~= nil then
 		DeleteEntity(NetToVeh(veh))
 	end
-	Wait(100)
+
+	Wait(500)
 	SpawnVehicle(vehicle, { x = k.x, y = k.y, z = k.z }, k.h, function(vehspawn)
 		FreezeEntityPosition(vehspawn,true)
 		local vehicleNetId = VehToNet(vehspawn)
+		SetNetworkVehicleAsGhost(vehspawn,true)
 		SetNetworkIdCanMigrate(vehicleNetId, true)
 		SetNetworkIdExistsOnAllMachines(vehicleNetId, true)
 		NetworkRegisterEntityAsNetworked(VehToNet(vehspawn))
@@ -653,6 +745,15 @@ AddEventHandler('lc_dealership:getSpawnedDisplayVehicles', function(key,k,veh,ve
 
 		--TriggerEvent('lc_dealership:createVehicleThread', key, k, veh, vehicle)
 	end)
+
+	
+	--[[ ESX.Game.SpawnLocalVehicle(vehicle, { x = k.x, y = k.y, z = k.z }, k.h, function(vehspawn)
+		local vehicleNetId = VehToNet(vehspawn)
+		print(key)
+		print(slotveh)
+		print(vehicleNetId)
+		TriggerServerEvent('lc_dealership:setSpawnedVehicles', key, slotveh, vehicleNetId)
+	end)	 ]]
 end)
 
 RegisterNetEvent('lc_dealership:createVehicleThread')
@@ -834,7 +935,7 @@ function addBlip(x,y,z,idtype,idcolor,text,scale)
 
 		if text then
 			BeginTextCommandSetBlipName("CUSTOM_TEXT")
-			AddTextComponentString(text)
+			AddTextComponentString("Cửa hàng xe "..text)
 			EndTextCommandSetBlipName(blip)
 		end
 		return blip
@@ -957,20 +1058,20 @@ RegisterNUICallback('setDisplayVeh', function(data, cb)
 			},
 		}
 	end
-    exports["np-ui"]:showContextMenu(datamenu)
+    exports["pw-context"]:showContextMenu(datamenu)
 			
 end)
 
-RegisterUICallback('lc_dealership:saveDisplayLocation', function (data, cb)
-	cb({ data = {}, meta = { ok = true, message = '' } })
-	local slot = 'slot_'..data.key[1]
+RegisterNetEvent('lc_dealership:saveDisplayLocation')
+AddEventHandler('lc_dealership:saveDisplayLocation', function(data)
+	local slot = 'slot_'..data[1]
 	local postion = {
-		x = data.key[3][1],
-		y = data.key[3][2],
-		z = data.key[3][3],
-		h = data.key[3][4]
+		x = data[3][1],
+		y = data[3][2],
+		z = data[3][3],
+		h = data[3][4]
 	}
-	TriggerServerEvent("lc_server:SaveDisplayLocation",slot, data.key[2],postion,data.key[4])
-	TriggerServerEvent('lc_dealership:getSpawnedDisplayVehicles', data.key[2], postion, data.key[4], slot)
+	TriggerServerEvent("lc_server:SaveDisplayLocation",slot, data[2],postion,data[4])
+	TriggerServerEvent('lc_dealership:getSpawnedDisplayVehicles', data[2], postion, data[4], slot)
 end)
 

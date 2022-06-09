@@ -581,6 +581,7 @@ function DrawMarkerInput(vec,msg,event,server,name,var,u)
                         end
                         Wait(100)
                         while #(vec - coord) < 3 and not cancel and inmark do coord = GetEntityCoords(ped) Wait(100) end
+                        print('day')
                         markers[name] = nil
                         break
                     end

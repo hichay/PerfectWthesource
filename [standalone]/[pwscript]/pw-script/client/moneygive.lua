@@ -21,5 +21,6 @@ end)
 
 RegisterCommand('tattuido', function()
 	TriggerEvent("closeInventoryGui")
+	SetNuiFocus(false, false)
 end, false)
 

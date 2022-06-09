@@ -1015,7 +1015,11 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         displayName = 'Cốp xe';
     } else if (targetinvName.indexOf('Craft') > -1) {
         slotLimitTarget = 100;
-        displayName = 'Crafting';
+        displayName = 'Chế tạo';
+	} else if (targetinvName.indexOf('Mechanicbox') > -1) {
+        secondaryMaxWeight = 3000.0;
+        slotLimitTarget = 65;
+        displayName = 'Kho doanh nghiệp';	
     } else if (targetinvName.indexOf('hidden') > -1) {
         secondaryMaxWeight = 2000.0;
         slotLimitTarget = 200;

@@ -1,0 +1,17 @@
+"filename", "language", "Lua", "HTML", "CSS", "JavaScript", "comment", "blank", "total"
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\app.js", "JavaScript", 0, 0, 0, 22, 9, 11, 42
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\client\main.lua", "Lua", 212, 0, 0, 0, 0, 19, 231
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\config.lua", "Lua", 7, 0, 0, 0, 0, 0, 7
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\fxmanifest.lua", "Lua", 26, 0, 0, 0, 2, 3, 31
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\app.js", "JavaScript", 0, 0, 0, 628, 20, 20, 668
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\bk-app.js", "JavaScript", 0, 0, 0, 56, 0, 2, 58
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\cards.js", "JavaScript", 0, 0, 0, 350, 2, 42, 394
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\deckType.js", "JavaScript", 0, 0, 0, 3, 0, 1, 4
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\index.html", "HTML", 0, 141, 0, 0, 4, 5, 150
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\html\style.css", "CSS", 0, 0, 204, 0, 9, 20, 233
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\index.html", "HTML", 0, 18, 0, 0, 4, 2, 24
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\server\class\cards.lua", "Lua", 181, 0, 0, 0, 3, 10, 194
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\server\class\deck.lua", "Lua", 689, 0, 0, 0, 4, 42, 735
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\server\main.lua", "Lua", 102, 0, 0, 0, 5, 15, 122
+"h:\Sin\txData\PlumeESX_37706F.base\resources\[lorax]\lr_tienlen\server\utils.lua", "Lua", 0, 0, 0, 0, 0, 1, 1
+"Total", "-", 1217, 159, 204, 1059, 62, 193, 2894

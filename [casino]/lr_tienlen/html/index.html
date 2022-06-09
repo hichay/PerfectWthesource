@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LR Tien Len</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+</head>
+<body style="background-color: transparent !important;">
+    <img class="preload" src="img/cards.png"/>
+    <div class="container-fluid">
+        <div id="main">
+            <div class="row main">
+                <div class="col-6 main-table">
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div>  
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item">
+                        <button type="button" class="btn btn-success">Tham gia</button>
+                    </div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>  
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div> 
+                </div>
+                <div class="col-6 main-table">
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div>  
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item">
+                        <button type="button" class="btn btn-success">Tham gia</button>
+                    </div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>  
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div> 
+                </div><div class="col-6 main-table">
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div>  
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item">
+                        <button type="button" class="btn btn-success">Tham gia</button>
+                    </div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>  
+                    <div class="main-table-item"></div>
+                    <div class="main-table-item">
+                        <div class="player">Trống</div>
+                    </div>
+                    <div class="main-table-item"></div> 
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div id="card-table">
+        
+        <div class="control">
+            <div class="grid-item">
+            </div> 
+            <div class="grid-item slot slot-1"> 
+                <div class="result"></div>
+                <!-- <div class="money-animation-remove">123123</div> -->
+                <div class="text-white name"></div>
+                <div class="text-white money"></div>
+                <button type="button" data-slot = "1" class="btn btn-warning ready">Sẵn sàng</button>
+                <button type="button" data-slot = "1" class="btn btn-success sort">Xếp bài</button>
+                <button type="button" data-slot = "1" class="btn btn-success danh">Đánh</button>
+                <button type="button" data-slot = "1" class="btn btn-danger next">Bỏ lượt</button>
+                <button type="button" data-slot = "1" class="btn btn-danger kick">Đuổi</button>
+            </div> 
+            <div class="grid-item" style="padding-top: 150px;"> 
+                <div class="time">0</div>
+            </div> 
+            <div class="grid-item  slot slot-4"> 
+                <div class="result"></div>
+                <!-- <div class="money-animation">123123</div> -->
+                <div class="text-white name"></div>
+                <div class="text-white money"></div>
+                <button type="button" data-slot = "4" class="btn btn-warning ready">Sẵn sàng</button>
+                <button type="button" data-slot = "4" class="btn btn-success sort">Xếp bài</button>
+                <button type="button" data-slot = "4" class="btn btn-success danh">Đánh</button>
+                <button type="button" data-slot = "4" class="btn btn-danger next">Bỏ lượt</button>
+                <button type="button" data-slot = "4" class="btn btn-danger kick">Đuổi</button>
+            </div>
+            <div class="grid-item">
+            </div> 
+            <div class="grid-item  slot slot-2"> 
+                <div class="result"></div>
+                <!-- <div class="money-animation">123123</div> -->
+                <div class="text-white name"></div>
+                <div class="text-white money"></div>
+                <button type="button" data-slot = "2" class="btn btn-warning ready">Sẵn sàng</button>
+                <button type="button" data-slot = "2" class="btn btn-success sort">Xếp bài</button>
+                <button type="button" data-slot = "2" class="btn btn-success danh">Đánh</button>
+                <button type="button" data-slot = "2" class="btn btn-danger next">Bỏ lượt</button>
+                <button type="button" data-slot = "2" class="btn btn-danger kick">Đuổi</button>
+            </div> 
+            <div class="grid-item"> 
+            </div> 
+            <div class="grid-item  slot slot-3"> 
+                <div class="result"></div>
+                <!-- <div class="money-animation">123123</div> -->
+                <div class="text-white name"></div>
+                <div class="text-white money"></div>
+                <button type="button" data-slot = "3" class="btn btn-warning ready">Sẵn sàng</button>
+                <button type="button" data-slot = "3" class="btn btn-success sort">Xếp bài</button>
+                <button type="button" data-slot = "3" class="btn btn-success danh">Đánh</button>
+                <button type="button" data-slot = "3" class="btn btn-danger next">Bỏ lượt</button>
+                <button type="button" data-slot = "3" class="btn btn-danger kick">Đuổi</button>
+            </div>
+            <div class="grid-item"> 
+            </div>
+        </div>
+        <div class="header">
+            <button type="button" class="btn btn-danger quit">Rời bàn</button>
+        </div>
+        
+    </div>
+    <script src="deckType.js"></script>
+    <script src="cards.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

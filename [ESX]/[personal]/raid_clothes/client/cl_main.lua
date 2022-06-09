@@ -1012,6 +1012,16 @@ AddEventHandler("raid_clothes:hasEnough", function(menu)
     OpenMenu(menu)
 end)
 
+RegisterNetEvent("raid_clothes:admin:open")
+AddEventHandler("raid_clothes:admin:open", function(name)
+    OpenMenu(name)
+end)
+
+RegisterNetEvent("raid_clothes:police:open")
+AddEventHandler("raid_clothes:police:open", function(name)
+    OpenMenu(name)
+end)
+
 local healthBuffModels = {
     [`a_c_raccoon_01`] = true,
     [`a_c_racoon_01`] = true,

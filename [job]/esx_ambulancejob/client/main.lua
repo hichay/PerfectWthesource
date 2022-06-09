@@ -21,12 +21,16 @@ Citizen.CreateThread(function()
 	exports["pw-polytarget"]:AddCircleZone("pillbox_checkin", vector3(307.57711, -595.4158, 43.284065), 0.4, {
 		useZ=true,
 	})
+	
+	exports["pw-polytarget"]:AddCircleZone("pillbox_checkin", vector3(1833.2602, 3676.122, 34.277412), 0.4, {
+		useZ=true,
+	})
 
 	exports['pw-interact']:AddPeekEntryByPolyTarget('pillbox_checkin', {
         {
             id = "check_in_hospial",
             event = "pw-ems:checkIn",
-            icon = "clipboard-list-check",
+            icon = "file-pen",
             label = "Làm thủ tục nhập viện"
         }
     

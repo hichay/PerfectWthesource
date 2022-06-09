@@ -26,9 +26,9 @@ Config.sell_vehicles = {
 -- You can add as many locations as you want, just use the location already created as an example
 Config.dealership_locations = {
 	["dealer_1"] = {															-- ID
-		['buy_price'] = 100000000000000000,													-- Price to buy this dealership
+		['buy_price'] = 10,													-- Price to buy this dealership
 		['sell_price'] = 0,												-- Price to sell this dealership
-		['coord'] = {-781.79, -211.32, 37.15},									-- Coordinate to open the menu
+		['coord'] = {-782.833, -211.0625, 37.152732},									-- Coordinate to open the menu
 		['truck_coord'] = {-780.39,-195.95,37.28,212.62},				-- Garage coordinates, where the trucks will spawn (coordinates composed of x, y, z, h)
 		['trailer_coord'] = {-792.12,-175.69,37.28,206.94},						-- Garage coordinates, where the trailers will spawn (coordinates composed of x, y, z, h)
 		['test_drive'] = {
@@ -44,25 +44,32 @@ Config.dealership_locations = {
 		['cutomers_garage_coord'] = {-773.96,-234.34,37.15,209.38},				-- Customers garage coordinates, where the bought vehicles will spawn (coordinates composed of x, y, z, h)
 		['sell_blip_coords'] = {												-- The coordinates where customers will buy things on this dealership (coordinates composed of x, y, z)
 			{
-				['dealer'] = {-792.64, -227.43, 37.15}, --- vi tri doi xe
-				['preview'] = {-795.38,-228.3,37.15,90.72}  --- vi tri xe xuat hien de xem
+				['dealer'] = {-789.51, -210.61, 37.0}, --- vi tri doi xe
+				['preview'] = {-788.01, -207.28, 37.117, 119.26}  --- vi tri xe xuat hien de xem
 			},
 			{
-				['dealer'] = {-788.65, -221.54, 37.15},
-				['preview'] = {-792.84,-218.45,37.41,306.26} 
+				['dealer'] = {-799.50, -217.1016, 37.0}, --- vi tri doi xe
+				['preview'] = {-803.64, -214.42, 37.05}  --- vi tri xe xuat hien de xem
 			},
+			
 			{
-				['dealer'] = {-790.03, -210.91, 37.15},
-				['preview'] = {-787.84,-206.84,37.21,115.42} 
+				['dealer'] = {-795.191, -224.5611, 37.0},
+				['preview'] = {-795.47, -228.51, 37.07} 
 			},
+			
 			{
-				['dealer'] = {-788.96, -234.67, 37.16},
-				['preview'] = {-791.96,-234.67,37.16,87.13}
+				['dealer'] = {-791.2497, -231.4036, 37.0},
+				['preview'] = {-791.06, -235.97, 37.07} 
+			},
+
+			{
+				['dealer'] = {-786.8943, -238.8792, 37.0},
+				['preview'] = {-786.73, -242.72, 37.07}
 			}
 		},
-		['type'] = 'Super_dealer',			 									-- Insert here the dealership type ID
+		['type'] = 'cpg_dealer',			 									-- Insert here the dealership type ID
 	},
-	["dealer_2"] = {
+	--[[ ["dealer_2"] = {
 		['buy_price'] = 100000000000000000,
 		['sell_price'] = 0,
 		['coord'] = {1221.03, 2738.74, 38.01},
@@ -152,11 +159,250 @@ Config.dealership_locations = {
 			}
 		},
 		['type'] = 'Bikes_dealer',
-	},
+	}, ]]
 }
 
 -- Here you configure each type of dealership available to buy
 Config.dealership_types = {
+	['cpg_dealer'] = {								-- Dealership type ID
+		['stock_capacity'] = 150,					-- Max stock capacity
+		['max_employees'] = 5,						-- Max employees
+		['vehicles'] = 										-- Here you configure the vehicles on this dealership
+			--SUV
+			{
+			['patriot'] = {							-- Tên gọi xe
+				['name'] = "Patriot",					-- Tên xe
+				['price_to_customer'] = 36750,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 35000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974678502123143198/patriot.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 0						-- Set on which page this vehicle will appear
+			},
+			['dubsta'] = {							-- Tên gọi xe
+				['name'] = "Dubsta Luxuary",					-- Tên xe
+				['price_to_customer'] = 58800,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 56,000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 80000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_suvs_main_dubsta.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 0						-- Set on which page this vehicle will appear
+			},	
+			['toros'] = {							-- Tên gọi xe
+				['name'] = "Toros",					-- Tên xe
+				['price_to_customer'] = 70000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 66500,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 80000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_suvs_main_toros.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 0						-- Set on which page this vehicle will appear
+			},	
+			['contender'] = {							-- Tên gọi xe
+				['name'] = "Contender",					-- Tên xe
+				['price_to_customer'] = 68800,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 56000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 80000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_suvs_main_contender.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 0						-- Set on which page this vehicle will appear
+			},				
+			--motocycle
+			['sanchez2'] = {
+				['name'] = "Sanchez",
+	 			['price_to_customer'] = 24500,
+	 			['price_to_owner'] = 23000,
+				['price_to_export'] = 5000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974710145252728852/sanchez2.png',
+	 			['page'] = 1
+	 		},
+			 ['bf400'] = {
+				['name'] = "Nagasaki BF400",
+	 			['price_to_customer'] = 31500,
+	 			['price_to_owner'] = 29000,
+				['price_to_export'] = 5000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/bf400.jpg',
+	 			['page'] = 1
+	 		},
+			 --Vans
+			['bison'] = {							-- Tên gọi xe
+				['name'] = "Bison",					-- Tên xe
+				['price_to_customer'] = 35000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 315000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974706453824831529/bison.png',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 2						-- Set on which page this vehicle will appear
+			},	
+			['bison'] = {							-- Tên gọi xe
+				['name'] = "Bison",					-- Tên xe
+				['price_to_customer'] = 42000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 39000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_vans_main_bison.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 2						-- Set on which page this vehicle will appear
+			},	
+		 	--Off Road
+			['everon'] = {							-- Tên gọi xe
+				['name'] = "Everon",					-- Tên xe
+				['price_to_customer'] = 49000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 46000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_everon.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 3						-- Set on which page this vehicle will appear
+			},	
+			['kamacho'] = {							-- Tên gọi xe
+				['name'] = "Kamacho",					-- Tên xe
+				['price_to_customer'] = 56000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 53000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_kamacho.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 3						-- Set on which page this vehicle will appear
+			},	
+			['caracara2'] = {							-- Tên gọi xe
+				['name'] = "Caracara2",					-- Tên xe
+				['price_to_customer'] = 70000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 66500,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_caracara-4x4.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 3						-- Set on which page this vehicle will appear
+			},
+			['reaper'] = {
+				['name'] = "Pegassi Reaper",
+	 			['price_to_customer'] = 105000,
+	 			['price_to_owner'] = 98000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_super_main_reaper.webp',
+	 			['page'] = 3
+	 		},	
+			 --sport
+			['coquette4'] = {							-- Tên gọi xe
+				['name'] = "Coquette D10",					-- Tên xe
+				['price_to_customer'] = 105000,		-- Giá khách hàng mua xe
+				['price_to_owner'] = 98000,			-- Giá chủ sở hữu trả khi nhập xe về cửa hàng
+				['price_to_export'] = 8000,			-- Giá phân hủy xe 
+				['amount_to_owner'] = 1,			-- Số lượng 1 lần nhập
+				['max_stock'] = 150,					-- Số lượng trữ trong kho 
+				['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports_main_coquette-d10.webp',	-- Image file name of this vehicle inside nui/img (it can be a URL too)
+				['page'] = 4						-- Set on which page this vehicle will appear
+			},	
+			['neon'] = {
+				['name'] = "Neon",
+	 			['price_to_customer'] = 129000,
+	 			['price_to_owner'] = 122000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974695747129856010/neon.png',
+	 			['page'] = 4
+	 		},
+			['ruston'] = {
+				['name'] = "Ruston",
+	 			['price_to_customer'] = 115000,
+	 			['price_to_owner'] = 105000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://media.discordapp.net/attachments/974185293982879755/974690502387585057/ruston.png',
+	 			['page'] = 4
+	 		},
+			['cypher'] = {
+				['name'] = "Übermacht Cypher",
+	 			['price_to_customer'] = 91000,
+	 			['price_to_owner'] = 85000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports_main_cypher.webp',
+	 			['page'] = 4
+	 		},
+			 --super
+			['italirsx'] = {
+				['name'] = "Itali RSX",
+	 			['price_to_customer'] = 210000,
+	 			['price_to_owner'] = 199000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports_main_itali-rsx.webp',
+	 			['page'] = 5
+	 		},
+			['tyrant'] = {
+				['name'] = "Overflod Tyrant",
+	 			['price_to_customer'] = 245000,
+	 			['price_to_owner'] = 230000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_super_main_tyrant.webp',
+	 			['page'] = 5
+	 		},
+			['emerus'] = {
+				['name'] = "Progen Emerus",
+	 			['price_to_customer'] = 280000,
+	 			['price_to_owner'] = 266000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_super_main_emerus.webp',
+	 			['page'] = 5
+	 		},
+			['furia'] = {
+				['name'] = "Grotti Furia",
+	 			['price_to_customer'] = 210000,
+	 			['price_to_owner'] = 199000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_super_main_furia.webp',
+	 			['page'] = 5
+	 		},
+			['nero2'] = {
+				['name'] = "Truffade Nero Custom",
+	 			['price_to_customer'] = 336000,
+	 			['price_to_owner'] = 315000,
+				['price_to_export'] = 80000,
+	 			['amount_to_owner'] = 1,
+				['max_stock'] = 10,
+	 			['img'] = 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_super_main_nero-custom.webp',
+	 			['page'] = 5
+	 		},
+	},	
+	['pagination'] = {
+		[0] = "SUV",
+		[1] = "Motorcycles",
+		[2] = "Vans",
+		[3] = "Off-road",
+		[4] = "Sports", 
+		[5] = "Super",
+
+	},
+	['blips'] = {
+		['id'] = 669,
+		['name'] = "~r~Cypher Gang",
+		['color'] = 3,
+		['scale'] = 1.0,
+	}
+},	
+	
 	['main_dealer'] = {								-- Dealership type ID
 		['stock_capacity'] = 150,					-- Max stock capacity
 		['max_employees'] = 5,						-- Max employees
@@ -1136,7 +1382,7 @@ Config.dealership_types = {
 	
 	['Super_dealer'] = {
 	 	['stock_capacity'] = 300,
-		 ['max_employees'] = 5,
+		['max_employees'] = 5,
 		['vehicles'] = {
 	 		['ninef'] = {
 				['name'] = "9F",

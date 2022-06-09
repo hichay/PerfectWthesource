@@ -246,8 +246,8 @@ exports["pw-context"]:showContextMenu(data)
 end)
 
 
-RegisterNetEvent('pw-mechanicjob:VehicleList', function()
- 
+RegisterNetEvent('pw-mechanicjob:VehicleList', function(location)
+  print(location)
 	--for k, v in pairs(Config.Vehicles) do
   local data = {}
   for k, v in pairs(Config.Vehicles) do
@@ -258,10 +258,35 @@ RegisterNetEvent('pw-mechanicjob:VehicleList', function()
           action = "pw-mechanicjob:SpawnListVehicle",
           key = {
               model = k,
+              pos = location
           },
       
     }
   end
 		
   exports["pw-context"]:showContextMenu(data)
+end)
+
+RegisterNetEvent('pw-mechanicjob:SpawnListVehicle')
+AddEventHandler('pw-mechanicjob:SpawnListVehicle', function(data)
+    local model = data.model
+    local coord = data.pos
+    print(model)
+    print(data.pos)
+    local coords = {
+        x = coord[1].x,
+        y = coord[1].y,
+        z = coord[1].z,
+        w = coord[2],
+    }
+    local plate = "AC"..math.random(1111, 9999)
+    ESX.Game.SpawnVehicleqb(model, function(veh)
+        SetVehicleNumberPlateText(veh, "ACBV"..tostring(math.random(1000, 9999)))
+        SetEntityHeading(veh, coords.h)
+        exports['pw-fuel']:SetFuel(veh, 100.0)
+        --Menu.hidden = true
+        TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+        TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
+        SetVehicleEngineOn(veh, true, true)
+    end, coords, true)
 end)
