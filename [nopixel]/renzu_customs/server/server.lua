@@ -242,7 +242,7 @@ end
 RegisterServerEvent('renzu_customs:syncdel')
 AddEventHandler('renzu_customs:syncdel', function(net)
     local source = source
-    print(net)
+    --print(net)
     TriggerClientEvent('renzu_customs:syncdel',-1,net)
 end)
 

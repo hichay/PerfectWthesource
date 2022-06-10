@@ -380,7 +380,7 @@ let recentused = [];
 RegisterNuiCallbackType('SlotJustUsed');
 on('__cfx_nui:SlotJustUsed', (data, cb) => {
     let target = data.targetslot;
-    if (target < 5 && data.MyInvMove) {
+    if (target < 6 && data.MyInvMove) {
         Rebind(target, data.itemid);
     }
     if (data.move) {
@@ -716,7 +716,7 @@ function CacheBinds(sqlInventory) {
         if (typeof sqlInventory[i] === "undefined") continue; //Temp fix? 
 
         let slot = sqlInventory[i].slot;
-        if (slot < 5) {
+        if (slot < 6) {
             boundItems[slot] = sqlInventory[i].item_id;
             boundItemsInfo[slot] = sqlInventory[i].information;
             if (!isNaN(boundItems[slot])) {
@@ -775,7 +775,7 @@ on('inventory-bind', (slot) => {
         return;
     } */
     let cid = exports.isPed.isPed("cid");
-    let inventoryUsedName = 'ply-' + plySteam;
+    let inventoryUsedName = '' + plySteam;
     let itemid = boundItems[slot];
     let isWeapon = true;
     if (isNaN(itemid)) {

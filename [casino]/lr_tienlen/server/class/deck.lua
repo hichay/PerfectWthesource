@@ -7,7 +7,7 @@ function Deck:Create(options)
     o.started = false
     o.cards = nil
     o.deckCards = {}
-    o.waitTime = 5
+    o.waitTime = 30
     o.nhat = options.nhat
     o.nhi = options.nhi
     o.caxi = options.caxi

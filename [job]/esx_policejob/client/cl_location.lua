@@ -15,17 +15,26 @@ local zoneData = {
         promptText = "[E] Tủ quần áo & Tủ Đồ",
         menuData = {
             {
+				icon = 'box-open'
                 title = "Tủ cá nhân",
                 description = "",
                 action = "pw-police:handler",
                 key = EVENTS.LOCKERS
             },
             {
-                title = "Tủ đồ",
+				icon = 'shirt',
+                title = "Chỉnh quần áo",
                 description = "",
                 action = "pw-police:handler",
                 key = EVENTS.CLOTHING
-            }
+            },
+			{
+				icon = 'shirt',
+                title = "Tủ đồ",
+                description = "",
+                action = "pw-police:handler",
+                key = EVENTS.OUTFIT
+            },
         }
     },
     mrpd_armory = {
@@ -245,7 +254,11 @@ AddEventHandler("pw-police:handler", function(eventData)
     elseif eventData == EVENTS.CLOTHING then
         exports["pw-interaction"]:hideInteraction()
         Wait(500)
-        TriggerEvent("raid_clothes:openClothing", true, true)
+        TriggerEvent("raid_clothes:openClothing", true, false)
+	elseif eventData == EVENTS.OUTFIT then
+        exports["pw-interaction"]:hideInteraction()
+        Wait(500)
+        TriggerServerEvent("raid_clothes:list_outfits")	
     elseif eventData == EVENTS.EVIDENCE and job == 'police' then
         if job == "cid" then
             local input = exports["pw-input"]:showInput({

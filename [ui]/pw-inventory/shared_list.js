@@ -4009,7 +4009,7 @@ itemList['coffee'] = {
   decayrate: 0.01,
   displayname: 'Cà phê',
   craft: [[{ itemid: 'foodingredient', amount: 2 }]],
-  price: 50,
+  price: 15,
   weight: 1,
   nonStack: false,
   model: '',
@@ -6983,13 +6983,13 @@ itemList['katana'] = {
 itemList['keyfob'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Key Fob',
-  price: 50,
+  displayname: 'Chìa điện tử',
+  price: 200,
   weight: 1,
   nonStack: false,
   model: '',
   image: 'np_keyfob.png',
-  information: 'Used for opening doors remotely.',
+  information: 'Sử dụng mở cửa xa.',
 };
 
 itemList['key1'] = {
@@ -15560,7 +15560,7 @@ itemList['weapon_uzi_woodstock'] = {
 itemList['2343591895'] = {
   fullyDegrades: false,
   decayrate: 2.0,
-  displayname: 'Flash Light',
+  displayname: 'Đèn Pin',
   price: 250,
   weight: 11,
   nonStack: true,
@@ -15800,6 +15800,19 @@ itemList['pdevidencebag'] = {
   nonStack: true,
   model: '',
   image: 'np_evidence_bag.png',
+};
+
+itemList['mdtpd'] = {
+  fullyDegrades: true,
+  deg: true,
+  decayrate: 0.075,
+  displayname: 'MDT',
+  price: 20,
+  weight: 1,
+  nonStack: true,
+  model: '',
+  image: 'np_heist_pad_blue.png',
+  information: 'Sử dụng MDT không cần xe.',
 };
 
 itemList['smallcrate'] = {
@@ -19157,7 +19170,7 @@ itemList['spraycan'] = {
   _name: 'spraycan',
   fullyDegrades: true,
   decayrate: 0.066,
-  displayname: 'Spray Can',
+  displayname: 'Bình sơn',
   price: 500,
   weight: 2,
   nonStack: true,
@@ -21013,7 +21026,6 @@ itemList["negg"] = {fullyDegrades: true,  decayrate: 0.4, displayname: "Napoleon
 
 itemList["carradio"]	    = {fullyDegrades: true, decayrate: 2.0, displayname: "Car radio",       craft: [ {itemid: "electronics", amount: 100 }, {itemid: "rubber", amount: 80 },{itemid: "scrapmetal", amount: 20 }, {itemid: "glass", amount: 20 } ], price: 1000, weight: 5,   nonStack: false, model: "", image: "np_tuner.png", information: "Dùng để bật nhạc trên xe..", deg: false, esxuse: true}
 
-itemList["keyfob"]	    = {fullyDegrades: true, decayrate: 5.0, displayname: "Chìa điện tử",       craft: [ {itemid: "electronics", amount: 100 } ], price: 500, weight: 0,   nonStack: false, model: "", image: "np_keyfob.png", information: "Dùng để mở cửa từ xa..", deg: false, esxuse: true}
 
 itemList["cameravirus"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Virus Camera", price: 1, weight: 0, nonStack: false, model:  "", image: "np_securitykey.png", information: "Dùng để hack vào hệ thống camera.", deg: false }
 

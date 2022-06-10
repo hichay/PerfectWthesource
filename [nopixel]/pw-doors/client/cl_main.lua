@@ -250,7 +250,7 @@ AddEventHandler("pw-doors:doorKeyFob", function()
         local entity = exports['pw-interact']:GetEntityPlayerIsLookingAt(10.0, 2.0, 16)
 
         if not entity then
-            return TriggerEvent("DoLongHudText","Door not found.",2)
+            return TriggerEvent("DoLongHudText","Không tìm thấy cửa.",2)
         end
     
         if printEntityDetails then
@@ -266,9 +266,11 @@ AddEventHandler("pw-doors:doorKeyFob", function()
 
 
     if not doorId then
-        return TriggerEvent("DoLongHudText","Door not found.",2)
+        return TriggerEvent("DoLongHudText","Không mở được cửa này.",2)
     end
+	print(doorId)
 	print(hasSecuredAccess(doorId, 'door'))
+	print(AllowsKeyFob(doorId))
     if (not hasSecuredAccess(doorId, 'door') or not AllowsKeyFob(doorId)) then
         PlaySoundFromEntity(-1, "Keycard_Fail", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0);
         return TriggerEvent("DoLongHudText", "Thẻ từ không dùng cho cửa này.",2)

@@ -597,7 +597,7 @@ function PaintCar(n,vehicle)
     local ped = PlayerPedId()
     spraying = true
     custompaint = true
-    if n == 'custom' then
+    if n == 'CUSTOM' then
         custompaint = false
         SendNUIMessage({
             custompaint = true,

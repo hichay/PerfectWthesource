@@ -85,7 +85,7 @@ Config.AdminMenus = {
             {
                 ['Id'] = 'armor',
                 ['Name'] = 'Armor',
-                ['Event'] = 'varial-admin/client/armor-up',
+                ['Event'] = 'Admin:SetArmor',
                 ['Collapse'] = true,
                 ['Options'] = {
                     {

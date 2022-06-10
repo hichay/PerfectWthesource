@@ -2,10 +2,11 @@
   <Name>New CodeWalker Project</Name>
   <Version value="1" />
   <YmapFilenames>
-    <Item>bbmc_changes.ymap</Item>
-    <Item>hei_vb_33_strm_0.ymap</Item>
-    <Item>hei_vb_33_long_0.ymap</Item>
-    <Item>hei_vb_rd_strm_1.ymap</Item>
+    <Item>hei_kt1_10_strm_0.ymap</Item>
+    <Item>..\..\..\np-wuchang\stream\ymap\hei_kt1_rd_long_0.ymap</Item>
+    <Item>hei_kt1_rd_strm_0.ymap</Item>
+    <Item>hei_kt1_rd_critical_0.ymap</Item>
+    <Item>snake_pit.ymap</Item>
   </YmapFilenames>
   <YtypFilenames />
   <YbnFilenames />

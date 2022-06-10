@@ -99,7 +99,7 @@ RegisterCommand("huybancan", function(source, args, rawCommand)
 	bargain = false
 	selling = false
 	sell = false
-	thief == false
+	thief = false
 	exports["pw-interaction"]:hideInteraction()
 	
 end, false)

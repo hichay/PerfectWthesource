@@ -272,6 +272,10 @@ Citizen.CreateThread( function()
 		if (IsControlJustReleased(0,164) or IsDisabledControlJustReleased(0,164)) and not focusTaken and not isActionBarDisabled then
 			TriggerEvent("inventory-bind",4)
 		end
+		
+		if (IsControlJustReleased(0,165) or IsDisabledControlJustReleased(0,165)) and not focusTaken and not isActionBarDisabled then
+			TriggerEvent("inventory-bind",5)
+		end
 
 		if UNARMED_HASH ~= selectedWeapon and 741814745 ~= selectedWeapon and 100416529 ~= selectedWeapon then
 			DisplayAmmoThisFrame(true)

@@ -243,7 +243,7 @@ RegisterNetEvent('varial-admin/server/start-spectate', function(ServerId)
     end
 
     -- Make Check for Spectating
-    local SteamIdentifier = GetIdentiy(src, "steam")
+    local SteamIdentifier = ESX.GetPlayerFromId(src).identifier
     if SpectateData[SteamIdentifier] ~= nil then
         SpectateData[SteamIdentifier]['Spectating'] = true
     else
@@ -334,13 +334,13 @@ end)
 
 -- Player Actions
 
-RegisterNetEvent("varial-admin/server/toggle-godmode", function(ServerId)
-    TriggerClientEvent('varial-admin/client/toggle-godmode', ServerId)
+RegisterNetEvent("Admin:Server:Toggle-Godmode", function(ServerId)
+    TriggerClientEvent('Admin:client:Toggle-Godmode', ServerId)
 end)
 
 RegisterNetEvent("varial-admin/server/set-food-drink", function(ServerId)
     local src = source
-
+    --TriggerClientEvent('Admin:client:Toggle-Godmode', ServerId)
     local TPlayer = GetPlayerrr(ServerId)
     if TPlayer ~= nil then
         TPlayer.Functions.SetMetaData('thirst', 100)

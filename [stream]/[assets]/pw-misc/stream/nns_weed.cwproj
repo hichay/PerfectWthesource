@@ -2,10 +2,10 @@
   <Name>New CodeWalker Project</Name>
   <Version value="1" />
   <YmapFilenames>
-    <Item>lr_cs6_03_interior_v_genbank_milo_.ymap</Item>
+    <Item>bkr_biker_interior_placement_interior_3_biker_dlc_int_ware02_milo_.ymap</Item>
   </YmapFilenames>
   <YtypFilenames>
-    <Item>v_int_10.ytyp</Item>
+    <Item>bkr_biker_dlc_int_ware02.ytyp</Item>
   </YtypFilenames>
   <YbnFilenames />
   <YndFilenames />
@@ -13,4 +13,8 @@
   <TrainsFilenames />
   <ScenarioFilenames />
   <AudioRelFilenames />
+  <YdrFilenames />
+  <YddFilenames />
+  <YftFilenames />
+  <YtdFilenames />
 </CodeWalkerProject>

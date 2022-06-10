@@ -123,7 +123,6 @@ end)
 
 RegisterServerEvent("raid_clothes:insert_character_face")
 AddEventHandler("raid_clothes:insert_character_face",function(data)
-    print(json.encode(data.hairColor))
     if not data then return end
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)

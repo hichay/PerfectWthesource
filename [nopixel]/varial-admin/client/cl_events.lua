@@ -6,7 +6,7 @@ local BlipsEnabled, NamesEnabled, GodmodeEnabled, AllPlayerBlips = false, false,
 
 RegisterNetEvent("Admin:Godmode", function(Result)
     if IsPlayerAdmin() then
-        TriggerServerEvent('varial-admin/server/toggle-godmode', Result['player'])
+        TriggerServerEvent('Admin:Server:Toggle-Godmode', Result['player'])
     end
 end)
 
@@ -339,7 +339,7 @@ RegisterNetEvent("Admin:OpenInv", function(Result)
 end)
 -- [ Triggered Events ] --
 
-RegisterNetEvent("varial-admin/client/toggle-godmode", function()
+RegisterNetEvent("Admin:client:Toggle-Godmode", function()
     GodmodeEnabled = not GodmodeEnabled
 
     local Msg = GodmodeEnabled and 'enabled.' or 'disabled.'
@@ -389,7 +389,7 @@ RegisterNetEvent('varial-admin/client/set-model', function(Model)
     SetPedComponentVariation(PlayerPedId(), 0, 0, 0, 0)
 end)
 
-RegisterNetEvent('varial-admin/client/armor-up', function()
+RegisterNetEvent('Admin:SetArmor', function()
     SetPedArmour(PlayerPedId(), 100)
 end)
 

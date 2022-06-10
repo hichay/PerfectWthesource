@@ -8,27 +8,31 @@ function PoliceArmory() {
         { item_id: "camera", id: 0, name: "Shop", information: "{}", slot: 3, amount: 50 },
 		{ item_id: "keyfob", id: 0, name: "Shop", information: "{}", slot: 4, amount: 50 },
         { item_id: "cuffs", id: 0, name: "Shop", information: "{}", slot: 5, amount: 50 },
-        { item_id: "pdevidencebag", id: 0, name: "Shop", information: "{}", slot: 6, amount: 50 },
-        { item_id: "detcord", id: 0, name: "Shop", information: "{}", slot: 7, amount: 50 },
-        { item_id: "IFAK", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
-        { item_id: "1737195953", id: 0, name: "Shop", information: "{}", slot: 9, amount: 5 },//baton
-        { item_id: "218362403", id: 0, name: "Shop", information: "{}", slot: 10, amount: 5 },//Sung cao su
-        { item_id: "rubberslugpd", id: 0, name: "Shop", information: "{}", slot: 11, amount: 50 },//sung cao su (ngan)
-        { item_id: "-820634585", id: 0, name: "Shop", information: "{}", slot: 12, amount: 50 },//sung dien
-        { item_id: "1834241177", id: 0, name: "Shop", information: "{}", slot: 13, amount: 50 },//sung emp
-        { item_id: "elevatorhackingdevice", id: 0, name: "Shop", information: "{}", slot: 14, amount: 50 },//hack thang may
-        { item_id: "-120179019", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },//Glock22
-        { item_id: "1192676223", id: 0, name: "Shop", information: "Police", slot: 16, amount: 5 }, //M4
-        { item_id: "-1768145561", id: 0, name: "Shop", information: "{}", slot: 17, amount: 50 }, //ScarL
-        { item_id: "-1719357158", id: 0, name: "Shop", information: "{}", slot: 18, amount: 50 }, //mk14
-        { item_id: "1432025498", id: 0, name: "Shop", information: "{}", slot: 19, amount: 50 }, //Remington 870
-        { item_id: "171789620", id: 0, name: "Shop", information: "{}", slot: 20, amount: 50 }, // Sig MPX
-        { item_id: "taserammo", id: 0, name: "Shop", information: "{}", slot: 21, amount: 50 },
-        { item_id: "rubberslugs", id: 0, name: "Shop", information: "{}", slot: 22, amount: 50 },
-        { item_id: "pistolammoPD", id: 0, name: "Shop", information: "{}", slot: 23, amount: 50 },
-        { item_id: "subammoPD", id: 0, name: "Shop", information: "{}", slot: 24, amount: 50 },
-        { item_id: "rifleammoPD", id: 0, name: "Shop", information: "{}", slot: 25, amount: 50 },
-        { item_id: "shotgunammoPD", id: 0, name: "Shop", information: "{}", slot: 26, amount: 50 },
+		{ item_id: "2343591895", id: 0, name: "Shop", information: "{}", slot: 6, amount: 50 },
+		{ item_id: "mdtpd", id: 0, name: "Shop", information: "{}", slot: 7, amount: 50 },
+        { item_id: "pdevidencebag", id: 0, name: "Shop", information: "{}", slot: 8, amount: 50 },
+        { item_id: "detcord", id: 0, name: "Shop", information: "{}", slot: 9, amount: 50 },
+        { item_id: "IFAK", id: 0, name: "Shop", information: "{}", slot: 10, amount: 50 },
+        { item_id: "1737195953", id: 0, name: "Shop", information: "{}", slot: 11, amount: 5 },//baton
+        { item_id: "218362403", id: 0, name: "Shop", information: "{}", slot: 12, amount: 5 },//Sung cao su
+        { item_id: "rubberslugpd", id: 0, name: "Shop", information: "{}", slot: 13, amount: 50 },//sung cao su (ngan)
+        { item_id: "-820634585", id: 0, name: "Shop", information: "{}", slot: 14, amount: 50 },//sung dien
+        { item_id: "1834241177", id: 0, name: "Shop", information: "{}", slot: 15, amount: 50 },//sung emp
+        { item_id: "elevatorhackingdevice", id: 0, name: "Shop", information: "{}", slot: 16, amount: 50 },//hack thang may
+        { item_id: "-120179019", id: 0, name: "Shop", information: "{}", slot: 17, amount: 50 },//Glock22
+        { item_id: "1192676223", id: 0, name: "Shop", information: "Police", slot: 18, amount: 5 }, //M4
+        { item_id: "-1768145561", id: 0, name: "Shop", information: "{}", slot: 19, amount: 50 }, //ScarL
+        { item_id: "-1719357158", id: 0, name: "Shop", information: "{}", slot: 20, amount: 50 }, //mk14
+        { item_id: "1432025498", id: 0, name: "Shop", information: "{}", slot: 21, amount: 50 }, //Remington 870
+        { item_id: "171789620", id: 0, name: "Shop", information: "{}", slot: 22, amount: 50 }, // Sig MPX
+        { item_id: "taserammo", id: 0, name: "Shop", information: "{}", slot: 23, amount: 50 },
+        { item_id: "rubberslugs", id: 0, name: "Shop", information: "{}", slot: 24, amount: 50 },
+        { item_id: "pistolammoPD", id: 0, name: "Shop", information: "{}", slot: 25, amount: 50 },
+        { item_id: "subammoPD", id: 0, name: "Shop", information: "{}", slot: 26, amount: 50 },
+        { item_id: "rifleammoPD", id: 0, name: "Shop", information: "{}", slot: 27, amount: 50 },
+        { item_id: "shotgunammoPD", id: 0, name: "Shop", information: "{}", slot: 28, amount: 50 },
+		
+		
 
 
     ];
@@ -368,6 +372,7 @@ function recycle() {
 		{ item_id: "784503678", id: 0, name: "Craft", information: "{}", slot: 22, amount: 50 },
 		{ item_id: "-1024456158", id: 0, name: "Craft", information: "{}", slot: 23, amount: 50 },
 		{ item_id: "3713923289", id: 0, name: "Craft", information: "{}", slot: 24, amount: 50 },	
+		
 		
 		
 		

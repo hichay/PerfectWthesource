@@ -387,12 +387,12 @@ local ColorInformation = {
 ]]
 
 function EnableGUI(enable)
-    local job = ESX.PlayerData.job.name
+    local job = ESX.GetPlayerData().job.name
     if job == "judge" or job == "defender" or job == "district attorney" then
         job = "doj"
     end
 
-    local jobRank = ESX.PlayerData.job.grade
+    local jobRank = ESX.GetPlayerData().job.grade
 
     if enable then
         SendNUIMessage({type = "bulletin", data = RPC.execute("pw-mdt:dashboardBulletin")})
@@ -418,12 +418,12 @@ function EnableGUI(enable)
 end
 
 function RefreshGUI()
-    local job = ESX.PlayerData.job.name
+    local job = ESX.GetPlayerData().job.name
     if job == "judge" or job == "defender" or job == "district attorney" then
         job = "doj"
     end
 
-    local jobRank = ESX.PlayerData.job.grade_name == 'boss'
+    local jobRank = ESX.GetPlayerData().job.grade_name == 'boss'
 
     SetNuiFocus(false, false)
     SendNUIMessage({
@@ -468,7 +468,7 @@ AddEventHandler("pw-mdt:publicRecords", function()
         playerStreetsLocation = area
     end
 
-    local fullName = ESX.PlayerData.firstname ..' '..ESX.PlayerData.lastname
+    local fullName = ESX.GetPlayerData().firstname ..' '..ESX.GetPlayerData().lastname
 
     SendNUIMessage({
         type = "data",
@@ -506,7 +506,7 @@ AddEventHandler("pw-mdt:open", function()
         playerStreetsLocation = area
     end
 
-    local fullName = ESX.PlayerData.firstname ..' '..ESX.PlayerData.lastname
+    local fullName = ESX.GetPlayerData().firstname ..' '..ESX.GetPlayerData().lastname
 
     SendNUIMessage({
         type = "data",
@@ -588,12 +588,12 @@ RegisterNetEvent("pw-mdt:newBulletin")
 AddEventHandler("pw-mdt:newBulletin", function(ignoreId, sentData, job)
     if ignoreId == GetPlayerServerId(PlayerId()) then return end
 
-    if job == 'police' and ESX.PlayerData.job.name == 'police' then
+    if job == 'police' and ESX.GetPlayerData().job.name == 'police' then
         SendNUIMessage({
             type = "newBulletin",
             data = sentData
         })
-    elseif job == ESX.PlayerData.job.name then
+    elseif job == ESX.GetPlayerData().job.name then
         SendNUIMessage({
             type = "newBulletin",
             data = sentData
@@ -611,12 +611,12 @@ AddEventHandler("pw-mdt:deleteBulletin", function(ignoreId, sentData, job)
     if ignoreId == GetPlayerServerId(PlayerId()) then
         return
     end
-    if job == 'police' and ESX.PlayerData.job.name == 'police' then
+    if job == 'police' and ESX.GetPlayerData().job.name == 'police' then
         SendNUIMessage({
             type = "deleteBulletin",
             data = sentData
         })
-    elseif job == ESX.PlayerData.job.name then
+    elseif job == ESX.GetPlayerData().job.name then
         SendNUIMessage({
             type = "deleteBulletin",
             data = sentData
@@ -645,7 +645,7 @@ end)
 
 RegisterNetEvent("pw-mdt:dashboardMessage")
 AddEventHandler("pw-mdt:dashboardMessage", function(sentData, job)
-    local job = ESX.PlayerData.job
+    local job = ESX.GetPlayerData().job
     if job.name == 'police' or job.name == 'ambulance' then
         SendNUIMessage({
             type = "dispatchmessage",
@@ -757,7 +757,7 @@ end)
 
 RegisterNetEvent("pw-mdt:callAttach")
 AddEventHandler("pw-mdt:callAttach", function(callid, sentData)
-    local job = ESX.PlayerData.job
+    local job = ESX.GetPlayerData().job
     if job.name == 'police' or job.name == 'ambulance' then
         SendNUIMessage({
             type = "callAttach",
@@ -775,7 +775,7 @@ end)
 
 RegisterNetEvent("pw-mdt:callDetach")
 AddEventHandler("pw-mdt:callDetach", function(callid, sentData)
-    local job = ESX.PlayerData.job
+    local job = ESX.GetPlayerData().job
     if job.name == 'police' or job.name == 'ambulance' then
         SendNUIMessage({
             type = "callDetach",
@@ -862,8 +862,8 @@ end)
 
 
 RegisterNUICallback("getAllProfiles", function(data, cb)
-    local is_police = ESX.PlayerData.job.name == 'police'
-    local is_doj = ESX.PlayerData.job.name == 'doj'
+    local is_police = ESX.GetPlayerData().job.name == 'police'
+    local is_doj = ESX.GetPlayerData().job.name == 'doj'
 
     SendNUIMessage({
         type = "profiles",
@@ -875,8 +875,8 @@ RegisterNUICallback("getAllProfiles", function(data, cb)
 end)
 
 RegisterNUICallback("searchProfiles", function(data, cb)
-    local is_police = ESX.PlayerData.job.name == 'police'
-    local is_doj = ESX.PlayerData.job.name == 'doj'
+    local is_police = ESX.GetPlayerData().job.name == 'police'
+    local is_doj = ESX.GetPlayerData().job.name == 'doj'
 
     SendNUIMessage({
         type = "profiles",
@@ -888,8 +888,8 @@ RegisterNUICallback("searchProfiles", function(data, cb)
 end)
 
 RegisterNUICallback("getProfileData", function(data, cb)
-    local is_police = ESX.PlayerData.job.name == 'police'
-    local is_doj = ESX.PlayerData.job.name == 'doj'
+    local is_police = ESX.GetPlayerData().job.name == 'police'
+    local is_doj = ESX.GetPlayerData().job.name == 'doj'
     local isLimited = (is_police == false and is_doj == false)
 
     local ProfileData = RPC.execute("pw-mdt:getProfileData", data.id)

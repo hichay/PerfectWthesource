@@ -810,5 +810,8 @@ $(document).on('keydown', function(event) {
             break;
         case 17: // TAB
             break;
+		case 71: // G
+		$.post('https://renzu_customs/ToggleCamera');
+		break;	
     }
 });

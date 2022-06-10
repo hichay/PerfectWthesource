@@ -108,7 +108,12 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
                 props = json.decode(result[1].props),
                 drawtextures = json.decode(result[1].drawtextures),
                 proptextures = json.decode(result[1].proptextures),
-                hairColor = json.decode(result[1].hairColor)
+                hairColor = json.decode(result[1].hairColor),
+				fadeStyle = json.decode(result[1].fadeStyle),
+				headBlend = json.decode(result[1].headBlend),
+				headStructure = json.decode(result[1].headStructure),
+				headOverlay = json.decode(result[1].headOverlay),
+
             }
 
             TriggerClientEvent("raid_clothes:setclothes", src, data,0)
@@ -125,7 +130,7 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
             local set = "model = @model, drawables = @drawables, props = @props,drawtextures = @drawtextures,proptextures = @proptextures"
             MySQL.query("UPDATE users SET "..set.." WHERE identifier = @identifier",values)
         else
-            TriggerClientEvent('DoLongHudText', src, "Bu slotta kıyafetiniz yok. Slot:" .. slot, 1)
+            TriggerClientEvent('DoLongHudText', src, "No outfit on slot :" .. slot, 1)
             return
         end
 	end)

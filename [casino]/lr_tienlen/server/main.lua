@@ -25,7 +25,7 @@ ESX.RegisterServerCallback("lr_tienlen:callback:sort", function(source, cb, tabl
 end)
 
 ESX.RegisterServerCallback("lr_tienlen:callback:getCardData", function(source, cb, tableIndex, cardIndex)
-    print("getCardData", cardIndex)
+    --print("getCardData", cardIndex)
     local card = Decks[tableIndex]:GetCardData(cardIndex, source)
     if card ~= nil then
         cb({
@@ -44,7 +44,7 @@ AddEventHandler("lr_tienlen:server:hit", function(tableIndex, cards)
             if Decks[tableIndex]:CanHit(cards) then
                 Decks[tableIndex]:Hit(tonumber(slot), cards)
             else
-                print(false)
+                --print(false)
             end
         else
             TriggerClientEvent("esx:showNotification", source, "Không phải lượt của bạn")
@@ -53,7 +53,7 @@ AddEventHandler("lr_tienlen:server:hit", function(tableIndex, cards)
         if Decks[tableIndex]:CanHit(cards) then
             Decks[tableIndex]:Hit(tonumber(slot), cards)
         else
-            print(false)
+            --print(false)
         end
     end
 end)
@@ -117,7 +117,7 @@ RegisterCommand("join", function(source, args , rawCommand)
     Decks[tonumber(args[1])]:Join(10, args[2])
 end)
 RegisterCommand("kickk", function(source, args, rawCommand)
-    print(args[1], args[2])
+    --print(args[1], args[2])
     Decks[tonumber(args[1])]:RequestKick(args[2], source)
 end)
 

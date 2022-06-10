@@ -1,4 +1,4 @@
-const bindSlots = [1, 2, 3, 4];
+const bindSlots = [1, 2, 3, 4, 5];
 let isDragging = false;
 let draggingid = 'none';
 let mousedown = false;
@@ -792,7 +792,7 @@ function ToggleBar(toggle, boundItems, boundItemsAmmo) {
                 "<div class='item3' ><div class='quickbind' id='bind1'> 1 </div><div class='itemname3'> unbound </div> <img src='icons/empty.png' class='itemimage'>  </div>";
         }
 
-        for (let i = 2; i < 5; i++) {
+        for (let i = 2; i < 6; i++) {
             if (boundItems[i]) {
                 image = itemList[boundItems[i]].image;
                 name = itemList[boundItems[i]].displayname;

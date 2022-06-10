@@ -10,7 +10,7 @@ Config.DisableRepair = false -- Disable Repairing before Showing Upgrade Menu
 Config.OwnedVehiclesOnly = false -- set this to False if you want to allow modifying of non owned vehicles, AKA local cars, spawned cars
 Config.DoNotShowEmptyMods = true -- hide mod menu if no available mod for current vehicle
 --JOB
--- Config.job = 'mechanic' -- Default job (job permission if job is not indicated here Config.Customs) -- OBSOLETE , Configure jobs here Config.Customs
+-- Config.job = 'mechanic321321' -- Default job (job permission if job is not indicated here Config.Customs) -- OBSOLETE , Configure jobs here Config.Customs
 Config.DefaultJobGradePermmission = 0 -- default jobgrade in each job shop (ignored if its indicated at Config.VehicleMod)
 Config.JobPermissionAll = true -- if this is true only mechanics can access even the upgrade menu (Main Menu)
 --JOB
@@ -32,9 +32,9 @@ Config.FreeUpgradeToClass = { -- want to have a free upgrade for a selected vehi
 }
 Config.EnableDiscounts = false -- discount for all jobs and per mods
 Config.JobDiscounts = { -- global discount jobs
-	['mechanic'] = 0.2, -- 0.2 == 20% , 1.0 == 100%
+	['mechanic321321'] = 0.2, -- 0.2 == 20% , 1.0 == 100%
 	['ambulance'] = 0.1,
-	['police'] = 0.15,
+	['police321321'] = 0.15,
 }
 --EXTRA OPTION
 -- Main Config END
@@ -69,7 +69,7 @@ Config.RepairCost = 1500 -- repair cost
 Config.Customs = { -- Multiple Shop Start
 
     ['Bennys'] = { -- Shop id -- Sample bennys (IPL coordinates) Change this to your liking (CHANGE COORDINATES IF CUSTOM BENNYS MAP)
-		job = 'mechanic', -- job name permmision for this shop
+		job = 'mechanic321321', -- job name permmision for this shop
 		min_grade = 0, -- min grade to access the whole shop feature
 		radius = 30, -- radius for whole shop
 		stockroom = {coord = vector4(-227.70811462402,-1322.9874267578,30.890409469604,90.902221679688), grade = 0}, -- vector 4 why the F is this vector4, x,y,z,w (heading)
@@ -120,7 +120,7 @@ Config.Customs = { -- Multiple Shop Start
 		radius = 50, -- radius for whole shop
 		stockroom = {coord = vector4(818.46160888672,-969.87396240234,26.10876083374,269.27597045898), grade = 0},
 		paintmenu = {
-			coord = vector3(917.09265, -2100.952, 30.459957), 
+			coord = vector3(916.01171, -2105.108, 30.459968), 
 			grade = 0,
 			radius = 1.50,
 			options = {
@@ -280,14 +280,14 @@ Config.VehicleMod = {
     ----------Liveries--------
 	[48] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 1.0, -- 20%
+			['mechanic321321'] = 1.0, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Liveries',
 		name = 'liveries',
@@ -302,14 +302,14 @@ Config.VehicleMod = {
 ----------Windows--------
 	[46] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Windows',
 		name = 'windows',
@@ -324,14 +324,14 @@ Config.VehicleMod = {
 ----------Tank--------
 	[45] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Intercooler',
 		name = 'tank',
@@ -346,14 +346,14 @@ Config.VehicleMod = {
 ----------Trim--------
 	[44] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Trim',
 		name = 'trim',
@@ -368,14 +368,14 @@ Config.VehicleMod = {
 ----------Aerials--------
 	[43] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Aerials',
 		name = 'aerials',
@@ -389,14 +389,14 @@ Config.VehicleMod = {
 ----------Arch cover--------
 	[42] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Arch cover',
 		name = 'archcover',
@@ -412,14 +412,14 @@ Config.VehicleMod = {
 ----------Struts--------
 	[41] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Struts',
 		name = 'struts',
@@ -434,14 +434,14 @@ Config.VehicleMod = {
 ----------Air filter--------
 	[40] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Air filter',
 		name = 'airfilter',
@@ -456,14 +456,14 @@ Config.VehicleMod = {
 ----------Engine block--------
 	[39] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Engine block',
 		name = 'engineblock',
@@ -478,14 +478,14 @@ Config.VehicleMod = {
 ----------Hydraulics--------
 	[38] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Hydraulics',
 		name = 'hydraulics',
@@ -499,14 +499,14 @@ Config.VehicleMod = {
 ----------Trunk--------
 	[37] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Trunk',
 		name = 'trunk',
@@ -522,14 +522,14 @@ Config.VehicleMod = {
 ----------Speakers--------
 	[36] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Speakers',
 		name = 'speakers',
@@ -543,14 +543,14 @@ Config.VehicleMod = {
 ----------Plaques--------
 	[35] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Plaques',
 		name = 'plaques',
@@ -565,14 +565,14 @@ Config.VehicleMod = {
 ----------Shift leavers--------
 	[34] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Shift leavers',
 		name = 'shiftleavers',
@@ -587,14 +587,14 @@ Config.VehicleMod = {
 ----------Steeringwheel--------
 	[33] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Steeringwheel',
 		name = 'steeringwheel',
@@ -609,14 +609,14 @@ Config.VehicleMod = {
 ----------Seats--------
 	[32] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Seats',
 		name = 'seats',
@@ -631,14 +631,14 @@ Config.VehicleMod = {
 ----------Door speaker--------
 	[31] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Door speaker',
 		name = 'doorspeaker',
@@ -652,14 +652,14 @@ Config.VehicleMod = {
 ----------Dial--------
 	[30] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Dial',
 		name = 'dial',
@@ -673,14 +673,14 @@ Config.VehicleMod = {
 ----------Dashboard--------
 	[29] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Dashboard',
 		name = 'dashboard',
@@ -694,14 +694,14 @@ Config.VehicleMod = {
 ----------Ornaments--------
 	[28] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Ornaments',
 		name = 'ornaments',
@@ -715,14 +715,14 @@ Config.VehicleMod = {
 ----------Trim--------
 	[27] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Trim',
 		name = 'trim',
@@ -736,14 +736,14 @@ Config.VehicleMod = {
 ----------Vanity plates--------
 	[26] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Vanity plates',
 		name = 'vanityplates',
@@ -759,14 +759,14 @@ Config.VehicleMod = {
 ----------Plate holder--------
 	[25] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Plate holder',
 		name = 'plateholder',
@@ -780,14 +780,14 @@ Config.VehicleMod = {
 ---------Back Wheels---------
 	[24] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Back Wheels',
 		name = 'backwheels',
@@ -802,14 +802,14 @@ Config.VehicleMod = {
 ---------Front Wheels---------
 	[23] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Front Wheels',
 		name = 'frontwheels',
@@ -825,14 +825,14 @@ Config.VehicleMod = {
 ---------Headlights---------
 	[22] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Headlights',
 		name = 'headlights',
@@ -847,14 +847,14 @@ Config.VehicleMod = {
 ----------Turbo---------
 	[18] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Turbo',
 		name = 'turbo',
@@ -869,14 +869,14 @@ Config.VehicleMod = {
 -----------Armor-------------
 	[16] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Armor',
 		name = 'armor',
@@ -891,14 +891,14 @@ Config.VehicleMod = {
 ---------Suspension-----------
 	[15] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Suspension',
 		name = 'suspension',
@@ -912,14 +912,14 @@ Config.VehicleMod = {
 -----------Horn----------
     [14] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
         label = 'Horn',
 		name = 'horn',
@@ -933,14 +933,14 @@ Config.VehicleMod = {
 -----------Transmission-------------
     [13] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
         label = 'Transmission',
 		name = 'transmission',
@@ -956,14 +956,14 @@ Config.VehicleMod = {
 -----------Brakes-------------
 	[12] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
         label = 'Brakes',
 		name = 'brakes',
@@ -979,14 +979,14 @@ Config.VehicleMod = {
 ------------Engine----------
 	[11] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
         label = 'Engine',
 		name = 'engine',
@@ -1002,14 +1002,14 @@ Config.VehicleMod = {
     ---------Roof----------
 	[10] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Roof',
 		name = 'roof',
@@ -1024,14 +1024,14 @@ Config.VehicleMod = {
 ------------Fenders---------
 	[8] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Fenders',
 		name = 'fenders',
@@ -1046,14 +1046,14 @@ Config.VehicleMod = {
 ------------Hood----------
 	[7] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Hood',
 		name = 'Hood',
@@ -1069,14 +1069,14 @@ Config.VehicleMod = {
 ----------Grille----------
 	[6] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Grille',
 		name = 'grille',
@@ -1091,14 +1091,14 @@ Config.VehicleMod = {
 ----------Roll cage----------
 	[5] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Roll cage',
 		name = 'rollcage',
@@ -1114,14 +1114,14 @@ Config.VehicleMod = {
 ----------Exhaust----------
 	[4] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Exhaust',
 		name = 'exhaust',
@@ -1137,14 +1137,14 @@ Config.VehicleMod = {
 ----------Skirts----------
 	[3] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Skirts',
 		name = 'skirts',
@@ -1159,15 +1159,15 @@ Config.VehicleMod = {
 -----------Rear bumpers----------
 	[2] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 			--['all'] = 0, -- all jobs?
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Rear bumpers',
 		name = 'rearbumpers',
@@ -1183,16 +1183,16 @@ Config.VehicleMod = {
 ----------Front bumpers----------
 	[1] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['ambulance'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 			--['all'] = 0, -- all jobs?
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Front bumpers',
 		name = 'frontbumpers',
@@ -1208,14 +1208,14 @@ Config.VehicleMod = {
 ----------Spoiler----------
 	[0] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Spoiler',
 		name = 'spoiler',
@@ -1230,14 +1230,14 @@ Config.VehicleMod = {
 
 	['paint1'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Primary Color',
 		name = 'paint1',
@@ -1251,14 +1251,14 @@ Config.VehicleMod = {
 	},
 	['paint2'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Secondary Color',
 		name = 'paint2',
@@ -1272,14 +1272,14 @@ Config.VehicleMod = {
 	},
 	['headlight'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Headlights',
 		name = 'headlight',
@@ -1310,14 +1310,14 @@ Config.VehicleMod = {
 	},
 	['plate'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Plate',
 		name = 'plate',
@@ -1332,14 +1332,14 @@ Config.VehicleMod = {
 	},
 	['neon'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Neon Lights',
 		name = 'neon',
@@ -1354,14 +1354,14 @@ Config.VehicleMod = {
 	},
 	['window'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Window Tints',
 		name = 'window',
@@ -1384,14 +1384,14 @@ Config.VehicleMod = {
 	},
 	['extra'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Vehicle Extra',
 		name = 'extra',
@@ -1416,14 +1416,14 @@ Config.VehicleMod = {
 if Config.UseCustomTurboUpgrade then
 	Config.VehicleMod['custom_turbo'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Custom Turbo',
 		name = 'custom_turbo',
@@ -1450,14 +1450,14 @@ end
 if Config.UseCustomEngineUpgrade then
 	Config.VehicleMod['custom_engine'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Custom Engine',
 		name = 'custom_engine',
@@ -1485,14 +1485,14 @@ end
 if Config.UseCustomTireUpgrade then
 	Config.VehicleMod['custom_tires'] = {
 		job_grade = { -- default job grade to access this Upgrade Feature (this option will work only if Config.JobPermissionAll is true
-			['mechanic'] = 0,
-			['police'] = 0,-- police is sample only change this!
+			['mechanic321321'] = 0,
+			['police321321'] = 0,-- police is sample only change this!
 			['tuner'] = 0,
 		},
 		discount = {
-			['mechanic'] = 0.2, -- 20%
+			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police'] = 0.15, -- 15%
+			['police321321'] = 0.15, -- 15%
 		},
 		label = 'Custom Tires',
 		name = 'custom_tires',
@@ -1526,7 +1526,7 @@ Config.Pilox = {
     ['tím'] =  {190, 121, 223},
     ['xám'] = {50, 50, 50},
     ['đen'] = {0, 0, 0},
-	['custom'] = {0, 0, 0}, -- do not change this is a custom for RGB
+	['CUSTOM'] = {0, 0, 0}, -- do not change this is a custom for RGB
 }
 id = 'A'
 cam = nil

@@ -154,7 +154,7 @@ function GetJobs()
         [2] = 'ambulance', 
         [3] = 'tuner',
         [4] = 'mechanic',
-        [5] = 'addmore'
+        [5] = 'addmore',
     }
 
     return JobList

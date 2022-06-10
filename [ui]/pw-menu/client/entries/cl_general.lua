@@ -33,7 +33,7 @@ GeneralEntries[#GeneralEntries+1] = {
       event = "pw-mdt:open"
     },
     isEnabled = function()
-        return not IsDisabled() and not isDead and (isPolice or isDoc or isMedic) and (IsPedInAnyVehicle(PlayerPedId(), false) and (GetVehicleClass(GetVehiclePedIsIn(PlayerPedId(),false)) == 18))
+        return not IsDisabled() and not isDead and (isPolice or isDoc or isMedic) and ((IsPedInAnyVehicle(PlayerPedId(), false) and (GetVehicleClass(GetVehiclePedIsIn(PlayerPedId(),false)) == 18)) or exports["pw-inventory"]:hasEnoughOfItem("mdtpd", 1, false))
     end
 }
 
