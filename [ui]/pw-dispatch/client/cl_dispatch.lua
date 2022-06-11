@@ -1320,7 +1320,7 @@ end
 
 RegisterNetEvent("esx:setJob")
 AddEventHandler("esx:setJob", function(job)
-    currentJob = job
+    currentJob = job.name
 end)
 
 RegisterNetEvent("pw-weathersync:currentTime", function(pHour, pMinute)

@@ -61,7 +61,7 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
             }
 
             MySQL.query("INSERT INTO character_outfits ("..cols..") VALUES ("..vals..")", values, function()
-                TriggerClientEvent('DoLongHudText', src,  name .. " isimli kıyafetiniz artık " .. slot.. ". slotta bulunuyor.", 1)
+                TriggerClientEvent('DoLongHudText', src,  name .. " đã được lưu vào vị trí số " .. slot.. ".", 1)
             end)
         end
 	end)
@@ -79,7 +79,7 @@ AddEventHandler("raid_clothes:remove_outfit",function(slot)
     if not steamid then return end
 
     MySQL.query( "DELETE FROM character_outfits WHERE steamid = @steamid AND slot = @slot", { ['steamid'] = steamid,  ["slot"] = slot } )
-    TriggerClientEvent('DoLongHudText', src, "" .. slot .. ". slottaki kıyafet silindi.", 1)
+    TriggerClientEvent('DoLongHudText', src, "" .. slot .. ". đã xóa thành công.", 1)
 end)
 
 RegisterServerEvent("raid_clothes:get_outfit")
@@ -98,7 +98,7 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
     }, function(result)
         if result and result[1] then
             if result[1].model == nil then
-                TriggerClientEvent('DoLongHudText', src, "Kullanılamıyor!", 2)
+                TriggerClientEvent('DoLongHudText', src, "Không có bộ nào!", 2)
                 return
             end
 

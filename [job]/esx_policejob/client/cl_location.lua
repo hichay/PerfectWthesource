@@ -15,7 +15,7 @@ local zoneData = {
         promptText = "[E] Tủ quần áo & Tủ Đồ",
         menuData = {
             {
-				icon = 'box-open'
+				icon = 'box-open',
                 title = "Tủ cá nhân",
                 description = "",
                 action = "pw-police:handler",
