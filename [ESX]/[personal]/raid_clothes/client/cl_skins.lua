@@ -129,6 +129,8 @@ custom_skins = {
     "gadokook",
     "ig_oozi",
     "invisible",
+	"NoctisC",
+	"NoctisE"
 }
 
 custom_skins_br = {
@@ -292,7 +294,7 @@ whitelisted_to_use_custom_skins = {
   ["STEAM_0:1:213632443"] = custom_skins,
   ["STEAM_0:1:164877247"] = custom_skins,
   ["STEAM_0:1:238928190"] = custom_skins,
-  ["STEAM_0:0:125063102"] = custom_skins,
+  ["steam:11000010be7c8b0"] = custom_skins,
 
   ["STEAM_0:1:49439860"] = custom_skins_br,
   ["STEAM_0:1:42420490"] = custom_skins_br,
@@ -352,7 +354,7 @@ function isInSkins(skin)
 end
 
 function canUseCustomSkins()
-    local steamId = RPC.execute("skins:getSteamId")
+    local steamId = RPC.execute("pw-clothes:getHex")
     for k, v in pairs(whitelisted_to_use_custom_skins) do
         if steamId == k then
             return true

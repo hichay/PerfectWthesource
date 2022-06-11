@@ -31,7 +31,7 @@ const DrawButtons = (data, back) => {
     if (back != undefined) {
         let element = `
             <div class="button" id=` + 69420 + `>
-                <div class="header" id=` + 69420 + `>` + "Quay L?i" + `</div>
+                <div class="header" id=` + 69420 + `>` + "Back" + `</div>
                 <div class="txt" id=` + 69420 + `>` + "" + `</div>
                 <div class="icon"><i class="fas fa-chevron-left"></i></div>
             </div>`

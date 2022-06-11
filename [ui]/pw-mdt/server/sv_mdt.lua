@@ -1265,11 +1265,11 @@ RPC.register("pw-mdt:getVehicleData", function(src, pPlate)
         vehicle.image = result[1].image
     end
 
-    if result[1].modifications then
-        local _modifications = json.decode(result[1].modifications)
-        if _modifications["colors"] then
-            vehicle.color1 = _modifications["colors"][1]
-            vehicle.color2 = _modifications["colors"][2]
+    if result[1].vehicle then
+        local _modifications = json.decode(result[1].vehicle)
+        if _modifications["color"] then
+            vehicle.color1 = _modifications["color1"]
+            vehicle.color2 = _modifications["color2"][2]
         end
     end
 

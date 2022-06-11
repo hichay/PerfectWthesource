@@ -70,7 +70,7 @@ AddEventHandler("raid_clothes:insert_character_current",function(data)
             return
         end
 		
-        local set = "model = @model,drawables = @drawables,props = @props,drawtextures = @drawtextures,proptextures = @proptextures"
+        local set = "model = @model, drawables = @drawables,props = @props,drawtextures = @drawtextures,proptextures = @proptextures"
         MySQL.Async.execute("UPDATE users SET "..set.." WHERE identifier = @identifier", values)
     end)
 end)
@@ -192,7 +192,7 @@ AddEventHandler("raid_clothes:get_character_current",function(pSrc)
 
     if not characterId then return end
 
-    MySQL.Async.fetchAll('SELECT model, drawables, props, drawtextures, proptextures FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
+    exports.oxmysql:execute('SELECT model, drawables, props, drawtextures, proptextures FROM users WHERE identifier = @identifier', {['@identifier'] = characterId}, function(result)
         local temp_data = {
             model = result[1].model,
             drawables = json.decode(result[1].drawables),

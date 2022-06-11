@@ -167,66 +167,58 @@ RegisterCommand("setcallsign", function(source, args)
     local identifier = xPlayer.getIdentifier()
 
     if job ~= nil then
-        if Config and Config.AllowedJobs and Config.AllowedJobs[job] ~= nil and Config.AllowedJobs[job] == true then
-            if args[1] == 'show' then
-                local Result = MySQL.Sync.fetchAll('SELECT callsign FROM users WHERE identifier=@identifier', {['@identifier'] = identifier})
-                if Result ~= nil and Result[1] ~= nil and Result[1].callsign ~= nil then
-                    if Config and Config.Server_Locales[Config.Language]['callsign_show'] ~= nil then
-                        AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_show'], Result[1].callsign)
-                    else
-                        ErrorLocale('callsign_show')
-                    end
+		if args[1] == 'show' then
+			local Result = MySQL.Sync.fetchAll('SELECT callsign FROM users WHERE identifier=@identifier', {['@identifier'] = identifier})
+			if Result ~= nil and Result[1] ~= nil and Result[1].callsign ~= nil then
+				if Config and Config.Server_Locales[Config.Language]['callsign_show'] ~= nil then
+					AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_show'], Result[1].callsign)
+				else
+					ErrorLocale('callsign_show')
+				end
 
-                else
+			else
 
-                    if Config and Config.Server_Locales[Config.Language]['callsign_empty_1'] ~= nil then
-                        AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_empty_1'])
-                    else
-                        ErrorLocale('callsign_empty_1')
-                    end
-                end
+				if Config and Config.Server_Locales[Config.Language]['callsign_empty_1'] ~= nil then
+					AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_empty_1'])
+				else
+					ErrorLocale('callsign_empty_1')
+				end
+			end
 
-            elseif args[1] == 'set' then
+		elseif args[1] == 'set' then
 
-                if args[2] ~= nil then
-                    MySQL.Sync.execute('UPDATE users SET callsign=@callsign WHERE identifier=@identifier', {['@callsign'] = args[2], ['@identifier'] = identifier})
-                    TriggerClientEvent('cd_dispatch:Callsign', _source, args[2])
-                    GlobalInfo[_source].callsign = args[2]
+			if args[2] ~= nil then
+				MySQL.Sync.execute('UPDATE users SET callsign=@callsign WHERE identifier=@identifier', {['@callsign'] = args[2], ['@identifier'] = identifier})
+				TriggerClientEvent('cd_dispatch:Callsign', _source, args[2])
+				--GlobalInfo[_source].callsign = args[2]
 
-                    if Config and Config.Server_Locales[Config.Language]['callsign_set'] ~= nil then
-                        AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_set'], args[2])
-                    else
-                        ErrorLocale('callsign_set')
-                    end
-                else
-                    if Config and Config.Server_Locales[Config.Language]['callsign_empty_2'] ~= nil then
-                        AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_empty_2'])
-                    else
-                        ErrorLocale('callsign_empty_2')
-                    end
-                end
-            elseif args[1] == 'delete' then
-                MySQL.Sync.execute('UPDATE users SET callsign=@callsign WHERE identifier=@identifier', {['@callsign'] = nil, ['@identifier'] = identifier})
-                GlobalInfo[_source].callsign = 'NULL'
-                if Config and Config.Server_Locales[Config.Language]['callsign_deleted'] ~= nil then
-                    AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_deleted'])
-                else
-                    ErrorLocale('callsign_deleted')
-                end
-            else
-                if Config and Config.Server_Locales[Config.Language]['callsign_invalidformat'] ~= nil then
-                    AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_invalidformat'])
-                else
-                    ErrorLocale('callsign_invalidformat')
-                end
-            end
-        else
-            if Config and Config.Server_Locales[Config.Language]['callsign_invalidperms'] ~= nil then
-                AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_invalidperms'])
-            else
-                ErrorLocale('callsign_invalidperms')
-            end
-        end
+				if Config and Config.Server_Locales[Config.Language]['callsign_set'] ~= nil then
+					AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_set'], args[2])
+				else
+					ErrorLocale('callsign_set')
+				end
+			else
+				if Config and Config.Server_Locales[Config.Language]['callsign_empty_2'] ~= nil then
+					AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_empty_2'])
+				else
+					ErrorLocale('callsign_empty_2')
+				end
+			end
+		elseif args[1] == 'delete' then
+			MySQL.Sync.execute('UPDATE users SET callsign=@callsign WHERE identifier=@identifier', {['@callsign'] = nil, ['@identifier'] = identifier})
+			--GlobalInfo[_source].callsign = 'NULL'
+			if Config and Config.Server_Locales[Config.Language]['callsign_deleted'] ~= nil then
+				AvengersWater('success_notif', _source, Config.Server_Locales[Config.Language]['callsign_deleted'])
+			else
+				ErrorLocale('callsign_deleted')
+			end
+		else
+			if Config and Config.Server_Locales[Config.Language]['callsign_invalidformat'] ~= nil then
+				AvengersWater('error_notif', _source, Config.Server_Locales[Config.Language]['callsign_invalidformat'])
+			else
+				ErrorLocale('callsign_invalidformat')
+			end
+		end
     end
 end)
 

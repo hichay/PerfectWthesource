@@ -11,93 +11,103 @@ RegisterNetEvent('pw-mechanicjob:MainMenu', function()
     local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
     degHealth["body"] = round(GetVehicleBodyHealth(vehicle) / 10)
     degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
-
-    local data = {
+  local data = {}
+    data = {
       {
-          title = "Kết thúc sửa chữa",
-          description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
-          action = 'pw-mechanicjob:DetachVehicle',
+        icon = 'wrench',
+        title = "Kết thúc sửa chữa",
+        description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
+        action = 'pw-mechanicjob:DetachVehicle',
       },
       {
         icon = "check",
         title = "Kiểm tra xe",
         children = {
-            
             {
+              icon = 'list-check',
               title = "1. Động cơ",
               description = "Tình trạng: " .. degHealth.engine,
               children = { 
-                { icon = "wrench", description = Config.RepairCostAmount["engine_damage"][class].label.." : ".. Config.RepairCostAmount["engine_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "engine"} },
+                { icon = "wrench", description = Config.RepairCostAmount["engine"][class].label.." : ".. Config.RepairCostAmount["engine"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "engine"} },
               },
             },
             {
-                title = "2. Thân vỏ",
-                description = "Tình trạng: " .. degHealth.body,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["body_damage"][class].label.." : ".. Config.RepairCostAmount["body_damage"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "body"} },
-                },
+              icon = 'list-check',
+              title = "2. Thân vỏ",
+              description = "Tình trạng: " .. degHealth.body,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["body"][class].label.." : ".. Config.RepairCostAmount["body"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "body"} },
+              },
             },
             
             {
-                title = "3. Ly hợp",
-                description = "Tình trạng: " .. degHealth.clutch,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["clutch"][class].label.." : ".. Config.RepairCostAmount["clutch"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "clutch"} },
-                },
+              icon = 'list-check',
+              title = "3. Ly hợp",
+              description = "Tình trạng: " .. degHealth.clutch,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["clutch"][class].label.." : ".. Config.RepairCostAmount["clutch"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "clutch"} },
+              },
             },
             {
-                title = "4. Thiết bị điện tử",
-                description = "Tình trạng: " .. degHealth.electronics,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["electronics"][class].label.." : ".. Config.RepairCostAmount["electronics"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "electronic"} },
-                },
+              icon = 'list-check',
+              title = "4. Thiết bị điện tử",
+              description = "Tình trạng: " .. degHealth.electronics,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["electronic"][class].label.." : ".. Config.RepairCostAmount["electronic"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "electronic"} },
+              },
             },
             
             {
-                title = "5. Bộ tản nhiệt động cơ",
-                description = "Tình trạng: " .. degHealth.radiator,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["radiator"][class].label.." : ".. Config.RepairCostAmount["radiator"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "radiator"} },
-                },
+              icon = 'list-check',
+              title = "5. Bộ tản nhiệt động cơ",
+              description = "Tình trạng: " .. degHealth.radiator,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["radiator"][class].label.." : ".. Config.RepairCostAmount["radiator"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "radiator"} },
+              },
             },
             {
-                title = "6. Kim phun nhiên liệu",
-                description = "Tình trạng: " .. degHealth.injector,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["injector"][class].label.." : ".. Config.RepairCostAmount["injector"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "injector"} },
-                },
+              icon = 'list-check',
+              title = "6. Kim phun nhiên liệu",
+              description = "Tình trạng: " .. degHealth.injector,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["injector"][class].label.." : ".. Config.RepairCostAmount["injector"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "injector"} },
+              },
             },
             {
-                title = "7. Trục chuyển",
-                description = "Tình trạng: " .. degHealth.transmission,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["transmission"][class].label.." : ".. Config.RepairCostAmount["transmission"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "transmission"} },
-                },
+              icon = 'list-check',
+              title = "7. Trục chuyển",
+              description = "Tình trạng: " .. degHealth.transmission,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["transmission"][class].label.." : ".. Config.RepairCostAmount["transmission"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "transmission"} },
+              },
             },
             {
-                title = "8. Lốp xe",
-                description = "Tình trạng: " .. degHealth.tire,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["tire"][class].label.." : ".. Config.RepairCostAmount["tire"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "tire"} },
-                },
+              icon = 'list-check',
+              title = "8. Lốp xe",
+              description = "Tình trạng: " .. degHealth.tire,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["tire"][class].label.." : ".. Config.RepairCostAmount["tire"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "tire"} },
+              },
             },
             {
-                title = "9. Đĩa phanh",
-                description = "Tình trạng: " .. degHealth.brake,
-                children = { 
-                  { icon = "wrench", description = Config.RepairCostAmount["brake"][class].label.." : ".. Config.RepairCostAmount["brake"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "brake"} },
-                },
+              icon = 'list-check',
+              title = "9. Đĩa phanh",
+              description = "Tình trạng: " .. degHealth.brake,
+              children = { 
+                { icon = "wrench", description = Config.RepairCostAmount["brake"][class].label.." : ".. Config.RepairCostAmount["brake"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "brake"} },
+              },
             },
             {
-                title = "10. Cây trục",
-                description = "Tình trạng: " .. degHealth.axle,
-                children = { 
-                { icon = "wrench", description = Config.RepairCostAmount["axle"][class].label.." : ".. Config.RepairCostAmount["axle"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "axle"} },
+              icon = 'list-check',
+              title = "10. Cây trục",
+              description = "Tình trạng: " .. degHealth.axle,
+              children = { 
+              { icon = "wrench", description = Config.RepairCostAmount["axle"][class].label.." : ".. Config.RepairCostAmount["axle"][class].costs ,title = "Sửa chữa bộ phận này", action = "pw-vehicles:repairVehicle", key = {name = "axle"} },
               },
             },
           },
-        },
-    },
+      },
+    }
 
     --exports["np-ui"]:showContextMenu(data)
 	exports["pw-context"]:showContextMenu(data)
@@ -184,70 +194,79 @@ RegisterNetEvent('pw-mechanicjob:Check', function()
   local degHealth = json.decode(RPC.execute("pw-vehicles:getDegradation", plate))
   degHealth["body"] = round(GetVehicleBodyHealth(vehicle) / 10)
   degHealth["engine"] = round(GetVehicleEngineHealth(vehicle) / 10)
-
-  local data = {
-    {
-        title = "Kết thúc sửa chữa",
-        description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
-        action = 'pw-mechanicjob:DetachVehicle',
-    },
-    {
-      icon = "check",
-      title = "Kiểm tra xe",
-      children = {
-          
-          {
-            title = "1. Động cơ",
-            description = "Tình trạng: " .. degHealth.engine,
-          },
-          {
-              title = "2. Thân vỏ",
-              description = "Tình trạng: " .. degHealth.body,
-          },
-          
-          {
-              title = "3. Ly hợp",
-              description = "Tình trạng: " .. degHealth.clutch,
-          },
-          {
-              title = "4. Thiết bị điện tử",
-              description = "Tình trạng: " .. degHealth.electronics,
-          },
-          
-          {
-              title = "5. Bộ tản nhiệt động cơ",
-              description = "Tình trạng: " .. degHealth.radiator,
-          },
-          {
-              title = "6. Kim phun nhiên liệu",
-              description = "Tình trạng: " .. degHealth.injector,
-          },
-          {
-              title = "7. Trục chuyển",
-              description = "Tình trạng: " .. degHealth.transmission,
-          },
-          {
-              title = "8. Lốp xe",
-              description = "Tình trạng: " .. degHealth.tire,
-          },
-          {
-              title = "9. Đĩa phanh",
-              description = "Tình trạng: " .. degHealth.brake,
-          },
-          {
-              title = "10. Cây trục",
-              description = "Tình trạng: " .. degHealth.axle,
-          },
-        },
+  local data = {}
+  data = {
+      {
+          icon = 'wrench',
+          title = "Loại xe",
+          description = "Hạng: " .. class .. " | Môtơ-mét: " .. mileage,
       },
-  },
+      {
+          icon = "check",
+          title = "Kiểm tra xe",
+          children = {
+              {
+                icon = 'searchengin',
+                title = "1. Động cơ",
+                description = "Tình trạng: " .. degHealth.engine,
+              },
+              {
+                icon = 'searchengin',
+                title = "2. Thân vỏ",
+                description = "Tình trạng: " .. degHealth.body,
+              },
 
-exports["pw-context"]:showContextMenu(data)
+              {
+                icon = 'searchengin',
+                title = "3. Ly hợp",
+                description = "Tình trạng: " .. degHealth.clutch,
+              },
+              {
+                icon = 'searchengin',
+                title = "4. Thiết bị điện tử",
+                description = "Tình trạng: " .. degHealth.electronics,
+              },
+
+              {
+                icon = 'searchengin',
+                title = "5. Bộ tản nhiệt động cơ",
+                description = "Tình trạng: " .. degHealth.radiator,
+              },
+              {
+                icon = 'searchengin',
+                title = "6. Kim phun nhiên liệu",
+                description = "Tình trạng: " .. degHealth.injector,
+              },
+              {
+                icon = 'searchengin',
+                title = "7. Trục chuyển",
+                description = "Tình trạng: " .. degHealth.transmission,
+              },
+              {
+                icon = 'searchengin',
+                title = "8. Lốp xe",
+                description = "Tình trạng: " .. degHealth.tire,
+              },
+              {
+                icon = 'searchengin',
+                title = "9. Đĩa phanh",
+                description = "Tình trạng: " .. degHealth.brake,
+              },
+              {
+                icon = 'searchengin',
+                title = "10. Cây trục",
+                description = "Tình trạng: " .. degHealth.axle,
+              },
+          },
+      },
+  }
+
+  exports["pw-context"]:showContextMenu(data)
 end)
 
 
+
 RegisterNetEvent('pw-mechanicjob:VehicleList', function(location)
-  print(location)
 	--for k, v in pairs(Config.Vehicles) do
   local data = {}
   for k, v in pairs(Config.Vehicles) do

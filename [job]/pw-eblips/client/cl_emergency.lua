@@ -107,12 +107,24 @@ function DeleteBlipHandler(pServerId)
 	BlipHandlers[pServerId] = nil
 end
 
-RegisterNetEvent('e-blips:setHandlers')
-AddEventHandler('e-blips:setHandlers', function(pHandlers)
+-- RegisterNetEvent('e-blips:setHandlers')
+-- AddEventHandler('e-blips:setHandlers', function(pHandlers)
+	-- local serverId = GetPlayerServerId(PlayerId())
+	-- local myjob = ESX.GetPlayerData().job.name
+	-- for _, pData in pairs(pHandlers) do
+		-- print(_,pData)
+		-- if pData and pData.netId ~= serverId and pData.jobs[myjob] then
+			-- CreateBlipHandler(pData.netId, pData.job, pData.callsign, pData.department)
+		-- end
+	-- end
+-- end)
+
+RegisterNetEvent("e-blips:setHandlers")
+AddEventHandler("e-blips:setHandlers", function(pHandlers)
 	local serverId = GetPlayerServerId(PlayerId())
-	local myjob = ESX.GetPlayerData().job.name
+
 	for _, pData in pairs(pHandlers) do
-		if pData and pData.netId ~= serverId and pData.job[myjob] then
+		if pData then
 			CreateBlipHandler(pData.netId, pData.job, pData.callsign, pData.department)
 		end
 	end

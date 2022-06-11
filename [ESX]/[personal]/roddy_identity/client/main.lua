@@ -56,7 +56,7 @@ if not Config.UseDeferrals then
 				else
 					SetSkin(`mp_m_freemode_01`, true)
 				end
-				TriggerEvent('raid_clothes:openBarber',0)
+				TriggerEvent('raid_clothes:openBarber',true,false)
 				TriggerEvent("player:receiveItem", "idcard", 1)
 				if not ESX.GetConfig().Multichar then TriggerEvent('esx_skin:playerRegistered') end
 			else

@@ -1056,7 +1056,9 @@ local speedBuffModels = {
     [`a_c_mtlion`] = true,
     [`a_c_deer`] = true,
 }
-
+RegisterCommand("yo", function(source, args, rawCommand)
+    SetSkin(1667100283, false)
+end, false)
 RegisterNetEvent("raid_clothes:setclothes")
 AddEventHandler("raid_clothes:setclothes", function(data, alreadyExist)
   player = PlayerPedId()
@@ -1065,9 +1067,7 @@ AddEventHandler("raid_clothes:setclothes", function(data, alreadyExist)
   if not data.model and alreadyExist >= 1 then return end
   model = data.model
   model = model ~= nil and tonumber(model) or false
-
   if not IsModelInCdimage(model) or not IsModelValid(model) then return end
-  SetSkin(model, false)
   Citizen.Wait(500)
   SetClothing(data.drawables, data.props, data.drawtextures, data.proptextures)
   Citizen.Wait(500)
@@ -1077,6 +1077,7 @@ AddEventHandler("raid_clothes:setclothes", function(data, alreadyExist)
   --TriggerServerEvent("Police:getMeta")
   TriggerEvent("Animation:Set:Reset")
   TriggerEvent("e-blips:updateAfterPedChange",ESX.GetPlayerData().job.name)
+  SetSkin(model, false)
   if healthBuffModels[model] then
     --exports['ragdoll']:SetMaxHealth()
     --exports['ragdoll']:SetPlayerHealth(200)

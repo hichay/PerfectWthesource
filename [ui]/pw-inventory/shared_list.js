@@ -11237,7 +11237,7 @@ itemList['repairtoolkit'] = {
 itemList['xfixbrake'] = {
   fullyDegrades: true,
   decayrate: 2,
-  displayname: 'Bố thắng (X)',
+  displayname: 'Phụ tùng thắng (X)',
   craft: [[
     { itemid: 'xgenericmechanicpart', amount: 5 },
   ]],
