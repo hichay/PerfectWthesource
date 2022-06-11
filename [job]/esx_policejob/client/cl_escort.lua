@@ -76,7 +76,7 @@ end
 
 RegisterNetEvent("pw-police:escort")
 AddEventHandler("pw-police:escort", function()
-	if DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
+	if exports["pw-lib"]:getVar("handcuffed") and DecorGetInt(PlayerPedId(), "escorting") == 0 and DecorGetInt(PlayerPedId(), "escorted") == 0 and DecorGetInt(PlayerPedId(), "dragging") == 0 and DecorGetInt(PlayerPedId(), "dragged") == 0 and not IsPedRagdoll(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPlayerFreeAiming(PlayerId()) then
 		local t, distance, ped = GetClosestPlayer()
 
 		if distance ~= -1 and distance < 2.0 and GetEntitySpeed(ped) < 1.0 and not IsPedInAnyVehicle(ped, false) then

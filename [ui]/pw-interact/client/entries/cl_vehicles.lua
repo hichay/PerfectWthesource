@@ -15,7 +15,7 @@ Entries[#Entries + 1] = {
     options = {
         distance = { radius = 3.0 },
         isEnabled = function(pEntity, pContext)
-            return not IsVehicleOnAllWheels(pEntity)
+            return not IsDisabled() and not IsVehicleOnAllWheels(pEntity)
         end
     }
 }
@@ -56,7 +56,7 @@ Entries[#Entries + 1] = {
         distance = { radius = 4.0 },
         isEnabled = function(pEntity, pContext)
             local lockStatus = GetVehicleDoorLockStatus(pEntity)
-            return DoesVehicleHaveDoor(pEntity, 5) and isCloseToBoot(pEntity, PlayerPedId(), 2.0, pContext.model) and (lockStatus == 1 or lockStatus == 0 or lockStatus == 4) and not isEscorting
+            return not IsDisabled() and DoesVehicleHaveDoor(pEntity, 5) and isCloseToBoot(pEntity, PlayerPedId(), 2.0, pContext.model) and (lockStatus == 1 or lockStatus == 0 or lockStatus == 4) and not isEscorting
         end
     }
 }
@@ -245,7 +245,7 @@ Entries[#Entries + 1] = {
     },
     options = {
         isEnabled = function(pEntity, pContext)
-            return polyChecks.gasStation.isInside and canRefuelHere(pEntity, polyChecks.gasStation.polyData) and not bypassedNetVehicles[VehToNet(pEntity)]
+            return not IsDisabled() and polyChecks.gasStation.isInside and canRefuelHere(pEntity, polyChecks.gasStation.polyData) and not bypassedNetVehicles[VehToNet(pEntity)]
         end
     }
 }
@@ -382,7 +382,7 @@ Entries[#Entries + 1] = {
     options = {
         distance = { radius = 1.8 },
         isEnabled = function(pEntity, pContext)
-            return hasKeys(pEntity) and not bypassedNetVehicles[VehToNet(pEntity)]
+            return not IsDisabled() and hasKeys(pEntity) and not bypassedNetVehicles[VehToNet(pEntity)]
         end
     }
 }

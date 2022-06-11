@@ -183,7 +183,7 @@ GeneralEntries[#GeneralEntries+1] = {
     event = "pw-death:medicNPC",
   },
   isEnabled = function(pEntity, pContext)
-    return isDead and not (isPolice or isMedic) and MedicOnline() == 0
+    return isDead and MedicOnline() == 0
   end
 }
 

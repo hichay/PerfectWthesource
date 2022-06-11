@@ -161,7 +161,7 @@ AddEventHandler("pw-police:getArrested", function(cuffer)
 
         exports["pw-lib"]:setVar("handcuffed", handCuffed or handCuffedWalking)
         exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isCuffed", handCuffed or handCuffedWalking)
-        TriggerEvent("police:currentHandCuffedState", handCuffed or handCuffedWalking)
+        TriggerEvent("pw-police:cuffs:state", handCuffed or handCuffedWalking)
 
         TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "handcuff", 0.4)
         TriggerEvent("DoLongHudText", "Đã bị còng!")
@@ -200,7 +200,7 @@ AddEventHandler("pw-police:uncuff", function()
 
     exports["pw-lib"]:setVar("handcuffed", handCuffed or handCuffedWalking)
     exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isCuffed", handCuffed or handCuffedWalking)
-    TriggerEvent("police:currentHandCuffedState", handCuffed or handCuffedWalking)
+    TriggerEvent("pw-police:cuffs:state", handCuffed or handCuffedWalking)
 
     exports["esx_policejob"]:setIsInBeatmode(false)
 end)
@@ -230,7 +230,7 @@ AddEventHandler("pw-police:handCuffedWalking", function()
 
 	exports["pw-lib"]:setVar("handcuffed", handCuffed or handCuffedWalking)
     exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isCuffed", handCuffed or handCuffedWalking)
-    TriggerEvent("police:currentHandCuffedState", handCuffed or handCuffedWalking)
+    TriggerEvent("pw-police:cuffs:state", handCuffed or handCuffedWalking)
 
 	TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "handcuff", 0.4)
 
@@ -246,7 +246,7 @@ AddEventHandler("pw-police:resetCuffs", function()
 
     exports["pw-lib"]:setVar("handcuffed", handCuffed or handCuffedWalking)
     exports["pw-flags"]:SetPedFlag(PlayerPedId(), "isCuffed", handCuffed or handCuffedWalking)
-    TriggerEvent("police:currentHandCuffedState", handCuffed or handCuffedWalking)
+    TriggerEvent("pw-police:cuffs:state", handCuffed or handCuffedWalking)
 end)
 
 

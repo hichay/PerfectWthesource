@@ -178,7 +178,7 @@ Citizen.CreateThread(function()
                                 local godau = exports["pw-inventory"]:hasEnoughOfItem("fishinglog",20,false)
                                 if math.random(1,100) <= Config.ChanceToGetItem then
                                     if godau then 
-                                        ESX.Notify("Túi đồ đã đầy không thể chứa thêm","error")
+                                        --ESX.Notify("Túi đồ đã đầy không thể chứa thêm","error")
                                     else
                                         TriggerEvent("player:receiveItem","fishinglog",1)     
                                         

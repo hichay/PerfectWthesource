@@ -34,7 +34,7 @@ Config.EnableDiscounts = false -- discount for all jobs and per mods
 Config.JobDiscounts = { -- global discount jobs
 	['mechanic321321'] = 0.2, -- 0.2 == 20% , 1.0 == 100%
 	['ambulance'] = 0.1,
-	['police321321'] = 0.15,
+	['tuner'] = 0.8,
 }
 --EXTRA OPTION
 -- Main Config END
@@ -287,7 +287,7 @@ Config.VehicleMod = {
 		discount = {
 			['mechanic321321'] = 1.0, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police321321'] = 0.15, -- 15%
+			['tuner'] = 1.0, -- 15%
 		},
 		label = 'Liveries',
 		name = 'liveries',
@@ -309,7 +309,7 @@ Config.VehicleMod = {
 		discount = {
 			['mechanic321321'] = 0.2, -- 20%
 			['ambulance'] = 0.1, -- 10%
-			['police321321'] = 0.15, -- 15%
+			['tuner'] = 0.15, -- 15%
 		},
 		label = 'Windows',
 		name = 'windows',

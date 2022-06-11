@@ -586,7 +586,7 @@ function AlertpersonRobbed()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Roubo a mão armada",
+        dispatchMessage = "Cướp có vũ trang",
         blipSprite = 458,
         blipColor = 0,
         job = {"police"}
@@ -615,7 +615,7 @@ function AlertpersonRobbed()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga veicular " .. dispatchCode,
+            dispatchMessage = "Thông tin " .. dispatchCode,
             job = {"police"}
         })
     end
@@ -719,7 +719,7 @@ function WeedPickup()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga Veicular " .. dispatchCode,
+            dispatchMessage = "Trốn bằng xe " .. dispatchCode,
             job = {"police"}
         })
     end
@@ -743,7 +743,7 @@ function DrugUse()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Usuário de drogas",
+        dispatchMessage = "Kẻ nghiện",
         blipSprite = 140,
         blipColor = 0,
         job = {"police"}
@@ -772,7 +772,7 @@ function DrugUse()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga Veicular " .. dispatchCode,
+            dispatchMessage = "Trốn bằng xe " .. dispatchCode,
             job = {"police"}
         })
     end
@@ -806,7 +806,7 @@ function CarCrash()
         },
         blipSprite = 380,
         blipColor = 0,
-        dispatchMessage = "Acidente veicular",
+        dispatchMessage = "Tai nạn xe cộ",
         job = {"police", "ems"}
     })
 end
@@ -856,7 +856,7 @@ function AlertPdof()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Pessoa Armada",
+        dispatchMessage = "Người có vũ trang",
         blipSprite = 110,
         blipColor = 0,
         job = {"police"}
@@ -885,7 +885,7 @@ function AlertPdof()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga Veicular " .. dispatchCode,
+            dispatchMessage = "Trốn bằng xe " .. dispatchCode,
             job = {"police"}
         })
     end
@@ -909,7 +909,7 @@ function AlertSuspicious()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Suspeito",
+        dispatchMessage = "Nghi ngờ",
         blipSprite = 362,
         blipColor = 0,
         job = {"police"}
@@ -938,7 +938,7 @@ function AlertSuspicious()
                 y = currentPos.y,
                 z = currentPos.z
             },
-            dispatchMessage = "Fuga Veicular " .. dispatchCode,
+            dispatchMessage = "Trốn bằng xe " .. dispatchCode,
             job = {"police"}
         })
     end
