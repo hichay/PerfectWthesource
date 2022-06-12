@@ -4,13 +4,13 @@ cfg.DiscordAppID = 581415681136918528
 
 cfg.discordImageName = 'monkeyb'
 cfg.hoverText = 'Tham gia ngay nào'
-cfg.richPresenceText = "[ID:" ..GetPlayerServerId(PlayerId()).. "]/128"
+--cfg.richPresenceText = "[ID:" ..GetPlayerServerId(PlayerId()).. "]/128"
 cfg.smallDiscordImageName = 'monke'
 cfg.smallHoverText = 'Monke'
 
 cfg.button1 = {
-    text = 'Vào discord',
-    url = 'discord.gg/VkMNdNGrFf'
+    text = 'Discord',
+    url = 'https://discord.gg/VkMNdNGrFf'
 }
 
 cfg.button2 = {
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(1500)
         players = {}
         local pid = GetPlayerServerId(PlayerId())
-        local pName = GetPlayerName(PlayerId())
+        local pName = GetPlayerName(PlayerId())	
 		for _, i in ipairs(GetActivePlayers()) do
             if NetworkIsPlayerActive( i ) then
                 table.insert( players, i )
@@ -69,9 +69,9 @@ Citizen.CreateThread(function()
 		SetDiscordRichPresenceAssetText(cfg.hoverText) 
 		SetDiscordRichPresenceAssetSmall(cfg.smallDiscordImageName) -- Name of the smaller image asset.
 		SetDiscordRichPresenceAssetSmallText(cfg.smallHoverText)
-		SetRichPresence(cfg.richPresenceText) 
+		--SetRichPresence(cfg.richPresenceText) 
 		SetDiscordRichPresenceAction(0, cfg.button1.text, cfg.button1.url)
 		SetDiscordRichPresenceAction(1, cfg.button2.text, cfg.button2.url)
-		Wait(5000)
+		Wait(60000)
 	end
 end)

@@ -32,7 +32,7 @@ AddEventHandler("pw-police:showVehicles", function()
             vehicle.garage = v["Garage"]
             vehicle.spawn = v["Spawn"]
             datamen[#datamen + 1] = {
-
+                icon = 'car',
 				title = vehicle.name,
 				description = "$" .. vehicle.price,
 				image = vehicle.image,

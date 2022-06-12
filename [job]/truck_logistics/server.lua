@@ -256,7 +256,7 @@ Citizen.CreateThread(function()
 	while true do 
 		local xPlayers = ESX.GetExtendedPlayers()
 		for _, xPlayer in pairs(xPlayers) do
-			identifier = xPlayer.getIdentifier()
+			local identifier = xPlayer.getIdentifier()
 			local sql = [[SELECT d.driver_id, d.user_id, d.name, d.product_type, d.distance, d.valuable, d.fragile, d.fast, d.price, d.price_per_km 
 					FROM trucker_trucks t INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
 					WHERE t.driver <> 0 AND t.driver IS NOT NULL]];

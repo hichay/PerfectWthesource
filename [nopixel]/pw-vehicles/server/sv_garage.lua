@@ -154,6 +154,20 @@ RPC.register("pw-vehicles:getGarage", function(src, garage)
     return vehicles
 end)
 
+RPC.register("pw-vehicles:getSharedGarage", function(src, garage)
+	local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return {} end
+    local typeveh = garagesConfig[garage]["vehicleType"]
+	local job = garagesConfig[garage]["type"]
+	local vehicles = MySQL.query.await('SELECT * FROM owned_vehicles WHERE stored = @stored AND type = @type AND job = @job AND garagejob = @garagejob', {
+        ['@stored'] = 0,
+		['@type'] = typeveh,
+		['@job'] = job,
+		['@garagejob'] = garage
+	})
+    return vehicles
+end)
+
 
 
 

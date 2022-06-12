@@ -78,14 +78,9 @@ AddEventHandler("pw-vehicles:garage", function()
         return
     end
 
-    --[[ if garage["houseid"] and not exports["pw-housing"]:hasKey(garage["houseid"]) then
-        TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
-        return
-    end ]]
+    --[[ local vehiclesGarage = RPC.execute("pw-vehicles:getGarage", nearGarage["garage"]) ]]
 
-    local vehiclesGarage = RPC.execute("pw-vehicles:getGarage", nearGarage["garage"])
-
-    local data = {
+    --[[ local data = {
         {
             title = "Garage " .. nearGarage["garage"],
         }
@@ -106,12 +101,109 @@ AddEventHandler("pw-vehicles:garage", function()
             }
                  
         }
-    end
+    end ]]
+
+
+    local data = {
+        {
+            icon = 'star',
+            title = "Garage " .. nearGarage["garage"],
+        },
+        {
+            icon = 'warehouse',
+            title = " Garage Đồn Trú",
+            description = "Trưng dụng xe khác",
+            action = "pw-vehicles:SharedGarage"
+        },
+        {
+            icon = 'warehouse',
+            title = " Garage Cá Nhân",
+            action = "pw-vehicles:PersonalGarage",
+        }
+
+    }
 
     exports["pw-context"]:showContextMenu(data)
 end)
 
+RegisterNetEvent("pw-vehicles:SharedGarage")
+AddEventHandler("pw-vehicles:SharedGarage", function()
+    local job = ESX.GetPlayerData().job.name
+    local garage = Garages[nearGarage["garage"]]
 
+    if garage["jobGarage"] and garage["type"] ~= job then
+        TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
+        return
+    end
+
+    local vehiclesGarage = RPC.execute("pw-vehicles:getSharedGarage", nearGarage["garage"])
+    local data = {
+        {
+            icon = 'star',
+            title = "Garage " .. nearGarage["garage"],
+        }
+    }
+    if vehiclesGarage == nil then 
+        data[#data+1] = {
+            title = "Không có xe khả dụng",
+        }
+    else
+        for i, v in ipairs(vehiclesGarage) do
+            local status = json.decode(v.stats)
+            data[#data + 1] = {
+                icon = 'car',
+                title = GetDisplayNameFromVehicleModel(v["model"]),
+                description = "Biển: " .. v["plate"],
+                children = { 
+                    { title = "Lấy xe ra", action = "pw-vehicles:retriveVehicle", key = v["plate"] },
+                    { title = "Tình trạng", description = "Động cơ: " .. status.engine_damage / 10 .. "% | Thân vỏ: " .. status.body_damage / 10 .. "% | Xăng: " .. status.fuel .. "%"},
+                
+                }
+                    
+            }
+        end
+    end
+    exports["pw-context"]:showContextMenu(data)
+end)
+
+RegisterNetEvent("pw-vehicles:PersonalGarage")
+AddEventHandler("pw-vehicles:PersonalGarage", function()
+    local job = ESX.GetPlayerData().job.name
+    local garage = Garages[nearGarage["garage"]]
+
+    if garage["jobGarage"] and garage["type"] ~= job then
+        TriggerEvent("DoLongHudText", "Bạn không có quyền sử dụng garage này", 2)
+        return
+    end
+
+    local vehiclesGarage = RPC.execute("pw-vehicles:getGarage", nearGarage["garage"])
+    local data = {
+        {
+            icon = 'star',
+            title = "Garage " .. nearGarage["garage"],
+        }
+    }
+
+    for i, v in ipairs(vehiclesGarage) do
+        local status = json.decode(v.stats)
+        data[#data + 1] = {
+            icon = 'car',
+            title = GetLabelText(GetDisplayNameFromVehicleModel(v["model"])),
+            description = "Biển: " .. v["plate"],
+            disabled = v.stored,
+            children = { 
+                { title = "Lấy xe ra", action = "pw-vehicles:retriveVehicle", key = v["plate"] },
+                { title = "Tình trạng", description = "Động cơ: " .. status.engine_damage / 10 .. "% | Thân vỏ: " .. status.body_damage / 10 .. "% | Xăng: " .. status.fuel .. "%"},
+            
+            }
+                 
+        }
+    end
+
+    exports["pw-context"]:showContextMenu(data)
+
+
+end)
 --RegisterUICallback('pw-vehicles:retriveVehicle', function (data, cb)
 RegisterNetEvent('pw-vehicles:retriveVehicle',function(data)
     --cb({ data = {}, meta = { ok = true, message = '' } })

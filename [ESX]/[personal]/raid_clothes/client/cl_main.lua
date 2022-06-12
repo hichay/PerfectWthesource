@@ -1069,6 +1069,7 @@ AddEventHandler("raid_clothes:setclothes", function(data, alreadyExist)
   model = model ~= nil and tonumber(model) or false
   if not IsModelInCdimage(model) or not IsModelValid(model) then return end
   Citizen.Wait(500)
+  SetSkin(model, false)
   SetClothing(data.drawables, data.props, data.drawtextures, data.proptextures)
   Citizen.Wait(500)
   TriggerEvent("facewear:update")
@@ -1077,7 +1078,6 @@ AddEventHandler("raid_clothes:setclothes", function(data, alreadyExist)
   --TriggerServerEvent("Police:getMeta")
   TriggerEvent("Animation:Set:Reset")
   TriggerEvent("e-blips:updateAfterPedChange",ESX.GetPlayerData().job.name)
-  SetSkin(model, false)
   if healthBuffModels[model] then
     --exports['ragdoll']:SetMaxHealth()
     --exports['ragdoll']:SetPlayerHealth(200)
