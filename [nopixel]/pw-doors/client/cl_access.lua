@@ -164,11 +164,11 @@ function hasSecuredAccess(pId, pType)
         -- end
     -- end
 
-    local hackedAccess = RPC.execute('np-doors:getHackedAccess')
-    if (hackedAccess and hackedAccess[pType] and hackedAccess[pType][pId]) then
-        accessCheckCache[pType][pId] = true
-        return true
-    end
+    -- local hackedAccess = RPC.execute('np-doors:getHackedAccess')
+    -- if (hackedAccess and hackedAccess[pType] and hackedAccess[pType][pId]) then
+        -- accessCheckCache[pType][pId] = true
+        -- return true
+    -- end
 
     accessCheckCache[pType][pId] = false
 
