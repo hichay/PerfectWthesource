@@ -987,6 +987,10 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
     } else if (targetinvName.indexOf('storage') > -1) {
         secondaryMaxWeight = 2000.0;
         slotLimitTarget = 200;
+	} else if (targetinvName.indexOf('smelter') > -1) {
+        secondaryMaxWeight = 1000.0;
+        slotLimitTarget = 10;
+		displayName = 'Lò luyện';		
     } else if (targetinvName.indexOf('office') > -1) {
         secondaryMaxWeight = 100.0;
         slotLimitTarget = 5;

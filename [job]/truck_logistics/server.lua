@@ -250,40 +250,44 @@ Citizen.CreateThread(function()
 end)
 
 
+
 Citizen.CreateThread(function()
-	local source = source
-	Citizen.Wait(10000)
+	Citizen.Wait(100)
 	while true do 
-		local xPlayers = ESX.GetExtendedPlayers()
-		for _, xPlayer in pairs(xPlayers) do
-			local identifier = xPlayer.getIdentifier()
-			local sql = [[SELECT d.driver_id, d.user_id, d.name, d.product_type, d.distance, d.valuable, d.fragile, d.fast, d.price, d.price_per_km 
-					FROM trucker_trucks t INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
+		local sql = [[SELECT d.driver_id, d.user_id, d.name, d.product_type, d.distance, d.valuable, d.fragile, d.fast, d.price, d.price_per_km 
+					FROM trucker_trucks t
+						INNER JOIN trucker_drivers d ON (t.driver = d.driver_id)
 					WHERE t.driver <> 0 AND t.driver IS NOT NULL]];
-				local data = MySQL.query.await(sql, {});
-				for k,v in pairs(data) do
-					if tryGetTruckerMoney(identifier,v.price + v.price_per_km) then
+		local data = MySQL.Sync.fetchAll(sql, {});
+		for k,v in pairs(data) do
+			
+			local xPlayers = ESX.GetExtendedPlayers()
+			for _, xPlayer in pairs(xPlayers) do
+				if v.user_id == xPlayer.getIdentifier() then
+				local source = ESX.GetPlayerFromIdentifier(xPlayer.getIdentifier())
+					if tryGetTruckerMoney(v.user_id,v.price + v.price_per_km) then
 						local amount = math.random(Config.trabalhos.valor_inicial_min,Config.trabalhos.valor_inicial_max)
 						amount = amount + (v.product_type+v.distance+v.fragile+v.valuable+v.fast)*(amount*(Config.trabalhos.porcentagem_bonus_habilidades/100))
-						giveTruckerMoney(identifier,amount)
+						giveTruckerMoney(v.user_id,amount)
 					else
 						local sql = "UPDATE `trucker_drivers` SET user_id = NULL WHERE driver_id = @driver_id";
-						MySQL.query(sql, {['@driver_id'] = v.driver_id});
+						MySQL.Sync.execute(sql, {['@driver_id'] = v.driver_id});
 						local sql = "UPDATE `trucker_trucks` SET driver = NULL WHERE driver = @driver_id";
-						MySQL.query(sql, {['@driver_id'] = v.driver_id});
+						MySQL.Sync.execute(sql, {['@driver_id'] = v.driver_id});
 						if source then
 							TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['driver_failed']:format(v.name),"error")
 						end
 					end
-
+		
 					if source then
 						openUI(source, true)
 					end
+				
 				end
+			end
 		end
 		Citizen.Wait(Config.trabalhos.cooldown*1000*60)
 	end
-
 end)
 
 Citizen.CreateThread(function()
@@ -349,9 +353,15 @@ AddEventHandler("truck_logistics:startContract",function(data)
 						if tonumber(query_users[1].valuable) >= tonumber(query[1].valuable) then
 							if tonumber(query_users[1].fast) >= tonumber(query[1].fast) then
 								if Config.habilidade_distancia[tonumber(query_users[1].distance)] >= tonumber(distance) then
-									if tonumber(query[1].contract_type) == 0 then
+									if query[1].contract_type == false then
 										-- Inicia o trabalho
-										TriggerClientEvent("truck_logistics:startContract",source,query[1],distance,reward,{})
+										local sql = "SELECT * FROM `trucker_trucks` WHERE driver = 0 AND user_id = @user_id";
+										query_truck = MySQL.query.await(sql,{['@user_id'] = user_id});
+										if query_truck and query_truck[1] then
+											TriggerClientEvent("truck_logistics:startContract",source,query[1],distance,reward,{})
+										else
+											TriggerClientEvent("ESX:Notify",source,Lang[Config.lang]['own_truck'],"error")
+										end
 									else
 										-- Checa se tem caminhão
 										local sql = "SELECT * FROM `trucker_trucks` WHERE driver = 0 AND user_id = @user_id";

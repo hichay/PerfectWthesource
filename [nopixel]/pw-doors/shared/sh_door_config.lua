@@ -7417,11 +7417,11 @@ DOOR_CONFIG = {
   },
   {
     info = "sionis backdoor",
-    active = true,
+    active = false,
     id = 451,
     coords = vector3(1065.237, -2006.079, 32.23295),
     model = -1428622127,
-    lock = true,
+    lock = false,
     desc = "",
     access = {
         job = {},
@@ -7432,7 +7432,7 @@ DOOR_CONFIG = {
   },
   {
     info = "sionis frontdoor",
-    active = true,
+    active = false,
     id = 452,
     coords = vector3(1083.547, -1975.435, 31.62222),
     model = -1428622127,
@@ -7466,7 +7466,7 @@ DOOR_CONFIG = {
     id = 454,
     coords = vector3(1176.224, 2645.41, 40.39615),
     model = -822900180,
-    lock = true,
+    lock = false,
     keyFob = true,
     desc = "",
     access = {
@@ -7509,11 +7509,11 @@ DOOR_CONFIG = {
   },
   {
     info = "sionis top door",
-    active = true,
+    active = false,
     id = 457,
     coords = vector3(1085.242, -2018.58, 41.66173),
     model = -1428622127,
-    lock = true,
+    lock = false,
     desc = "",
     access = {
         job = {},

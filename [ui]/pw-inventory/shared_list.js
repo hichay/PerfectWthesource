@@ -16445,7 +16445,7 @@ itemList['paint_stripper'] = {
 itemList['refinedaluminium'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Aluminium",
+  displayname: "Nhôm Tinh Chế",
   craft: [[
     { itemid: 'aluminium', amount: 3 },
   ]],
@@ -16454,13 +16454,13 @@ itemList['refinedaluminium'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_aluminium.png',
-  information: 'Refined Aluminium.',
+  information: 'Nhôm đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['refinedcopper'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Copper",
+  displayname: "Đồng Tinh Chế",
   craft: [[
     { itemid: 'copper', amount: 3 },
   ]],
@@ -16469,13 +16469,13 @@ itemList['refinedcopper'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_copper.png',
-  information: 'Refined Copper.',
+  information: 'Đồng đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['refinedglass'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Glass",
+  displayname: "Kính Tinh Chế",
   craft: [[
     { itemid: 'glass', amount: 3 },
   ]],
@@ -16484,13 +16484,13 @@ itemList['refinedglass'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_glass.png',
-  information: 'Refined Glass.',
+  information: 'Kính đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['refinedplastic'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Plastic",
+  displayname: "Nhựa Tinh Chế",
   craft: [[
     { itemid: 'plastic', amount: 3 },
   ]],
@@ -16499,13 +16499,13 @@ itemList['refinedplastic'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_plastic.png',
-  information: 'Refined Plastic.',
+  information: 'Nhựa đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['refinedrubber'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Rubber",
+  displayname: "Cao Su Tinh Chế",
   craft: [[
     { itemid: 'rubber', amount: 3 },
   ]],
@@ -16514,13 +16514,13 @@ itemList['refinedrubber'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_rubber.png',
-  information: 'Refined Rubber.',
+  information: 'Cao Su đã được tinh luyện từ lò luyện kim',
 };
 
 itemList['refinedscrap'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Scrap",
+  displayname: "Sắt Vụn Tinh Chế",
   craft: [[
     { itemid: 'scrapmetal', amount: 3 },
   ]],
@@ -16529,13 +16529,13 @@ itemList['refinedscrap'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_scrap.png',
-  information: 'Refined Scrap.',
+  information: 'Sắt Vụn đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['refinedsteel'] = {
   fullyDegrades: true,
   decayrate: 2.0,
-  displayname: "Refined Steel",
+  displayname: "Thép Tinh Chế",
   craft: [[
     { itemid: 'steel', amount: 3 },
   ]],
@@ -16544,7 +16544,7 @@ itemList['refinedsteel'] = {
   nonStack: false,
   model: '',
   image: 'np_refined_steel.png',
-  information: 'Refined Steel.',
+  information: 'Thép đã được tinh luyện từ lò luyện kim.',
 };
 
 itemList['beehive'] = {
@@ -20957,22 +20957,19 @@ itemList["logo4"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "M�
 itemList["logofull"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Mảnh ghép hoàn chỉnh", price: 1, weight: 1, nonStack: true, model:  "", image: "pw_logofull.png", information: "", deg: false }
 
 
-itemList["goldbar"]	   = {fullyDegrades: false, illegal: true, decayrate: 0.0, displayname: "Thỏi Vàng", craft: [{itemid: "goldmate", amount: 2 } , {itemid: "coal", amount: 1 } ], price: 550, weight: 2, nonStack: false, model: "", image: "np_gold-bar.png" , information: "Vàng nguyên chất thường thấy ở các tiệm trang sức", deg: false}
+itemList["rock"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Cục đá", price: 1, weight: 2, nonStack: false, model:  "", image: "np_rock.png", information: "", deg: false }
 
+itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 0.1, weight: 0.5, nonStack: false, model:  "", image: "np_coal.png", information: "", deg: false }
 
-itemList["rock"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Cục đá", price: 1, weight: 5, nonStack: false, model:  "", image: "np_rock.png", information: "", deg: false }
+itemList["goldmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng vàng", price: 1, weight: 1, nonStack: false, model:  "", image: "np_goldmaterial.png", information: "", deg: false }
 
-itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 1, weight: 1, nonStack: false, model:  "", image: "np_coal.png", information: "", deg: false }
+itemList["ironmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng sắt", price: 1, weight: 1, nonStack: false, model:  "", image: "np_ironmaterial.png", information: "", deg: false }
 
-itemList["goldmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng vàng", price: 1, weight: 5, nonStack: false, model:  "", image: "np_goldmaterial.png", information: "", deg: false }
+itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 0.5, nonStack: false, model:  "", image: "np_mercury.png", information: "", deg: false }
 
-itemList["ironmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng sắt", price: 1, weight: 5, nonStack: false, model:  "", image: "np_ironmaterial.png", information: "", deg: false }
+itemList["jadeite"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Jadeite Stone", price: 1, weight: 5, nonStack: false, model:  "", image: "np_jadeite-stone.png", information: "", deg: false }
 
-itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 1, nonStack: false, model:  "", image: "np_mercury.png", information: "", deg: false }
-
-itemList["jadeite"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Jadeite Stone", price: 1, weight: 10, nonStack: false, model:  "", image: "np_jadeite-stone.png", information: "", deg: false }
-
-itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 5, nonStack: false, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
+itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 0.5, nonStack: false, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
 
 
 itemList["motelkey"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Chìa khoá phòng", price: 1, weight: 1, nonStack: true, model:  "", image: "np_bankboxkey.png", information: "", deg: false, esxuse: true }

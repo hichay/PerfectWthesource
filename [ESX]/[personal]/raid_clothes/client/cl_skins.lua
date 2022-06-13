@@ -302,6 +302,7 @@ whitelisted_to_use_custom_skins = {
   ["STEAM_0:0:103358284"] = custom_skins_br,
   ["STEAM_0:0:51958526"] = custom_skins_br,
 
+  ["steam:11000010be7c8b0"] = animal_and_octopus,	
   ["STEAM_0:1:32559221"] = animal_and_octopus,   -- Nakkida
   ["STEAM_0:0:13707575"] = animal_and_octopus,   -- Stebbzor
   ["STEAM_0:0:42679469"] = animal_and_octopus,   -- MKA

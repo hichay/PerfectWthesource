@@ -156,6 +156,7 @@ local Config = {
             { ["text"] = "Cửa hàng dụng cụ", ["sprite"] = 566, ["scale"] = 0.7, ["colour"] = 81, ["pos"] = vector3(2748.6979, 3472.0498, 54.677799) },
 			{ ["text"] = "Nhà máy tái chế", ["sprite"] = 467, ["scale"] = 1.0, ["colour"] = 25, ["pos"] = vector3(51.408695, 6485.7788, 31.428194) },
 			{ ["text"] = "~y~Phi vụ rửa tiền", ["sprite"] = 431, ["scale"] = 1.0, ["colour"] = 69, ["pos"] = vector3(591.05664, 2744.7678, 42.043945) },
+			{ ["text"] = "~o~Lò Luyện Kim", ["sprite"] = 436, ["scale"] = 1.0, ["colour"] = 35, ["pos"] = vector3(1109.6379, -2008.91, 31.046165) },
         },
     },
 }

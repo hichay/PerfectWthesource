@@ -191,7 +191,7 @@ Config.motoristas = {
 
 -- Here is the definition of the contracts that are generated for drivers to carry out
 Config.trabalhos = {
-	['cooldown'] = 0.1,						-- Cooldown time (in minutes) for drivers to make contracts and generate money for the company
+	['cooldown'] = 30,						-- Cooldown time (in minutes) for drivers to make contracts and generate money for the company
 
 	-- It is recommended to keep the initial profit and the percentage higher than the values ​​configured for drivers in the above config
 	['valor_inicial_min'] = 100,			-- Minimum initial contract profit
@@ -256,7 +256,7 @@ Config.valor_reparo = { -- Value to repair 1% of each part (Example: if 40% of t
 	['engine'] = 200,
 	['body'] = 100,
 	['transmission'] = 50,
-	['wheels'] = 80
+	['wheels'] = 12
 }
 
 --[[
