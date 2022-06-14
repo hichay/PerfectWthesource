@@ -506,9 +506,9 @@ onNet("server-inventory-open", async (coords, player, secondInventory, targetNam
       var shopArray = Blackmarket();
       var shopAmount = 5;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
-    } else if (secondInventory == "998") {
+    } else if (secondInventory == "32") {
       var targetinvname = targetName;
-      var shopArray = slushy();
+      var shopArray = Smokeonthewater();
       var shopAmount = 1;
       emitNet("inventory-open-target", src, [invArray, arrayCount, playerinvname, shopArray, shopAmount, targetinvname, 500, false]);
     } else if (secondInventory == "921") {

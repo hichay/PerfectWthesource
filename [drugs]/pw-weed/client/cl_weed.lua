@@ -26,17 +26,10 @@ Citizen.CreateThread(function()
             action = 'harvest'
         }
     })
-    exports["pw-polytarget"]:AddCircleZone("weed_drylocation", vector3(3796.0236, 4445.5034, 4.6320528), 1.0, {
-        options = {
-            ["useZ"] = true,
-        }
-    })
+    exports["pw-polytarget"]:AddCircleZone("weed_drylocation", vector3(3796.0236, 4445.5034, 4.6320528), 1.0, {useZ = true})
 
-    exports["pw-polytarget"]:AddCircleZone("weed_sellposition", vector3(-1171.522, -1571.314, 4.6636252), 1.0, {
-        options = {
-            ["useZ"] = true,
-        }
-    })
+
+    exports["pw-polytarget"]:AddCircleZone("weed_sellposition", vector3(-1171.522, -1571.314, 4.6636252), 1.0, {useZ = true})
 
     exports['pw-interact']:AddPeekEntryByPolyTarget('weed_sellposition', {
         {
@@ -45,13 +38,14 @@ Citizen.CreateThread(function()
             icon = "cannabis",
             label = "Bán cần sa"
         },
-        -- {
-            -- id = "weed_shops",
-            -- event = "pw-weeds:weed_dry",
-            -- icon = "cannabis",
-            -- label = "Smoke on the Water",
+        {
+            id = "weed_shops",
+            event = "pw-npcs:ped:keeper",
+            icon = "cannabis",
+            label = "Smoke on the Water",
+            parameters = { "32" }
 			
-        -- }
+        }
     
     }, { distance = { radius = 4.5 } })
 

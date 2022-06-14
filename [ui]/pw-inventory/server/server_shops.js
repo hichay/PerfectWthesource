@@ -388,12 +388,12 @@ function recycle() {
     return JSON.stringify(shopItems);
 };
 
-function Tuner() {
+function Smokeonthewater() {
     var shopItems = [
-        { item_id: "advrepairkit", id: 0, name: "Craft", information: "{}", slot: 1, amount: 50 },
-        { item_id: "advlockpick", id: 0, name: "Craft", information: "{}", slot: 2, amount: 50 },
-        { item_id: "lockpick", id: 0, name: "Craft", information: "{}", slot: 3, amount: 50 },
-        { item_id: "cuffs", id: 0, name: "Craft", information: "{}", slot: 4, amount: 50 },
+        { item_id: "femaleseed", id: 0, name: "Craft", information: "{}", slot: 1, amount: 50 },
+        { item_id: "fertilizer", id: 0, name: "Craft", information: "{}", slot: 2, amount: 50 },
+        { item_id: "emptybaggies", id: 0, name: "Craft", information: "{}", slot: 3, amount: 50 },
+        { item_id: "rollingpaper", id: 0, name: "Craft", information: "{}", slot: 4, amount: 50 },
 
     ];
     return JSON.stringify(shopItems);

@@ -135,19 +135,20 @@ AddEventHandler("raid_clothes:insert_character_face",function(data)
             ["headBlend"] = json.encode(data.headBlend),
             ["headOverlay"] = json.encode(data.headOverlay),
             ["headStructure"] = json.encode(data.headStructure),
+            ["fadeStyle"] = data.fadeStyle,
       
         }
 
         if not exists then
-            local cols = "identifier, hairColor, headBlend, headOverlay, headStructure"
-            local vals = "@identifier, @hairColor, @headBlend, @headOverlay, @headStructure"
-            local set = "hairColor = @hairColor,headBlend = @headBlend,headOverlay = @headOverlay,headStructure = @headStructure"
+            local cols = "identifier, hairColor, headBlend, headOverlay, headStructure, fadeStyle"
+            local vals = "@identifier, @hairColor, @headBlend, @headOverlay, @headStructure, @fadeStyle"
+            local set = "hairColor = @hairColor,headBlend = @headBlend,headOverlay = @headOverlay,headStructure = @headStructure, fadeStyle = @fadeStyle"
             MySQL.Async.execute("UPDATE users SET "..set.." WHERE identifier = @identifier", values, function()
             end)
             return
         end
 
-        local set = "hairColor = @hairColor,headBlend = @headBlend,headOverlay = @headOverlay,headStructure = @headStructure"
+        local set = "hairColor = @hairColor,headBlend = @headBlend,headOverlay = @headOverlay,headStructure = @headStructure, fadeStyle = @fadeStyle"
         MySQL.Async.execute("UPDATE users SET "..set.." WHERE identifier = @identifier", values)
     end)
 end)
@@ -171,6 +172,7 @@ AddEventHandler("raid_clothes:get_character_face",function(pSrc)
             props = json.decode(result[1].props),
             drawtextures = json.decode(result[1].drawtextures),
             proptextures = json.decode(result[1].proptextures),
+            fadeStyle = result[1].fadeStyle,
             sex = result[1].sex,
         }
         local model = tonumber(result[1].model)

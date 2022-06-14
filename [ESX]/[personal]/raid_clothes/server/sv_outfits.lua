@@ -40,13 +40,14 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
                 ["drawtextures"] = json.encode(data.drawtextures),
                 ["proptextures"] = json.encode(data.proptextures),
                 ["hairColor"] = json.encode(data.hairColor),
+                ["fadeStyle"] = data.fadeStyle
             }
 
-            local set = "model = @model,name = @name,drawables = @drawables,props = @props,drawtextures = @drawtextures,proptextures = @proptextures,hairColor = @hairColor"
+            local set = "model = @model,name = @name,drawables = @drawables,props = @props,drawtextures = @drawtextures,proptextures = @proptextures,hairColor = @hairColor, fadeStyle = @fadeStyle"
             MySQL.query("UPDATE character_outfits SET "..set.." WHERE steamid = @steamid and slot = @slot",values)
         else
-            local cols = "steamid, model, name, slot, drawables, props, drawtextures, proptextures, hairColor"
-            local vals = "@steamid, @model, @name, @slot, @drawables, @props, @drawtextures, @proptextures, @hairColor"
+            local cols = "steamid, model, name, slot, drawables, props, drawtextures, proptextures, hairColor, fadeStyle"
+            local vals = "@steamid, @model, @name, @slot, @drawables, @props, @drawtextures, @proptextures, @hairColor, fadeStyle"
 
             local values = {
                 ["steamid"] = characterId,
@@ -57,7 +58,8 @@ AddEventHandler("raid_clothes:set_outfit",function(slot, name, data)
                 ["props"] = json.encode(data.props),
                 ["drawtextures"] = json.encode(data.drawtextures),
                 ["proptextures"] = json.encode(data.proptextures),
-                ["hairColor"] = json.encode(data.hairColor)
+                ["hairColor"] = json.encode(data.hairColor),
+                ["fadeStyle"] = data.fadeStyle
             }
 
             MySQL.query("INSERT INTO character_outfits ("..cols..") VALUES ("..vals..")", values, function()
@@ -109,7 +111,7 @@ AddEventHandler("raid_clothes:get_outfit",function(slot)
                 drawtextures = json.decode(result[1].drawtextures),
                 proptextures = json.decode(result[1].proptextures),
                 hairColor = json.decode(result[1].hairColor),
-				fadeStyle = json.decode(result[1].fadeStyle),
+				fadeStyle = result[1].fadeStyle,
 				headBlend = json.decode(result[1].headBlend),
 				headStructure = json.decode(result[1].headStructure),
 				headOverlay = json.decode(result[1].headOverlay),
