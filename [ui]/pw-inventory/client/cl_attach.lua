@@ -179,6 +179,11 @@ exports('GetAttachedBag', function()
 	return ab[1] and ab[1] or 0
 end)
 
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	DeleteAttached()
+end)
+
 
 local clipsetChanged = false
 AddEventHandler("pw-inventory:attachmentsToggle", function(pEnabled, pId)

@@ -32,7 +32,7 @@ AddEventHandler('pw-mine:ruada', function()
     --TriggerClientEvent("inventory:removeItem",source,"rock",1)
     local randnum =  math.random(0, 100)
     if randnum >= 1 and randnum <= 20 then 
-        TriggerClientEvent("player:receiveItem",source,"coal",1)
+        TriggerClientEvent("player:receiveItem",source,"coal",math.random(1,3))
     elseif randnum >= 20 and randnum <= 40 then
         TriggerClientEvent("player:receiveItem",source,"goldmate",1)
     elseif randnum >= 40 and randnum <= 60 then

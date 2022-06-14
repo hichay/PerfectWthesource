@@ -81,7 +81,9 @@ Citizen.CreateThread(function()
                 local netId = NetworkGetNetworkIdFromEntity(PreviousVehicle)
                 local model = GetEntityModel(PreviousVehicle)
                 local name = GetDisplayNameFromVehicleModel(model)
-				TriggerEvent("attachedItems:block",false)
+				if class ~= '8' then 
+					TriggerEvent("attachedItems:block",false)
+				end
 				TriggerEvent('baseevents:leftVehicle', PreviousVehicle, PreviousSeat, name, class, model)
 				TriggerServerEvent('baseevents:leftVehicle', netId, PreviousSeat, name, class, model)
             elseif PreviousVehicle and PreviousVehicle ~= 0 and PreviousVehicle ~= CurrentVehicle then

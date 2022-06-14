@@ -214,7 +214,7 @@ local Animations = {
     },
     {
         id = "animations:sad",
-        title = "Triste",
+        title = "Sad",
         icon = "#animation-sad",
         event = "Animation:Set:Gait",
         parameters = { "move_m@sad@a" }
@@ -242,28 +242,28 @@ local Animations = {
     },
     {
         id = "animations:hobo",
-        title = "Mendigo",
+        title = "Hobo",
         icon = "#animation-hobo",
         event = "Animation:Set:Gait",
         parameters = { "move_m@hobo@a" }
     },
     {
         id = "animations:money",
-        title = "Dinheiro",
+        title = "Money",
         icon = "#animation-money",
         event = "Animation:Set:Gait",
         parameters = { "move_m@money" }
     },
     {
         id = "animations:swagger",
-        title = "Estiloso",
+        title = "Swagger",
         icon = "#animation-swagger",
         event = "Animation:Set:Gait",
         parameters = { "move_m@swagger" }
     },
     {
         id = "animations:shady",
-        title = "Suspeito",
+        title = "Shady",
         icon = "#animation-shady",
         event = "Animation:Set:Gait",
         parameters = { "move_m@shadyped@a" }
@@ -284,26 +284,26 @@ local Animations = {
     },
     {
         id = "animations:default",
-        title = "Padrao",
+        title = "Default",
         icon = "#animation-default",
         event = "AnimSet:default"
     }
 }
 
--- Citizen.CreateThread(function()
---     for index, data in ipairs(Animations) do
---         SubMenu[index] = data.id
---         MenuItems[data.id] = {data = data}
---     end
---     GeneralEntries[#GeneralEntries+1] = {
---         data = {
---             id = "animations",
---             icon = "#walking",
---             title = "Gait",
---         },
---         subMenus = SubMenu,
---         isEnabled = function()
---             return not isDead
---         end,
---     }
--- end)
+Citizen.CreateThread(function()
+    for index, data in ipairs(Animations) do
+        SubMenu[index] = data.id
+        MenuItems[data.id] = {data = data}
+    end
+    GeneralEntries[#GeneralEntries+1] = {
+        data = {
+            id = "animations",
+            icon = "#walking",
+            title = "Gait",
+        },
+        subMenus = SubMenu,
+        isEnabled = function()
+            return not isDead
+        end,
+    }
+end)

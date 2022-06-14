@@ -121,7 +121,7 @@ AddEventHandler("pw-inventory:itemUsed", function(pItem, pData)
                   local finished = exports["pw-taskbar"]:taskBar(10, "Installing beehive", false, true, false, false, nil, 5.0, PlayerPedId())
                   ClearPedTasks(PlayerPedId())
                   if finished == 100 then
-                      RPC.execute("np-beekeeping:installHive", pCoords, pHeading)
+                      RPC.execute("pw-vineyard:installBarbel", pCoords, pHeading)
                       TriggerEvent("inventory:removeItem", item, 1)
                   end
               else
