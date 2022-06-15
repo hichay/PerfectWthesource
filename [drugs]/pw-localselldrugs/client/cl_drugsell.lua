@@ -15,7 +15,7 @@ end)
 
 
 local Config = {
-    CallCopsPercent = 10,
+    CallCopsPercent = 15,
     randomReject = 3,
     randomRobGang = 2,
     PercentBargain = 3,
@@ -170,6 +170,7 @@ function SellDrug(ped)
 		local player = PlayerPedId()
 
         if not IsPedDeadOrDying(ped) then
+			TriggerEvent('alert:DrugSale')
 		    TriggerEvent('civilian:alertPolice', 8.0, 'drugsale', 0)
 		end
 	else
@@ -227,6 +228,7 @@ function SellDrugInCar(ped)
 		local player = PlayerPedId()
 
         if not IsPedDeadOrDying(ped) then
+			TriggerEvent('alert:DrugSale')
 		    TriggerEvent('civilian:alertPolice', 8.0, 'drugsale', 0)
 		end
 	else

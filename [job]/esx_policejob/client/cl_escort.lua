@@ -80,8 +80,7 @@ AddEventHandler("pw-police:escort", function()
 		local t, distance, ped = GetClosestPlayer()
 
 		if distance ~= -1 and distance < 2.0 and GetEntitySpeed(ped) < 1.0 and not IsPedInAnyVehicle(ped, false) then
-			print(exports["pw-flags"]:GetPedFlags(ped, "isCuffed", true))
-			if DecorExistOn(ped, "escorted") and DecorGetInt(ped, "escorted") == 0 and (exports["pw-flags"]:GetPedFlags(ped, "isCuffed", true) or IsEntityDead(ped)) then
+			if DecorExistOn(ped, "escorted") and DecorGetInt(ped, "escorted") == 0 and (exports["pw-flags"]:HasPedFlag(ped, "isCuffed", true) or IsEntityDead(ped)) then
 				DecorSetInt(PlayerPedId(), "escorting", GetPlayerServerId(t))
 				TriggerServerEvent("pw-police:escort", GetPlayerServerId(t), -1, false)
 			end

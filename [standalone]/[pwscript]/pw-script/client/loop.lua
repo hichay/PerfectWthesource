@@ -37,3 +37,4 @@ end)
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
 	DisableIdleCamera(true)
 end
+

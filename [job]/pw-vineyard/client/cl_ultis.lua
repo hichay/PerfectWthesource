@@ -2,6 +2,10 @@ local isPlacing = false
 local object = nil
 local objectCoords = nil
 
+--[[ MaterialHashes = {
+  [650320113] = 1,
+} ]]
+
 function placeObject(pObject, cb)
   local objectHash, playerPed = GetHashKey(pObject), PlayerPedId()
   local minV, maxV = GetModelDimensions(objectHash)
@@ -67,7 +71,8 @@ function placeObject(pObject, cb)
       else
         local rayHandle = StartExpensiveSynchronousShapeTestLosProbe(centerCoords.x, centerCoords.y, centerCoords.z, centerCoords.x, centerCoords.y, centerCoords.z - 2, 1, 0, 4)
         local retval, hit, endCoords, _, materialHash, _ = GetShapeTestResultIncludingMaterial(rayHandle)
-        local properMaterial = MaterialHashes[tostring(materialHash)]
+        canPlace = true
+        --[[ local properMaterial = MaterialHashes[tostring(materialHash)]
         canPlace = properMaterial
         if properMaterial and isInvisible then
           SetObjectVisibilityState(object, false, function(pState)
@@ -77,7 +82,10 @@ function placeObject(pObject, cb)
           SetObjectVisibilityState(object, true, function(pState)
             isInvisible = pState
           end)
-        end
+        end ]]
+        SetObjectVisibilityState(object, false, function(pState)
+            isInvisible = pState
+          end)
       end
 
       if canPlace and IsControlJustPressed(0, 191) then -- Enter

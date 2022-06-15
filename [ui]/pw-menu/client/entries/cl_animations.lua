@@ -299,7 +299,7 @@ Citizen.CreateThread(function()
         data = {
             id = "animations",
             icon = "#walking",
-            title = "Gait",
+            title = "Tướng đi",
         },
         subMenus = SubMenu,
         isEnabled = function()

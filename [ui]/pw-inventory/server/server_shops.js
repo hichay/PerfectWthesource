@@ -31,7 +31,7 @@ function PoliceArmory() {
         { item_id: "subammoPD", id: 0, name: "Shop", information: "{}", slot: 26, amount: 50 },
         { item_id: "rifleammoPD", id: 0, name: "Shop", information: "{}", slot: 27, amount: 50 },
         { item_id: "shotgunammoPD", id: 0, name: "Shop", information: "{}", slot: 28, amount: 50 },
-		
+		{ item_id: "empammo", id: 0, name: "Shop", information: "{}", slot: 29, amount: 50 },
 		
 
 

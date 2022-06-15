@@ -435,7 +435,7 @@ Config.habilidade_distancia = {
 	XP is calculated based on the value of the delivery, so if he receive 1000 in one delivery, he will earn 50 XP
 	This XP will be increased based on the bonuses configured below
 ]]
-Config.exp = 5
+Config.exp = 10
 
 -- EXP bonuses and money each skill gives
 Config.bonus = {

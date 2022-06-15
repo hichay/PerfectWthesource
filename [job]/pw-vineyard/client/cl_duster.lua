@@ -25,7 +25,7 @@ AddEventHandler("np-business:heroWineDuster", function()
 end)
 
 Citizen.CreateThread(function()
-  exports["np-polytarget"]:AddBoxZone("hero_wine_duster", vector3(2121.37, 4784.47, 40.97), 0.8, 0.4, {
+  exports["pw-polytarget"]:AddBoxZone("hero_wine_duster", vector3(2121.37, 4784.47, 40.97), 0.8, 0.4, {
 		heading=27,
 		minZ = 40.57,
 		maxZ = 40.97,
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
 			id = "grapeseed"
 		}
   })
-  exports["np-interact"]:AddPeekEntryByPolyTarget("hero_wine_duster", {{
+  exports["pw-interact"]:AddPeekEntryByPolyTarget("hero_wine_duster", {{
     event = "np-business:heroWineDuster",
     id = "hero_wine_duster",
     icon = "circle",

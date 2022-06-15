@@ -94,10 +94,11 @@ AddEventHandler("pw-police:cuffPlayer", function()
 	if not cuffstate and not exports["pw-lib"]:getVar("handcuffed") and not IsPedRagdoll(PlayerPedId()) and not IsPlayerFreeAiming(PlayerId()) and not IsPedInAnyVehicle(PlayerPedId(), false) and exports["pw-inventory"]:hasEnoughOfItem("cuffs",1,false) then
 		cuffstate = true
 
-		local t, distance = GetClosestPlayer()
+		--local t, distance = GetClosestPlayer()
+		local target, distance = ESX.Game.GetClosestPlayer()
 		if distance ~= -1 and distance < 2 and not IsPedRagdoll(PlayerPedId()) then
 			TriggerEvent("DoLongHudText", "Bạn đã còng tay!")
-			TriggerEvent("pw-police:cuff", GetPlayerServerId(t))
+			TriggerEvent("pw-police:cuff", GetPlayerServerId(target))
 		end
 
 		cuffstate = false
@@ -108,13 +109,13 @@ RegisterNetEvent("pw-police:cuff")
 AddEventHandler("pw-police:cuff", function(t, softcuff)
 	if not tryingcuff then
 		tryingcuff = true
-
-        local t, distance, ped = GetClosestPlayer()
-
-        Citizen.Wait(1500)
+		local target, distance = ESX.Game.GetClosestPlayer()
+        --local target, distance, ped = GetClosestPlayer()
+		local ped = GetPlayerPed(target)
+        Citizen.Wait(500)
 
         if distance ~= -1 and #(GetEntityCoords(ped) - GetEntityCoords(PlayerPedId())) < 2.5 and GetEntitySpeed(ped) < 1.0 then
-			TriggerServerEvent("pw-police:cuff", GetPlayerServerId(t))
+			TriggerServerEvent("pw-police:cuff", GetPlayerServerId(target))
 		else
 			ClearPedSecondaryTask(PlayerPedId())
 			TriggerEvent("DoLongHudText", "Không có ai ở gần (Hãy lại gần)!", 2)
@@ -179,12 +180,13 @@ end)
 
 RegisterNetEvent("pw-police:uncuffPlayer")
 AddEventHandler("pw-police:uncuffPlayer", function()
-	local t, distance = GetClosestPlayer()
+	--local t, distance = GetClosestPlayer()
+	local target, distance = ESX.Game.GetClosestPlayer()
 
     if distance ~= -1 and distance < 2 then
 		TriggerEvent("animation:PlayAnimation", "uncuff")
 		Wait(3000)
-		TriggerServerEvent("pw-police:uncuff", GetPlayerServerId(t))
+		TriggerServerEvent("pw-police:uncuff", GetPlayerServerId(target))
 		TriggerEvent("DoLongHudText", "Bạn đã tháo còng cho ai đó!")
 	else
 		TriggerEvent("DoLongHudText", "Không có ai ở gần!", 2)

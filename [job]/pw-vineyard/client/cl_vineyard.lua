@@ -41,7 +41,7 @@ AddEventHandler("np-vineyard:pickupBasket", function(p1, p2, p3)
 end)
 
 Citizen.CreateThread(function()
-  exports["np-interact"]:AddPeekEntryByModel({ `prop_fruit_basket` }, {
+  exports["pw-interact"]:AddPeekEntryByModel({ `prop_fruit_basket` }, {
     {
       id = "peek_prop_fruit_basket",
       event = "np-vineyard:pickupBasket",

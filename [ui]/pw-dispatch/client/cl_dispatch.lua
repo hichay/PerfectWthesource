@@ -1978,6 +1978,11 @@ AddEventHandler("alert:weedpickup",function()
     WeedPickup()
 end)
 
+RegisterNetEvent("alert:DrugSale")
+AddEventHandler("alert:DrugSale",function()
+    DrugSale()
+end)
+
 RegisterNetEvent("alert:AlertDeath")
 AddEventHandler("alert:AlertDeath",function()
     AlertDeath()
