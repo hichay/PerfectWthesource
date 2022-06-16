@@ -21,19 +21,19 @@ Config.Blacklist = {
 
 -- Class multipliers. If you want SUVs to use less fuel, you can change it to anything under 1.0, and vise versa.
 Config.Classes = {
-	[0] = 1.1, -- Compacts
-	[1] = 1.1, -- Sedans
+	[0] = 1.2, -- Compacts
+	[1] = 1.2, -- Sedans
 	[2] = 1.2, -- SUVs
 	[3] = 1.2, -- Coupes
-	[4] = 1.3, -- Muscle
-	[5] = 1.3, -- Sports Classics
-	[6] = 1.3, -- Sports
-	[7] = 1.5, -- Super
-	[8] = 1.0, -- Motorcycles
+	[4] = 1.2, -- Muscle
+	[5] = 1.2, -- Sports Classics
+	[6] = 1.2, -- Sports
+	[7] = 1.3, -- Super
+	[8] = 1.2, -- Motorcycles
 	[9] = 1.2, -- Off-road
-	[10] = 1.2, -- Industrial
-	[11] = 1.2, -- Utility
-	[12] = 1.2, -- Vans
+	[10] = 1.1, -- Industrial
+	[11] = 1.1, -- Utility
+	[12] = 1.1, -- Vans
 	[13] = 0.0, -- Cycles
 	[14] = 1.0, -- Boats
 	[15] = 1.0, -- Helicopters
@@ -47,7 +47,7 @@ Config.Classes = {
 
 -- The left part is at percentage RPM, and the right is how much fuel (divided by 10) you want to remove from the tank every second
 Config.FuelUsage = {
-	[1.0] = 1.3,
+	[1.0] = 1.2,
 	[0.9] = 1.1,
 	[0.8] = 0.9,
 	[0.7] = 0.8,

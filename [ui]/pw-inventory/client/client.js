@@ -1227,7 +1227,6 @@ on('__cfx_nui:invuse', (data, cb) => {
 	let isEsx = data[5]	
     let RemoveAfUse = data[6]	
 
-	
 	if (isEsx == true) {
 	    TriggerServerEvent("esx:useItem", itemid)
 		if (RemoveAfUse) {

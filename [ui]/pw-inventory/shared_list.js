@@ -4541,7 +4541,7 @@ itemList['well_done_steak'] = {
 itemList['aluminium'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 10 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Nhôm',
   price: 10,
   weight: 0,
@@ -4554,7 +4554,7 @@ itemList['aluminium'] = {
 itemList['plastic'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 1 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Nhựa',
   price: 11,
   weight: 0,
@@ -4567,7 +4567,7 @@ itemList['plastic'] = {
 itemList['copper'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 1 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Đồng',
   price: 10,
   weight: 0,
@@ -4580,7 +4580,7 @@ itemList['copper'] = {
 itemList['electronics'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 1 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Electronics',
   price: 15,
   weight: 0,
@@ -4593,7 +4593,7 @@ itemList['electronics'] = {
 itemList['rubber'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 1 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Cao su',
   price: 10,
   weight: 0,
@@ -4606,7 +4606,7 @@ itemList['rubber'] = {
 itemList['scrapmetal'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 3 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Sắt vụn',
   price: 15,
   weight: 0,
@@ -4619,7 +4619,7 @@ itemList['scrapmetal'] = {
 itemList['steel'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 10 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Thép',
   price: 15,
   weight: 0,
@@ -4632,7 +4632,7 @@ itemList['steel'] = {
 itemList['glass'] = {
   craft: [[{ itemid: 'recyclablematerial', amount: 1 }]],
   fullyDegrades: true,
-  decayrate: 0.5,
+  decayrate: 2.0,
   displayname: 'Kính',
   price: 12,
   weight: 0,
@@ -6363,8 +6363,8 @@ itemList['femmes'] = {
 itemList['fertilizer'] = {
   fullyDegrades: false,
   decayrate: 0.0,
-  displayname: 'Fertilizer',
-  price: 500,
+  displayname: 'Phân bón',
+  price: 200,
   weight: 3,
   nonStack: false,
   model: '',
@@ -20959,17 +20959,17 @@ itemList["logofull"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "
 
 itemList["rock"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Cục đá", price: 1, weight: 2, nonStack: false, model:  "", image: "np_rock.png", information: "", deg: false }
 
-itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 0.1, weight: 0.5, nonStack: false, model:  "", image: "np_coal.png", information: "", deg: false }
+itemList["coal"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Than đá", price: 0.1, weight: 0, nonStack: false, model:  "", image: "np_coal.png", information: "", deg: false }
 
 itemList["goldmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng vàng", price: 1, weight: 1, nonStack: false, model:  "", image: "np_goldmaterial.png", information: "", deg: false }
 
 itemList["ironmate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng sắt", price: 1, weight: 1, nonStack: false, model:  "", image: "np_ironmaterial.png", information: "", deg: false }
 
-itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 0.5, nonStack: false, model:  "", image: "np_mercury.png", information: "", deg: false }
+itemList["mercury"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Thuỷ ngân", price: 1, weight: 0, nonStack: false, model:  "", image: "np_mercury.png", information: "", deg: false }
 
 itemList["jadeite"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Jadeite Stone", price: 1, weight: 5, nonStack: false, model:  "", image: "np_jadeite-stone.png", information: "", deg: false }
 
-itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 0.5, nonStack: false, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
+itemList["aluminiummate"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quặng nhôm", price: 1, weight: 0, nonStack: false, model:  "", image: "np_aluminummaterial.png", information: "", deg: false }
 
 
 itemList["motelkey"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Chìa khoá phòng", price: 1, weight: 1, nonStack: true, model:  "", image: "np_bankboxkey.png", information: "", deg: false, esxuse: true }
@@ -20977,12 +20977,12 @@ itemList["luciferbarcard"]	    = {fullyDegrades: false, decayrate: 0.0, displayn
 
 itemList["morphine"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Morphine", price: 200, weight: 0, nonStack: false, model:  "", image: "np_drug-x.png", information: "Morphine là một loại thuốc giảm đau thuộc họ thuốc phiện", deg: false }
 
-itemList["firstimegift"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà nhận lần đầu", price: 1, weight: 1, nonStack: true, model:  "", image: "reward1.png", information: "Đây là hộp quà được tặng khi lần đầu vào game", deg: false, esxuse: true, removuse: true }
-itemList["onlinelv1"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 1", price: 1, weight: 1, nonStack: true, model:  "", image: "reward4.png", information: "Đây là hộp quà thưởng người chơi online level 1", deg: false, esxuse: true, removuse: true }
-itemList["onlinelv2"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 1, nonStack: true, model:  "", image: "reward3.png", information: "Đây là hộp quà thưởng người chơi online level 2", deg: false, esxuse: true, removuse: true }
-itemList["onlinelv3"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 1, nonStack: true, model:  "", image: "reward5.png", information: "Đây là hộp quà thưởng người chơi online level 3", deg: false, esxuse: true, removuse: true }
-itemList["loginreward1"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 1, nonStack: true, model:  "", image: "reward1.png", information: "Đây là hộp quà thưởng người chơi điểm danh cấp 1", deg: false, esxuse: true, removuse: true }
-itemList["loginreward2"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 1, nonStack: true, model:  "", image: "reward2.png", information: "Đây là hộp quà thưởng người chơi điểm danh cấp 2", deg: false, esxuse: true, removuse: true }
+itemList["firstimegift"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà nhận lần đầu", price: 1, weight: 0, nonStack: true, model:  "", image: "reward1.png", information: "Đây là hộp quà được tặng khi lần đầu vào game", deg: false, esxuse: true, removuse: true }
+itemList["onlinelv1"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 1", price: 1, weight: 0, nonStack: true, model:  "", image: "reward4.png", information: "Đây là hộp quà thưởng người chơi online level 1", deg: false, esxuse: true, removuse: true }
+itemList["onlinelv2"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 0, nonStack: true, model:  "", image: "reward3.png", information: "Đây là hộp quà thưởng người chơi online level 2", deg: false, esxuse: true, removuse: true }
+itemList["onlinelv3"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 0, nonStack: true, model:  "", image: "reward5.png", information: "Đây là hộp quà thưởng người chơi online level 3", deg: false, esxuse: true, removuse: true }
+itemList["loginreward1"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 0, nonStack: true, model:  "", image: "reward1.png", information: "Đây là hộp quà thưởng người chơi điểm danh cấp 1", deg: false, esxuse: true, removuse: true }
+itemList["loginreward2"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Quà online level 2", price: 1, weight: 0, nonStack: true, model:  "", image: "reward2.png", information: "Đây là hộp quà thưởng người chơi điểm danh cấp 2", deg: false, esxuse: true, removuse: true }
 
 itemList["attach_skin_cb_empress"]	    = {fullyDegrades: false, decayrate: 0.0, displayname: "Skin Weapon Empress", price: 1, weight: 1, nonStack: true, model:  "", image: "reward2.png", information: "Đây là skin vũ khí", deg: false }
 
@@ -20997,9 +20997,6 @@ itemList["scuba_oxygen_tank"]	    = {fullyDegrades: true, decayrate: 1.5, displa
 itemList["scuba_gear"]	    = {fullyDegrades: true, decayrate: 1.5, displayname: "Đồ lặn", craft: [{itemid: "rubber", amount: 100 },{itemid: "glass", amount: 100 } ] , price: 2000, weight: 10, nonStack: true, model:  "", image: "pw_diving_gear.png", information: "Bộ đồ lặn chuyên dụng", deg: false, esxuse: true}
 
 itemList["snorkelling_gear"]	    = {fullyDegrades: true, decayrate: 1.5, displayname: "Mặt nạ lặn", price: 400, craft: [{itemid: "rubber", amount: 50 },{itemid: "glass", amount: 50 } ] ,weight: 10, nonStack: true, model:  "", image: "pw_diving_gear.png", information: "Mặt nạ lặn thông thường.", deg: false, esxuse: true}
-
-
-itemList["fertilizer"]	= {fullyDegrades: true, decayrate: 0.4, displayname: "Phân bón", price: 600, weight: 3, nonStack: false, model: "", image: "np_fertilizer.png", information: "Dùng cho hầu hết các loại cây." , deg: false}
 
 
 itemList["painting_1"]	= {fullyDegrades: true, decayrate: 0.4, displayname: "Starry Night", price: 150, weight: 20, nonStack: false, model:  "", image: "np_starry-night.png", information: "Neither ear nor there" , deg: false}

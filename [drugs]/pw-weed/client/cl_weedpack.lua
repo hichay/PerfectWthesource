@@ -54,7 +54,6 @@ Citizen.CreateThread(function()
         distance = 50.0,
         settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
         flags = { ["isNPC"] = true, },
-        blip = { color = 10, sprite = 10, scale = 0.8, text = 'thuwr', short = true },
         scenario = "WORLD_HUMAN_CLIPBOARD_FACILITY",
     }
     local npc = exports["pw-npcs"]:RegisterNPC(data, "taco_the_npc")
@@ -90,7 +89,7 @@ RegisterNetEvent('pw-weed:package_goods')
 AddEventHandler('pw-weed:package_goods', function()
   -- Check if they have enough weeds M8
   print('trigger')
-  local hasEnoughWeeds = exports['pw-inventory']:hasEnoughOfItem('smallbud', 1, false, true)
+  local hasEnoughWeeds = exports['pw-inventory']:hasEnoughOfItem('weedq', 1, false, true)
   if not hasEnoughWeeds then
     TriggerEvent('DoLongHudText', 'You don\'t have enough green mate', 2)
     return

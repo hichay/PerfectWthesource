@@ -8349,3 +8349,89 @@ end)
 RegisterNetEvent("expressions:clear")
 AddEventHandler("expressions:clear",
                 function() ClearFacialIdleAnimOverride(PlayerPedId()) end)
+
+
+RegisterNetEvent('police:carryAI')
+AddEventHandler('police:carryAI', function()
+  local ped = carryPedNow()
+  if DoesEntityExist(ped) then
+    carryPed(ped)
+  end
+end)
+
+function carryPedNow()
+
+    local playerped = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerped)
+    local handle, ped = FindFirstPed()
+    local success
+    local rped = nil
+    local distanceFrom
+    repeat
+        local pos = GetEntityCoords(ped)
+        local distance = #(playerCoords - pos)
+        if distance < 2.0 and not IsPedAPlayer(ped) then
+          --ResurrectPed(ped)
+            --ReviveInjuredPed(ped)
+            ClearPedTasksImmediately(ped)
+          carryPed(ped)
+          return
+        end
+        success, ped = FindNextPed(handle)
+    until not success
+    EndFindPed(handle)
+    return rped
+end
+
+function carryPed(ped)
+
+  loadAnim('anim@narcotics@trash')
+  TaskPlayAnim(PlayerPedId(),'anim@narcotics@trash', 'drop_front',0.9, -8, 1500, 49, 3.0, 0, 0, 0)
+  TaskTurnPedToFaceEntity(PlayerPedId(), ped, 1.0)
+
+
+
+  SetBlockingOfNonTemporaryEvents(ped, true)
+  SetPedSeeingRange(ped, 0.0)
+  SetPedHearingRange(ped, 0.0)
+  SetPedFleeAttributes(ped, 0, false)
+  SetPedKeepTask(ped, true)
+
+      loadAnim( "dead" )
+      TaskPlayAnim(ped, "dead", "dead_f", 8.0, 8.0, -1, 1, 0, 0, 0, 0)
+
+  DetachEntity(ped)
+  ClearPedTasks(ped)
+  loadAnim( "amb@world_human_bum_slumped@male@laying_on_left_side@base" )
+  TaskPlayAnim(ped, "amb@world_human_bum_slumped@male@laying_on_left_side@base", "base", 8.0, 8.0, -1, 1, 999.0, 0, 0, 0)
+  attachCarryPed(ped)
+  local holdingBody = true
+  ClearPedTasksImmediately(PlayerPedId())
+  while (holdingBody) do
+
+    Citizen.Wait(1)
+
+
+    if not IsEntityPlayingAnim(PlayerPedId(), "missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 3) then
+      loadAnim( "missfinale_c2mcs_1" )
+      TaskPlayAnim(PlayerPedId(), "missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 1.0, 1.0, -1, 50, 0, 0, 0, 0)
+
+    end
+
+
+    if IsControlJustPressed(0, 38) or (`WEAPON_UNARMED` ~= GetSelectedPedWeapon(PlayerPedId()))  then
+      holdingBody = false
+      DetachEntity(ped)
+    end
+
+
+  end
+  ClearPedTasks(PlayerPedId())
+  DetachEntity(ped)
+end
+
+function attachCarryPed(ped)
+  AttachEntityToEntity(ped, PlayerPedId(), 1, -0.68, -0.2, 0.94, 180.0, 180.0, 60.0, 1, 1, 0, 1, 0, 1)
+  loadAnim( "missfinale_c2mcs_1" )
+  TaskPlayAnim(PlayerPedId(), "missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 1.0, 1.0, -1, 50, 0, 0, 0, 0)
+end

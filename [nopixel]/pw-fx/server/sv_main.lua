@@ -13,6 +13,21 @@ RegisterNetEvent("pw-fx:smoke:grenade", function(pCoords)
     TriggerParticleAtCoord(ptDict, ptName, true, position, 15000, players)
 end)
 
+RegisterServerEvent("fx:ThermiteChargeEnt")
+AddEventHandler("fx:ThermiteChargeEnt", function(pNetId)
+    local pEntity = NetworkGetEntityFromNetworkId(pNetId)
+    local pCoords = GetEntityCoords(pEntity)
+    local players = GetNearbyPlayers(pCoords, 45)
+    local ptDict, ptName = "core","veh_respray_smoke"
+    local position = {
+        coords = { { x = pCoords.x, y = pCoords.y, z = pCoords.z } },
+        rot = { x = 0.0, y = 0.0, z = 0.0 },
+        scale = 1.0,
+        alpha = 1.0,
+    }
+    TriggerParticleAtCoord(ptDict, ptName, true, position, 7000, players)
+end)
+
 RegisterNetEvent("pw-fx:chain:blingDiamonds", function(pCoords, pType, pSize, pStrengh, pScale)
     local serverId = source
     local players = exports["pw-infinity"]:GetNerbyPlayers(pCoords, 25)

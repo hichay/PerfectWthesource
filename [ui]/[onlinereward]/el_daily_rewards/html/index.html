@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.countdown.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        @keyframes expandWidth {
+            0% { width: 0; }
+            100% { width: auto; }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="main" id="main">
+            <div class="rewardsbox">
+                <form id="freeform">
+                    <!-- <p id="header">Daily Rewards</p><br> -->
+                    <div id="countdown" class="countdown"><span></span><div style="text-align: right"><img class="fireboll" src="boxx/firegif.gif" /></div></div>
+                    <div class="rewardinfo">
+                        <div id="item1" class="item1"></div>
+                        <div id="item2" class="item2"></div>
+                        <div id="item3" class="item3"></div>
+                        <div id="item4" class="item4"></div>
+                        <div id="item5" class="item5"></div>
+                        <div id="item6" class="item6"></div>
+                    </div>
+                    <!-- <div id="online" class="online">Online Rewards</div> -->
+                    <div id="credit" class="credit"><span style="background-color: black"> &nbsp; Quà Online &nbsp; </span></div>
+                    <!-- <button type="submit" id="submitbtn">Claim</button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".meter > span").each(function() {
+        $(this)
+            .data("origWidth", $(this).width())
+            .width(0)
+            .animate({
+            width: $(this).data("origWidth") // or + "%" if fluid
+            }, 1200);
+        });
+    </script>
+</body>
+
+</html>

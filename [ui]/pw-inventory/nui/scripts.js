@@ -3340,9 +3340,13 @@ function useitem() {
     if (isWeapon === undefined) {
         isWeapon = false;
     }
+    
+	let isEsx = itemList[itemid].esxuse;
+	let RemoveAfterUse = itemList[itemid].removuse;
+
     if (currentInventory == 1) {
         inventoryUsedName = PlayerInventoryName;
-        let arr = [inventoryUsedName, itemid, slotusing, isWeapon, itemusinginfo];
+        let arr = [inventoryUsedName, itemid, slotusing, isWeapon, itemusinginfo, isEsx, RemoveAfterUse];
         $.post('https://pw-inventory/invuse', JSON.stringify(arr));
         //InventoryLog("Using item: " + name + "(" + amount + ") from " + inventoryUsedName + " | slot " + slotusing)
     }
