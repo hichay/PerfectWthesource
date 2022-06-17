@@ -1,16 +1,4 @@
-Keys = {
-    ['ESC'] = 322, ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167, ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57,
-    ['~'] = 243, ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165, ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84, ['='] = 83, ['BACKSPACE'] = 177,
-    ['TAB'] = 37, ['Q'] = 44, ['W'] = 32, ['E'] = 38, ['R'] = 45, ['T'] = 245, ['Y'] = 246, ['U'] = 303, ['P'] = 199, ['['] = 39, [']'] = 40, ['ENTER'] = 18,
-    ['CAPS'] = 137, ['A'] = 34, ['S'] = 8, ['D'] = 9, ['F'] = 23, ['G'] = 47, ['H'] = 74, ['K'] = 311, ['L'] = 182,
-    ['LEFTSHIFT'] = 21, ['Z'] = 20, ['X'] = 73, ['C'] = 26, ['V'] = 0, ['B'] = 29, ['N'] = 249, ['M'] = 244, [','] = 82, ['.'] = 81,
-    ['LEFTCTRL'] = 36, ['LEFTALT'] = 19, ['SPACE'] = 22, ['RIGHTCTRL'] = 70,
-    ['HOME'] = 213, ['PAGEUP'] = 10, ['PAGEDOWN'] = 11, ['DELETE'] = 178,
-    ['LEFT'] = 174, ['RIGHT'] = 175, ['TOP'] = 27, ['DOWN'] = 173,
-}
-
 ESX = nil
-
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -121,3 +109,96 @@ Citizen.CreateThread(function()
 end)
 
 
+local data = {
+    id = "npc_therenter",
+    position = {coords = vector3(-1228.309, -176.6915, 38.326072), heading = 185.73393},
+    pedType = 4,
+    model = "s_f_y_airhostess_01",
+    networked = false,
+    distance = 25.0,
+    settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+    flags = { ["isNPC"] = true, },
+    scenario = "WORLD_HUMAN_CLIPBOARD_FACILITY",
+}
+local npc = exports["pw-npcs"]:RegisterNPC(data, "npc_therentername")
+
+
+local Interact = {
+  data = {
+    {
+      id = 'npc_therenterid',
+      label = 'Thuê xe',
+      icon = 'hand-holding',
+      event = 'pw-spawn:showRent',
+      parameters = {},
+    },
+  },
+  options = {
+    distance = { radius = 2.5 },
+    npcIds = { 'npc_therenter' },
+    --[[ isEnabled = function(pEntity, pContext)
+      return isOnDeliveryTask()
+    end, ]]
+  },
+}
+
+exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
+
+
+AddEventHandler("pw-spawn:showRent", function()
+    local datamen = {}
+    for k,v in ipairs(VehiclesConfig) do
+        for _, vehicle in ipairs(v["Vehicles"]) do
+            vehicle.spawn = v["Spawn"]
+
+            datamen[#datamen + 1] = {
+                icon = 'car',
+				title = vehicle.name,
+				description = "",
+				image = vehicle.image,
+				children = {
+					{ icon = "check", description = '' ,title = "Thuê xe", action = "pw-spawn:rentVehicle", key = {vehicle = vehicle, spawn = v['Spawn']} },
+				},
+			}
+        end
+    end
+
+    exports["pw-context"]:showContextMenu(datamen)
+end)
+
+
+
+AddEventHandler("pw-spawn:rentVehicle", function(params)
+    --cb({ data = {}, meta = { ok = true, message = '' } })
+    local vehicle = params.vehicle
+    local hash = GetHashKey(vehicle.model)
+    local success = RPC.execute('pw-spawn:rentVehicle',vehicle.price)
+    local newPlate = exports['pw-vehicleshop']:GeneratePlate()
+    if success then
+        if not HasModelLoaded(hash) then
+            RequestModel(hash)
+            while not HasModelLoaded(hash) do
+                Citizen.Wait(10)
+            end
+        end
+        local lastSelectedVehicleEntity = CreateVehicle(hash, 442.23022, -978.9822, -107.6886, 23.429121, false, false)
+        local vehicleProps = ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity)
+        vehicleProps.plate = newPlate
+
+        ESX.Game.SpawnVehicle(vehicle.model, vehicle.spawn.coords, vehicle.spawn.heading, function(veh)
+            TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+            SetVehicleNumberPlateText(veh, vehicleProps.plate)
+            exports["pw-fuel"]:SetFuel(veh,100)
+            TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(veh).plate)
+        end)
+
+        if lastSelectedVehicleEntity ~= nil then
+            DeleteVehicle(lastSelectedVehicleEntity)
+        end
+        
+        TriggerEvent('DoLongHudText',"Thuê xe thành công",1)
+    else
+        TriggerEvent('DoLongHudText',"Không có đủ tiền để thực hiện",2)
+    end
+
+end)

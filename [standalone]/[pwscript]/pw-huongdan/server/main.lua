@@ -40,3 +40,14 @@ AddEventHandler('esx_joblisting:setJob', function(job)
 	end)
 
 end)
+
+RPC.register('pw-spawn:rentVehicle',function(src,price)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	--TriggerClientEvent('table',-1,data)
+	if xPlayer.getMoney() >= price then 
+		xPlayer.removeMoney(price)
+		return true
+	else
+		return false
+	end
+end)

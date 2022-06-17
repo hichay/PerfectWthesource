@@ -232,7 +232,8 @@ local function routeMessage(source, author, message, mode, fromConsole)
 
     if not WasEventCanceled() then
         if type(routingTarget) ~= 'table' then
-            if mode == 'ooc' then
+            if mode == 'system' then
+                print('hello')
                 local idnumber = xPlayer.getIdCard()
                 if ChattedPlayers[idnumber] then
                     if os.time() < ChattedPlayers[idnumber] then
@@ -243,7 +244,7 @@ local function routeMessage(source, author, message, mode, fromConsole)
                     end
                 end
                 ChattedPlayers[idnumber] = os.time() + math.floor(100)
-                --TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+                TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
 				TriggerClientEvent('chatMessage', -1, "OOC | "..author.." ["..idnumber.."]" , {163, 62, 48}, message, 'ooc')
             end
         else

@@ -288,15 +288,15 @@ RegisterNUICallback("Buy", function(data, cb)
 			-- }
 	
     -- TriggerServerEvent('vehicleshop.CheckMoneyForVeh',data.modelcar, data.sale, data.name, vehicleProps, stats)
-		
-	ESX.TriggerServerCallback('vehicleshop:buyVehicle', function(hasEnoughMoney)
+	
+
+    ESX.TriggerServerCallback('vehicleshop:buyVehicle', function(hasEnoughMoney)
 		if hasEnoughMoney then
 			
 				local newPlate     = GeneratePlate()
 				local vehicleProps = ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity)
 				vehicleProps.plate = newPlate
 				SetVehicleNumberPlateText(vehicle, newPlate)
-
 					stats = {
 						["engine_damage"] = GetVehicleEngineHealth(lastSelectedVehicleEntity), 
 						["body_damage"] = GetVehicleBodyHealth(lastSelectedVehicleEntity), 
@@ -312,18 +312,14 @@ RegisterNUICallback("Buy", function(data, cb)
 						["injector"] = 100,
 					}
 
-				
-			
-					--TriggerServerEvent('esx_vehicleshop:setVehicleOwned', vehicleProps)
 					TriggerServerEvent('pw-garages:server:setVehicleOwned', vehicleProps,stats,data.modelcar)
-					--TriggerEvent('vehiclekeys:server:SetVehicleOwner',newPlate)
-					-- TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(lastSelectedVehicleEntity).plate)
 					TriggerEvent('vehicleshop.spawnVehicle', data.modelcar, vehicleProps.plate)
 					
 					CloseNui()
 
 		else
-			 TriggerEvent('vehicleshop.notify', source, 'error', 'Khong du tien')
+			 --TriggerEvent('vehicleshop.notify', source, 'error', 'Khong du tien')
+            TriggerEvent('DoLongHudText', 'Không đủ tiền', 2)
 		end
 	end, data)
 	
@@ -357,7 +353,8 @@ AddEventHandler('vehicleshop.spawnVehicle', function(model, plate)
 	local spawncord = vector3(-11.87, -1080.87, 25.71)
 	ESX.Game.SpawnVehicle(model, spawncord, 132.0, function(vehicle)
 		TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
-		SetVehicleNumberPlateText(vehicle, plate)	
+		SetVehicleNumberPlateText(vehicle, plate)
+        exports["pw-fuel"]:SetFuel(vehicle,100)
 		TriggerEvent("vehiclekeys:client:SetOwner", ESX.Game.GetVehicleProperties(vehicle).plate)	
         		
 	end)
@@ -517,7 +514,7 @@ function drawTxt(text,font,x,y,scale,r,g,b,a)
 	SetTextColour(r,g,b,a)
 	SetTextOutline()
 	SetTextCentre(1)
-	SetTextEntry("STRING")
+	SetTextEntry("CUSTOM_TEXT")
 	AddTextComponentString(text)
 	DrawText(x,y)
 end

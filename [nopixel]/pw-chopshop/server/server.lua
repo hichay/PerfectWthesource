@@ -11,7 +11,7 @@ RPC.register('pw-chopshop:chopTheVehicle',function(src, netId, vehicleModel, bon
 		elseif randomnumber >= 46 and randomnumber <= 90 then 
 			TriggerClientEvent("player:receiveItem",source,"plastic",1)
 		elseif randomnumber >= 91 and randomnumber <= 100 then 
-			TriggerClientEvent("player:receiveItem",source,"aluminium",1)
+			TriggerClientEvent("player:receiveItem",source,"aluminium",math.random(1,3))
 		end
 	elseif boneType == 'door' then 
 		if randomnumber >= 1 and randomnumber <= 45 then 
@@ -19,7 +19,7 @@ RPC.register('pw-chopshop:chopTheVehicle',function(src, netId, vehicleModel, bon
 		elseif randomnumber >= 46 and randomnumber <= 90 then 	
 			TriggerClientEvent("player:receiveItem",source,"scrapmetal",1)
 		elseif randomnumber >= 91 and randomnumber <= 100 then 
-			TriggerClientEvent("player:receiveItem",source,"steel",1)
+			TriggerClientEvent("player:receiveItem",source,"steel",math.random(1,3))
 		end
 
 	elseif boneType == 'remains' then
@@ -30,11 +30,11 @@ RPC.register('pw-chopshop:chopTheVehicle',function(src, netId, vehicleModel, bon
 			TriggerClientEvent("player:receiveItem",source,"scrapmetal",1)
 			TriggerClientEvent("player:receiveItem",source,"glass",1)
 		elseif randomnumber >= 71 and randomnumber <= 80 then 
-			TriggerClientEvent("player:receiveItem",source,"aluminium",1)
+			TriggerClientEvent("player:receiveItem",source,"aluminium",math.random(1,3))
 		elseif randomnumber >= 81 and randomnumber <= 90 then 	
-			TriggerClientEvent("player:receiveItem",source,"steel",1)
+			TriggerClientEvent("player:receiveItem",source,"steel",math.random(1,3))
 		elseif randomnumber >= 91 and randomnumber <= 100 then 
-			TriggerClientEvent("player:receiveItem",source,"electronics",1)
+			TriggerClientEvent("player:receiveItem",source,"electronics",math.random(1,3))
 
 		end
 
