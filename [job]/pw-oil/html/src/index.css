@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+@font-face {
+  font-family: Diablo;
+  src: url("./assets/Diablo.otf") format("opentype");
+}
+@font-face {
+  font-family: Futura;
+  src: url("./assets/Futura.TTF") format("truetype");
+}
+@font-face {
+  font-family: Lato;
+  src: url("./assets/Lato.ttf") format("truetype");
+}
+@font-face {
+  font-family: OpenSansCondensed;
+  src: url("./assets/OpenSansCondensed.ttf") format("truetype");
+}
+@font-face {
+  font-family: OpenSansCondensed-Light;
+  src: url("./assets/OpenSansCondensed-Light.ttf") format("truetype");
+}
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+html,
+body {
+    /* background-color: #38554f; */
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    overflow: hidden !important;
+    user-select: none;
+    
+}
+#root{
+  height: 100%;
+  width: 100%;
+}
+.bg-yellow {
+  background-color: #FFEC1C !important;
+}
+.bg-orange {
+  background-color: #FFD51D !important;
+}
+.bg-orange-dark {
+  background-color: #E5C11D !important;
+}
+.bg-pink {
+  background-color: #EE0B4B !important;
+}
+.bg-purple {
+  background-color: #7c5bf1 !important;
+}
+.bg-blue-dark {
+  background-color: #484abc !important;
+}
+.bg-dark {
+  background-color: #1a1336e6 !important;
+}
+.bg-cyan {
+  background-color: #38EBBA !important;
+}
+.bg-tran{
+  background-color: #28262e4f !important;
+}
+
+.text-yellow {
+  color: #FFEC1C !important;
+}
+.text-orange {
+  color: #FFD51D !important;
+}
+.text-orange-dark {
+  color: #E5C11D !important;
+}
+.text-pink {
+  color: #EE0B4B !important;
+}
+.text-red {
+  color: #f72585
+}
+.text-purple {
+  color: #7c5bf1 !important;
+}
+.text-blue-dark {
+  color: #484abc !important;
+}
+.text-dark {
+  color: #1a1336e6 !important;
+}
+.text-cyan {
+  color: #38EBBA !important;
+}
+.text-tran{
+  color: #28262e4f !important;
+}
+
+.shadow-yellow {
+  box-shadow: #ffec1c9a 0px 0px 20px 2px;
+  background-color: #FFEC1C
+}
+.shadow-orange {
+  box-shadow: #FFD51D9a 0px 0px 20px 2px;
+  background-color: #FFD51D
+}
+.shadow-orange-dark {
+  box-shadow: #E5C11D9a 0px 0px 20px 2px;
+  background-color: #E5C11D
+}
+.shadow-pink {
+  box-shadow: #EE0B4B9a 0px 0px 20px 2px;
+  background-color: #EE0B4B
+}
+.shadow-purple {
+  box-shadow: #7c5bf19a 0px 0px 20px 2px;
+  background-color: #7c5bf1
+}
+.shadow-blue-dark {
+  box-shadow: #484abc9a 0px 0px 20px 2px;
+  background-color: #484abc
+}
+.shadow-dark {
+  box-shadow: #1a1336e6 0px 0px 20px 2px;
+  background-color: #1a1336e6
+}
+/* .title{
+  font-family: 'Diablo', serif;
+  font-size: 2vw;
+} */
+.flex-row-center{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.flex-row-between{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.flex-row-around{
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+.flex-row{
+  display: flex;
+}
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+.flex-col-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container{
+  width:100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+p{
+  padding: .1vw;
+  margin: .1vw
+}

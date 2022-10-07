@@ -161,7 +161,7 @@ elseif not Config.UseDeferrals then
 		AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 			local currentIdentity = playerIdentity[xPlayer.identifier]
 			if currentIdentity and alreadyRegistered[xPlayer.identifier] == true then
-
+				print('player already reg')
 				xPlayer.setName(('%s %s'):format(currentIdentity.firstName, currentIdentity.lastName))
 				xPlayer.set('firstName', currentIdentity.firstName)
 				xPlayer.set('lastName', currentIdentity.lastName)
@@ -178,6 +178,8 @@ elseif not Config.UseDeferrals then
 
 				playerIdentity[xPlayer.identifier] = nil
 			else
+				Citizen.Wait(10000)
+				print('run the new player')
 				TriggerClientEvent('esx_identity:showRegisterIdentity', xPlayer.source)
 			end
 		end)
@@ -248,9 +250,13 @@ elseif not Config.UseDeferrals then
 				else
 					playerIdentity[xPlayer.identifier] = nil
 					alreadyRegistered[xPlayer.identifier] = false
+					Citizen.Wait(5000)
+					print('rune wa')
 					TriggerClientEvent('esx_identity:showRegisterIdentity', xPlayer.source)
 				end
 			else
+				Citizen.Wait(5000)
+				print('thí one')
 				TriggerClientEvent('esx_identity:showRegisterIdentity', xPlayer.source)
 			end
 		end)

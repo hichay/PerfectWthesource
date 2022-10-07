@@ -54,7 +54,7 @@ ELEVATORS[#ELEVATORS + 1] = {
         },
         {
             ["name"] = "Level 2",
-            ["description"] = "Tầng chính",
+            ["description"] = "Sảnh chính",
             ["locked"] = false,
             ["zones"] = {
                 {

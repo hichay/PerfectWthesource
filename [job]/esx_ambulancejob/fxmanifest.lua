@@ -25,25 +25,14 @@ client_scripts {
 	'config.lua',
 	'client/main.lua',
 	'client/job.lua',
-	'client/vehicle.lua',
-	'client/cl_vehicles.lua',
-	'client/cl_npc.lua',
+	'client/cl_*.lua',
 }
 
-ui_page 'html/index.html'
-
+ui_page 'html/ui.html'
 
 files {
-    'html/index.html',
-    'html/style.css',
-    'html/vendor/fontawesome-free/all.min.css',
-    'html/js/script.js',
-    'html/js/demo/datables-demo.js',
-    'html/vendor/bootstrap/bootstrap.bundle.min.js',
-    'html/vendor/datatables/dataTables.bootstrap4.min.js',
-    'html/vendor/datatables/jquery.dataTables.min.js',
-    'html/vendor/jquery/jquery.min.js',
-    'html/vendor/jquery-easing/jquery.easing.min.js',
+	'html/**',
+	"images/*"
 }
 
 dependencies {

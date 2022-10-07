@@ -380,8 +380,8 @@ html {
   line-height: 2.25rem;
   padding: 0 2rem;
   border-radius: 2.5rem;
-  position: relative;
-  z-index: 1;
+/*   position: relative;
+  z-index: 1; */
   cursor: pointer;
   outline: none;
   margin-top: 2rem;

@@ -2,6 +2,8 @@ local firstSpawn, PlayerLoaded = true, false
 
 isDead, isSearched, medic = false, false, 0
 ESX = nil
+yarragimiyemert = false
+local emsBildirimCd = 0
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -98,14 +100,16 @@ end)
 
 
 
+
 -- Create blips
 Citizen.CreateThread(function()
 	for k,v in pairs(Config.Hospitals) do
-		local blip = AddBlipForCoord(v.Blip.coords)
+		local blip = AddBlipForCoord(v.Blip.Coords)
 
-		SetBlipSprite(blip, v.Blip.sprite)
-		SetBlipScale(blip, v.Blip.scale)
-		SetBlipColour(blip, v.Blip.color)
+		SetBlipSprite (blip, v.Blip.Sprite)
+		SetBlipDisplay(blip, v.Blip.Display)
+		SetBlipScale  (blip, v.Blip.Scale)
+		SetBlipColour (blip, v.Blip.Colour)
 		SetBlipAsShortRange(blip, true)
 
 		BeginTextCommandSetBlipName('CUSTOM_TEXT')
@@ -301,8 +305,8 @@ function drawTxt(x, y, width, height, scale, text, r, g, b, a, outline)
 end
 function StartDeathTimer()
 	local canPayFine = false
-	respawnText = ("~w~Nhấn giữ ~r~E ~w~(%s %s) ~w~ để hồi sinh (lưu ý mất đồ - tiền)")
-	deathText = ("Bất tỉnh: ~r~%s phút %s giây~w~ nữa mới tỉnh ")
+	--respawnText = ("~w~Nhấn giữ ~r~E ~w~(%s %s) ~w~ để hồi sinh (lưu ý mất đồ - tiền)")
+	--deathText = ("Bất tỉnh: ~r~%s phút %s giây~w~ nữa mới tỉnh ")
 	if Config.EarlyRespawnFine then
 		ESX.TriggerServerCallback('esx_ambulancejob:checkBalance', function(canPay)
 			canPayFine = canPay
@@ -331,28 +335,41 @@ function StartDeathTimer()
 			end
 		end
 	end)
+
+
 	Citizen.CreateThread(function()
 		local text, timeHeld
 
 		-- early respawn timer
 		while earlySpawnTimer > 0 and isDead do
 			Citizen.Wait(0)
-			--text = _U('respawn_available_in', secondsToClock(earlySpawnTimer))
-			
-			drawTxt(0.89, 1.42, 1.0,1.0,0.6, deathText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
+			SetNuiFocus(true,true)
+			SendNUIMessage({
+				setDisplay = true,
+				setDisplayDead = false,
+				deathtimer = earlySpawnTimer
+			})
+		--	text = _U('respawn_available_in', secondsToClock(earlySpawnTimer))
+
 			DrawGenericTextThisFrame()
 
-			SetTextEntry('CUSTOM_TEXT')
+			SetTextEntry("STRING")
 			AddTextComponentString(text)
 			DrawText(0.5, 0.8)
+			
 		end	
 		-- bleedout timer
 		while bleedoutTimer > 0 and isDead do
+			yarragimiyemert = true
 			Citizen.Wait(0)
-			text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
-			drawTxt(0.89, 1.42, 1.0,1.0,0.6, respawnText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
+			
+			SendNUIMessage({
+				setDisplay = true,
+				setDisplayDead = false,
+				deathtimer = bleedoutTimer
+			})
 			if not Config.EarlyRespawnFine then
-				text = text .. _U('respawn_bleedout_prompt')
+				--text = text .. _U('respawn_bleedout_prompt')
 
 				if IsControlPressed(0, 38) and timeHeld > 60 then
 					RemoveItemsAfterRPDeath()
@@ -360,7 +377,7 @@ function StartDeathTimer()
 					break
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
-				text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
+				--text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
 				drawTxt(0.89, 1.42, 1.0,1.0,0.6, respawnText:format(secondsToClock(earlySpawnTimer)), 255, 255, 255, 255)
 				if IsControlPressed(0, 38) and timeHeld > 60 then
 					TriggerServerEvent('esx_ambulancejob:payFine')
@@ -388,6 +405,10 @@ function StartDeathTimer()
 	end)
 end
 
+function bakiiii()
+	earlySpawnTimer = earlySpawnTimer + 60
+end
+
 function RemoveItemsAfterRPDeath()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', false)
 	exports["pw-lib"]:setVar("dead", false)
@@ -409,7 +430,12 @@ function RemoveItemsAfterRPDeath()
 
 			ESX.SetPlayerData('loadout', {})
 			RespawnPed(PlayerPedId(), formattedCoords, Config.RespawnPoint.heading)
-
+			SetNuiFocus(false,false)
+			SendNUIMessage({
+				setDisplay = false,
+				setDisplayDead = false,
+				deathtimer = deathtimer
+			})
 			StopScreenEffect('DeathFailOut')
 			DoScreenFadeIn(800)
 		end)
@@ -427,7 +453,7 @@ function RespawnPed(ped, coords, heading)
 	TriggerEvent('playerSpawned') -- compatibility with old scripts, will be removed soon
 end
 
-RegisterNetEvent('esx_phone:loaded')
+--[[ RegisterNetEvent('esx_phone:loaded')
 AddEventHandler('esx_phone:loaded', function(phoneNumber, contacts)
 	local specialContact = {
 		name       = 'Ambulance',
@@ -436,7 +462,7 @@ AddEventHandler('esx_phone:loaded', function(phoneNumber, contacts)
 	}
 
 	TriggerEvent('esx_phone:addSpecialContact', specialContact.name, specialContact.number, specialContact.base64Icon)
-end)
+end) ]]
 
 AddEventHandler('esx:onPlayerDeath', function(data)
 	OnPlayerDeath()
@@ -474,10 +500,53 @@ AddEventHandler('esx_ambulancejob:revive', function()
 		
 
 		StopScreenEffect('DeathFailOut')
+		
 		DoScreenFadeIn(800)
+		Citizen.Wait(1000)
+		SetNuiFocus(false,false)
+		SendNUIMessage({
+			setDisplay = false,
+			setDisplayDead = false,
+			deathtimer = deathtimer
+		})
+		
+		
 	end)
 end)
 
+
+RegisterNUICallback('ButtonRevive',function()
+	print('tetik 1 ')
+	if GetGameTimer() > emsBildirimCd then
+		print('sinyal gitti ?',emsBildirimCd)
+		emsBildirimCd = GetGameTimer() + 300000
+		TriggerEvent("ems-alerts:EmsLazım", "Yaralı Bildirimi !", false)
+		ESX.ShowNotification('Tín hiệu được gửi !')
+		bakiiii()
+	else
+		ESX.ShowNotification('Bạn có thể báo hiệu 5 phút một lần !')
+	end
+end)		
+
+
+
+
+
+
+
+
+RegisterNUICallback('ButtonRevive2',function()
+	print('tetik 2 ')
+	print('reviveyiyebilirmi', yarragimiyemert)
+	if yarragimiyemert then
+	 yarragimiyemert = false
+	 bakiiii()
+	RemoveItemsAfterRPDeath()
+	local earlySpawnTimer = earlySpawnTimer + 60
+		else	
+	ESX.ShowNotification('Thời gian phải kết thúc trước !')
+	end
+end)
 
 -- Load unloaded IPLs
 if Config.LoadIpl then

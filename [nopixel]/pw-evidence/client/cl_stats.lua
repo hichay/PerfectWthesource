@@ -1680,8 +1680,10 @@ AddEventHandler("requestWounds", function(pArgs, pEntity)
 	if not targetPed then
 		return
 	end
-
-	TriggerServerEvent("Evidence:GetWounds", GetPlayerServerId(NetworkGetPlayerIndexFromPed(targetPed)))
+	local myJob = ESX.PlayerData.job.name
+	if myJob == 'ambulance' then
+		TriggerServerEvent("Evidence:GetWounds", GetPlayerServerId(NetworkGetPlayerIndexFromPed(targetPed)))
+	end
 end)
 
 Citizen.CreateThread(function()

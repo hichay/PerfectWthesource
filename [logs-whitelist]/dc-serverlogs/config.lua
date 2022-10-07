@@ -32,18 +32,6 @@ Config['webhook'] = {
 	['Logout'] = 'https://discord.com/api/webhooks/803838790065193000/ZXlbuNOq4hgJtTTgKcTt_Kgo4pTTvATXRevdhtFgmRnOxCIBymn4YuIxnWmaGUBx8dWa',	
 	['Chat'] = 'https://discordapp.com/api/webhooks/732203632476553257/2_pblgbhipYx7MYQs-zn-GZT4GebcWN1-U3htGPlqgMoN2cCWPfgC9WrUGtchz-3Vsto',		
 	['Dead'] = 'https://discord.com/api/webhooks/882527130632724480/Wv4KTVFBcEALqU1k8dm7fi37oSzG0W1vW79pVMQwZltu6zufAAIfhPHwyIokurAwL7qx',			
-	['GiveItem'] = 'https://discordapp.com/api/webhooks/732217236026032228/Om0RSkgpB_J-BqO6mWlVMTDNBjkZHDTPttM3YKBlqNPCc-m1LSdCOqrlaAedJemdh5Qc',			
-	['GiveMoney'] = 'https://discordapp.com/api/webhooks/732217502960058449/6lCd07Kp5EoyotFyzGlzgtsQKYLmnVGlTbDKqMSVAQj0rqxLGKuhvphePp4aJ79a37jl',			
-	['GiveDirtyMoney'] = 'https://discordapp.com/api/webhooks/732217694207737996/Gku0sGyMYtfwBMR7V0MIUY9xW4OrKmBH6E6zvUXIOL3ddMtzMAcHJXoAb7j1ovtKKK30',			
-	['GiveWeapon'] = 'https://discordapp.com/api/webhooks/732217915109277696/osGlF8Fsg2IJSgq_fwfscN8bQjxWcuky79Qa4oSrqpZNNEIfjIj4P7x6bdltY7MHxubE',			
-	['RemoveItem'] = 'https://discordapp.com/api/webhooks/732218163563069563/ZqzEtFtZzUBoVKkV8XgzK3_1rh3pRCmfpGMCmv7jYp_KlMdxXHLumcBc8SNH3QgmDan9',			
-	['RemoveMoney'] = 'https://discordapp.com/api/webhooks/732218354361696397/jdEB3fcBx49GgHqwYPQi27HqCKx-_8ndFzPYC6dwgDu22J8oM19IMqZp9CmkJyjWHwos',			
-	['RemoveDirtyMoney'] = 'https://discordapp.com/api/webhooks/732218576018210916/VBySpyP8n515FRixb950n7S5b1z7DLYRYjAhzFhGQmLBLX9Hz2GB5kI_lTyJ297cYqPm',			
-	['RemoveWeapon'] = 'https://discordapp.com/api/webhooks/732218774757048423/4j42ErJ26TECc91rQbvQd61fzpnr1Ry-a7ldffTm9KkF-ngE4rczE6cggE0eeNMKTwD9',			
-	['UseItem'] = 'https://discord.com/api/webhooks/862552675026599957/T0ek46z0DKUCZ5i21dmZIy5tuvfgFJoTixMrkeyWCB_1H2R3wnstGVFC9EyoWufsXHD7',			
-	['PickupItem'] = 'https://discordapp.com/api/webhooks/732219183441510471/RH7hgFArxsyzS7Mw2gga6AN-PEnyriLhXT4M38piS3Up2aymxftLRb3Zij2yUcJF6oJe',			
-	['PickupMoney'] = 'https://discordapp.com/api/webhooks/732219363897114697/Zo24sUvtF-LaGEHkS6nqwUhjuhaM9MSZtZKpO76PtZ04rIjPNhbI-OIkmUliTP7dG5Ee',
-	['Ok'] = 'https://discord.com/api/webhooks/862552675026599957/T0ek46z0DKUCZ5i21dmZIy5tuvfgFJoTixMrkeyWCB_1H2R3wnstGVFC9EyoWufsXHD7',			
 	['OffdutyAm'] = 'https://discord.com/api/webhooks/879059335634886656/Rm5XKPlnoBmAVGdZXLybKqpeq7fMfbV-pmsCB4_YxSvFATPvkgHfoC06tFHwwHnuX-KT',
 	['OnDutyAm'] = 'https://discord.com/api/webhooks/879059335634886656/Rm5XKPlnoBmAVGdZXLybKqpeq7fMfbV-pmsCB4_YxSvFATPvkgHfoC06tFHwwHnuX-KT',
 	['OffdutyPL'] = 'https://discordapp.com/api/webhooks/878993610564042783/B2hysxH1UYf4KAVjyRyOosLEYZE-siAmhchaM-aBxIKD94BKudwX5XKldJ1CIprXS24Q',
@@ -53,6 +41,9 @@ Config['webhook'] = {
 	['BanCa'] = 'https://discordapp.com/api/webhooks/889861599685382144/JoMFVWk5mi24fOCdP4JS_66urUUOOJ07wyK93CsRrwg2G-BADxBg9mRJZRSMz3l_WmrB',	
 	['Logca'] = 'https://discordapp.com/api/webhooks/889861596946518036/_tHNbJemTb0hPOpH2QTZyDTsTVczX_ZAQYauzzZ1y1uq2f6-ZBeR8M3DoXZMzW4cD_Ca',
 	['LogRuaTien'] = 'https://discordapp.com/api/webhooks/889861596946518036/_tHNbJemTb0hPOpH2QTZyDTsTVczX_ZAQYauzzZ1y1uq2f6-ZBeR8M3DoXZMzW4cD_Ca',
+	['Logaddaccountmoney'] = 'https://discord.com/api/webhooks/988105903125446707/Z6dNXZ1_A1yvH9VheK6KbBFhRWpH_fGNOoIQG5E9CqCzEGFBPtyp_gd-cd1WG8_9x71-',
+	['Logremoveaccountmoney'] = 'https://discord.com/api/webhooks/988111312087285760/V31dO1Nj2WfQu-MsezlSrNH32pniGMzskXmM6yU2HAaeP8gBEaWnoH9LzwQnEw6IYs48',
+	
 }
 
 

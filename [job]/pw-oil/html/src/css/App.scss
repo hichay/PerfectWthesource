@@ -1,0 +1,161 @@
+.App{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    font-family: 'Arimo', sans-serif;
+    background: radial-gradient(circle at 50% -200%, #3f37c9 0%, rgba(255, 255, 255, 0) 100%);
+    /* background-color: black; */
+    font-family: OpenSansCondensed;
+    .owner{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 2vh;
+        right: 1vw;
+        >div{
+            margin: .3vw;
+        }
+        .content{
+            text-align: right;
+        }
+        .icon{
+            font-size: 2vw;
+        }
+    }
+
+
+    .text-trans{
+        color: rgba(245, 245, 245, 0.616);
+    }
+    .text-white{
+        color: whitesmoke
+    }
+    .btn{
+        border: solid 1px #1d99ff9a;
+        padding: .6vw 1.2vw;
+        border-radius: 1vw;
+        &:hover{
+            background-color: #1d99ff9a;
+        }
+        
+    }
+    .collectProfits{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 10vh;
+        right: 1vw;
+        padding-right: 2vw;
+        border-right: solid .1vw rgba(245, 245, 245, 0.226);
+    }
+    .description{
+        text-align: right;
+        position: absolute;
+        top: 17vh;
+        right: 1vw;
+    }
+    .empty{
+        display: flex;
+        width: .3vw;
+        height: 2vw;
+        position: absolute;
+        right: 1vw;
+        border-right: solid .1vw rgba(245, 245, 245, 0.226);
+    }
+    .status{
+        text-align: right;
+        position: absolute;
+        right: 1vw;
+        top: 30vh;
+    }
+    .workers{
+        font-size: 1.2vw;
+        position: absolute;
+        right: 1vw;
+        top: 43vh;
+    }
+    .skill-level{
+
+        position: absolute;
+        right: 1vw;
+        bottom: 30vh;
+        
+        .data{
+            display: flex;
+            align-items: center;
+            >div{
+                margin: 1vw;
+            }
+        }
+        .skill-desc{
+            p{
+                margin: 0;
+                text-align: right;
+            }
+        }
+    }
+    .after-4-hours{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 1vw;
+        bottom: 2vh;
+        >div{
+            margin: .6vw;
+        }
+    }
+    .title{
+        font-size: 3.2vw;
+        text-align: center;
+        transform: skewY(-10deg);
+        position: absolute;
+        right: 20vw;
+        bottom: 15vh;
+    }
+    .drill{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin: .6vw;
+        >img{
+            height: 80%;
+        }
+    }
+    .action{
+        position: absolute;
+        left: 1vw;
+    }
+    .products{
+        display: flex;
+        position: absolute;
+        left: 1vw;
+        bottom: 1vh;
+        .product{
+            width: 10vw;
+            height: 10vw;
+            background-color: rgba(0, 0, 0, 0.349);
+            margin: 1vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            >i{
+                font-size: 2.5vw;
+            }
+            &:hover{
+                background-color: #1dbde5;
+                box-shadow: #1d99ff9a 0px 0px 20px 2px;
+            }
+            &.active{
+                background-color: #1dbde5;
+                box-shadow: #1d99ff9a 0px 0px 20px 2px;
+            }
+        }
+    }
+}

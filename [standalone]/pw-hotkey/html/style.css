@@ -5,34 +5,124 @@
 }
 
 @font-face {
-	font-family: pcdown;
-	src: url('../fonts/pdown.ttf');
+	font-family: Goldman;
+	src: url('../fonts/Goldman-Regular.ttf');
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Goldman&display=swap');
+
+
 #container {
     position: absolute;
-    right: 10px;
-    top: 34%;
-    color:#fff;
-	font-family: 'arial', cursive;
+    width: 188px;
+    height: 196px;
+    left: 1708px;
+    top: 276px;
 
-    z-index: -3;
+    background: linear-gradient(180deg, rgba(14, 0, 3, 0.24) 0%, rgba(14, 0, 3, 0.0768) 100%);
+    border-radius: 4px;
+
 }
 
-.iconhd {
-    margin-bottom: 3px;
-    text-align: right;
-	font-family: 'arial', cursive;
-    font-weight: bold;
-    line-height: 2;
+
+.menulist {
+    position: absolute;
+    width: 139px;
+    height: 160px;
+    margin-left: 25px;
+    margin-top: 18px;
+    margin-right: 24px;
+    margin-bottom: 18px;
+
+
 }
+
+.menu {
+    list-style: none;
+    gap: 16px;
+    
+}
+
+.item1 {
+    width: 32px;
+    height: 10px;
+
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    /* identical to box height, or 100% */
+
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+    
+    position: absolute;
+    width: 108px;
+    height: 28px;
+    margin-left: 31px;
+}
+
+
+
+
+
 
 .backgroundicon {
-    background-color:#020202da;
-     padding:1 0.4px;  
-     display:inline-block !important;  
-    min-width: 30px;
-    font-weight: bold;
-    color:rgb(81, 200, 247);
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    left: 48px;
+    top: 0px;
+    margin-left: 16px;
+    margin-right: 16px;
+
+    background: #CF1322;
+    border-radius: 4px;
+    
+}
+
+.text {
+    position: absolute;
+    width: 10px;
+    height: 12px;
+
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    margin-top: 8px;
+    margin-right: 8px;
+    margin-left: 9px;
+    /* identical to box height, or 100% */
+
     text-align: center;
-    border-radius: 3px;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+    
+}
+
+.vectors {
+    width: 16px;
+    height: 14.4px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    margin-left: 60px;
 }

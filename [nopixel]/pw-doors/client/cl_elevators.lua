@@ -35,9 +35,10 @@ Citizen.CreateThread(function()
             id = "elevatorPrompt",
             event = "pw-doors:elevator:prompt",
             icon = "chevron-circle-up",
-            label = "Elevator"
+            label = "Thang Máy"
         }}, { distance = { radius = 1.5 } })
 end)
+
 
 
 
@@ -76,6 +77,7 @@ function OpenElevatorMenu(pElevator, pCurrentFloor, pBreachingDevice)
         end
 
         elements[#elements+1] = {
+            icon = 'elevator',
             title = floor.name .. status,
             description = floor.description,
             action = (not isCurrentFloor and not isRestricted) and 'pw-doors:elevator:teleport' or '',
@@ -107,7 +109,7 @@ function OpenElevatorMenu(pElevator, pCurrentFloor, pBreachingDevice)
         }
     end
 
-    exports['np-ui']:showContextMenu(reverse(elements))
+    exports['pw-context']:showContextMenu(reverse(elements))
 end
 
 
@@ -154,9 +156,36 @@ function TeleportPlayer(pCoords, pOnArriveEvent)
     DoScreenFadeIn(400)
 end
 
+RegisterNetEvent("pw-doors:elevator:teleport")
+AddEventHandler("pw-doors:elevator:teleport", function (data)
+    local taskActive, coords, heading, onArriveEvent, onLeaveEvent = true, data.coords, data.heading, data.onArriveEvent, data.onLeaveEvent
+    
+    Citizen.CreateThread(function ()
+        local playerPed = PlayerPedId()
+        local startingCoords = GetEntityCoords(playerPed)
 
+        while taskActive do
+            local playerCoords = GetEntityCoords(playerPed)
 
-RegisterUICallback('pw-doors:elevator:teleport', function (data, cb)
+            if #(startingCoords - playerCoords) >= 1.6 or IsPedRagdoll(playerPed) or IsPedBeingStunned(playerPed) then
+                exports['pw-taskbar'].taskCancel()
+            end
+
+            Citizen.Wait(100)
+        end
+    end)
+
+    local time = math.random(4000, 12000)
+    local finished = exports["pw-taskbar"]:taskBar(time, "Waiting for the Elevator", false)
+
+    taskActive = false
+
+    if finished ~= 100 then return end
+
+    TeleportPlayer(coords, heading, onArriveEvent, onLeaveEvent)
+end)
+
+--[[ RegisterUICallback('pw-doors:elevators:updateState', function (data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })
 
     local taskActive, coords, heading, onArriveEvent, onLeaveEvent =
@@ -185,7 +214,7 @@ RegisterUICallback('pw-doors:elevator:teleport', function (data, cb)
     if finished ~= 100 then return end
 
     TeleportPlayer(coords, heading, onArriveEvent, onLeaveEvent)
-end)
+end) ]]
 
 
 RegisterUICallback('pw-doors:elevator:access', function (data, cb)
@@ -214,60 +243,6 @@ end)
 
 ]]
 
-Citizen.CreateThread(function()
-    Citizen.Wait(3000)
-
-    Elevators = RPC.execute("pw-doors:elevators:fetch")
-
-    setSecuredAccesses(Elevators, "elevator")
-
-    for elevatorId, elevator in ipairs(Elevators) do
-        local floors = elevator.floors
-
-        for floorId, floor in ipairs(floors) do
-            local zones = floor.zones
-
-            for zoneId, zone in ipairs(zones) do
-                if not zone.options.data then zone.options.data = {} end
-
-                local data, lib = zone.options.data or {}, zone.target and "pw-polytarget" or "pw-polyzone"
-
-                data.floorId = floorId
-                data.elevatorId = elevatorId
-
-                if zone.type == "box" then
-                    exports[lib]:AddBoxZone("pw-doors:elevator", zone.center, zone.width, zone.length, zone.options)
-                elseif zone.type == "circle" then
-                    exports[lib]:AddCircleZone("pw-doors:elevator", zone.center, zone.radius, zone.options)
-                end
-            end
-        end
-    end
-
-    -- PolyZoneInteraction("pw-doors:elevator:prompt", "[E] For Elevator", 38, function (data)
-    --     if not data or not Elevators[data.elevatorId] then return end
-
-    --     OpenElevatorMenu(data.elevatorId, data.floorId)
-    -- end)
-
-    local peek = {
-        group = { "pw-doors:elevator" },
-        data = {
-            {
-                id = "elevatorPrompt",
-                label = "Elevator",
-                icon = "chevron-circle-up",
-                event = "pw-doors:elevator:prompt",
-                parameters = {},
-            }
-        },
-        options = {
-            distance = { radius = 1.5 }
-        }
-    }
-
-    exports["pw-interact"]:AddPeekEntryByPolyTarget(peek.group, peek.data, peek.options)
-end)
 
 RegisterUICallback('pw-doors:elevator:hackControlPanel', function(data, cb)
     cb({ data = {}, meta = { ok = true, message = '' } })

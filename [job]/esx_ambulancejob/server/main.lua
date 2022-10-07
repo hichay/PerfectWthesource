@@ -390,13 +390,15 @@ AddEventHandler("esx_ambulancejob:hoisinh", function()
 				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospita)
 				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.CheckInHospita.."$ để hồi sinh",'info')
 
-				TriggerClientEvent('esx_ambulancejob:revive', i)
+				--TriggerClientEvent('esx_ambulancejob:revive', i)
+				TriggerClientEvent('bed:checkin')
 				
 			elseif xPlayer.getAccount('bank').money > Config.CheckInHospita then
 				xPlayer.removeAccountMoney('bank', Config.CheckInHospita)
 				TriggerEvent("pw-bossmenu:server:addAccountMoney", 'ambulance' , Config.CheckInHospita)
 				TriggerClientEvent('esx:showNotification', i, "Bạn đã bị trừ "..Config.CheckInHospita.."$ để hồi sinh",'info')
-				TriggerClientEvent('esx_ambulancejob:revive', i)
+				--TriggerClientEvent('esx_ambulancejob:revive', i)
+				TriggerClientEvent('bed:checkin')
 			else
 				TriggerClientEvent('esx:showNotification', i, "Bạn không có "..Config.CheckInHospita.."$ để hồi sinh")
 			end

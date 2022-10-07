@@ -1,15 +1,14 @@
 fx_version 'cerulean'
-games {'gta5'}
+game 'gta5'
 
-files {
-    'index.html',
-    'style.css',
-    'script.js',
-    'videos/*',
-}
+description 'qb-loading'
+version '1.0'
 
-loadscreen 'index.html'
+lua54 'yes'
+client_script 'client/client.lua'
 
-loadscreen_manual_shutdown "yes"
+files { 'assets/**', 'html/*', }
 
-client_script "client.lua"
+loadscreen { 'html/index.html' }
+loadscreen_cursor 'yes'
+loadscreen_manual_shutdown 'yes'

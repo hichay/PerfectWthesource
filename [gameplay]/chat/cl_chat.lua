@@ -398,6 +398,7 @@ Citizen.CreateThread(function()
 
     if not chatInputActive then
       if IsControlPressed(0, isRDR and `INPUT_MP_TEXT_CHAT_ALL` or 245) --[[ INPUT_MP_TEXT_CHAT_ALL ]] then
+		print('chat day ne')
         chatInputActive = true
         chatInputActivating = true
         --SetNuiFocus(true, true)

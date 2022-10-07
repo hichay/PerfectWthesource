@@ -14,4 +14,4 @@ Config.LowestYear       = 1900
 Config.HighestYear      = 2010
 
 Config.FullCharDelete   = false
-Config.EnableDebugging  = false
+Config.EnableDebugging  = true

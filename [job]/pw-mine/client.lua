@@ -4,6 +4,7 @@ local exploded = false
 local textDel = Config.textDel
 isWorking = false
 blipCreated = false
+local ShowingNotification = false
 
 RegisterNetEvent('pw-mine:client:kichhoat')
 AddEventHandler('pw-mine:client:kichhoat', function()
@@ -109,13 +110,18 @@ Citizen.CreateThread(function()
             while #(GetEntityCoords(PlayerPedId() - closeTo.coords)) <= 2.5 and not exploded do
                 local counter = 0
                 Wait(0)
-                helpText(Strings['press_mine'])
+                if not ShowingNotification then
+                    ShowingNotification = true
+                    exports["pw-interaction"]:showInteraction("[E] Để đặt mìn")
+                end
                 if IsControlJustReleased(0, 38) then                 
 					mining = true
 					--GiveWeaponToPed(PlayerPedId(), GetHashKey("weapon_stickybomb"), 1, false, true)
 					Citizen.Wait(1250)                                                                                      
 					--TaskPlantBomb(PlayerPedId(), closeTo.coords, 218.5)
 					TriggerEvent("DoLongHudText", "Bom đã đặt - Chạy ngay đi trước khi quá trễ",1)
+                    exports["pw-interaction"]:hideInteraction()
+					ShowingNotification = false
 					while mining and not exploded do
 						-- Wait(1000)
 						local time = 6
@@ -182,9 +188,9 @@ end)
 
 local materialslist = {
     { name = "coal", price = 5},
-    { name = "goldmate", price = math.random(10,15)},
-    { name = "ironmate", price = math.random(10,15),},
-    { name = "mercury", price = math.random(10,15)},
+    { name = "goldmate", price = math.random(20,35)},
+    { name = "ironmate", price = math.random(15,35),},
+    { name = "mercury", price = math.random(15,30)},
     { name = "aluminiummate", price = math.random(30,50)},
     { name = "jadeite", price = math.random(800,1000)},
 }
@@ -230,38 +236,6 @@ RegisterCommand("sellgood", function(source, args, rawCommand)
 end, false)
     
 
-
-
---[[ Citizen.CreateThread(function()
-    while true do
-        local sleep = 250
-        --if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), Config.Sell, true) <= 3.0 then
-        if #(GetEntityCoords(PlayerPedId()) - Config.Sell) <= 3.0 then
-            sleep = 0
-            helpText(Strings['e_sell'])
-            if IsControlJustReleased(0, 38) then
-                TriggerServerEvent('pepe-mine:sell')
-                local ped = PlayerPedId()
-                    local pid = PlayerPedId()
-                    RequestAnimDict('amb@medic@standing@kneel@base')
-                    RequestAnimDict('anim@gangops@facility@servers@bodysearch@')
-                FreezeEntityPosition(pid, true)
-
-                local x,y,z = table.unpack(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.9, -0.98))
-                prop1 = CreateObject(GetHashKey('hei_prop_heist_box'), x, y, z,  true,  true, true)
-
-                TaskPlayAnim(PlayerPedId(), "amb@medic@standing@kneel@base" ,"base" ,8.0, -8.0, -1, 1, 0, false, false, false )
-                TaskPlayAnim(PlayerPedId(), "anim@gangops@facility@servers@bodysearch@" ,"player_search" ,8.0, -8.0, -1, 48, 0, false, false, false )
-
-                Citizen.Wait(6000)
-                DeleteObject(prop1)
-                ClearPedTasksImmediately(PlayerPedId())
-                FreezeEntityPosition(PlayerPedId(), false)
-            end
-        end
-        Wait(sleep)
-    end
-end) ]]
 
 Citizen.CreateThread(function()
     while true do

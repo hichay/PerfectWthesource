@@ -51,9 +51,11 @@ end)
 
 AddEventHandler("pw-ems:buyVeh", function(params)
     local vehicle = params.vehicle
+    print(vehicle)
     local hash = GetHashKey(vehicle.model)
     local success = RPC.execute('pw-policejob:buyJobVehicle',vehicle.price)
     local newPlate = exports['pw-vehicleshop']:GeneratePlate()
+    print(hash)
     if success then
         if not HasModelLoaded(hash) then
             RequestModel(hash)
@@ -82,6 +84,7 @@ AddEventHandler("pw-ems:buyVeh", function(params)
         }
 
         TriggerServerEvent('pw-policejob:server:setVehicleOwned', vehicleProps, stats,vehicle.model, ESX.GetPlayerData().job.name, vehicle.garage)
+        
         ESX.Game.SpawnVehicle(vehicle.model, vehicle.spawn.coords, vehicle.spawn.heading, function(veh)
             TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
             SetVehicleNumberPlateText(veh, vehicleProps.plate)

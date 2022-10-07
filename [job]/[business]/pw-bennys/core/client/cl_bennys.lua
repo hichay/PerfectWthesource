@@ -1465,14 +1465,14 @@ end)
 
 -- PolyZone stuff
 AddEventHandler("pw-polyzone:enter", function(zone, data)
-    --[[ if zone ~= "bennys" then return end
+    if zone ~= "bennys" then return end
     local plyPed = PlayerPedId()
     local plyVeh = GetVehiclePedIsIn(plyPed, false)
-
+	
     if plyVeh ~= 0 and GetPedInVehicleSeat(plyVeh, -1) == plyPed then
-        exports["pw-interaction"]:showInteraction("[E] Bennys")
-        listenForKeypress()
-    end ]]
+        exports["pw-interaction"]:showInteraction("Bennys")
+        --listenForKeypress()
+    end 
 end)
 
 AddEventHandler("pw-polyzone:exit", function(zone)

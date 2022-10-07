@@ -45,7 +45,7 @@ local routedMessages = {
 }
 
 local function checkRoutedMessage(msg)
-  TriggerEvent('table',msg)
+  --TriggerEvent('table',msg)
   local msg = string.lower(msg)
   local match = false
 
@@ -203,7 +203,7 @@ AddEventHandler('chat:showCID', function(cidInformation)
 end)
 
 
-RegisterCommand('chat_demo', function()
+--RegisterCommand('chat_demo', function()
   
   --TriggerEvent('chatMessage', "SYSTEM", { 0, 141, 155 }, "You have been banned from OOC\nReason: Annoying", 'game')
   --TriggerEvent("chatMessage", "OOC Firstname Lastname [123]", 3 , 'OOC Message here', 'ooc')
@@ -216,7 +216,7 @@ RegisterCommand('chat_demo', function()
   --TriggerEvent('chatMessage', 'DISPATCH ', 2, 'The VIN is scratched off.', 'game')
   --TriggerEvent('chatMessage', 'STATUS: ', 1, "Your currency no longer has Multiple Denominations" )
   --TriggerEvent('chatMessage', "SYSTEM", { 199, 141, 155 }, "Incorrect Player ID")
-end, false)
+--end, false)
 
 AddEventHandler('__cfx_internal:serverPrint', function(msg)
   if (msg == "") then return end
@@ -382,7 +382,6 @@ Citizen.CreateThread(function()
     if chatInputActivating then
       if not IsControlPressed(0, isRDR and `INPUT_MP_TEXT_CHAT_ALL` or 245) then
         SetNuiFocus(true)
-
         chatInputActivating = false
       end
     end
@@ -415,4 +414,31 @@ Citizen.CreateThread(function()
       end
     end
   end
+end)
+
+
+local canStart = false
+Citizen.CreateThread(function()
+	Citizen.Wait(4000)
+	canStart = true
+	while canStart do
+		local EntityCoords = GetEntityCoords(PlayerPedId())
+		local Player = PlayerPedId()
+	
+		if chatInputActive ~= nil and chatInputActive == true then
+			for k, id in ipairs(GetActivePlayers()) do
+				serverId = tonumber(GetPlayerServerId(id))
+				print(serverId)
+				CreateMpGamerTagWithCrewColor(serverId, "", false, true, "", 0, 200, 0, 200)
+				SetMpGamerTagVisibility(serverId, 16, true)
+				
+			end	
+			--Draw3dText(vec3(EntityCoords.x, EntityCoords.y, EntityCoords.z + 1.1), '~o~[...]~s~', 1.2)
+		else
+			RemoveMpGamerTag(serverId)
+			SetMpGamerTagVisibility(serverId, 16, false)
+		end
+	
+		Citizen.Wait(500)
+	end
 end)

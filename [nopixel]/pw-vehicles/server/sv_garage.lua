@@ -72,7 +72,7 @@ local garagesConfig = {
             vector4(-1118.08, -826.36, 3.34, 36.81),
         },
     },
-    ["Hospital"] = {
+    ["Pillbox Hospital"] = {
         ["type"] = "ambulance",
         ["jobGarage"] = true,
         ["vehicleType"] = "car",

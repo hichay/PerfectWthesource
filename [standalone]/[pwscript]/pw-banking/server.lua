@@ -113,9 +113,9 @@ AddEventHandler("okokBanking:WithdrawMoney", function(amount)
 
 		TriggerEvent('okokBanking:AddWithdrawTransaction', amount, source)
 		TriggerClientEvent('okokBanking:updateTransactions', source, xPlayer.getAccount('bank').money, xPlayer.getMoney())
-		TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have withdrawn "..amount.."€", 5000, 'success')
+		--TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have withdrawn "..amount.."€", 5000, 'success')
 	else
-		TriggerClientEvent('okokNotify:Alert', source, "BANK", "You don't have that much money on the bank", 5000, 'error')
+		--TriggerClientEvent('okokNotify:Alert', source, "BANK", "You don't have that much money on the bank", 5000, 'error')
 	end
 end)
 
@@ -138,12 +138,12 @@ AddEventHandler("okokBanking:TransferMoney", function(amount, ibanNumber, target
 				    if xForPlayer.identifier == targetIdentifier then
 
 				    	TriggerClientEvent('okokBanking:updateTransactions', xPlayers[i], xTarget.getAccount('bank').money, xTarget.getMoney())
-				    	TriggerClientEvent('okokNotify:Alert', xPlayers[i], "BANK", "You have received "..amount.."€ from "..xPlayer.getName(), 5000, 'success')
+				    	--TriggerClientEvent('okokNotify:Alert', xPlayers[i], "BANK", "You have received "..amount.."€ from "..xPlayer.getName(), 5000, 'success')
 				    end
 				end
 				TriggerEvent('okokBanking:AddTransferTransaction', amount, xTarget, source)
 				TriggerClientEvent('okokBanking:updateTransactions', source, xPlayer.getAccount('bank').money, xPlayer.getMoney())
-				TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..xTarget.getName(), 5000, 'success')
+				--TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..xTarget.getName(), 5000, 'success')
 			elseif xTarget == nil then
 				local playerAccount = json.decode(acc)
 				playerAccount.bank = playerAccount.bank + amount
@@ -153,7 +153,7 @@ AddEventHandler("okokBanking:TransferMoney", function(amount, ibanNumber, target
 
 				TriggerEvent('okokBanking:AddTransferTransaction', amount, xTarget, source, targetName, targetIdentifier)
 				TriggerClientEvent('okokBanking:updateTransactions', source, xPlayer.getAccount('bank').money, xPlayer.getMoney())
-				TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..targetName, 5000, 'success')
+				--TriggerClientEvent('okokNotify:Alert', source, "BANK", "You have transferred "..amount.."€ to "..targetName, 5000, 'success')
 
 				MySQL.query('UPDATE users SET accounts = @playerAccount WHERE identifier = @target', {
 					['@playerAccount'] = playerAccount,

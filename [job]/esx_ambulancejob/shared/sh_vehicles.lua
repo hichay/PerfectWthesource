@@ -2,8 +2,8 @@ VehiclesConfig = {
     {
         ["Job"] = "ambulance",
         ["Label"] = "Veiculos EMS",
-        ["Spawn"] = {coords = vector3(435.95938, -976.0041, 25.699846) , heading = 88.65,},
-        ["Garage"] = "Pillbox",
+        ["Spawn"] = {coords = vector3(338.37496, -573.3814, 28.565307) , heading = 339.89,},
+        ["Garage"] = "Pillbox Hospital",
 
         ["Vehicles"] = {
             { name = "Ambulance Speedo", model = "emsnspeedo", price = 5000, },

@@ -232,8 +232,23 @@ local function routeMessage(source, author, message, mode, fromConsole)
 
     if not WasEventCanceled() then
         if type(routingTarget) ~= 'table' then
-            if mode == 'system' then
-                print('hello')
+            --if mode == 'ooc' then
+                local idnumber = xPlayer.getIdCard()
+                if ChattedPlayers[idnumber] then
+                    if os.time() < ChattedPlayers[idnumber] then
+
+                        TriggerClientEvent('chatMessage', source, "SYSTEM" , 4, ("^0 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
+						--TriggerClientEvent('chatMessage', source, "OOC" , 4, ("^0 Bạn có thể chat OOC lại sau ^1%s giây"):format(math.floor(ChattedPlayers[idnumber] - os.time())))
+                        return
+                    end
+                end
+                ChattedPlayers[idnumber] = os.time() + math.floor(30)
+                --TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
+				TriggerClientEvent('chatMessage', -1, "OOC | "..author.." ["..idnumber.."]" , {163, 62, 48}, message, 'ooc')
+            --end
+        else
+            for _, id in ipairs(routingTarget) do
+                --TriggerClientEvent('chat:addMessage', id, outMessage)
                 local idnumber = xPlayer.getIdCard()
                 if ChattedPlayers[idnumber] then
                     if os.time() < ChattedPlayers[idnumber] then
@@ -243,13 +258,8 @@ local function routeMessage(source, author, message, mode, fromConsole)
                         return
                     end
                 end
-                ChattedPlayers[idnumber] = os.time() + math.floor(100)
-                TriggerClientEvent('chat:addMessage', routingTarget, outMessage)
-				TriggerClientEvent('chatMessage', -1, "OOC | "..author.." ["..idnumber.."]" , {163, 62, 48}, message, 'ooc')
-            end
-        else
-            for _, id in ipairs(routingTarget) do
-                TriggerClientEvent('chat:addMessage', id, outMessage)
+                ChattedPlayers[idnumber] = os.time() + math.floor(30)
+                TriggerClientEvent('chatMessage', -1, "OOC | "..author.." ["..idnumber.."]" , {163, 62, 48}, message, 'ooc')
             end
         end
     end
@@ -407,7 +417,7 @@ RegisterCommand('ooc', function(source, args, rawCommand)
         end
 
         TriggerClientEvent('chatMessage', -1, "OOC | "..name.." ["..idnumber.."]" , {163, 62, 48}, args, 'ooc')
-        ChattedPlayers[idnumber] = os.time() + math.floor(100)
+        ChattedPlayers[idnumber] = os.time() + math.floor(30)
 
     end
 

@@ -73,7 +73,7 @@ end)
 function isPD(job)
     return isCop or isDoc or isJudge or job == "police"
 end
-function isDR()
+function isDR(job)
     return isMedic or isDoctor or isTher or job == "ambulance"
 end
 
@@ -130,7 +130,7 @@ function hasSecuredAccess(pId, pType)
     --local hasMrpdKey = RPC.execute("np-doors:charHasMrpdKeys", characterId)
     if      (secured.access.job and secured.access.job[CurrentJob] or false)
         or  (secured.access.job["PD"] ~= nil and isPD(job))
-        or  (secured.access.job["DR"] ~= nil and isDR())
+        or  (secured.access.job["DR"] ~= nil and isDR(job))
         or  (secured.access.job["GOV"] ~= nil and isGOV(job))
         or  (secured.access.job["Public"] ~= nil)
         or  (secured.access.cid ~= nil and secured.access.cid[characterId] ~= nil)

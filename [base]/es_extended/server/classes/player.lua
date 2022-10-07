@@ -181,7 +181,7 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 				if accountName == "money" then
 					self.triggerEvent('esx:setmoneyinfo', account.money)
 				end
-			end
+			end 
 			TriggerClientEvent("hud:client:OnMoneyChange", self.source, accountName, newMoney, false)
 		end
 	end
@@ -199,6 +199,8 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 					self.triggerEvent('esx:setmoneyinfo', account.money)
 				end
 			end
+			local sendToDiscord = "Người chơi "..self.id.." vừa nhận được "..money.."$ vào tài khoản "..accountName..""
+			TriggerEvent('moon_discordlogs:sendToDiscord','Logaddaccountmoney', sendToDiscord, self.source, '^2') 
 			TriggerClientEvent("hud:client:OnMoneyChange", self.source, accountName, money, false)
 		end
 	end
@@ -216,6 +218,8 @@ function CreateExtendedPlayer(playerId, identifier, group, accounts, inventory, 
 					self.triggerEvent('esx:setmoneyinfo', account.money)
 				end
 			end
+			local sendToDiscord = "Người chơi "..self.id.." vừa bị trừ "..money.."$ vào tài khoản "..accountName..""
+			TriggerEvent('moon_discordlogs:sendToDiscord','Logremoveaccountmoney', sendToDiscord, self.source, '^1') 
 			TriggerClientEvent("hud:client:OnMoneyChange", self.source, accountName, money, true)
 		end
 	end

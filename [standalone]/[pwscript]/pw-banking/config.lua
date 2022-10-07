@@ -22,7 +22,7 @@ Config.Societies = { -- Which societies have bank accounts
 }
 
 Config.SocietyAccessRanks = { -- Which ranks of the society have access to it
-	"noman",
+	"boss",
 	"deoco",
 }
 

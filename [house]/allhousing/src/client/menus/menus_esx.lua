@@ -696,7 +696,6 @@ ESXEntryOwnerMenu = function(d)
       elements = elements,
     }, 
     function(submitData,submitMenu)
-      print(submitData.current.label)
       if (submitData.current.label == Labels["NothingToDisplay"]) then
         menu.close()
       elseif (submitData.current.label == Labels["EnterHouse"]) then

@@ -88,39 +88,39 @@ Citizen.CreateThread(function()
     exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, Interact.data, Interact.options)
 	
 	
-	local datamenu = {
-        id = "lumber_jacksell",
-        position = {coords = Config.Sell, heading = 158.20},
-        pedType = 4,
-        model = "mp_m_counterfeit_01",
-        networked = false,
-        distance = 25.0,
-        settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
-        flags = { ["isNPC"] = true, },
-    }
+	-- local datamenu = {
+        -- id = "lumber_jacksell",
+        -- position = {coords = Config.Sell, heading = 158.20},
+        -- pedType = 4,
+        -- model = "mp_m_counterfeit_01",
+        -- networked = false,
+        -- distance = 25.0,
+        -- settings = {{ mode = 'invincible', active = true }, { mode = 'ignore', active = true }, { mode = 'freeze', active = true }},
+        -- flags = { ["isNPC"] = true, },
+    -- }
 
-    local npc2 = exports["pw-npcs"]:RegisterNPC(datamenu, "lumb_jacknpcsell")
+    -- local npc2 = exports["pw-npcs"]:RegisterNPC(datamenu, "lumb_jacknpcsell")
 
-    local InteractNPC = {
-      data = {
-        {
-          id = 'lumb_interactsell',
-          label = 'Bán thành phẩm',
-          icon = 'hand-holding',
-          event = 'pw-lumberjack:makeSales',
-          parameters = {},
-        },
-      },
-      options = {
-        distance = { radius = 2.5 },
-        npcIds = { 'lumber_jacksell' },
-        --[[ isEnabled = function(pEntity, pContext)
-          return isOnDeliveryTask()
-        end, ]]
-      },
-    }
+    -- local InteractNPC = {
+      -- data = {
+        -- {
+          -- id = 'lumb_interactsell',
+          -- label = 'Bán thành phẩm',
+          -- icon = 'hand-holding',
+          -- event = 'pw-lumberjack:makeSales',
+          -- parameters = {},
+        -- },
+      -- },
+      -- options = {
+        -- distance = { radius = 2.5 },
+        -- npcIds = { 'lumber_jacksell' },
+        -- --[[ isEnabled = function(pEntity, pContext)
+          -- return isOnDeliveryTask()
+        -- end, ]]
+      -- },
+    -- }
     
-    exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, InteractNPC.data, InteractNPC.options)
+    -- exports["pw-interact"]:AddPeekEntryByFlag({'isNPC'}, InteractNPC.data, InteractNPC.options)
 
     while true do
         Citizen.Wait(15)
@@ -215,7 +215,7 @@ Citizen.CreateThread(function()
                     addBlip(v.coords, 79, 0.5, 25, Strings['wood'])
                 end
                 addBlip(Config.Process, 238, 0.7, 5, Strings['process'])
-                addBlip(Config.Sell, 207, 0.6, 11, Strings['sell_wood'])
+                --addBlip(Config.Sell, 207, 0.6, 11, Strings['sell_wood'])
                 blipCreated = true
             end
               

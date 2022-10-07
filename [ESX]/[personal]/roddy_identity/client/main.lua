@@ -38,7 +38,7 @@ if not Config.UseDeferrals then
 	RegisterNetEvent('esx_identity:showRegisterIdentity')
 	AddEventHandler('esx_identity:showRegisterIdentity', function()
 		--TriggerEvent('esx_skin:resetFirstSpawn')
-
+		Citizen.Wait(10000)
 		if not isDead then
 			EnableGui(true)
 			
@@ -51,12 +51,20 @@ if not Config.UseDeferrals then
 			if callback then
 				ESX.ShowNotification(_U('thank_you_for_registering'))
 				EnableGui(false)
-				if data.sex == 'f' then
-					SetSkin(`mp_f_freemode_01`, true)
-				else
-					SetSkin(`mp_m_freemode_01`, true)
-				end
-				TriggerEvent('raid_clothes:openBarber',true,false)
+				TriggerEvent('np-clothes:client:CreateFirstCharacter', data.sex)
+				-- if data.sex == 'f' then
+					-- SetSkin(`mp_f_freemode_01`, true)
+					-- local currentped = exports['raid_clothes']:GetCurrentPed()
+					-- TriggerServerEvent("raid_clothes:insert_character_current", currentped)
+					-- TriggerServerEvent("raid_clothes:insert_character_face", currentped)
+				-- else
+					-- SetSkin(`mp_m_freemode_01`, true)
+					-- local currentped = exports['raid_clothes']:GetCurrentPed()
+					-- TriggerServerEvent("raid_clothes:insert_character_current", currentped)
+					-- TriggerServerEvent("raid_clothes:insert_character_face", currentped)
+				-- end
+				
+				--TriggerEvent('raid_clothes:openClothing',false,false,true)
 				TriggerEvent("player:receiveItem", "idcard", 1)
 				if not ESX.GetConfig().Multichar then TriggerEvent('esx_skin:playerRegistered') end
 			else
